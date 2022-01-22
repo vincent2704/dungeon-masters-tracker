@@ -1,17 +1,18 @@
 <div class="container-fluid">
   <app-battle-actors #child *ngIf="!isBattleStarted"></app-battle-actors>
-  <button *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
+  <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
     Turn: {{turn}}
     <ul>
       <li *ngFor="let actor of this.battleActors">
         <div>
           {{actor.name}}
-          <button class="btn btn-info" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">Progress
+          <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
+            Progress
           </button>
         </div>
       </li>
     </ul>
-    <button (click)="changeBattleStatus()">End battle!</button>
+    <button class="btn" (click)="changeBattleStatus()">End battle!</button>
   </div>
 </div>

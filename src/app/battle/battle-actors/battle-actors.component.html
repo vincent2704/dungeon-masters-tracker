@@ -2,8 +2,8 @@
   Set up actors before starting the battle:
   <ul>
     <li *ngFor="let actor of battleActors">
-      {{actor.name}} | <label for="initiative">Initiative: </label> <input id="initiative" type="text" required
-                                                                           [(ngModel)]="actor.initiative">
+      {{actor.name}} | <label for="initiative">Initiative: </label>
+      <input id="initiative" type="text" required [(ngModel)]="actor.initiative">
     </li>
   </ul>
 </div>
@@ -19,6 +19,6 @@
              [(ngModel)]="formModel.initiative"
              name="modelInitiative">
     </div>
-    <button type="submit">Add actor</button>
+    <button class="btn" type="submit">Add actor</button>
   </form>
 </div>
