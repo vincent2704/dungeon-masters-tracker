@@ -3,9 +3,9 @@ export class BattleActor {
   name: string;
   initiative: number;
 
-  constructor(name: string) {
+  constructor(name: string, initiative = 0) {
     this.name = name;
-    this.initiative = 0;
+    this.initiative = initiative;
   }
 
 }

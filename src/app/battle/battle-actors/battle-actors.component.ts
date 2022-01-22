@@ -10,16 +10,21 @@ import { BattleActor } from "../../models/battleActor";
 export class BattleActorsComponent implements OnInit {
 
   battleActors: BattleActor[];
+  formModel: BattleActor = new BattleActor('');
 
   constructor(private actorService: ActorService) {
     this.battleActors = [];
 
-    for(let actor of actorService.getActors()) {
+    for(let actor of actorService.getProtagonists()) {
       this.battleActors.push(new BattleActor(actor))
     }
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    this.battleActors.push(new BattleActor(this.formModel.name, this.formModel.initiative));
   }
 
 }

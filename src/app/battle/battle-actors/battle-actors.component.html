@@ -4,3 +4,16 @@ Set up actors before starting the battle:
     {{actor.name}} | <label for="initiative">Initiative: </label> <input id="initiative" type="text" required [(ngModel)]="actor.initiative">
   </li>
 </ul>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="modelName">Name</label>
+    <input type="text" class="form-control" id="modelName"
+           required
+           [(ngModel)]="formModel.name" name="modelName">
+  </div>
+  <div class="form-group">
+    <label for="modelInitiative">Initiative</label>
+    <input type="text" class="form-control" id="modelInitiative" required [(ngModel)]="formModel.initiative" name="modelInitiative">
+  </div>
+  <button type="submit">Add actor</button>
+</form>
