@@ -25,6 +25,7 @@ export class BattleComponent implements OnInit {
         ((actor1, actor2) => actor2.initiative - actor1.initiative));
       this.isBattleStarted = true;
     } else {
+      this.battleActors = [];
       this.isBattleStarted = false;
     }
   }

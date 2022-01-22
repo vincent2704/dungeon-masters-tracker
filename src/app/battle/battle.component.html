@@ -3,8 +3,7 @@
 <br/>
 <ul>
   <li *ngFor="let actor of this.battleActors">
-    {{actor.getName()}}
+    {{actor.name}}
   </li>
 </ul>
-<p *ngIf="isBattleStarted">tutaj uporzadkowana lista aktorow tutaj wg. inicjatywy od gory do dolu</p>
 <button *ngIf="isBattleStarted" (click)="changeBattleStatus()">End battle!</button>
