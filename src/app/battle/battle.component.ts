@@ -8,15 +8,18 @@ import {BattleActorsComponent} from "./battle-actors/battle-actors.component";
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
+
   @ViewChild('child') child!: BattleActorsComponent;
+
+  isBattleStarted: boolean = false;
+  battleActors: BattleActor[] = [];
+  progressedBattleActors: BattleActor[] = [];
+  turn: number = 1;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  battleActors: BattleActor[] = [];
-  isBattleStarted: boolean = false;
 
   changeBattleStatus(): void {
     if(!this.isBattleStarted) {
@@ -27,7 +30,25 @@ export class BattleComponent implements OnInit {
     } else {
       this.battleActors = [];
       this.isBattleStarted = false;
+      this.turn = 1;
     }
+  }
+
+  progressActor(actor: BattleActor): void {
+    this.progressedBattleActors.push(actor);
+    if(this.progressedBattleActors.length == this.battleActors.length) {
+      this.turn++;
+      this.progressedBattleActors = [];
+    }
+  }
+
+  isActorProgressed(actorToCheck: BattleActor): boolean {
+    for(let progressedActor of this.progressedBattleActors) {
+      if(actorToCheck == progressedActor) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
