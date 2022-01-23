@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BattleActor} from "../models/battleActor";
-import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
+import {BattleActorService} from "../services/battle-actor.service";
 
 @Component({
   selector: 'app-battle',
@@ -8,47 +8,39 @@ import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component"
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
-
-  @ViewChild('child') child!: PrepareBattleComponent;
-
   isBattleStarted: boolean = false;
   battleActors: BattleActor[] = [];
-  progressedBattleActors: BattleActor[] = [];
   turn: number = 1;
 
-  constructor() { }
+  constructor(private battleActorService: BattleActorService) {
+  }
 
   ngOnInit(): void {
   }
 
   changeBattleStatus(): void {
     if(!this.isBattleStarted) {
-      this.battleActors = this.child.battleActors;
+      this.battleActors = this.battleActorService.getBattleActors();
       this.battleActors.sort(
         ((actor1, actor2) => actor2.initiative - actor1.initiative));
       this.isBattleStarted = true;
     } else {
-      this.battleActors = [];
+      this.battleActors = this.battleActorService.resetBattleActors();
       this.isBattleStarted = false;
       this.turn = 1;
     }
   }
 
   progressActor(actor: BattleActor): void {
-    this.progressedBattleActors.push(actor);
-    if(this.progressedBattleActors.length == this.battleActors.length) {
+    this.battleActorService.progressActor(actor);
+    if(this.battleActorService.allActorsProgressed()) {
       this.turn++;
-      this.progressedBattleActors = [];
+      this.battleActorService.resetBattleActorsProgress();
     }
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
-    for(let progressedActor of this.progressedBattleActors) {
-      if(actorToCheck == progressedActor) {
-        return true;
-      }
-    }
-    return false;
+    return actorToCheck.isActorProgressed();
   }
 
 }

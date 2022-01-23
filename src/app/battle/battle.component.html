@@ -1,16 +1,20 @@
 <div class="container-fluid">
-  <app-prepare-battle #child *ngIf="!isBattleStarted"></app-prepare-battle>
+  <app-prepare-battle *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
     Turn: {{turn}}
     <ul>
       <li *ngFor="let actor of this.battleActors">
+        <!--          TODO: this needs proper styling as it's starting to get unreadable        -->
         <div>
-          {{actor.name}}
+          {{actor.name}} <br/>
+          Hit Points: TODO <br/>
+          Buffs: TODO <br/>
+          Conditions: TODO <br/>
+        </div>
           <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
             Progress
           </button>
-        </div>
       </li>
     </ul>
     <button class="btn" (click)="changeBattleStatus()">End battle!</button>

@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
-import { ActorService } from "../../services/actor.service";
 import { BattleActor } from "../../models/battleActor";
+import {BattleActorService} from "../../services/battle-actor.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -12,19 +12,15 @@ export class PrepareBattleComponent implements OnInit {
   battleActors: BattleActor[];
   formModel: BattleActor = new BattleActor('');
 
-  constructor(private actorService: ActorService) {
-    this.battleActors = [];
-
-    for(let actor of actorService.getProtagonists()) {
-      this.battleActors.push(new BattleActor(actor))
-    }
+  constructor(private battleActorService: BattleActorService) {
+    this.battleActors = battleActorService.getBattleActors();
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.battleActors.push(new BattleActor(this.formModel.name, this.formModel.initiative));
+    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.initiative);
   }
 
 }
