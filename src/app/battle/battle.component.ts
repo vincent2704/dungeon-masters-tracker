@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BattleActor} from "../models/battleActor";
-import {BattleActorsComponent} from "./battle-actors/battle-actors.component";
+import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
 
 @Component({
   selector: 'app-battle',
@@ -9,7 +9,7 @@ import {BattleActorsComponent} from "./battle-actors/battle-actors.component";
 })
 export class BattleComponent implements OnInit {
 
-  @ViewChild('child') child!: BattleActorsComponent;
+  @ViewChild('child') child!: PrepareBattleComponent;
 
   isBattleStarted: boolean = false;
   battleActors: BattleActor[] = [];

@@ -3,11 +3,11 @@ import { ActorService } from "../../services/actor.service";
 import { BattleActor } from "../../models/battleActor";
 
 @Component({
-  selector: 'app-battle-actors',
-  templateUrl: './battle-actors.component.html',
-  styleUrls: ['./battle-actors.component.css']
+  selector: 'app-prepare-battle',
+  templateUrl: './prepare-battle.component.html',
+  styleUrls: ['./prepare-battle.component.css']
 })
-export class BattleActorsComponent implements OnInit {
+export class PrepareBattleComponent implements OnInit {
 
   battleActors: BattleActor[];
   formModel: BattleActor = new BattleActor('');

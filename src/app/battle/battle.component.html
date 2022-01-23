@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-battle-actors #child *ngIf="!isBattleStarted"></app-battle-actors>
+  <app-prepare-battle #child *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
     Turn: {{turn}}
