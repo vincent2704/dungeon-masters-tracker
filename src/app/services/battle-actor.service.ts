@@ -14,7 +14,9 @@ export class BattleActorService {
     this.resetBattleActors();
   }
 
-  getBattleActors(): BattleActor[] {
+  sortBattleActorsByInitiative(): BattleActor[] {
+    this.battleActors.sort(
+      ((actor1, actor2) => actor2.initiative - actor1.initiative));
     return this.battleActors;
   }
 
@@ -26,7 +28,8 @@ export class BattleActorService {
     this.battleActors = [];
 
     for (let actor of this.actorService.getProtagonists()) {
-      this.battleActors.push(new BattleActor(actor))
+      let battleActor = new BattleActor(actor);
+      this.battleActors.push(battleActor)
     }
 
     return this.battleActors;

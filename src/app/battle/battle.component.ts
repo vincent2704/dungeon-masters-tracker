@@ -9,7 +9,7 @@ import {BattleActorService} from "../services/battle-actor.service";
 })
 export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
-  battleActors: BattleActor[] = [];
+  battleActors: BattleActor[] = []; //TODO: observable from BattleActorService?
   turn: number = 1;
 
   constructor(private battleActorService: BattleActorService) {
@@ -20,9 +20,7 @@ export class BattleComponent implements OnInit {
 
   changeBattleStatus(): void {
     if(!this.isBattleStarted) {
-      this.battleActors = this.battleActorService.getBattleActors();
-      this.battleActors.sort(
-        ((actor1, actor2) => actor2.initiative - actor1.initiative));
+      this.battleActors = this.battleActorService.sortBattleActorsByInitiative();
       this.isBattleStarted = true;
     } else {
       this.battleActors = this.battleActorService.resetBattleActors();
