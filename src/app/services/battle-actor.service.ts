@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActorService} from "./actor.service";
 import {BattleActor} from "../models/battleActor";
+import {Condition} from "../models/Condition";
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +48,20 @@ export class BattleActorService {
   }
 
   public resetBattleActorsProgress(): void {
-    for(let battleActor of this.battleActors) {
+    for (let battleActor of this.battleActors) {
       battleActor.setActorProgress(false);
     }
   }
 
+  addCondition(actor: BattleActor, condition: Condition) {
+    actor.conditions.push(condition);
+  }
+
+  removeCondition(actor: BattleActor, condition: Condition) {
+    let conditionToRemove = actor.conditions.find(conditionToRemove => conditionToRemove == condition);
+    if (conditionToRemove) {
+      let index = actor.conditions.indexOf(conditionToRemove);
+      actor.conditions.splice(index, 1);
+    }
+  }
 }

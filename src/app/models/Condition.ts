@@ -21,4 +21,6 @@ export class Condition {
       "A poisoned creature has disadvantage on attack rolls and ability checks."
     ]
   );
+
+  static CONDITIONS: Condition[] = [Condition.BLINDED, Condition.POISONED];
 }
