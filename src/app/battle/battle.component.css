@@ -1,3 +1,11 @@
 button {
   background-color: grey;
 }
+
+select {
+  color: lightgrey;
+  background-color: #383838;
+
+  border-color: orange;
+  border-style: groove;
+}
