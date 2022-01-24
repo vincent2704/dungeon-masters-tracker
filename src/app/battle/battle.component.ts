@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BattleActor} from "../models/battleActor";
-import {BattleActorsComponent} from "./battle-actors/battle-actors.component";
+import {BattleActorService} from "../services/battle-actor.service";
 
 @Component({
   selector: 'app-battle',
@@ -8,25 +8,37 @@ import {BattleActorsComponent} from "./battle-actors/battle-actors.component";
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
-  @ViewChild('child') child!: BattleActorsComponent;
+  isBattleStarted: boolean = false;
+  battleActors: BattleActor[] = []; //TODO: observable from BattleActorService?
+  turn: number = 1;
 
-  constructor() { }
+  constructor(private battleActorService: BattleActorService) {
+  }
 
   ngOnInit(): void {
   }
 
-  battleActors: BattleActor[] = [];
-  isBattleStarted: boolean = false;
-
   changeBattleStatus(): void {
     if(!this.isBattleStarted) {
-      this.battleActors = this.child.battleActors;
-      this.battleActors.sort(
-        ((actor1, actor2) => actor2.initiative - actor1.initiative));
+      this.battleActors = this.battleActorService.sortBattleActorsByInitiative();
       this.isBattleStarted = true;
     } else {
+      this.battleActors = this.battleActorService.resetBattleActors();
       this.isBattleStarted = false;
+      this.turn = 1;
     }
+  }
+
+  progressActor(actor: BattleActor): void {
+    this.battleActorService.progressActor(actor);
+    if(this.battleActorService.allActorsProgressed()) {
+      this.turn++;
+      this.battleActorService.resetBattleActorsProgress();
+    }
+  }
+
+  isActorProgressed(actorToCheck: BattleActor): boolean {
+    return actorToCheck.isActorProgressed();
   }
 
 }

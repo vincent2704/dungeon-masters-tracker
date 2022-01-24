@@ -8,7 +8,7 @@ export class ActorService {
 
   constructor() { }
 
-  getActors() {
+  getProtagonists() {
     return EXAMPLE_ACTORS;
   }
 

@@ -1,15 +1,37 @@
+// object representing an actor during a single fight
+import {Condition} from "./Condition";
+
 export class BattleActor {
 
-  private  readonly name?: string;
+  name: string;
   initiative: number;
+  unconscious: boolean;
+  dead: boolean;
+  progressed: boolean;
+  conditions: Condition[];
 
-  constructor(name: string) {
+  constructor(
+    name: string,
+    initiative: number = 0,
+    unconscious: boolean = false,
+    dead: boolean = false,
+    progressed: boolean = false,
+    conditions: Condition[] = []
+  ) {
     this.name = name;
-    this.initiative = 0;
+    this.initiative = initiative;
+    this.unconscious = unconscious;
+    this.dead = dead;
+    this.progressed = progressed;
+    this.conditions = conditions;
   }
 
-  public getName() {
-    return this.name;
+  setActorProgress(progressed: boolean) {
+    this.progressed = progressed;
+  }
+
+  isActorProgressed(): boolean {
+    return this.progressed;
   }
 
 }
