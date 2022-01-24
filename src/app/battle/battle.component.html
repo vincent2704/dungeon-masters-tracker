@@ -17,7 +17,16 @@
         <td>{{actor.name}}</td>
         <td>HP here</td>
         <td>
-          <div *ngFor="let condition of actor.conditions">{{condition.getName()}}</div>
+          <div *ngFor="let condition of actor.conditions">
+            {{condition.getName()}}
+            <button class="btn" (click)="removeCondition(actor, condition)">Remove condition</button>
+          </div>
+          <select *ngIf="getAvailableConditions(actor).length > 0" class="form-select">
+            <option selected>Add condition</option>
+            <option *ngFor="let condition of getAvailableConditions(actor)" (click)="addCondition(actor, condition)">
+              {{condition.getName()}}
+            </option>
+          </select>
         </td>
         <td>
           <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
