@@ -15,16 +15,6 @@ export class BattleActorService {
     this.resetBattleActors();
   }
 
-  sortBattleActorsByInitiative(): BattleActor[] {
-    this.battleActors.sort(
-      ((actor1, actor2) => actor2.initiative - actor1.initiative));
-    return this.battleActors;
-  }
-
-  public addBattleActor(newActorName: string, newActorInitiative: number): void {
-    this.battleActors.push(new BattleActor(newActorName, newActorInitiative));
-  }
-
   public resetBattleActors(): BattleActor[] {
     this.battleActors = [];
 
@@ -34,6 +24,16 @@ export class BattleActorService {
     }
 
     return this.battleActors;
+  }
+
+  sortBattleActorsByInitiative(): BattleActor[] {
+    this.battleActors.sort(
+      ((actor1, actor2) => actor2.initiative - actor1.initiative));
+    return this.battleActors;
+  }
+
+  public addBattleActor(newActorName: string, newActorInitiative: number): void {
+    this.battleActors.push(new BattleActor(newActorName, newActorInitiative));
   }
 
   public progressActor(actorToProgress: BattleActor): void {

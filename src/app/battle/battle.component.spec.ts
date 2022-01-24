@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BattleComponent } from './battle.component';
 
 describe('BattleComponent', () => {
-  let component: BattleComponent;
+  let battleComponent: BattleComponent;
   let fixture: ComponentFixture<BattleComponent>;
 
   beforeEach(async () => {
@@ -15,11 +15,11 @@ describe('BattleComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BattleComponent);
-    component = fixture.componentInstance;
+    battleComponent = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(battleComponent).toBeTruthy();
   });
 });
