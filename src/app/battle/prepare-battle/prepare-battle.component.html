@@ -1,11 +1,18 @@
 <div class="container-fluid">
-  Set up actors before starting the battle:
-  <ul>
-    <li *ngFor="let actor of battleActors">
-      {{actor.name}} | <label for="initiative">Initiative: </label>
-      <input id="initiative" type="text" required [(ngModel)]="actor.initiative">
-    </li>
-  </ul>
+  <h2>Set up actors before starting the battle:</h2>
+  <table class="table table-hover table-dark">
+    <tbody>
+    <tr *ngFor="let actor of battleActors">
+      <td>
+        {{actor.name}}
+      </td>
+      <td>
+        <label for="initiative">Set initiative:</label>
+        <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 <div class="container-fluid">
   <form (ngSubmit)="onSubmit()">

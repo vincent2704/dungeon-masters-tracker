@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
   <app-prepare-battle *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
@@ -21,9 +21,10 @@
             {{condition.getName()}}
             <button class="btn" (click)="removeCondition(actor, condition)">Remove condition</button>
           </div>
-          <select *ngIf="getAvailableConditions(actor).length > 0" class="form-select">
-            <option selected>Add condition</option>
-            <option *ngFor="let condition of getAvailableConditions(actor)" (click)="addCondition(actor, condition)">
+          <select
+            *ngIf="getAvailableConditions(actor).length > 0" class="form-select" (change)="addCondition(actor, $event)">
+            <option>Select condition</option>
+            <option *ngFor="let condition of getAvailableConditions(actor)">
               {{condition.getName()}}
             </option>
           </select>

@@ -21,7 +21,7 @@ export class BattleComponent implements OnInit {
   }
 
   changeBattleStatus(): void {
-    if(!this.isBattleStarted) {
+    if (!this.isBattleStarted) {
       this.battleActors = this.battleActorService.sortBattleActorsByInitiative();
       this.isBattleStarted = true;
     } else {
@@ -33,7 +33,7 @@ export class BattleComponent implements OnInit {
 
   progressActor(actor: BattleActor): void {
     this.battleActorService.progressActor(actor);
-    if(this.battleActorService.allActorsProgressed()) {
+    if (this.battleActorService.allActorsProgressed()) {
       this.turn++;
       this.battleActorService.resetBattleActorsProgress();
     }
@@ -43,8 +43,12 @@ export class BattleComponent implements OnInit {
     return actorToCheck.isActorProgressed();
   }
 
-  addCondition(actor: BattleActor, condition: Condition) {
-    this.battleActorService.addCondition(actor, condition);
+  addCondition(actor: BattleActor, event: any) {
+    for(let condition of this.CONDITIONS) {
+      if(condition.getName() == event.target.value) {
+        this.battleActorService.addCondition(actor, condition);
+      }
+    }
   }
 
   removeCondition(actor: BattleActor, condition: Condition) {
@@ -53,11 +57,12 @@ export class BattleComponent implements OnInit {
 
   getAvailableConditions(actor: BattleActor): Condition[] {
     let availableConditions: Condition[] = [];
-    for(let condition of this.CONDITIONS) {
-      if(!actor.conditions.find(actorCondition => actorCondition == condition)) {
+    for (let condition of this.CONDITIONS) {
+      if (!actor.conditions.find(actorCondition => actorCondition == condition)) {
         availableConditions.push(condition);
       }
     }
     return availableConditions;
   }
+
 }
