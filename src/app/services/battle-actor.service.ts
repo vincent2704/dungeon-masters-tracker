@@ -19,7 +19,7 @@ export class BattleActorService {
     this.battleActors = [];
 
     for (let actor of this.actorService.getProtagonists()) {
-      let battleActor = new BattleActor(actor);
+      let battleActor = new BattleActor(actor.getName(), actor.getMaxHP());
       this.battleActors.push(battleActor)
     }
 
@@ -32,8 +32,10 @@ export class BattleActorService {
     return this.battleActors;
   }
 
-  public addBattleActor(newActorName: string, newActorInitiative: number): void {
-    this.battleActors.push(new BattleActor(newActorName, newActorInitiative));
+  public addBattleActor(newActorName: string, newActorMaxHP: number, newActorInitiative: number): void {
+    let battleActor: BattleActor = new BattleActor(newActorName, newActorMaxHP);
+    battleActor.initiative = newActorInitiative;
+    this.battleActors.push(battleActor);
   }
 
   public progressActor(actorToProgress: BattleActor): void {
@@ -63,5 +65,9 @@ export class BattleActorService {
       let index = actor.conditions.indexOf(conditionToRemove);
       actor.conditions.splice(index, 1);
     }
+  }
+
+  modifyHP(actor: BattleActor, value: number) {
+    actor.currentHP = Number(actor.currentHP) + Number(value);
   }
 }

@@ -15,14 +15,17 @@
       <tbody>
       <tr *ngFor="let actor of battleActors">
         <td>{{actor.name}}</td>
-        <td>HP here</td>
+        <td>
+          {{actor.currentHP}}
+          <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event);">
+        </td>
         <td>
           <div *ngFor="let condition of actor.conditions">
             {{condition.getName()}}
             <button class="btn" (click)="removeCondition(actor, condition)">Remove condition</button>
           </div>
           <select
-            *ngIf="getAvailableConditions(actor).length > 0" class="form-select" (change)="addCondition(actor, $event)">
+            *ngIf="getAvailableConditions(actor).length > 0" (change)="addCondition(actor, $event)">
             <option>Select condition</option>
             <option *ngFor="let condition of getAvailableConditions(actor)">
               {{condition.getName()}}

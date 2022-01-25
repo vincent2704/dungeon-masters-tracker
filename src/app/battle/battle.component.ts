@@ -65,4 +65,8 @@ export class BattleComponent implements OnInit {
     return availableConditions;
   }
 
+  onSubmitHP(actor: BattleActor, event: any) {
+    this.battleActorService.modifyHP(actor, event.target.value);
+    (<HTMLInputElement>event.target).value = '';
+  }
 }

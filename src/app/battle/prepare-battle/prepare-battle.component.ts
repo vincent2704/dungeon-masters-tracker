@@ -10,7 +10,7 @@ import {BattleActorService} from "../../services/battle-actor.service";
 export class PrepareBattleComponent implements OnInit {
 
   battleActors: BattleActor[]; //TODO: observable from BattleActorService?
-  formModel: BattleActor = new BattleActor('');
+  formModel: BattleActor = new BattleActor('', 0);
 
   constructor(private battleActorService: BattleActorService) {
     this.battleActors = battleActorService.sortBattleActorsByInitiative();
@@ -20,7 +20,7 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   onSubmit() {
-    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.initiative);
+    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.maxHP, this.formModel.initiative);
   }
 
 }

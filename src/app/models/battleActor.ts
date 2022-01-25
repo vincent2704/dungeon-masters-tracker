@@ -4,14 +4,17 @@ import {Condition} from "./Condition";
 export class BattleActor {
 
   name: string;
+  maxHP: number;
+  currentHP: number;
   initiative: number;
-  unconscious: boolean;
   dead: boolean;
-  progressed: boolean;
+  private progressed: boolean;
   conditions: Condition[];
 
   constructor(
     name: string,
+    maxHP: number,
+    currentHP: number = maxHP,
     initiative: number = 0,
     unconscious: boolean = false,
     dead: boolean = false,
@@ -19,8 +22,9 @@ export class BattleActor {
     conditions: Condition[] = []
   ) {
     this.name = name;
+    this.maxHP = maxHP;
+    this.currentHP = currentHP;
     this.initiative = initiative;
-    this.unconscious = unconscious;
     this.dead = dead;
     this.progressed = progressed;
     this.conditions = conditions;
