@@ -14,12 +14,18 @@
     </tbody>
   </table>
 </div>
+{{formModel | json }}
 <div class="container-fluid">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <input type="text" class="form-control" id="modelName"
              required
              [(ngModel)]="formModel.name" name="modelName" placeholder="Actor name">
+      <label for="modelMaxHP">Hit Points</label>
+      <input type="text" class="form-control" id="modelMaxHP"
+             required
+             [(ngModel)]="formModel.maxHP"
+             name="modelMaxHP">
       <label for="modelInitiative">Initiative</label>
       <input type="text" class="form-control" id="modelInitiative"
              required
