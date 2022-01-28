@@ -15,7 +15,15 @@ export class BattleActorService {
     this.resetBattleActors();
   }
 
-  public resetBattleActors(): BattleActor[] {
+  getBattleActors() {
+    return this.battleActors;
+  }
+
+  setBattleActors(battleActors: BattleActor[]) {
+    this.battleActors = battleActors;
+  }
+
+  resetBattleActors(): BattleActor[] {
     this.battleActors = [];
 
     this.battleActors = this.getProtagonistsBattleActors();
@@ -37,25 +45,25 @@ export class BattleActorService {
     return this.battleActors;
   }
 
-  public addBattleActor(newActorName: string, newActorMaxHP: number, initiative: number): void {
+  addBattleActor(newActorName: string, newActorMaxHP: number, initiative: number): void {
     let battleActor: BattleActor = new BattleActor(newActorName, newActorMaxHP);
     battleActor.setInitiative(initiative);
     this.battleActors.push(battleActor);
   }
 
-  public progressActor(actorToProgress: BattleActor): void {
+  progressActor(actorToProgress: BattleActor): void {
     let battleActor = this.battleActors.find(actor => actor == actorToProgress);
     if (battleActor) {
       battleActor.setActorProgress(true)
     }
   }
 
-  public allActorsProgressed(): boolean {
+  allActorsProgressed(): boolean {
     return this.battleActors.filter(
       actor => actor.isActorProgressesInTurn()).length == this.battleActors.length;
   }
 
-  public resetBattleActorsProgress(): void {
+  resetBattleActorsProgress(): void {
     for (let battleActor of this.battleActors) {
       battleActor.setActorProgress(false);
     }
