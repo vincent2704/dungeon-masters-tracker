@@ -17,13 +17,11 @@
         <td>{{actor.name}}</td>
         <td>
           {{actor.getCurrentHP()}}
-          <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event);">
+          <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event)">
         </td>
         <td>
-          <div *ngFor="let condition of actor.conditions">
-            {{condition.getName()}}
-            <button class="btn" (click)="removeCondition(actor, condition)">Remove condition</button>
-          </div>
+          <app-condition *ngFor="let condition of actor.conditions"
+                         [condition]="condition" [actor]="actor"></app-condition>
           <select
             *ngIf="getAvailableConditions(actor).length > 0" (change)="addCondition(actor, $event)">
             <option>Select condition</option>

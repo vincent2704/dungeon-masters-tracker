@@ -7,6 +7,10 @@ export class Condition {
     return this.name;
   }
 
+  getDescription(): string[] {
+    return this.description;
+  }
+
   static BLINDED = new Condition(
     'Blinded',
     [
