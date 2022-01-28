@@ -16,7 +16,7 @@
       <tr *ngFor="let actor of battleActors">
         <td>{{actor.name}}</td>
         <td>
-          {{actor.currentHP}}
+          {{actor.getCurrentHP()}}
           <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event);">
         </td>
         <td>
