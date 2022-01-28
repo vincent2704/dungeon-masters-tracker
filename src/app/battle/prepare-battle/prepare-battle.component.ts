@@ -10,6 +10,7 @@ import {BattleActorService} from "../../services/battle-actor.service";
 export class PrepareBattleComponent implements OnInit {
 
   battleActors: BattleActor[]; //TODO: observable from BattleActorService?
+  //TODO: formModel to private object so BattleActor can have all fields private
   formModel: BattleActor = new BattleActor('', 0);
 
   constructor(private battleActorService: BattleActorService) {
@@ -20,7 +21,7 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   onSubmit() {
-    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.maxHP, this.formModel.initiative);
+    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
   }
 
 }

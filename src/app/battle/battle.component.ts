@@ -40,7 +40,7 @@ export class BattleComponent implements OnInit {
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
-    return actorToCheck.isActorProgressed();
+    return actorToCheck.isActorProgressesInTurn();
   }
 
   addCondition(actor: BattleActor, event: any) {
@@ -66,7 +66,7 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitHP(actor: BattleActor, event: any) {
-    this.battleActorService.modifyHP(actor, event.target.value);
+    this.battleActorService.addHP(actor, event.target.value);
     (<HTMLInputElement>event.target).value = '';
   }
 }
