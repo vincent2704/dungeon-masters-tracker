@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ConditionComponent } from './condition.component';
+import {ConditionComponent} from './condition.component';
+import {Condition} from "../../models/Condition";
 
 describe('ConditionComponent', () => {
   let component: ConditionComponent;
@@ -8,18 +9,20 @@ describe('ConditionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConditionComponent ]
+      declarations: [ConditionComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionComponent);
     component = fixture.componentInstance;
+    component.condition = Condition.UNCONSCIOUS;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
