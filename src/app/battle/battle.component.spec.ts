@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BattleComponent } from './battle.component';
+import {BattleComponent} from './battle.component';
+import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
+import {FormsModule} from "@angular/forms";
 
 describe('BattleComponent', () => {
   let battleComponent: BattleComponent;
@@ -8,9 +10,10 @@ describe('BattleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BattleComponent ]
+      imports: [FormsModule],
+      declarations: [BattleComponent, PrepareBattleComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
