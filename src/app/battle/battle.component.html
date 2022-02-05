@@ -20,8 +20,8 @@
           <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event)">
         </td>
         <td>
-          <app-condition *ngFor="let condition of actor.conditions"
-                         [condition]="condition" [actor]="actor"></app-condition>
+          <app-condition *ngFor="let condition of actor.battleConditions"
+                         [battleCondition]="condition" [actor]="actor"></app-condition>
           <select
             *ngIf="getAvailableConditions(actor).length > 0" (change)="addCondition(actor, $event)">
             <option>Select condition</option>
