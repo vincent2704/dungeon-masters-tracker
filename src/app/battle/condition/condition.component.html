@@ -1,8 +1,8 @@
 <div class="container">
-  <button class="btn btn-primary" (click)="onShowDescription()">{{condition.getName()}}</button>
-  <button class="btn btn-info" (click)="removeCondition(condition)">Remove condition</button>
+  <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
+  <button class="btn btn-info" (click)="removeCondition(battleCondition)">Remove condition</button>
   <div *ngIf="showDescription">
-    <div *ngFor="let description of condition.getDescription()">
+    <div *ngFor="let description of battleCondition.getDescription()">
       {{description}}
     </div>
   </div>

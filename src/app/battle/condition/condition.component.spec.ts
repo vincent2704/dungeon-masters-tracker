@@ -17,7 +17,7 @@ describe('ConditionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionComponent);
     component = fixture.componentInstance;
-    component.condition = Condition.UNCONSCIOUS;
+    component.battleCondition = Condition.UNCONSCIOUS;
     fixture.detectChanges();
   });
 
