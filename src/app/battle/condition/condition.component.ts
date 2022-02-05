@@ -12,11 +12,10 @@ import {Condition} from "../../models/Condition";
 export class ConditionComponent implements OnInit {
 
   @Input()
-  condition!: Condition;
+  battleCondition!: BattleCondition;
+
   @Input()
   actor!: BattleActor;
-
-  battleCondition!: BattleCondition;
 
   showDescription: boolean = false;
 

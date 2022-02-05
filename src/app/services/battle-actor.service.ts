@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActorService} from "./actor.service";
 import {BattleActor} from "../models/battleActor";
 import {Condition} from "../models/Condition";
+import {BattleCondition} from "../models/battleCondition";
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,10 @@ export class BattleActorService {
 
   addCondition(actor: BattleActor, condition: Condition) {
     actor.conditions.push(condition);
+  }
+
+  addBattleCondition(actor: BattleActor, condition: BattleCondition) {
+    actor.battleConditions.push(condition);
   }
 
   removeCondition(actor: BattleActor, condition: Condition) {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BattleActor} from "../models/battleActor";
 import {BattleActorService} from "../services/battle-actor.service";
 import {Condition} from "../models/Condition";
+import {BattleCondition} from "../models/battleCondition";
 
 @Component({
   selector: 'app-battle',
@@ -46,13 +47,9 @@ export class BattleComponent implements OnInit {
   addCondition(actor: BattleActor, event: any) {
     for(let condition of this.CONDITIONS) {
       if(condition.getName() == event.target.value) {
-        this.battleActorService.addCondition(actor, condition);
+        this.battleActorService.addBattleCondition(actor, new BattleCondition(condition));
       }
     }
-  }
-
-  removeCondition(actor: BattleActor, condition: Condition) {
-    this.battleActorService.removeCondition(actor, condition);
   }
 
   getAvailableConditions(actor: BattleActor): Condition[] {

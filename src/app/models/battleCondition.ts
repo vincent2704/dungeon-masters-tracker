@@ -4,12 +4,12 @@ export class BattleCondition {
 
   constructor(
     private condition: Condition,
-    private permanent: boolean,
-    private durationInTurns: number) {
+    private permanent: boolean = true,
+    private durationInTurns: number = 0) {
   }
 
   getName() {
-    return this.condition.getDescription();
+    return this.condition.getName();
   }
 
   getDescription() {
