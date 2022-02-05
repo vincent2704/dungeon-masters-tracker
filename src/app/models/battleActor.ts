@@ -1,5 +1,6 @@
 // object representing an actor during a single fight
 import {Condition} from "./Condition";
+import {BattleCondition} from "./battleCondition";
 
 export class BattleActor {
 
@@ -10,6 +11,7 @@ export class BattleActor {
   dead: boolean;
   private progressedInTurn: boolean;
   conditions: Condition[];
+  battleConditions: BattleCondition[];
 
   constructor(
     name: string,
@@ -19,7 +21,8 @@ export class BattleActor {
     unconscious: boolean = false,
     dead: boolean = false,
     progressedInTurn: boolean = false,
-    conditions: Condition[] = []
+    conditions: Condition[] = [],
+    battleConditions: BattleCondition[] = []
   ) {
     this.name = name;
     this.maxHP = maxHP;
@@ -28,6 +31,7 @@ export class BattleActor {
     this.dead = dead;
     this.progressedInTurn = progressedInTurn;
     this.conditions = conditions;
+    this.battleConditions = battleConditions;
   }
 
   getMaxHP() {

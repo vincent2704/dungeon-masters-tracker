@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Condition} from "../../models/Condition";
 import {BattleActorService} from "../../services/battle-actor.service";
 import {BattleActor} from "../../models/battleActor";
+import {BattleCondition} from "../../models/battleCondition";
+import {Condition} from "../../models/Condition";
 
 @Component({
   selector: 'app-condition',
@@ -15,6 +16,8 @@ export class ConditionComponent implements OnInit {
   @Input()
   actor!: BattleActor;
 
+  battleCondition!: BattleCondition;
+
   showDescription: boolean = false;
 
   constructor(private battleActorService: BattleActorService) {}
@@ -22,8 +25,8 @@ export class ConditionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  removeCondition(condition: Condition) {
-    this.battleActorService.removeCondition(this.actor, condition);
+  removeCondition(condition: BattleCondition) {
+    // this.battleActorService.removeCondition(this.actor, condition);
   }
 
   onShowDescription() {
