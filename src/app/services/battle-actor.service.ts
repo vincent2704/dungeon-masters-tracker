@@ -70,16 +70,14 @@ export class BattleActorService {
     }
   }
 
-  addCondition(actor: BattleActor, condition: Condition) {
-    actor.conditions.push(condition);
-  }
-
   addBattleCondition(actor: BattleActor, condition: BattleCondition) {
     actor.battleConditions.push(condition);
   }
 
-  removeCondition(actor: BattleActor, condition: Condition) {
-    actor.removeCondition(condition);
+  removeBattleCondition(actor: BattleActor, conditionToRemove: BattleCondition) {
+    if(actor.battleConditions.find(battleCondition => battleCondition === conditionToRemove)) {
+      actor.removeBattleCondition(conditionToRemove);
+    }
   }
 
   addHP(actor: BattleActor, value: number) {

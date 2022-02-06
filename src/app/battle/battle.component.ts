@@ -52,11 +52,11 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  getAvailableConditions(actor: BattleActor): Condition[] {
-    let availableConditions: Condition[] = [];
+  getAvailableConditions(actor: BattleActor): string[] {
+    let availableConditions: string[] = [];
     for (let condition of this.CONDITIONS) {
-      if (!actor.conditions.find(actorCondition => actorCondition == condition)) {
-        availableConditions.push(condition);
+      if (!actor.battleConditions.find(actorCondition => actorCondition.getName() == condition.getName())) {
+        availableConditions.push(condition.getName());
       }
     }
     return availableConditions;

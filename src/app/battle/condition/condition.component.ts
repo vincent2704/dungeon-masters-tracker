@@ -2,8 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BattleActorService} from "../../services/battle-actor.service";
 import {BattleActor} from "../../models/battleActor";
 import {BattleCondition} from "../../models/battleCondition";
-import {Condition} from "../../models/Condition";
-
 @Component({
   selector: 'app-condition',
   templateUrl: './condition.component.html',
@@ -25,7 +23,7 @@ export class ConditionComponent implements OnInit {
   }
 
   removeCondition(condition: BattleCondition) {
-    // this.battleActorService.removeCondition(this.actor, condition);
+    this.battleActorService.removeBattleCondition(this.actor, condition);
   }
 
   onShowDescription() {
