@@ -88,4 +88,19 @@ export class BattleActor {
       this.conditions.splice(index, 1);
     }
   }
+
+  getConditions(): string[] {
+    return this.battleConditions.map(battleCondition => {
+      return battleCondition.getName();
+    })
+  }
+
+  removeBattleCondition(condition: BattleCondition) {
+    let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove === condition);
+    if (conditionToRemove) {
+      let index = this.battleConditions.indexOf(conditionToRemove);
+      this.battleConditions.splice(index, 1);
+    }
+  }
+
 }

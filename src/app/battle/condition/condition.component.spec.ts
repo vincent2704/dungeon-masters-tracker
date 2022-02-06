@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ConditionComponent} from './condition.component';
 import {Condition} from "../../models/Condition";
+import {BattleCondition} from "../../models/battleCondition";
 
 describe('ConditionComponent', () => {
   let component: ConditionComponent;
@@ -17,7 +18,7 @@ describe('ConditionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionComponent);
     component = fixture.componentInstance;
-    component.battleCondition = Condition.UNCONSCIOUS;
+    component.battleCondition = new BattleCondition(Condition.UNCONSCIOUS);
     fixture.detectChanges();
   });
 

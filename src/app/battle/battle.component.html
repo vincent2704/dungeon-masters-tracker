@@ -15,6 +15,7 @@
       <tbody>
       <tr *ngFor="let actor of battleActors">
         <td>{{actor.name}}</td>
+        <td>{{actor | json}}</td>
         <td>
           {{actor.getCurrentHP()}}
           <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event)">
@@ -26,7 +27,7 @@
             *ngIf="getAvailableConditions(actor).length > 0" (change)="addCondition(actor, $event)">
             <option>Select condition</option>
             <option *ngFor="let condition of getAvailableConditions(actor)">
-              {{condition.getName()}}
+              {{condition}}
             </option>
           </select>
         </td>
