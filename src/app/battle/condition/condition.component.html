@@ -4,8 +4,10 @@
     <div class="col-sm">
       <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
     </div>
-    <div class="col-sm" *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
-      Duration left: {{battleCondition.getDurationInTurns()}}
+    <div class="col-sm">
+      <div class="div" *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
+        Duration left: {{battleCondition.getDurationInTurns()}}
+      </div>
     </div>
     <div class="col-sm">
       <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>

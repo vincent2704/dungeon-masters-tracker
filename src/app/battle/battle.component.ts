@@ -83,8 +83,6 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitCondition(actor: BattleActor) {
-      console.log('condition to add: ' + this.conditionToAdd.getDescription());
-      console.log('duration: ' + this.conditionToAddDuration);
       let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
       this.battleActorService.addBattleCondition(actor, battleCondition);
   }

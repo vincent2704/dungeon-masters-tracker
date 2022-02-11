@@ -91,10 +91,19 @@ export class BattleActor {
     for (let battleCondition of this.battleConditions) {
       if (!battleCondition.isPermanent()) {
         battleCondition.setDurationInTurns(battleCondition.getDurationInTurns() - 1);
-        if (battleCondition.getDurationInTurns() == 0) {
-          this.removeCondition(battleCondition.getCondition());
-        }
       }
     }
+
+    for(let condition of this.getExpiredConditions()) {
+      this.removeCondition(condition);
+    }
+  }
+
+  private getExpiredConditions(): Condition[] {
+    return this.battleConditions.filter(battleCondition => {
+      return battleCondition.getDurationInTurns() == 0 && !battleCondition.isPermanent();
+    }).map(battleCondition => {
+      return battleCondition.getCondition()
+    })
   }
 }
