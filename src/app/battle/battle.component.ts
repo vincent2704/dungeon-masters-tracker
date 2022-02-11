@@ -15,6 +15,7 @@ export class BattleComponent implements OnInit {
   turn: number = 1;
   CONDITIONS: Condition[] = Condition.CONDITIONS;
 
+  // condition form
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
 
@@ -38,21 +39,17 @@ export class BattleComponent implements OnInit {
   progressActor(actor: BattleActor): void {
     this.battleActorService.progressActor(actor);
     if (this.battleActorService.allActorsProgressed()) {
-      this.turn++;
-      this.battleActorService.resetBattleActorsProgress();
+      this.progressRound();
     }
+  }
+
+  progressRound() {
+    this.turn++;
+    this.battleActorService.resetBattleActorsProgress();
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
     return actorToCheck.isActorProgressesInTurn();
-  }
-
-  addCondition(actor: BattleActor, event: any) {
-    for(let condition of this.CONDITIONS) {
-      if(condition.getName() == event.target.value) {
-        this.battleActorService.addBattleCondition(actor, new BattleCondition(condition));
-      }
-    }
   }
 
   getAvailableConditions(actor: BattleActor): Condition[] {

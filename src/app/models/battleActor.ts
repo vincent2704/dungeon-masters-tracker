@@ -103,4 +103,14 @@ export class BattleActor {
     }
   }
 
+  decrementConditionsDuration() {
+    for(let battleCondition of this.battleConditions) {
+      if(!battleCondition.isPermanent()) {
+        battleCondition.setDurationInTurns(battleCondition.getDurationInTurns()-1);
+        if(battleCondition.getDurationInTurns() == 0) {
+          this.removeBattleCondition(battleCondition);
+        }
+      }
+    }
+  }
 }

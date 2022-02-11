@@ -2,7 +2,7 @@ import {Condition} from "./Condition";
 
 export class BattleCondition {
 
-  private permanent: boolean;
+  readonly permanent: boolean;
 
   constructor(
     private condition: Condition,
@@ -12,12 +12,24 @@ export class BattleCondition {
 
   }
 
-  getName() {
+  getName(): string {
     return this.condition.getName();
   }
 
-  getDescription() {
+  getDescription(): string[] {
     return this.condition.getDescription();
+  }
+
+  isPermanent(): boolean {
+    return this.permanent;
+  }
+
+  getDurationInTurns(): number {
+    return this.durationInTurns;
+  }
+
+  setDurationInTurns(duration: number): void {
+    this.durationInTurns = duration;
   }
 
 }
