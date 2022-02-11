@@ -1,14 +1,14 @@
-{{battleCondition | json}}
+<!--{{battleCondition | json}}-->
 <div class="container">
   <div class="row">
     <div class="col-sm">
       <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
     </div>
-    <div class="col-sm" *ngIf="!battleCondition.isPermanent()">
+    <div class="col-sm" *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
       Duration left: {{battleCondition.getDurationInTurns()}}
     </div>
     <div class="col-sm">
-      <button class="btn btn-info" (click)="removeCondition(battleCondition)">Remove condition</button>
+      <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
     </div>
     <div class="row" *ngIf="showDescription">
       <div *ngFor="let description of battleCondition.getDescription()">

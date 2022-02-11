@@ -10,7 +10,6 @@ export class BattleActor {
   initiative: number;
   dead: boolean;
   private progressedInTurn: boolean;
-  conditions: Condition[];
   battleConditions: BattleCondition[];
 
   constructor(
@@ -21,7 +20,6 @@ export class BattleActor {
     unconscious: boolean = false,
     dead: boolean = false,
     progressedInTurn: boolean = false,
-    conditions: Condition[] = [],
     battleConditions: BattleCondition[] = []
   ) {
     this.name = name;
@@ -30,7 +28,6 @@ export class BattleActor {
     this.initiative = initiative;
     this.dead = dead;
     this.progressedInTurn = progressedInTurn;
-    this.conditions = conditions;
     this.battleConditions = battleConditions;
   }
 
@@ -74,29 +71,16 @@ export class BattleActor {
   }
 
   hasCondition(condition: Condition): boolean {
-    return !!this.conditions.find(conditionToFind => conditionToFind == condition);
+    return !!this.battleConditions.find(conditionToFind => conditionToFind.getCondition() == condition);
   }
 
-  addCondition(condition: Condition) {
-    this.conditions.push(condition);
+  addCondition(condition: BattleCondition) {
+    this.battleConditions.push(condition);
   }
+
 
   removeCondition(condition: Condition) {
-    let conditionToRemove = this.conditions.find(conditionToRemove => conditionToRemove == condition);
-    if (conditionToRemove) {
-      let index = this.conditions.indexOf(conditionToRemove);
-      this.conditions.splice(index, 1);
-    }
-  }
-
-  getConditions(): string[] {
-    return this.battleConditions.map(battleCondition => {
-      return battleCondition.getName();
-    })
-  }
-
-  removeBattleCondition(condition: BattleCondition) {
-    let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove === condition);
+    let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
@@ -104,11 +88,11 @@ export class BattleActor {
   }
 
   decrementConditionsDuration() {
-    for(let battleCondition of this.battleConditions) {
-      if(!battleCondition.isPermanent()) {
-        battleCondition.setDurationInTurns(battleCondition.getDurationInTurns()-1);
-        if(battleCondition.getDurationInTurns() == 0) {
-          this.removeBattleCondition(battleCondition);
+    for (let battleCondition of this.battleConditions) {
+      if (!battleCondition.isPermanent()) {
+        battleCondition.setDurationInTurns(battleCondition.getDurationInTurns() - 1);
+        if (battleCondition.getDurationInTurns() == 0) {
+          this.removeCondition(battleCondition.getCondition());
         }
       }
     }
