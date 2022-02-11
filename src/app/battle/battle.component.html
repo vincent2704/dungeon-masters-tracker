@@ -15,7 +15,7 @@
       <tbody>
       <tr *ngFor="let actor of battleActors">
         <td>{{actor.name}}</td>
-        <td>{{actor | json}}</td>
+        <!--        <td>{{actor | json}}</td>-->
         <td>
           {{actor.getCurrentHP()}}
           <input type="number" class="input" placeholder="Add or subtract" (keydown.enter)="onSubmitHP(actor, $event)">
@@ -23,13 +23,16 @@
         <td>
           <app-condition *ngFor="let condition of actor.battleConditions"
                          [battleCondition]="condition" [actor]="actor"></app-condition>
-          <select
-            *ngIf="getAvailableConditions(actor).length > 0" (change)="addCondition(actor, $event)">
-            <option>Select condition</option>
-            <option *ngFor="let condition of getAvailableConditions(actor)">
-              {{condition}}
-            </option>
-          </select>
+          <form (ngSubmit)="onSubmitCondition(actor)">
+            <select
+              *ngIf="getAvailableConditions(actor).length > 0" (change)="setConditionToAdd($event)">
+              <option>Select condition</option>
+              <option *ngFor="let condition of getAvailableConditions(actor)">
+                {{condition.getName()}}
+              </option>
+            </select>
+            <input type="number" placeholder="Enter duration" (keydown.enter)="setConditionToAddDuration($event)">
+          </form>
         </td>
         <td>
           <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
