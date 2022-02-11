@@ -55,7 +55,8 @@ export class BattleActorService {
   progressActor(actorToProgress: BattleActor): void {
     let battleActor = this.battleActors.find(actor => actor == actorToProgress);
     if (battleActor) {
-      battleActor.setActorProgress(true)
+      battleActor.setActorProgress(true);
+      battleActor.decrementConditionsDuration();
     }
   }
 
