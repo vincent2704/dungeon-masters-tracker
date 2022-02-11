@@ -75,9 +75,9 @@ export class BattleActorService {
     actor.battleConditions.push(condition);
   }
 
-  removeBattleCondition(actor: BattleActor, conditionToRemove: BattleCondition) {
-    if(actor.battleConditions.find(battleCondition => battleCondition === conditionToRemove)) {
-      actor.removeBattleCondition(conditionToRemove);
+  removeCondition(actor: BattleActor, conditionToRemove: Condition) {
+    if(actor.battleConditions.find(battleCondition => battleCondition.getCondition() === conditionToRemove)) {
+      actor.removeCondition(conditionToRemove);
     }
   }
 
@@ -92,7 +92,7 @@ export class BattleActorService {
       return;
     }
     if (actor.getCurrentHP() <= 0 && !actor.dead && !actor.hasCondition(Condition.UNCONSCIOUS)) {
-      actor.addCondition(Condition.UNCONSCIOUS);
+      actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
       return;
     }
   }

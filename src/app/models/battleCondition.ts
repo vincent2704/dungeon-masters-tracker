@@ -12,6 +12,10 @@ export class BattleCondition {
 
   }
 
+  getCondition() {
+    return this.condition;
+  }
+
   getName(): string {
     return this.condition.getName();
   }

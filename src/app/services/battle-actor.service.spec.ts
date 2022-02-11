@@ -5,6 +5,7 @@ import {ActorService} from "./actor.service";
 import {BattleActor} from "../models/battleActor";
 import {PROTAGONISTS} from "../models/actorsData";
 import {Condition} from "../models/Condition";
+import {BattleCondition} from "../models/battleCondition";
 
 describe('BattleActorService', () => {
   let battleActorService: BattleActorService;
@@ -131,7 +132,7 @@ describe('BattleActorService', () => {
 
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     let actor = new BattleActor('Actor Name', 20, 0);
-    actor.addCondition(Condition.UNCONSCIOUS);
+    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
 
     battleActorService.addHP(actor, 1);
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
