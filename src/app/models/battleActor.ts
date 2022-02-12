@@ -62,7 +62,7 @@ export class BattleActor {
     this.progressedInTurn = progressed;
   }
 
-  isActorProgressedInTurn(): boolean {
+  hasActorProgressedInTurn(): boolean {
     return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS);
   }
 
