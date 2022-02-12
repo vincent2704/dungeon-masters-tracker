@@ -62,7 +62,7 @@ export class BattleActorService {
 
   allActorsProgressed(): boolean {
     return this.battleActors.filter(
-      actor => actor.isActorProgressesInTurn()).length == this.battleActors.length;
+      actor => actor.isActorProgressedInTurn()).length == this.battleActors.length;
   }
 
   resetBattleActorsProgress(): void {

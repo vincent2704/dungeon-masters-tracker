@@ -107,9 +107,9 @@ describe('BattleActorService', () => {
     // when
     battleActorService.resetBattleActorsProgress();
 
-    expect(battleActor1.isActorProgressesInTurn()).toEqual(false);
-    expect(battleActor2.isActorProgressesInTurn()).toEqual(false);
-    expect(battleActor3.isActorProgressesInTurn()).toEqual(false);
+    expect(battleActor1.isActorProgressedInTurn()).toEqual(false);
+    expect(battleActor2.isActorProgressedInTurn()).toEqual(false);
+    expect(battleActor3.isActorProgressedInTurn()).toEqual(false);
   });
 
   it("should heal and healing should not exceed actor's max HP", () => {

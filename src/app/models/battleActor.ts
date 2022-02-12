@@ -62,8 +62,8 @@ export class BattleActor {
     this.progressedInTurn = progressed;
   }
 
-  isActorProgressesInTurn(): boolean {
-    return this.progressedInTurn;
+  isActorProgressedInTurn(): boolean {
+    return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS);
   }
 
   setDead(dead: boolean) {
