@@ -2,7 +2,7 @@
   <app-prepare-battle *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
-    <h2>Turn: {{turn}}</h2>
+    <h2>Round: {{round}}</h2>
     <table class="table table-hover table-dark">
       <thead>
       <tr>
@@ -43,5 +43,6 @@
       </tbody>
     </table>
     <button class="btn" (click)="changeBattleStatus()">End battle!</button>
+    <app-add-actor></app-add-actor>
   </div>
 </div>

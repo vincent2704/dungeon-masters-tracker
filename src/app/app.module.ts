@@ -8,13 +8,15 @@ import {FormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {PrepareBattleComponent} from "./battle/prepare-battle/prepare-battle.component";
 import { ConditionComponent } from './battle/condition/condition.component';
+import { AddActorComponent } from './battle/add-actor/add-actor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BattleComponent,
     PrepareBattleComponent,
-    ConditionComponent
+    ConditionComponent,
+    AddActorComponent
   ],
   imports: [
     BrowserModule,

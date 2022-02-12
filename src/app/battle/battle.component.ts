@@ -12,7 +12,7 @@ import {BattleCondition} from "../models/battleCondition";
 export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
   battleActors: BattleActor[] = []; //TODO: observable from BattleActorService?
-  turn: number = 1;
+  round: number = 1;
   CONDITIONS: Condition[] = Condition.CONDITIONS;
 
   // condition form
@@ -32,7 +32,7 @@ export class BattleComponent implements OnInit {
     } else {
       this.battleActors = this.battleActorService.resetBattleActors();
       this.isBattleStarted = false;
-      this.turn = 1;
+      this.round = 1;
     }
   }
 
@@ -44,7 +44,7 @@ export class BattleComponent implements OnInit {
   }
 
   progressRound() {
-    this.turn++;
+    this.round++;
     this.battleActorService.resetBattleActorsProgress();
   }
 
