@@ -49,7 +49,7 @@ export class BattleComponent implements OnInit {
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
-    return actorToCheck.isActorProgressesInTurn();
+    return actorToCheck.isActorProgressedInTurn();
   }
 
   getAvailableConditions(actor: BattleActor): Condition[] {
