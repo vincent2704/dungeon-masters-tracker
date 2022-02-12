@@ -50,6 +50,7 @@ export class BattleActorService {
     let battleActor: BattleActor = new BattleActor(newActorName, newActorMaxHP);
     battleActor.setInitiative(initiative);
     this.battleActors.push(battleActor);
+    this.sortBattleActorsByInitiative();
   }
 
   progressActor(actorToProgress: BattleActor): void {
