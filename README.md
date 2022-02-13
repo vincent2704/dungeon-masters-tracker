@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Current features
 1. Battle tracking
-    * Automatically loads protagonists
+    * Automatically loads protagonists (hard-coded at this moment)
     * Adding other actors
     * Setting initiative and automatic sorting by initiative after starting the battle
     * Adding/removing conditions
@@ -20,6 +20,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 1. Battle tracking
     * Modifying actors' HP before the battle
     * Adding/removing actors before the battle
+    * Resolving initiative conflicts when 2 or more actors rolled the same initiative
     * Editing condition duration mid-fight
     * Death saving throw reminder on Unconscious player
         * Death saving throw counter
