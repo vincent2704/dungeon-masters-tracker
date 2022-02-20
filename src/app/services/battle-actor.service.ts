@@ -61,22 +61,9 @@ export class BattleActorService {
     }
   }
 
-  isActorProgressed(actorToCheck: BattleActor): boolean {
-    //TODO test
-    let anyLowerInitiativeAndConsciousActorHasProgressed = this.battleActors.find(battleActor =>
-      battleActor.hasActorProgressedInTurn()
-      && !battleActor.hasCondition(Condition.UNCONSCIOUS)
-      && battleActor.getInitiative() < actorToCheck.getInitiative());
-
-    if (anyLowerInitiativeAndConsciousActorHasProgressed) {
-      return true;
-    }
-    return actorToCheck.hasActorProgressedInTurn();
-  }
-
   allActorsProgressed(): boolean {
     return this.battleActors.filter(
-      actor => this.isActorProgressed(actor)).length == this.battleActors.length;
+      actor => actor.isActorProgressedInTurn()).length == this.battleActors.length;
   }
 
   resetBattleActorsProgress(): void {

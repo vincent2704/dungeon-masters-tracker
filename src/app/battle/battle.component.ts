@@ -38,8 +38,7 @@ export class BattleComponent implements OnInit {
 
   progressActor(actor: BattleActor): void {
     this.battleActorService.progressActor(actor);
-
-    if(this.allActorsProgressed()){
+    if (this.battleActorService.allActorsProgressed()) {
       this.progressRound();
     }
   }
@@ -50,11 +49,7 @@ export class BattleComponent implements OnInit {
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
-    return this.battleActorService.isActorProgressed(actorToCheck);
-  }
-
-  allActorsProgressed() {
-    return this.battleActorService.allActorsProgressed();
+    return actorToCheck.isActorProgressedInTurn();
   }
 
   getAvailableConditions(actor: BattleActor): Condition[] {
@@ -75,8 +70,8 @@ export class BattleComponent implements OnInit {
 
   setConditionToAdd(event: Event) {
     let conditionName = (<HTMLInputElement>event.target).value;
-    for (let condition of this.CONDITIONS) {
-      if (condition.getName() === conditionName) {
+    for(let condition of this.CONDITIONS) {
+      if(condition.getName() === conditionName) {
         this.conditionToAdd = condition;
       }
     }
@@ -88,7 +83,7 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitCondition(actor: BattleActor) {
-    let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
-    this.battleActorService.addBattleCondition(actor, battleCondition);
+      let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
+      this.battleActorService.addBattleCondition(actor, battleCondition);
   }
 }
