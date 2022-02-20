@@ -1,12 +1,6 @@
 # Dungeon Master's Tracker
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
 
-## About the project
-This is a Dungeons & Dragons 5e tool, which's purpose is to be a kind of a **digital, interactive Dungeon Master's screen**. 
-It is **NOT a graphical interface** containing info about every skill in the game, simulate rolls etc. - 
-you've got other tools for that. It assumes that **the game action is on the table**, and handles repetitive tasks 
-that otherwise would slow down the pace of the gameplay, so everyone can focus on the 
-game itself instead of counting initiative order etc. 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
 
 ## Current features
 1. Battle tracking
