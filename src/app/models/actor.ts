@@ -42,7 +42,7 @@ export class Actor {
     this.currentHP = hp;
   }
 
-  addHP(hpToAdd: number) {
+  modifyHp(hpToAdd: number) {
     this.currentHP = Number(this.currentHP) + Number(hpToAdd);
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;
@@ -102,6 +102,9 @@ export class Actor {
   removeCondition(condition: Condition) {
     let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
+      if(conditionToRemove.getCondition() === Condition.UNCONSCIOUS && this.currentHP <= 0) {
+        this.currentHP = 1;
+      }
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
     }

@@ -53,7 +53,7 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitHP(actor: Actor, event: any) {
-   actor.addHP(event.target.value);
+   actor.modifyHp(event.target.value);
     (<HTMLInputElement>event.target).value = '';
   }
 
