@@ -25,11 +25,11 @@ export class ActorService {
   resetActors(): Actor[] {
     this.actors = [];
 
-    this.actors = this.getProtagonistsBattleActors();
+    this.actors = this.getProtagonistsActors();
     return this.actors;
   }
 
-  getProtagonistsBattleActors(): Actor[] {
+  getProtagonistsActors(): Actor[] {
     this.actors = PROTAGONISTS;
 
     return this.actors;

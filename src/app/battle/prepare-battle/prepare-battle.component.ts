@@ -9,10 +9,10 @@ import {ActorService} from "../../services/actor.service";
 })
 export class PrepareBattleComponent implements OnInit {
 
-  battleActors: Actor[]; //TODO: observable from BattleActorService?
+  actors: Actor[]; //TODO: observable from ActorService?
 
-  constructor(private battleActorService: ActorService) {
-    this.battleActors = battleActorService.sortActorsByInitiative();
+  constructor(private actorService: ActorService) {
+    this.actors = actorService.sortActorsByInitiative();
   }
 
   ngOnInit(): void {
