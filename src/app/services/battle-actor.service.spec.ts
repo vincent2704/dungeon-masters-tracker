@@ -126,7 +126,7 @@ describe('BattleActorService', () => {
 
   it("should add condition unconscious when actor's HP reaches 0", () => {
     let actor = new BattleActor('Actor Name', 20);
-    battleActorService.addHP(actor, -20);
+    battleActorService.addHP(actor, -21);
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(true);
   });
 
@@ -136,34 +136,6 @@ describe('BattleActorService', () => {
 
     battleActorService.addHP(actor, 1);
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
-  });
-
-  it("should not let actor progress turn after regaining consciousness if their turn is passed", () => {
-    let actor1 = new BattleActor(PROTAGONISTS[0].getName(), PROTAGONISTS[0].getMaxHP(), 10, 3);
-    let actor2 = new BattleActor(PROTAGONISTS[1].getName(), PROTAGONISTS[1].getMaxHP(), 10, 2);
-    let actor3 = new BattleActor(PROTAGONISTS[1].getName(), PROTAGONISTS[1].getMaxHP(), 10, 1);
-    battleActorService.setBattleActors([actor1, actor2, actor3]);
-
-    // add unconscious state
-    battleActorService.addHP(actor1, -10);
-    expect(battleActorService.isActorProgressed(actor1)).toEqual(true);
-
-    actor1.addHP(1);
-    actor2.setActorProgress(true);
-    expect(battleActorService.isActorProgressed(actor1)).toEqual(true);
-  });
-
-  it("should let actor progress turn after regaining consciousness if their turn is not yet passed", () => {
-    let actor1 = new BattleActor(PROTAGONISTS[0].getName(), PROTAGONISTS[0].getMaxHP(), 10, 3);
-    let actor2 = new BattleActor(PROTAGONISTS[1].getName(), PROTAGONISTS[1].getMaxHP(), 10, 2);
-    let actor3 = new BattleActor(PROTAGONISTS[1].getName(), PROTAGONISTS[1].getMaxHP(), 10, 1);
-    battleActorService.setBattleActors([actor1, actor2, actor3]);
-
-    battleActorService.addHP(actor1, -10);
-    expect(actor1.hasCondition(Condition.UNCONSCIOUS)).toEqual(true);
-    battleActorService.addHP(actor1, 1);
-    expect(actor1.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
-    expect(battleActorService.isActorProgressed(actor1)).toEqual(false);
   });
 
 });

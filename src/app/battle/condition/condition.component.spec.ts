@@ -26,4 +26,8 @@ describe('ConditionComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should automatically remove condition if duration drops to 0', function () {
+    // TODO:
+  });
+
 });

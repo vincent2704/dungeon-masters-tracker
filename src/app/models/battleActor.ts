@@ -48,18 +48,6 @@ export class BattleActor {
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;
     }
-    if(this.getCurrentHP() > 0 && this.hasCondition(Condition.UNCONSCIOUS)) {
-      this.removeCondition(Condition.UNCONSCIOUS);
-    }
-    if (this.getCurrentHP() <= -this.getMaxHP()) {
-      this.setDead(true);
-      this.setHP(-this.getMaxHP());
-      return;
-    }
-    if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
-      this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-      return;
-    }
   }
 
   getInitiative() {

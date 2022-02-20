@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrepareBattleComponent } from './prepare-battle.component';
 import {FormsModule} from "@angular/forms";
-import {AddActorComponent} from "../add-actor/add-actor.component";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -11,7 +10,7 @@ describe('PrepareBattleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ PrepareBattleComponent, AddActorComponent ]
+      declarations: [ PrepareBattleComponent ]
     })
     .compileComponents();
   });

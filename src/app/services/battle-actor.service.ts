@@ -62,6 +62,7 @@ export class BattleActorService {
   }
 
   isActorProgressed(actorToCheck: BattleActor): boolean {
+    //TODO test
     let anyLowerInitiativeAndConsciousActorHasProgressed = this.battleActors.find(battleActor =>
       battleActor.hasActorProgressedInTurn()
       && !battleActor.hasCondition(Condition.UNCONSCIOUS)
@@ -96,5 +97,17 @@ export class BattleActorService {
 
   addHP(actor: BattleActor, value: number) {
     actor.addHP(value);
+    if(actor.getCurrentHP() > 0 && actor.hasCondition(Condition.UNCONSCIOUS)) {
+      actor.removeCondition(Condition.UNCONSCIOUS);
+    }
+    if (actor.getCurrentHP() <= -actor.getMaxHP()) {
+      actor.setDead(true);
+      actor.setHP(-actor.getMaxHP());
+      return;
+    }
+    if (actor.getCurrentHP() <= 0 && !actor.dead && !actor.hasCondition(Condition.UNCONSCIOUS)) {
+      actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+      return;
+    }
   }
 }
