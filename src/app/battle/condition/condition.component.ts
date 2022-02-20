@@ -18,13 +18,13 @@ export class ConditionComponent implements OnInit {
 
   showDescription: boolean = false;
 
-  constructor(private battleActorService: ActorService) {}
+  constructor(private actorService: ActorService) {}
 
   ngOnInit(): void {
   }
 
   removeCondition(condition: Condition) {
-    this.battleActorService.removeCondition(this.actor, condition);
+    this.actorService.removeCondition(this.actor, condition);
   }
 
   onShowDescription() {

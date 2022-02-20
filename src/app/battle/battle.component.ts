@@ -11,7 +11,7 @@ import {BattleCondition} from "../models/battleCondition";
 })
 export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
-  battleActors: Actor[] = []; //TODO: observable from BattleActorService?
+  actors: Actor[] = []; //TODO: observable from ActorService?
   round: number = 1;
   CONDITIONS: Condition[] = Condition.CONDITIONS;
 
@@ -19,7 +19,7 @@ export class BattleComponent implements OnInit {
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
 
-  constructor(private battleActorService: ActorService) {
+  constructor(private actorService: ActorService) {
   }
 
   ngOnInit(): void {
@@ -27,25 +27,25 @@ export class BattleComponent implements OnInit {
 
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
-      this.battleActors = this.battleActorService.sortActorsByInitiative();
+      this.actors = this.actorService.sortActorsByInitiative();
       this.isBattleStarted = true;
     } else {
-      this.battleActors = this.battleActorService.resetActors();
+      this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
       this.round = 1;
     }
   }
 
   progressActor(actor: Actor): void {
-    this.battleActorService.progressActor(actor);
-    if (this.battleActorService.allActorsProgressed()) {
+    this.actorService.progressActor(actor);
+    if (this.actorService.allActorsProgressed()) {
       this.progressRound();
     }
   }
 
   progressRound() {
     this.round++;
-    this.battleActorService.resetActorsProgress();
+    this.actorService.resetActorsProgress();
   }
 
   isActorProgressed(actorToCheck: Actor): boolean {
@@ -74,6 +74,6 @@ export class BattleComponent implements OnInit {
 
   onSubmitCondition(actor: Actor) {
       let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
-      this.battleActorService.addBattleCondition(actor, battleCondition);
+      this.actorService.addBattleCondition(actor, battleCondition);
   }
 }

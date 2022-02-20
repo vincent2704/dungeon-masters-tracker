@@ -1,4 +1,4 @@
-// class for testing BattleActor logic
+// class for testing Actor logic
 import {Actor} from "./actor";
 import {Condition} from "./Condition";
 import {BattleCondition} from "./battleCondition";
@@ -6,10 +6,10 @@ import {BattleCondition} from "./battleCondition";
 describe('Actor', () => {
 
   it('should add unconscious condition to actor at 0 HP', () => {
-    let battleActor = new Actor('Actor Name', 100);
-    battleActor.modifyHp(-100);
+    let actor = new Actor('Actor Name', 100);
+    actor.modifyHp(-100);
 
-    expect(battleActor.hasCondition(Condition.UNCONSCIOUS)).toBe(true);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBe(true);
   });
 
   it("should heal and healing should not exceed actor's max HP", () => {

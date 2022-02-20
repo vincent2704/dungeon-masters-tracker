@@ -8,17 +8,17 @@ import {ActorService} from "../../services/actor.service";
   styleUrls: ['./add-actor.component.css']
 })
 export class AddActorComponent implements OnInit {
-  //TODO: formModel to private object so BattleActor can have all fields private
+  //TODO: formModel to private object so Actor can have all fields private
   formModel: Actor = new Actor('', 0);
 
-  constructor(private battleActorService: ActorService) {
+  constructor(private actorService: ActorService) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.battleActorService.addActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
+    this.actorService.addActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
   }
 
 }
