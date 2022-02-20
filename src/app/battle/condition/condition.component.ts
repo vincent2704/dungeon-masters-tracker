@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BattleActorService} from "../../services/battle-actor.service";
-import {BattleActor} from "../../models/battleActor";
+import {ActorService} from "../../services/actor.service";
+import {Actor} from "../../models/actor";
 import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
 @Component({
@@ -14,11 +14,11 @@ export class ConditionComponent implements OnInit {
   battleCondition!: BattleCondition;
 
   @Input()
-  actor!: BattleActor;
+  actor!: Actor;
 
   showDescription: boolean = false;
 
-  constructor(private battleActorService: BattleActorService) {}
+  constructor(private battleActorService: ActorService) {}
 
   ngOnInit(): void {
   }

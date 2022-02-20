@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {BattleActor} from "../../models/battleActor";
-import {BattleActorService} from "../../services/battle-actor.service";
+import {Actor} from "../../models/actor";
+import {ActorService} from "../../services/actor.service";
 
 @Component({
   selector: 'app-add-actor',
@@ -9,16 +9,16 @@ import {BattleActorService} from "../../services/battle-actor.service";
 })
 export class AddActorComponent implements OnInit {
   //TODO: formModel to private object so BattleActor can have all fields private
-  formModel: BattleActor = new BattleActor('', 0);
+  formModel: Actor = new Actor('', 0);
 
-  constructor(private battleActorService: BattleActorService) {
+  constructor(private battleActorService: ActorService) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.battleActorService.addBattleActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
+    this.battleActorService.addActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
   }
 
 }
