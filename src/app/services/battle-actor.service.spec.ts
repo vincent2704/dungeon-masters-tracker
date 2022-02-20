@@ -4,8 +4,6 @@ import {BattleActorService} from './battle-actor.service';
 import {ActorService} from "./actor.service";
 import {BattleActor} from "../models/battleActor";
 import {PROTAGONISTS} from "../models/actorsData";
-import {Condition} from "../models/Condition";
-import {BattleCondition} from "../models/battleCondition";
 
 describe('BattleActorService', () => {
   let battleActorService: BattleActorService;
@@ -110,32 +108,6 @@ describe('BattleActorService', () => {
     expect(battleActor1.isActorProgressedInTurn()).toEqual(false);
     expect(battleActor2.isActorProgressedInTurn()).toEqual(false);
     expect(battleActor3.isActorProgressedInTurn()).toEqual(false);
-  });
-
-  it("should heal and healing should not exceed actor's max HP", () => {
-    let actor = new BattleActor('Actor Name', 20, 18);
-    battleActorService.addHP(actor, 5);
-    expect(actor.getCurrentHP()).toEqual(20)
-  });
-
-  it('should kill actor when their HP reaches opposite value of their max HP', () => {
-    let actor = new BattleActor('Actor Name', 20);
-    battleActorService.addHP(actor, -40);
-    expect(actor.dead).toEqual(true)
-  });
-
-  it("should add condition unconscious when actor's HP reaches 0", () => {
-    let actor = new BattleActor('Actor Name', 20);
-    battleActorService.addHP(actor, -21);
-    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(true);
-  });
-
-  it("should remove unconsciousness when actor's HP raises above 0", () => {
-    let actor = new BattleActor('Actor Name', 20, 0);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-
-    battleActorService.addHP(actor, 1);
-    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
   });
 
 });
