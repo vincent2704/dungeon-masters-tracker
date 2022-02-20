@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
-import { BattleActor } from "../../models/battleActor";
-import {BattleActorService} from "../../services/battle-actor.service";
+import { Actor } from "../../models/actor";
+import {ActorService} from "../../services/actor.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -9,10 +9,10 @@ import {BattleActorService} from "../../services/battle-actor.service";
 })
 export class PrepareBattleComponent implements OnInit {
 
-  battleActors: BattleActor[]; //TODO: observable from BattleActorService?
+  battleActors: Actor[]; //TODO: observable from BattleActorService?
 
-  constructor(private battleActorService: BattleActorService) {
-    this.battleActors = battleActorService.sortBattleActorsByInitiative();
+  constructor(private battleActorService: ActorService) {
+    this.battleActors = battleActorService.sortActorsByInitiative();
   }
 
   ngOnInit(): void {

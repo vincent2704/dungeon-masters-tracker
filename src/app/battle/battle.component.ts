@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {BattleActor} from "../models/battleActor";
-import {BattleActorService} from "../services/battle-actor.service";
+import {Actor} from "../models/actor";
+import {ActorService} from "../services/actor.service";
 import {Condition} from "../models/Condition";
 import {BattleCondition} from "../models/battleCondition";
 
@@ -11,7 +11,7 @@ import {BattleCondition} from "../models/battleCondition";
 })
 export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
-  battleActors: BattleActor[] = []; //TODO: observable from BattleActorService?
+  battleActors: Actor[] = []; //TODO: observable from BattleActorService?
   round: number = 1;
   CONDITIONS: Condition[] = Condition.CONDITIONS;
 
@@ -19,7 +19,7 @@ export class BattleComponent implements OnInit {
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
 
-  constructor(private battleActorService: BattleActorService) {
+  constructor(private battleActorService: ActorService) {
   }
 
   ngOnInit(): void {
@@ -27,16 +27,16 @@ export class BattleComponent implements OnInit {
 
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
-      this.battleActors = this.battleActorService.sortBattleActorsByInitiative();
+      this.battleActors = this.battleActorService.sortActorsByInitiative();
       this.isBattleStarted = true;
     } else {
-      this.battleActors = this.battleActorService.resetBattleActors();
+      this.battleActors = this.battleActorService.resetActors();
       this.isBattleStarted = false;
       this.round = 1;
     }
   }
 
-  progressActor(actor: BattleActor): void {
+  progressActor(actor: Actor): void {
     this.battleActorService.progressActor(actor);
     if (this.battleActorService.allActorsProgressed()) {
       this.progressRound();
@@ -45,24 +45,14 @@ export class BattleComponent implements OnInit {
 
   progressRound() {
     this.round++;
-    this.battleActorService.resetBattleActorsProgress();
+    this.battleActorService.resetActorsProgress();
   }
 
-  isActorProgressed(actorToCheck: BattleActor): boolean {
+  isActorProgressed(actorToCheck: Actor): boolean {
     return actorToCheck.isActorProgressedInTurn();
   }
 
-  getAvailableConditions(actor: BattleActor): Condition[] {
-    let availableConditions: Condition[] = [];
-    for (let condition of this.CONDITIONS) {
-      if (!actor.battleConditions.find(actorCondition => actorCondition.getName() == condition.getName())) {
-        availableConditions.push(condition);
-      }
-    }
-    return availableConditions;
-  }
-
-  onSubmitHP(actor: BattleActor, event: any) {
+  onSubmitHP(actor: Actor, event: any) {
    actor.addHP(event.target.value);
     (<HTMLInputElement>event.target).value = '';
   }
@@ -82,7 +72,7 @@ export class BattleComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
-  onSubmitCondition(actor: BattleActor) {
+  onSubmitCondition(actor: Actor) {
       let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
       this.battleActorService.addBattleCondition(actor, battleCondition);
   }

@@ -25,9 +25,9 @@
                          [battleCondition]="condition" [actor]="actor"></app-condition>
           <form (ngSubmit)="onSubmitCondition(actor)">
             <select
-              *ngIf="getAvailableConditions(actor).length > 0" (change)="setConditionToAdd($event)" (keydown.enter)="onSubmitCondition(actor)">
+              *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)" (keydown.enter)="onSubmitCondition(actor)">
               <option>Select condition</option>
-              <option *ngFor="let condition of getAvailableConditions(actor)">
+              <option *ngFor="let condition of actor.getAvailableConditions()">
                 {{condition.getName()}}
               </option>
             </select>
