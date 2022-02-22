@@ -24,7 +24,7 @@ describe('Actor', () => {
     //when
     actor.modifyHp(-40);
     //then
-    expect(actor.dead).toEqual(true)
+    expect(actor.isDead()).toEqual(true)
   });
 
   it("should remove unconsciousness when actor's HP raises above 0", () => {

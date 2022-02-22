@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {PrepareBattleComponent} from "./battle/prepare-battle/prepare-battle.component";
 import { ConditionComponent } from './battle/condition/condition.component';
 import { AddActorComponent } from './battle/add-actor/add-actor.component';
+import { DeathSavingThrowsComponent } from './battle/condition/death-saving-throws/death-saving-throws.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AddActorComponent } from './battle/add-actor/add-actor.component';
     BattleComponent,
     PrepareBattleComponent,
     ConditionComponent,
-    AddActorComponent
+    AddActorComponent,
+    DeathSavingThrowsComponent
   ],
   imports: [
     BrowserModule,
