@@ -23,6 +23,10 @@ export class ConditionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isUnconscious(): boolean {
+    return this.battleCondition.getCondition() === Condition.UNCONSCIOUS;
+  }
+
   removeCondition(condition: Condition) {
     this.actorService.removeCondition(this.actor, condition);
   }

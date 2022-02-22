@@ -5,9 +5,14 @@
       <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
     </div>
     <div class="col-sm">
-      <div class="div" *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
-        Duration left: {{battleCondition.getDurationInTurns()}}
+      <div *ngIf="isUnconscious() && actor.getCurrentHP() <= 0 && !actor.isDead(); else durationBlock">
+        <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
       </div>
+      <ng-template #durationBlock>
+        <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
+          Duration left: {{battleCondition.getDurationInTurns()}}
+        </div>
+      </ng-template>
     </div>
     <div class="col-sm">
       <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>

@@ -7,7 +7,7 @@ export class Actor {
   maxHP: number;
   private currentHP: number;
   initiative: number;
-  dead: boolean;
+  private dead: boolean;
   private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
 
@@ -75,6 +75,10 @@ export class Actor {
 
   isActorProgressedInTurn(): boolean {
     return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS);
+  }
+
+  isDead() {
+    return this.dead;
   }
 
   setDead(dead: boolean) {
