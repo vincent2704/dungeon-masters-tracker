@@ -47,6 +47,22 @@ describe('Actor', () => {
     expect(actor.getCurrentHP()).toEqual(1);
   });
 
+  it("should return progressed turn if actor is unconscious", () => {
+    //given
+    let actor = new Actor('Actor Name', 20, -5);
+    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    //then
+    expect(actor.isActorTurnProgressed()).toBeTrue();
+  });
+
+  it("should return progressed turn if actor is dead", () => {
+    //given
+    let actor = new Actor('Actor Name', 20, -5);
+    actor.setDead(true);
+    //then
+    expect(actor.isActorTurnProgressed()).toBeTrue();
+  });
+
   it("should return conditions that the actor is not under state of", () => {
     //given
     let actor = new Actor('Actor Name', 20, 0);

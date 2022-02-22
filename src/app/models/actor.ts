@@ -73,8 +73,8 @@ export class Actor {
     this.progressedInTurn = progressed;
   }
 
-  isActorProgressedInTurn(): boolean {
-    return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS);
+  isActorTurnProgressed(): boolean {
+    return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS) || this.isDead();
   }
 
   isDead() {

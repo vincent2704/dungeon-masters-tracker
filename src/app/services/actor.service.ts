@@ -58,7 +58,7 @@ export class ActorService {
 
   allActorsProgressed(): boolean {
     return this.actors.filter(
-      actor => actor.isActorProgressedInTurn()).length == this.actors.length;
+      actor => actor.isActorTurnProgressed()).length == this.actors.length;
   }
 
   resetActorsProgress(): void {

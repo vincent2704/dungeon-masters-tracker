@@ -88,9 +88,9 @@ describe('actorService', () => {
     // when
     actorService.resetActorsProgress();
 
-    expect(actor1.isActorProgressedInTurn()).toEqual(false);
-    expect(actor2.isActorProgressedInTurn()).toEqual(false);
-    expect(actor3.isActorProgressedInTurn()).toEqual(false);
+    expect(actor1.isActorTurnProgressed()).toEqual(false);
+    expect(actor2.isActorTurnProgressed()).toEqual(false);
+    expect(actor3.isActorTurnProgressed()).toEqual(false);
   });
 
 });

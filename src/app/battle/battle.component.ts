@@ -49,7 +49,7 @@ export class BattleComponent implements OnInit {
   }
 
   isActorProgressed(actorToCheck: Actor): boolean {
-    return actorToCheck.isActorProgressedInTurn();
+    return actorToCheck.isActorTurnProgressed();
   }
 
   onSubmitHP(actor: Actor, event: any) {
