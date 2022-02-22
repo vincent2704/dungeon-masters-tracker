@@ -1,17 +1,10 @@
 <div class="container">
-  <!--  zamienic to na tabele zeby ladnie bylo-->
   <div class="row">
     <div class="col-sm">
-      Successes: {{successes}}
+      Successes: {{successes}} <button class="btn btn-success" (click)="addSuccess()">Success</button>
     </div>
     <div class="col-sm">
-      Failures: {{failures}}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
-      <button class="btn btn-success" (click)="addSuccess()">Success</button>
-      <button class="btn btn-danger" (click)="addFailure()">Failure</button>
+      Failures: {{failures}} <button class="btn btn-danger" (click)="addFailure()">Failure</button>
     </div>
   </div>
 </div>
