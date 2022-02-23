@@ -3,6 +3,7 @@ import {ActorService} from "../../services/actor.service";
 import {Actor} from "../../models/actor";
 import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
+
 @Component({
   selector: 'app-condition',
   templateUrl: './condition.component.html',
@@ -18,7 +19,8 @@ export class ConditionComponent implements OnInit {
 
   showDescription: boolean = false;
 
-  constructor(private actorService: ActorService) {}
+  constructor(private actorService: ActorService) {
+  }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,10 @@ export class ConditionComponent implements OnInit {
   }
 
   showDeathSavingThrows(): boolean {
-    return this.isUnconscious() && this.actor.getCurrentHP() <= 0 && !this.actor.isDead()
+    if (this.actor.isEligibleForDeathSavingThrows()) {
+      return this.isUnconscious() && this.actor.getCurrentHP() <= 0 && !this.actor.isDead()
+    } else {
+      return false;
+    }
   }
 }

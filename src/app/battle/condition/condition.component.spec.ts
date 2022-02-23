@@ -33,20 +33,30 @@ describe('ConditionComponent', () => {
     actor.setDead(false);
     actor.setHP(-5);
     actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    actor.setEligibleForDeathSavingThrows(true);
     expect(component.showDeathSavingThrows()).toBeTrue();
   });
 
   it("should not show death saving throws", () => {
-    //case one
     let actor = component.actor;
+    //case one
+    actor.setEligibleForDeathSavingThrows(true);
     actor.setDead(false);
     actor.setHP(3);
     actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
     expect(component.showDeathSavingThrows()).toBeFalse();
+    //case one
+    actor.setEligibleForDeathSavingThrows(false);
+    actor.setDead(false);
+    actor.setHP(-3);
+    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    expect(component.showDeathSavingThrows()).toBeFalse();
     //case two
+    actor.setEligibleForDeathSavingThrows(true);
     actor.setDead(true);
     expect(component.showDeathSavingThrows()).toBeFalse();
     //case three
+    actor.setEligibleForDeathSavingThrows(true);
     actor.setDead(false);
     actor.setHP(10);
     actor.removeCondition(Condition.UNCONSCIOUS);
