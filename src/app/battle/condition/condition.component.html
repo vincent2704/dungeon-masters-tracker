@@ -5,7 +5,7 @@
       <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
     </div>
     <div class="col-sm">
-      <div *ngIf="isUnconscious() && actor.getCurrentHP() <= 0 && !actor.isDead(); else durationBlock">
+      <div *ngIf="showDeathSavingThrows(); else durationBlock">
         <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
       </div>
       <ng-template #durationBlock>

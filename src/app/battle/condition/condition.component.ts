@@ -34,4 +34,8 @@ export class ConditionComponent implements OnInit {
   onShowDescription() {
     this.showDescription = !this.showDescription;
   }
+
+  showDeathSavingThrows(): boolean {
+    return this.isUnconscious() && this.actor.getCurrentHP() <= 0 && !this.actor.isDead()
+  }
 }
