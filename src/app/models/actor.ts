@@ -58,7 +58,7 @@ export class Actor {
       this.removeCondition(Condition.UNCONSCIOUS);
     }
     if (this.getCurrentHP() <= -this.getMaxHP()) {
-      this.setDead(true);
+      this.kill();
       this.setHP(-this.getMaxHP());
       return;
     }
@@ -66,7 +66,7 @@ export class Actor {
       if (this.isEligibleForDeathSavingThrows()) {
         this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
       } else {
-        this.setDead(true)
+        this.kill();
       }
       return;
     }
@@ -92,8 +92,17 @@ export class Actor {
     return this.dead;
   }
 
-  setDead(dead: boolean) {
-    this.dead = dead;
+  kill() {
+    this.dead = true;
+    if (this.isEligibleForDeathSavingThrows()) {
+      this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
+    } else {
+      this.removeConditions(Condition.CONDITIONS);
+    }
+  }
+
+  resurrect() {
+    this.dead = false;
   }
 
   isEligibleForDeathSavingThrows(): boolean {
@@ -110,6 +119,10 @@ export class Actor {
 
   addCondition(condition: BattleCondition) {
     this.battleConditions.push(condition);
+  }
+
+  getConditions(): BattleCondition[] {
+    return this.battleConditions;
   }
 
   getAvailableConditions() {
@@ -130,6 +143,12 @@ export class Actor {
       }
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
+    }
+  }
+
+  removeConditions(conditions: Condition[]) {
+    for (let condition of conditions) {
+      this.removeCondition(condition);
     }
   }
 

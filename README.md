@@ -6,7 +6,10 @@ Current project [Angular CLI](https://github.com/angular/angular-cli) version: 1
 1. Battle tracking
     * Automatically loads protagonists
     * Adding other actors
+        * Checkbox for death saving throws eligibility when adding an actor to battle
     * Setting initiative and automatic sorting by initiative after starting the battle
+    * Death
+        * Removing non-magical conditions on death
     * Adding/removing conditions
     * Adding/subtracting Hit Points
         * Death saving throws counter when character becomes Unconscious by damage
@@ -19,7 +22,6 @@ Current project [Angular CLI](https://github.com/angular/angular-cli) version: 1
 
 ## Upcoming features
 1. Battle tracking
-    * Checkbox for death saving throws eligibility when adding an actor to battle (unchecked by default)
     * Modifying actors' HP before the battle
     * Adding/removing actors before the battle
     * Editing condition duration mid-fight
