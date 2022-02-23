@@ -8,8 +8,10 @@ import {ActorService} from "../../services/actor.service";
   styleUrls: ['./add-actor.component.css']
 })
 export class AddActorComponent implements OnInit {
-  //TODO: formModel to private object so Actor can have all fields private
-  formModel: Actor = new Actor('', 0);
+  formActorName: string = '';
+  formActorMaxHp: number = 0;
+  formActorInitiative: number = 0;
+  deathSavingThrowEligibility: boolean = false;
 
   constructor(private actorService: ActorService) {
   }
@@ -18,7 +20,13 @@ export class AddActorComponent implements OnInit {
   }
 
   onSubmit() {
-    this.actorService.addActor(this.formModel.name, this.formModel.getMaxHP(), this.formModel.getInitiative());
+    let newActor = new Actor(this.formActorName, this.formActorMaxHp);
+    newActor.setInitiative(this.formActorInitiative);
+    newActor.setDeathSavingThrowsEligibility(this.deathSavingThrowEligibility);
+    this.actorService.addActor(newActor);
   }
 
+  deathSavingThrowsEligibilityChange(event: any) {
+    this.deathSavingThrowEligibility = event.target.checked;
+  }
 }

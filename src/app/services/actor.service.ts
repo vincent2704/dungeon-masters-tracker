@@ -41,9 +41,7 @@ export class ActorService {
     return this.actors;
   }
 
-  addActor(newActorName: string, newActorMaxHP: number, initiative: number): void {
-    let actor: Actor = new Actor(newActorName, newActorMaxHP);
-    actor.setInitiative(initiative);
+  addActor(actor: Actor): void {
     this.actors.push(actor);
   }
 

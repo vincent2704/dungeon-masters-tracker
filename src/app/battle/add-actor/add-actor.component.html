@@ -6,13 +6,13 @@
           <label for="modelName">Actor's name:</label>
           <input type="text" class="form-control" id="modelName"
                  required
-                 [(ngModel)]="formModel.name" name="modelName">
+                 [(ngModel)]="formActorName" name="modelName">
         </div>
         <div class="col-sm">
           <label for="modelMaxHP">Max HP:</label>
           <input type="text" class="form-control" id="modelMaxHP"
                  required
-                 [(ngModel)]="formModel.maxHP"
+                 [(ngModel)]="formActorMaxHp"
                  name="modelMaxHP"
           placeholder="Actor's max Hit Points">
         </div>
@@ -20,10 +20,14 @@
           <label for="modelInitiative">Initiative</label>
           <input type="text" class="form-control" id="modelInitiative"
                  required
-                 [(ngModel)]="formModel.initiative"
+                 [(ngModel)]="formActorInitiative"
                  name="modelInitiative">
         </div>
         <div class="col-sm">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="savingThrowCheckbox" (change)="deathSavingThrowsEligibilityChange($event)">
+            <label for="savingThrowCheckbox" class="form-check-label">Eligible for saving throws</label>
+          </div>
           <button class="btn" type="submit">Add actor</button>
         </div>
       </div>
