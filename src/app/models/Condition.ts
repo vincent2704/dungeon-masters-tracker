@@ -140,4 +140,15 @@ export class Condition {
     Condition.INCAPACITATED, Condition.INVISIBLE, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED,
     Condition.PRONE, Condition.RESTRAINED, Condition.STUNNED, Condition.UNCONSCIOUS, Condition.EXHAUSTION
   ];
+
+  static NON_MAGICAL_CONDITIONS: Condition[] = [
+    Condition.BLINDED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.INCAPACITATED,
+    Condition.PARALYZED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED, Condition.STUNNED,
+    Condition.UNCONSCIOUS, Condition.EXHAUSTION
+  ];
+
+  static MAGICAL_CONDITIONS: Condition[] = [
+    Condition.CHARMED, Condition.INVISIBLE, Condition.PETRIFIED
+  ];
+
 }

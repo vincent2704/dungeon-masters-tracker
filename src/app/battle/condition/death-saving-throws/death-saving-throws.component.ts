@@ -28,7 +28,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   addFailure() {
     this.failures++;
     if(this.failures === 3) {
-      this.actor.setDead(true);
+      this.actor.kill();
     }
   }
 

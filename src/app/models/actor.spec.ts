@@ -20,11 +20,43 @@ describe('Actor', () => {
 
   it("should not modify actor's HP if actor is dead", () => {
     let actor = new Actor('Actor Name', 20, -20);
-    actor.setDead(true);
+    actor.kill();
 
     actor.modifyHp(40);
     expect(actor.getCurrentHP()).toEqual(-20);
     expect(actor.isDead()).toBeTrue();
+  });
+
+  it('should remove all non-magical conditions when death saving throw eligible actor is killed', () => {
+    let actor = new Actor('Actor Name', 20, 20);
+    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    actor.addCondition(new BattleCondition(Condition.CHARMED));
+    actor.addCondition(new BattleCondition(Condition.STUNNED));
+    actor.addCondition(new BattleCondition(Condition.POISONED));
+    actor.addCondition(new BattleCondition(Condition.INVISIBLE));
+    actor.addCondition(new BattleCondition(Condition.PETRIFIED));
+    actor.addCondition(new BattleCondition(Condition.GRAPPLED));
+    actor.addCondition(new BattleCondition(Condition.INCAPACITATED));
+    actor.kill();
+
+    let actorConditions = actor.getConditions().map(battleCondition => battleCondition.getCondition());
+    expect(actorConditions).toEqual(Condition.MAGICAL_CONDITIONS);
+  });
+
+  it('should remove all conditions when death saving throw non-eligible actor is killed', () => {
+    let actor = new Actor('Actor Name', 20, 20);
+    actor.setDeathSavingThrowsEligibility(false);
+    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    actor.addCondition(new BattleCondition(Condition.CHARMED));
+    actor.addCondition(new BattleCondition(Condition.STUNNED));
+    actor.addCondition(new BattleCondition(Condition.POISONED));
+    actor.addCondition(new BattleCondition(Condition.INVISIBLE));
+    actor.addCondition(new BattleCondition(Condition.PETRIFIED));
+    actor.addCondition(new BattleCondition(Condition.GRAPPLED));
+    actor.addCondition(new BattleCondition(Condition.INCAPACITATED));
+    actor.kill();
+
+    expect(actor.getConditions().length).toEqual(0);
   });
 
   it('should kill actor when their HP reaches opposite value of their max HP', () => {
@@ -77,7 +109,7 @@ describe('Actor', () => {
   it("should return progressed turn if actor is dead", () => {
     //given
     let actor = new Actor('Actor Name', 20, -5);
-    actor.setDead(true);
+    actor.kill();
     //then
     expect(actor.isActorTurnProgressed()).toBeTrue();
   });
