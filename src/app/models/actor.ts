@@ -10,6 +10,7 @@ export class Actor {
   private dead: boolean;
   private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
+  private eligibleForDeathSavingThrows: boolean;
 
   constructor(
     name: string,
@@ -19,7 +20,8 @@ export class Actor {
     unconscious: boolean = false,
     dead: boolean = false,
     progressedInTurn: boolean = false,
-    battleConditions: BattleCondition[] = []
+    battleConditions: BattleCondition[] = [],
+    deathSavingThrowsEligibility: boolean = false
   ) {
     this.name = name;
     this.maxHP = maxHP;
@@ -28,6 +30,7 @@ export class Actor {
     this.dead = dead;
     this.progressedInTurn = progressedInTurn;
     this.battleConditions = battleConditions;
+    this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
   }
 
   getMaxHP() {
@@ -86,6 +89,14 @@ export class Actor {
 
   setDead(dead: boolean) {
     this.dead = dead;
+  }
+
+  isEligibleForDeathSavingThrows(): boolean {
+    return this.eligibleForDeathSavingThrows;
+  }
+
+  setEligibleForDeathSavingThrows(eligible: boolean) {
+    this.eligibleForDeathSavingThrows = eligible;
   }
 
   hasCondition(condition: Condition): boolean {

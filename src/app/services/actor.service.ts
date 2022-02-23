@@ -45,7 +45,6 @@ export class ActorService {
     let actor: Actor = new Actor(newActorName, newActorMaxHP);
     actor.setInitiative(initiative);
     this.actors.push(actor);
-    this.sortActorsByInitiative();
   }
 
   progressActor(actorToProgress: Actor): void {
