@@ -43,6 +43,9 @@ export class Actor {
   }
 
   modifyHp(hpToAdd: number) {
+    if(this.isDead()) {
+      return;
+    }
     this.currentHP = Number(this.currentHP) + Number(hpToAdd);
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;

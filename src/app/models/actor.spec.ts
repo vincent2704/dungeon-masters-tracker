@@ -18,6 +18,15 @@ describe('Actor', () => {
     expect(actor.getCurrentHP()).toEqual(20)
   });
 
+  it("should not modify actor's HP if actor is dead", () => {
+    let actor = new Actor('Actor Name', 20, -20);
+    actor.setDead(true);
+
+    actor.modifyHp(40);
+    expect(actor.getCurrentHP()).toEqual(-20);
+    expect(actor.isDead()).toBeTrue();
+  });
+
   it('should kill actor when their HP reaches opposite value of their max HP', () => {
     //given
     let actor = new Actor('Actor Name', 20);
