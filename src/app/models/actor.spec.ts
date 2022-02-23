@@ -36,6 +36,16 @@ describe('Actor', () => {
     expect(actor.isDead()).toEqual(true)
   });
 
+  it('should kill actor not eligible for death saving throws when their HP is 0 or less', () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.setDeathSavingThrowsEligibility(false);
+    //when
+    actor.modifyHp(-20);
+    //then
+    expect(actor.isDead()).toEqual(true)
+  });
+
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     //given
     let actor = new Actor('Actor Name', 20, 0);
