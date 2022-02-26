@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../../models/actor";
+import {Condition} from "../../../models/Condition";
 
 @Component({
   selector: 'app-death-saving-throws',
@@ -21,6 +22,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   addSuccess() {
     this.successes++;
     if(this.successes == 3) {
+      this.actor.removeCondition(Condition.UNCONSCIOUS);
       this.actor.setHP(1);
     }
   }
