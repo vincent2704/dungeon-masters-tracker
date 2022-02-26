@@ -18,7 +18,7 @@ describe('DeathSavingThrowsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
-    component.actor = new Actor('Actor', 10, 0);
+    component.actor = new Actor('Actor', 10, 1);
     fixture.detectChanges();
   });
 
@@ -28,7 +28,7 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should set actor's hit points to 1 after 3 successful death saving throws", () => {
     //given
-    component.actor.setHP(-3);
+    component.actor.modifyHp(-1);
     //when
     component.addSuccess();
     component.addSuccess();
@@ -39,7 +39,7 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("remove unconsciousness on successful death saving throws", () => {
     //given
-    component.actor.setHP(-3);
+    component.actor.modifyHp(-1);
     //when
     component.addSuccess();
     component.addSuccess();
@@ -49,6 +49,8 @@ describe('DeathSavingThrowsComponent', () => {
   });
 
   it("should kill actor on 3 failed death saving throws", () => {
+    //given
+    component.actor.modifyHp(-1);
     //when
     component.addFailure();
     component.addFailure();
