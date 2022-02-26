@@ -28,6 +28,7 @@ export class BattleComponent implements OnInit {
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
       this.actors = this.actorService.sortActorsByInitiative();
+      this.getConflictedActors();
       this.isBattleStarted = true;
     } else {
       this.actors = this.actorService.resetActors();
@@ -35,6 +36,28 @@ export class BattleComponent implements OnInit {
       this.round = 1;
     }
   }
+
+  getConflictedActors() {
+    let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeConflictedActors();
+    // znalezc przypadki konfliktow
+    // nadac im priorytet od 1 do n
+    
+  }
+
+  getInitiativeConflictedActors(): Map<number, Actor[]> {
+    let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
+    this.actors.map(actor => {
+      let key = actor.getInitiative();
+      let isInitiativePresentInMap = initiativeToActorsMap.get(key);
+      if (!isInitiativePresentInMap) {
+        initiativeToActorsMap.set(key, [actor]);
+      } else {
+        initiativeToActorsMap.get(key)!.push(actor);
+      }
+    });
+    return initiativeToActorsMap;
+  }
+
 
   progressActor(actor: Actor): void {
     this.actorService.progressActor(actor);
