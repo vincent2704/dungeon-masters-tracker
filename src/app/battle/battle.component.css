@@ -14,3 +14,15 @@ select {
   border-color: orange;
   border-style: groove;
 }
+
+.modal-header {
+  background-color: #383838;
+}
+
+.modal-body {
+  background-color: #383838;
+}
+
+.modal-footer {
+  background-color: #383838;
+}

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor.service";
 import {Condition} from "../models/Condition";
 import {BattleCondition} from "../models/battleCondition";
+import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-battle',
@@ -19,7 +20,14 @@ export class BattleComponent implements OnInit {
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
 
-  constructor(private actorService: ActorService) {
+  @ViewChild('initiativeConflictModal')
+  conflictModal!: any;
+  conflictedActors: Actor[] = [];
+  conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
+
+  constructor(private actorService: ActorService, private modalService: NgbModal, private modalConfig: NgbModalConfig) {
+    modalConfig.backdrop = 'static';
+    modalConfig.keyboard = false;
   }
 
   ngOnInit(): void {
@@ -29,6 +37,7 @@ export class BattleComponent implements OnInit {
     if (!this.isBattleStarted) {
       this.actors = this.actorService.sortActorsByInitiative();
       this.getConflictedActors();
+      //TODO: battle started will have to be set only if conflicts are resolved!
       this.isBattleStarted = true;
     } else {
       this.actors = this.actorService.resetActors();
@@ -39,9 +48,12 @@ export class BattleComponent implements OnInit {
 
   getConflictedActors() {
     let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeConflictedActors();
-    // znalezc przypadki konfliktow
-    // nadac im priorytet od 1 do n
-    
+    for (let actors of initiativeToActorsMap.values()) {
+      if (actors.length > 1) {
+        this.conflictedActors = actors;
+        this.modalService.open(this.conflictModal);
+      }
+    }
   }
 
   getInitiativeConflictedActors(): Map<number, Actor[]> {
@@ -76,15 +88,15 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitHP(actor: Actor, event: any) {
-   actor.modifyHp(event.target.value);
+    actor.modifyHp(event.target.value);
     (<HTMLInputElement>event.target).value = '';
   }
 
 
   setConditionToAdd(event: Event) {
     let conditionName = (<HTMLInputElement>event.target).value;
-    for(let condition of this.CONDITIONS) {
-      if(condition.getName() === conditionName) {
+    for (let condition of this.CONDITIONS) {
+      if (condition.getName() === conditionName) {
         this.conditionToAdd = condition;
       }
     }
@@ -96,7 +108,38 @@ export class BattleComponent implements OnInit {
   }
 
   onSubmitCondition(actor: Actor) {
-      let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
-      this.actorService.addBattleCondition(actor, battleCondition);
+    let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
+    this.actorService.addBattleCondition(actor, battleCondition);
   }
+
+  onResolveConflict() {
+    this.sortActorsByPriority();
+    this.conflictedActorsToPriorityOrderNumbersMap.clear();
+    this.modalService.dismissAll();
+  }
+
+  sortActorsByPriority() {
+    for(let [currentActor, currentActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
+      for(let [nextActor, nextActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
+        if(currentActor != nextActor) {
+          if(nextActorOrder < currentActorOrder) {
+            let currentActorIndex = this.actorService.getActors().indexOf(currentActor);
+            let nextActorIndex = this.actorService.getActors().indexOf(nextActor);
+            if(nextActorIndex > currentActorIndex) {
+              this.actorService.getActors()[currentActorIndex] = nextActor;
+              this.actorService.getActors()[nextActorIndex] = currentActor;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  addActorToPriorityMap(actor: Actor, priorityEvent: any) {
+    let priority: number = parseInt((<HTMLInputElement>priorityEvent.target).value);
+    console.log('priority: ' + priority);
+    this.conflictedActorsToPriorityOrderNumbersMap.set(actor, priority);
+    console.log(this.conflictedActorsToPriorityOrderNumbersMap);
+  }
+
 }
