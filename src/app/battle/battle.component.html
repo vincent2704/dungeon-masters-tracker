@@ -25,7 +25,8 @@
                          [battleCondition]="condition" [actor]="actor"></app-condition>
           <form (ngSubmit)="onSubmitCondition(actor)">
             <select
-              *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)" (keydown.enter)="onSubmitCondition(actor)">
+              *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)"
+              (keydown.enter)="onSubmitCondition(actor)">
               <option>Select condition</option>
               <option *ngFor="let condition of actor.getAvailableConditions()">
                 {{condition.getName()}}
@@ -46,3 +47,24 @@
     <button class="btn" (click)="changeBattleStatus()">End battle!</button>
   </div>
 </div>
+
+<ng-template #initiativeConflictModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Initiative conflict</h4>
+  </div>
+  <div class="modal-body">
+    Set priority for conflicted actors:
+    <div *ngFor="let actor of this.conflictedActors">
+      <div class="row">
+        <div class="col-sm-6">{{actor.name}}</div>
+        <div class="col-sm-6">
+          <input type="number" class="input" placeholder="0" (keyup)="addActorToPriorityMap(actor, $event)">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onResolveConflict()">Resolve</button>
+  </div>
+</ng-template>
+
