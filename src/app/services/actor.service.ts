@@ -69,9 +69,27 @@ export class ActorService {
   }
 
   removeCondition(actor: Actor, conditionToRemove: Condition) {
-    if(actor.battleConditions.find(battleCondition => battleCondition.getCondition() === conditionToRemove)) {
+    if (actor.battleConditions.find(battleCondition => battleCondition.getCondition() === conditionToRemove)) {
       actor.removeCondition(conditionToRemove);
     }
   }
 
+  getInitiativeConflictResolvedActors(conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number>): Actor[] {
+    for (let [currentActor, currentActorOrder] of conflictedActorsToPriorityOrderNumbersMap) {
+      for (let [nextActor, nextActorOrder] of conflictedActorsToPriorityOrderNumbersMap) {
+        if (currentActor != nextActor) {
+          // priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
+          if (nextActorOrder < currentActorOrder) {
+            let currentActorIndex = this.actors.indexOf(currentActor);
+            let nextActorIndex = this.actors.indexOf(nextActor);
+            if (nextActorIndex > currentActorIndex) {
+              this.actors[currentActorIndex] = nextActor;
+              this.actors[nextActorIndex] = currentActor;
+            }
+          }
+        }
+      }
+    }
+    return this.actors;
+  }
 }

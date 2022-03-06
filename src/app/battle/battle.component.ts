@@ -36,8 +36,8 @@ export class BattleComponent implements OnInit {
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
       this.actors = this.actorService.sortActorsByInitiative();
-      this.getConflictedActors();
-      //TODO: battle started will have to be set only if conflicts are resolved!
+      this.resolveInitiativeConflicts();
+      //TODO: battle started will have to be set only if all conflicts are resolved!
       this.isBattleStarted = true;
     } else {
       this.actors = this.actorService.resetActors();
@@ -46,30 +46,16 @@ export class BattleComponent implements OnInit {
     }
   }
 
-  getConflictedActors() {
-    let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeConflictedActors();
+  resolveInitiativeConflicts() {
+    let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeToActorsMap();
     for (let actors of initiativeToActorsMap.values()) {
       if (actors.length > 1) {
         this.conflictedActors = actors;
         this.modalService.open(this.conflictModal);
+        // then methods onActorPriorityEntered() and onResolveConflict() are called from the modal
       }
     }
   }
-
-  getInitiativeConflictedActors(): Map<number, Actor[]> {
-    let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
-    this.actors.map(actor => {
-      let key = actor.getInitiative();
-      let isInitiativePresentInMap = initiativeToActorsMap.get(key);
-      if (!isInitiativePresentInMap) {
-        initiativeToActorsMap.set(key, [actor]);
-      } else {
-        initiativeToActorsMap.get(key)!.push(actor);
-      }
-    });
-    return initiativeToActorsMap;
-  }
-
 
   progressActor(actor: Actor): void {
     this.actorService.progressActor(actor);
@@ -87,12 +73,6 @@ export class BattleComponent implements OnInit {
     return actorToCheck.isActorTurnProgressed();
   }
 
-  onSubmitHP(actor: Actor, event: any) {
-    actor.modifyHp(event.target.value);
-    (<HTMLInputElement>event.target).value = '';
-  }
-
-
   setConditionToAdd(event: Event) {
     let conditionName = (<HTMLInputElement>event.target).value;
     for (let condition of this.CONDITIONS) {
@@ -107,39 +87,39 @@ export class BattleComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
+  onSubmitHP(actor: Actor, event: any) {
+    actor.modifyHp(event.target.value);
+    (<HTMLInputElement>event.target).value = '';
+  }
+
   onSubmitCondition(actor: Actor) {
     let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
     this.actorService.addBattleCondition(actor, battleCondition);
   }
 
   onResolveConflict() {
-    this.sortActorsByPriority();
+    this.actors = this.actorService.getInitiativeConflictResolvedActors(this.conflictedActorsToPriorityOrderNumbersMap);
     this.conflictedActorsToPriorityOrderNumbersMap.clear();
     this.modalService.dismissAll();
   }
 
-  sortActorsByPriority() {
-    for(let [currentActor, currentActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
-      for(let [nextActor, nextActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
-        if(currentActor != nextActor) {
-          if(nextActorOrder < currentActorOrder) {
-            let currentActorIndex = this.actorService.getActors().indexOf(currentActor);
-            let nextActorIndex = this.actorService.getActors().indexOf(nextActor);
-            if(nextActorIndex > currentActorIndex) {
-              this.actorService.getActors()[currentActorIndex] = nextActor;
-              this.actorService.getActors()[nextActorIndex] = currentActor;
-            }
-          }
-        }
-      }
-    }
+  onActorPriorityEntered(actor: Actor, priorityEvent: any) {
+    let priority: number = parseInt((<HTMLInputElement>priorityEvent.target).value);
+    this.conflictedActorsToPriorityOrderNumbersMap.set(actor, priority);
   }
 
-  addActorToPriorityMap(actor: Actor, priorityEvent: any) {
-    let priority: number = parseInt((<HTMLInputElement>priorityEvent.target).value);
-    console.log('priority: ' + priority);
-    this.conflictedActorsToPriorityOrderNumbersMap.set(actor, priority);
-    console.log(this.conflictedActorsToPriorityOrderNumbersMap);
+  private getInitiativeToActorsMap(): Map<number, Actor[]> {
+    let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
+    this.actors.map(actor => {
+      let key = actor.getInitiative();
+      let isInitiativePresentInMap = initiativeToActorsMap.get(key);
+      if (!isInitiativePresentInMap) {
+        initiativeToActorsMap.set(key, [actor]);
+      } else {
+        initiativeToActorsMap.get(key)!.push(actor);
+      }
+    });
+    return initiativeToActorsMap;
   }
 
 }
