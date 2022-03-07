@@ -4,7 +4,6 @@ import {BattleComponent} from './battle.component';
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "./add-actor/add-actor.component";
-import {Actor} from "../models/actor";
 
 describe('BattleComponent', () => {
   let battleComponent: BattleComponent;
