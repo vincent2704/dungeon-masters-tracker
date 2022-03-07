@@ -1,11 +1,19 @@
 <div class="container-fluid">
   <h2>Set up actors before starting the battle:</h2>
   <table class="table table-hover table-dark">
+    <thead>
+    <tr>
+      <th scope="col">Actor</th>
+      <th scope="col">HP (Max)</th>
+      <th>Initiative</th>
+    </tr>
+    </thead>
     <tbody>
     <tr *ngFor="let actor of actors">
       <td>
         {{actor.name}}
       </td>
+      <td>{{actor.getCurrentHP()}} ({{actor.getMaxHP()}})</td>
       <td>
         <label for="initiative">Set initiative:</label>
         <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
