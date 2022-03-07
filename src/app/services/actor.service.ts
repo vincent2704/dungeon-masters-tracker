@@ -30,7 +30,7 @@ export class ActorService {
   }
 
   getProtagonistsActors(): Actor[] {
-    this.actors = PROTAGONISTS;
+    this.actors = PROTAGONISTS.slice();
 
     return this.actors;
   }

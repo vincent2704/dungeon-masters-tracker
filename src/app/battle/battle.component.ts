@@ -40,6 +40,7 @@ export class BattleComponent implements OnInit {
       //TODO: battle started will have to be set only if all conflicts are resolved!
       this.isBattleStarted = true;
     } else {
+      //TODO: missing test case - saves protagonists only after battle end with their current HP
       this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
       this.round = 1;
