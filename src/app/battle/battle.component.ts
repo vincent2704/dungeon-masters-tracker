@@ -24,6 +24,7 @@ export class BattleComponent implements OnInit {
   conflictModal!: any;
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
+  conflictResolvedActors: Actor[] = [];
 
   constructor(private actorService: ActorService, private modalService: NgbModal, private modalConfig: NgbModalConfig) {
     modalConfig.backdrop = 'static';
@@ -44,18 +45,25 @@ export class BattleComponent implements OnInit {
       this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
       this.round = 1;
+      this.conflictResolvedActors = [];
     }
   }
 
   resolveInitiativeConflicts() {
     let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeToActorsMap();
     for (let actors of initiativeToActorsMap.values()) {
-      if (actors.length > 1) {
+      if (actors.length > 1 && !this.areActorsConflictsResolved(actors)) {
         this.conflictedActors = actors;
         this.modalService.open(this.conflictModal);
-        // then methods onActorPriorityEntered() and onResolveConflict() are called from the modal
+        return; // return to prevent asynchronous execution of the loop if there's an opened modal
+        // then methods onActorPriorityEntered() and onClickResolveConflict() are called from the modal
       }
     }
+  }
+
+  areActorsConflictsResolved(actors: Actor[]): boolean {
+    return actors.filter(actor => this.conflictResolvedActors.includes(actor))
+      .length == actors.length;
   }
 
   progressActor(actor: Actor): void {
@@ -98,10 +106,14 @@ export class BattleComponent implements OnInit {
     this.actorService.addBattleCondition(actor, battleCondition);
   }
 
-  onResolveConflict() {
+  onClickResolveConflict() {
     this.actors = this.actorService.getInitiativeConflictResolvedActors(this.conflictedActorsToPriorityOrderNumbersMap);
+    for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
+      this.conflictResolvedActors.push(resolvedActor);
+    }
     this.conflictedActorsToPriorityOrderNumbersMap.clear();
     this.modalService.dismissAll();
+    this.resolveInitiativeConflicts(); //repeat to resolve next conflicted actors if present
   }
 
   onActorPriorityEntered(actor: Actor, priorityEvent: any) {
