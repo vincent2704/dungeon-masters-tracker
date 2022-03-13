@@ -2,12 +2,20 @@
 
 Current project [Angular CLI](https://github.com/angular/angular-cli) version: 13.2.4.
 
+## About the project
+This is a Dungeons & Dragons 5e tool, which's purpose is to be a kind of a **digital, interactive Dungeon Master's screen**. 
+It is **NOT a graphical interface** containing info about every skill in the game, simulate rolls etc. - 
+you've got other tools for that. It assumes that **the game action is on the table**, and handles repetitive tasks 
+that otherwise would slow down the pace of the gameplay, so everyone can focus on the 
+game itself instead of counting initiative order etc. 
+
 ## Current features
 1. Battle tracking
     * Automatically loads protagonists
     * Adding other actors
         * Checkbox for death saving throws eligibility when adding an actor to battle
     * Setting initiative and automatic sorting by initiative after starting the battle
+        * Resolving initiative conflicts with modal when some actors rolled the same initiative
     * Death
         * Removing non-magical conditions on death
     * Adding/removing conditions
