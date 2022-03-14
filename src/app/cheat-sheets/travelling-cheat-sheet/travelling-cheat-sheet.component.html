@@ -1,36 +1,46 @@
-<div class="container">
-  <table class="table table-hover table-dark">
-    <thead>
-    <tr>
-      <th scope="col">Pace</th>
-      <th scope="col">Distance/minute</th>
-      <th scope="col">Distance/hour</th>
-      <th scope="col">Distance/day</th>
-      <th scope="col">Effects</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>Fast</td>
-      <td>400 feet</td>
-      <td>4 miles</td>
-      <td>30 miles</td>
-      <td>-5 penalty to passive Wisdom (Perception) scores</td>
-    </tr>
-    <tr>
-      <td>Normal</td>
-      <td>300 feet</td>
-      <td>3 miles</td>
-      <td>24 miles</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>Slow</td>
-      <td>200 feet</td>
-      <td>2 miles</td>
-      <td>18 miles</td>
-      <td>Able to use Stealth</td>
-    </tr>
-    </tbody>
-  </table>
+<h2>Travelling</h2>
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [checked]="showInSI"
+         (change)="onUseSISystemChange()">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Use metric system</label>
 </div>
+<table class="table table-hover table-dark">
+  <thead>
+  <tr>
+    <th scope="col">Pace</th>
+    <th scope="col">Distance/minute</th>
+    <th scope="col">Distance/hour</th>
+    <th scope="col">Distance/day</th>
+    <th scope="col">Effects</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Fast</td>
+    <td>{{getDistanceInMinute(400)}}</td>
+    <td>{{getDistance(4)}}</td>
+    <td>{{getDistance(30)}}</td>
+    <td>-5 penalty to passive Wisdom (Perception) scores</td>
+  </tr>
+  <tr>
+    <td>Normal</td>
+    <td>{{getDistanceInMinute(300)}}</td>
+    <td>{{getDistance(3)}}</td>
+    <td>{{getDistance(24)}}</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Slow</td>
+    <td>{{getDistanceInMinute(200)}}</td>
+    <td>{{getDistance(2)}}</td>
+    <td>{{getDistance(18)}}</td>
+    <td>Able to use Stealth</td>
+  </tr>
+  </tbody>
+</table>
+<h3>Forced march</h3>
+<p>
+  Throw constitution saving throw after end of each hour past 8 hours of travel.
+  Difficulty class is equal to 10 + 1 per every hour passed. On a failed saving throw,
+  a character suffers one level of exhaustion.
+</p>

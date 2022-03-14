@@ -27,6 +27,8 @@ game itself instead of counting initiative order etc.
     * Automatic next round when all actors participating in battle have progressed their turn
         * Automatic progressed turn for Unconscious/Dead actors
         * Automatic condition removal when its duration ends
+2. Cheat sheets
+    * Travelling cheat sheet with metric/imperial systems switch
 
 ## Upcoming features
 1. Battle tracking
