@@ -12,6 +12,8 @@ import { AddActorComponent } from './battle/add-actor/add-actor.component';
 import { DeathSavingThrowsComponent } from './battle/condition/death-saving-throws/death-saving-throws.component';
 import { CheatSheetsComponent } from './cheat-sheets/cheat-sheets.component';
 import { TravellingCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component';
+import { CoverCheatSheetComponent } from './cheat-sheets/cover-cheat-sheet/cover-cheat-sheet.component';
+import { AbilityChecksCheatSheetComponent } from './cheat-sheets/ability-checks-cheat-sheet/ability-checks-cheat-sheet.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TravellingCheatSheetComponent } from './cheat-sheets/travelling-cheat-s
     AddActorComponent,
     DeathSavingThrowsComponent,
     CheatSheetsComponent,
-    TravellingCheatSheetComponent
+    TravellingCheatSheetComponent,
+    CoverCheatSheetComponent,
+    AbilityChecksCheatSheetComponent
   ],
   imports: [
     BrowserModule,

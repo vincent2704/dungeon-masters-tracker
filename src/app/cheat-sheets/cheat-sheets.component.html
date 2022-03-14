@@ -1,6 +1,32 @@
 <div class="row">
   <div class="col">
-    <button class="btn btn-primary" (click)="onShowTravellingCheatSheet()">Travelling</button>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Travelling</h5>
+        <p class="card-text">Cheat sheet for travelling paces, distance and time.</p>
+        <button class="btn btn-primary" (click)="onShowTravellingCheatSheet()">Show</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Cover</h5>
+        <p class="card-text">Cheat sheet displaying cover rules.</p>
+        <button class="btn btn-primary" (click)="onShowCoverCheatSheet()">Show</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Ability Checks</h5>
+        <p class="card-text">Abilities with their associated skills and typical difficulty classes.</p>
+        <button class="btn btn-primary" (click)="onShowAbilityChecksCheatSheet()">Show</button>
+      </div>
+    </div>
   </div>
 </div>
 <app-travelling-cheat-sheet *ngIf="showTravellingCheatSheet"></app-travelling-cheat-sheet>
+<app-cover-cheat-sheet *ngIf="showCoverCheatSheet"></app-cover-cheat-sheet>
+<app-ability-checks-cheat-sheet *ngIf="showAbilityChecksCheatSheet"></app-ability-checks-cheat-sheet>
