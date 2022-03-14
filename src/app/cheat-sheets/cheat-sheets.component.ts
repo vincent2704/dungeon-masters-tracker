@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheatSheetsComponent implements OnInit {
   showTravellingCheatSheet: boolean = false;
+  showCoverCheatSheet: boolean = false;
+  showAbilityChecksCheatSheet: boolean = false;
 
   constructor() { }
 
@@ -15,5 +17,13 @@ export class CheatSheetsComponent implements OnInit {
 
   onShowTravellingCheatSheet() {
     this.showTravellingCheatSheet = !this.showTravellingCheatSheet;
+  }
+
+  onShowCoverCheatSheet() {
+    this.showCoverCheatSheet = !this.showCoverCheatSheet;
+  }
+
+  onShowAbilityChecksCheatSheet() {
+    this.showAbilityChecksCheatSheet = !this.showAbilityChecksCheatSheet;
   }
 }
