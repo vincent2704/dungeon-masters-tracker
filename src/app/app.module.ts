@@ -10,6 +10,8 @@ import {PrepareBattleComponent} from "./battle/prepare-battle/prepare-battle.com
 import { ConditionComponent } from './battle/condition/condition.component';
 import { AddActorComponent } from './battle/add-actor/add-actor.component';
 import { DeathSavingThrowsComponent } from './battle/condition/death-saving-throws/death-saving-throws.component';
+import { CheatSheetsComponent } from './cheat-sheets/cheat-sheets.component';
+import { TravellingCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DeathSavingThrowsComponent } from './battle/condition/death-saving-thro
     PrepareBattleComponent,
     ConditionComponent,
     AddActorComponent,
-    DeathSavingThrowsComponent
+    DeathSavingThrowsComponent,
+    CheatSheetsComponent,
+    TravellingCheatSheetComponent
   ],
   imports: [
     BrowserModule,

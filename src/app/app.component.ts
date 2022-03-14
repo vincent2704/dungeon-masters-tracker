@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  showBattleComponent: boolean = true;
+  showCheatSheetComponent: boolean = false;
+
+  onShowBattleComponent() {
+    this.showBattleComponent = !this.showBattleComponent;
+  }
+
+  onShowCheatSheetComponent() {
+    this.showCheatSheetComponent = !this.showCheatSheetComponent;
+  }
 }
