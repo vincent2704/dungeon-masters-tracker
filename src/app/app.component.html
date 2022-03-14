@@ -1,1 +1,10 @@
-<app-battle></app-battle>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="onShowBattleComponent()">Show Battle Component</button>
+      <button class="btn btn-primary" (click)="onShowCheatSheetComponent()">Show Cheat Sheets</button>
+    </div>
+  </div>
+  <app-battle *ngIf="showBattleComponent"></app-battle>
+  <app-cheat-sheets *ngIf="showCheatSheetComponent"></app-cheat-sheets>
+</div>
