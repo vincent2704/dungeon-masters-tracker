@@ -4,43 +4,25 @@
          (change)="onUseSISystemChange()">
   <label class="form-check-label" for="flexSwitchCheckDefault">Use metric system</label>
 </div>
-<table class="table table-hover table-dark">
-  <thead>
-  <tr>
-    <th scope="col">Pace</th>
-    <th scope="col">Distance/minute</th>
-    <th scope="col">Distance/hour</th>
-    <th scope="col">Distance/day</th>
-    <th scope="col">Effects</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>Fast</td>
-    <td>{{getDistanceInMinute(400)}}</td>
-    <td>{{getDistance(4)}}</td>
-    <td>{{getDistance(30)}}</td>
-    <td>-5 penalty to passive Wisdom (Perception) scores</td>
-  </tr>
-  <tr>
-    <td>Normal</td>
-    <td>{{getDistanceInMinute(300)}}</td>
-    <td>{{getDistance(3)}}</td>
-    <td>{{getDistance(24)}}</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>Slow</td>
-    <td>{{getDistanceInMinute(200)}}</td>
-    <td>{{getDistance(2)}}</td>
-    <td>{{getDistance(18)}}</td>
-    <td>Able to use Stealth</td>
-  </tr>
-  </tbody>
-</table>
-<h3>Forced march</h3>
-<p>
-  Throw constitution saving throw after end of each hour past 8 hours of travel.
-  Difficulty class is equal to 10 + 1 per every hour passed. On a failed saving throw,
-  a character suffers one level of exhaustion.
-</p>
+<div class="row">
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Paces and distances</h5>
+        <p class="card-text">Travel paces and covered distances.</p>
+        <button class="btn btn-primary" (click)="onShowPacesAndDistances()">Show</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Wilderness</h5>
+        <p class="card-text">Rules for movement in the wilderness</p>
+        <button class="btn btn-primary" (click)="onShowWilderness()">Show</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-paces-and-distances-cheat-sheet *ngIf="showPacesAndDistances" [showInSI]="showInSI"></app-paces-and-distances-cheat-sheet>

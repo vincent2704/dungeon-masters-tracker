@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DistanceConverterService} from "../../services/distance-converter.service";
 
 @Component({
   selector: 'app-travelling-cheat-sheet',
@@ -9,25 +8,22 @@ import {DistanceConverterService} from "../../services/distance-converter.servic
 export class TravellingCheatSheetComponent implements OnInit {
 
   showInSI: boolean = true;
+  showPacesAndDistances: boolean = false;
+  showWilderness: boolean = false;
 
-  constructor(private distanceConverterService: DistanceConverterService) {
+  constructor() {
   }
 
   ngOnInit(): void {
   }
 
-  getDistanceInMinute(distanceInFeet: number): string {
-    return this.showInSI
-      ? this.distanceConverterService.convertFeetToMeters(distanceInFeet) + " m"
-      : distanceInFeet + " feet";
+  onShowPacesAndDistances() {
+    this.showPacesAndDistances = !this.showPacesAndDistances;
   }
 
-  getDistance(distanceInMiles: number): string {
-    return this.showInSI
-      ? this.distanceConverterService.convertMilesToKilometers(distanceInMiles) + " km"
-      : distanceInMiles + " miles";
+  onShowWilderness() {
+    this.showWilderness = !this.showWilderness;
   }
-
 
   onUseSISystemChange() {
     this.showInSI = !this.showInSI;
