@@ -23,12 +23,21 @@ game itself instead of counting initiative order etc.
         * Death saving throws counter when character becomes Unconscious by damage
         * Automatic setting/removing Unconscious condition when actor's HP reach 0 or gets healed
         * Automatic 'dead' state when actor's HP reaches opposite value of actor's max HP
+    * Temporary Hit Points mechanics
     * Button to progress given actor's turn
     * Automatic next round when all actors participating in battle have progressed their turn
         * Automatic progressed turn for Unconscious/Dead actors
         * Automatic condition removal when its duration ends
 2. Cheat sheets
-    * Travelling cheat sheet with metric/imperial systems switch
+    * SI/imperial systems switch
+    * Travelling cheat sheets
+        * Travel paces and distances
+        * Rules for moving in Wilderness
+    * Combat cheat sheets
+        * Cover cheat sheet
+    * Ability checks cheat sheets
+        * Abilities to associated skills
+        * Difficulty checks cheat sheet
 
 ## Upcoming features
 1. Battle tracking
