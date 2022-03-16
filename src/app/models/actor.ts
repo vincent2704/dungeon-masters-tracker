@@ -1,5 +1,6 @@
 import {Condition} from "./Condition";
 import {BattleCondition} from "./battleCondition";
+import {TemporaryHP} from "./temporaryHP";
 
 export class Actor {
 
@@ -11,6 +12,7 @@ export class Actor {
   private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
+  private temporaryHP: TemporaryHP;
 
   constructor(
     name: string,
@@ -21,7 +23,7 @@ export class Actor {
     dead: boolean = false,
     progressedInTurn: boolean = false,
     battleConditions: BattleCondition[] = [],
-    deathSavingThrowsEligibility: boolean = true
+    deathSavingThrowsEligibility: boolean = true,
   ) {
     this.name = name;
     this.maxHP = maxHP;
@@ -31,6 +33,13 @@ export class Actor {
     this.progressedInTurn = progressedInTurn;
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
+    this.temporaryHP = new TemporaryHP(0, 0);
+  }
+
+  progressActor(): void {
+    this.setActorProgress(true);
+    this.decrementConditionsDuration();
+    this.decrementTemporaryHitPointDuration();
   }
 
   getMaxHP() {
@@ -45,11 +54,30 @@ export class Actor {
     this.currentHP = hp;
   }
 
-  modifyHp(hpToAdd: number) {
+  modifyHp(hitPointsModifier: number) {
+    let isDamage: boolean = hitPointsModifier < 0;
+
+    if (hitPointsModifier === 0) {
+      console.warn("Actor's Hit Points are modified by 0!: " + this.name);
+    }
+
     if (this.isDead()) {
       return;
     }
-    this.currentHP = Number(this.currentHP) + Number(hpToAdd);
+    if (isDamage) {
+      if (this.temporaryHP.hasTemporaryHitPoints()) {
+        let temporaryHitPoints = this.temporaryHP.getHitPoints();
+        let receivedDamage = -hitPointsModifier;
+        if (receivedDamage > temporaryHitPoints) {
+          let leftOverHitPoints = receivedDamage - temporaryHitPoints;
+          this.setTemporaryHitPoints(0, 0);
+          this.modifyHp(-leftOverHitPoints);
+          return;
+        }
+      }
+    }
+
+    this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;
     }
@@ -125,6 +153,18 @@ export class Actor {
     return this.battleConditions;
   }
 
+  getTemporaryHitPoints() {
+    return this.temporaryHP;
+  }
+
+  setTemporaryHitPoints(hitPoints: number, duration: number) {
+    this.temporaryHP = new TemporaryHP(hitPoints, duration);
+  }
+
+  decrementTemporaryHitPointDuration() {
+    this.temporaryHP.decrementDuration();
+  }
+
   getAvailableConditions() {
     let availableConditions: Condition[] = [];
     for (let condition of Condition.CONDITIONS) {
@@ -155,7 +195,7 @@ export class Actor {
   decrementConditionsDuration() {
     for (let battleCondition of this.battleConditions) {
       if (!battleCondition.isPermanent()) {
-        battleCondition.setDurationInTurns(battleCondition.getDurationInTurns() - 1);
+        battleCondition.decrementDuration();
       }
     }
 
@@ -171,4 +211,5 @@ export class Actor {
       return battleCondition.getCondition()
     })
   }
+
 }
