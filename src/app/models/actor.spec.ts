@@ -2,6 +2,7 @@
 import {Actor} from "./actor";
 import {Condition} from "./Condition";
 import {BattleCondition} from "./battleCondition";
+import {TemporaryHP} from "./temporaryHP";
 
 describe('Actor', () => {
 
@@ -126,6 +127,28 @@ describe('Actor', () => {
       Condition.PRONE, Condition.RESTRAINED, Condition.EXHAUSTION];
     //then
     expect(actor.getAvailableConditions()).toEqual(expectedConditions);
+  });
+
+  it("should deplete actor's temporary Hit Points first", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.setTemporaryHitPoints(5, 3);
+    //when
+    actor.modifyHp(-7);
+    //then
+    expect(actor.getCurrentHP()).toEqual(18);
+    expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
+  });
+
+  it("should set actor's temporary Hit Points to 0 after effect wears off", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.setTemporaryHitPoints(5, 2);
+    //when
+    actor.progressActor();
+    actor.progressActor();
+    //then
+    expect(actor.getTemporaryHitPoints()).toEqual(new TemporaryHP(0, 0));
   });
 
 });

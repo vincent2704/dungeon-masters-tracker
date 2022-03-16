@@ -48,8 +48,7 @@ export class ActorService {
   progressActor(actorToProgress: Actor): void {
     let actor = this.actors.find(actor => actor == actorToProgress);
     if (actor) {
-      actor.setActorProgress(true);
-      actor.decrementConditionsDuration();
+      actor.progressActor();
     }
   }
 

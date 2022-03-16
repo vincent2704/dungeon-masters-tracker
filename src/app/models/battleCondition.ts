@@ -32,8 +32,10 @@ export class BattleCondition {
     return this.durationInTurns;
   }
 
-  setDurationInTurns(duration: number): void {
-    this.durationInTurns = duration;
+  decrementDuration(): void {
+    if(this.durationInTurns > 0) {
+      this.durationInTurns -= 1;
+    }
   }
 
 }
