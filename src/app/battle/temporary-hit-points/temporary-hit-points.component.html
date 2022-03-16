@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col">
+    <div>
+      Temporary Hit Points: {{actor.getTemporaryHitPoints().getHitPoints()}}
+      Turns left: {{actor.getTemporaryHitPoints().getTurnsLeft()}}
+    </div>
+  </div>
+  <div class="col">
+    <p>
+      <a class="btn btn-primary" data-bs-toggle="collapse" href="#{{actor.name}}TemporaryHitPoints"
+         role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add temporary Hit Points
+      </a>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="collapse" id="{{actor.name}}TemporaryHitPoints">
+    <input type="number" class="input" placeholder="Hit Points amount"
+           (keyup)="setTemporaryHitPointsToAdd($event)"
+    >
+    <input type="number" class="input" placeholder="Duration (leave blank if permanent)"
+           (keyup)="setTemporaryHitPointsToAddDuration($event)"
+    >
+    <button class="btn btn-primary" (click)="onSubmitTemporaryHitPoints(actor)">Submit</button>
+  </div>
+</div>

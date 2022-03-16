@@ -20,10 +20,6 @@ export class BattleComponent implements OnInit {
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
 
-  // temporary Hit Points form
-  temporaryHitPointsAmount: number = 0;
-  temporaryHitPointsDuration: number = 0;
-
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
   conflictedActors: Actor[] = [];
@@ -93,21 +89,6 @@ export class BattleComponent implements OnInit {
         this.conditionToAdd = condition;
       }
     }
-  }
-
-  setTemporaryHitPointsToAdd(event: Event) {
-    let hitPointAmount = parseInt((<HTMLInputElement>event.target).value);
-    if (hitPointAmount > 0) {
-      this.temporaryHitPointsAmount = hitPointAmount;
-    }
-  }
-
-  setTemporaryHitPointsToAddDuration(event: Event) {
-    this.temporaryHitPointsDuration = parseInt((<HTMLInputElement>event.target).value);
-  }
-
-  onSubmitTemporaryHitPoints(actor: Actor) {
-    actor.setTemporaryHitPoints(this.temporaryHitPointsAmount, this.temporaryHitPointsDuration);
   }
 
   setConditionToAddDuration(event: Event) {
