@@ -134,6 +134,17 @@ describe('Actor', () => {
     let actor = new Actor('Actor Name', 20);
     actor.setTemporaryHitPoints(5, 3);
     //when
+    actor.modifyHp(-4);
+    //then
+    expect(actor.getCurrentHP()).toEqual(20);
+    expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(1);
+  });
+
+  it("should deplete actor's temporary Hit Points first and then deplete actor's true Hit Points", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.setTemporaryHitPoints(5, 3);
+    //when
     actor.modifyHp(-7);
     //then
     expect(actor.getCurrentHP()).toEqual(18);
@@ -148,7 +159,9 @@ describe('Actor', () => {
     actor.progressActor();
     actor.progressActor();
     //then
-    expect(actor.getTemporaryHitPoints()).toEqual(new TemporaryHP(0, 0));
+    let actorTemporaryHP = actor.getTemporaryHitPoints();
+    let expectedTemporaryHP = new TemporaryHP(0, 0);
+    expect(actorTemporaryHP).toEqual(expectedTemporaryHP);
   });
 
 });

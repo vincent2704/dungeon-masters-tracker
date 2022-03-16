@@ -56,6 +56,7 @@ export class Actor {
 
   modifyHp(hitPointsModifier: number) {
     let isDamage: boolean = hitPointsModifier < 0;
+    console.log('isDamage: ' + isDamage);
 
     if (hitPointsModifier === 0) {
       console.warn("Actor's Hit Points are modified by 0!: " + this.name);
@@ -70,8 +71,11 @@ export class Actor {
         let receivedDamage = -hitPointsModifier;
         if (receivedDamage > temporaryHitPoints) {
           let leftOverHitPoints = receivedDamage - temporaryHitPoints;
-          this.setTemporaryHitPoints(0, 0);
+          this.temporaryHP.subtractTemporaryHitPoints(receivedDamage);
           this.modifyHp(-leftOverHitPoints);
+          return;
+        } else {
+          this.temporaryHP.subtractTemporaryHitPoints(receivedDamage);
           return;
         }
       }

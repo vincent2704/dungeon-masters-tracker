@@ -9,7 +9,6 @@ export class BattleCondition {
     private durationInTurns: number = 0) {
 
     this.permanent = durationInTurns <= 0;
-
   }
 
   getCondition() {
