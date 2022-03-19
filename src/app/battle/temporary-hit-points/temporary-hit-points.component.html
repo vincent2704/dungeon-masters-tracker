@@ -7,15 +7,15 @@
   </div>
   <div class="col">
     <p>
-      <a class="btn btn-primary" data-bs-toggle="collapse" href="#{{actor.name}}TemporaryHitPoints"
-         role="button" aria-expanded="false" aria-controls="collapseExample">
+      <a class="btn btn-primary" data-bs-toggle="collapse"
+         role="button" aria-expanded="false" (click)="showTemporaryHitPoints()">
         Add temporary Hit Points
       </a>
     </p>
   </div>
 </div>
 <div class="row">
-  <div class="collapse" id="{{actor.name}}TemporaryHitPoints">
+  <div [ngbCollapse]="isCollapsed">
     <input type="number" class="input" placeholder="Hit Points amount"
            (keyup)="setTemporaryHitPointsToAdd($event)"
     >

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TemporaryHitPointsComponent } from './temporary-hit-points.component';
 import {Actor} from "../../models/actor";
+import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 
 describe('TemporaryHitPointsComponent', () => {
   let component: TemporaryHitPointsComponent;
@@ -9,7 +10,7 @@ describe('TemporaryHitPointsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemporaryHitPointsComponent ]
+      declarations: [ TemporaryHitPointsComponent, NgbCollapse ]
     })
     .compileComponents();
   });

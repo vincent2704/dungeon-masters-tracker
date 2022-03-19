@@ -56,7 +56,6 @@ export class Actor {
 
   modifyHp(hitPointsModifier: number) {
     let isDamage: boolean = hitPointsModifier < 0;
-    console.log('isDamage: ' + isDamage);
 
     if (hitPointsModifier === 0) {
       console.warn("Actor's Hit Points are modified by 0!: " + this.name);
