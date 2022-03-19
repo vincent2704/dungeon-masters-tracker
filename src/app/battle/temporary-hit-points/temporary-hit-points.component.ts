@@ -14,6 +14,7 @@ export class TemporaryHitPointsComponent implements OnInit {
   // temporary Hit Points form
   temporaryHitPointsAmount: number = 0;
   temporaryHitPointsDuration: number = 0;
+  isCollapsed: boolean = true;
 
   constructor() { }
 
@@ -35,4 +36,7 @@ export class TemporaryHitPointsComponent implements OnInit {
     actor.setTemporaryHitPoints(this.temporaryHitPointsAmount, this.temporaryHitPointsDuration);
   }
 
+  showTemporaryHitPoints(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
 }
