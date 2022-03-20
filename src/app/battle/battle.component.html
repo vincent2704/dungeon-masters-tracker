@@ -27,19 +27,7 @@
           <app-temporary-hit-points [actor]="actor"></app-temporary-hit-points>
         </td>
         <td>
-          <app-condition *ngFor="let condition of actor.battleConditions"
-                         [battleCondition]="condition" [actor]="actor"></app-condition>
-          <form (ngSubmit)="onSubmitCondition(actor)">
-            <select
-              *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)"
-              (keydown.enter)="onSubmitCondition(actor)">
-              <option>Select condition</option>
-              <option *ngFor="let condition of actor.getAvailableConditions()">
-                {{condition.getName()}}
-              </option>
-            </select>
-            <input type="number" placeholder="Enter duration" (keydown.enter)="setConditionToAddDuration($event)">
-          </form>
+          <app-condition [actor]="actor"></app-condition>
         </td>
         <td>
           <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">

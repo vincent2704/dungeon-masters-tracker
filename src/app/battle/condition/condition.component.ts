@@ -11,13 +11,16 @@ import {Condition} from "../../models/Condition";
 })
 export class ConditionComponent implements OnInit {
 
-  @Input()
-  battleCondition!: BattleCondition;
+  CONDITIONS: Condition[] = Condition.CONDITIONS;
 
   @Input()
   actor!: Actor;
 
   showDescription: boolean = false;
+
+  // condition form
+  conditionToAdd!: Condition;
+  conditionToAddDuration: number = 0;
 
   constructor(private actorService: ActorService) {
   }
@@ -26,7 +29,9 @@ export class ConditionComponent implements OnInit {
   }
 
   isUnconscious(): boolean {
-    return this.battleCondition.getCondition() === Condition.UNCONSCIOUS;
+    return !!this.actor.battleConditions.find(battleCondition => {
+      return battleCondition.getCondition() === Condition.UNCONSCIOUS;
+    })
   }
 
   removeCondition(condition: Condition) {
@@ -43,5 +48,28 @@ export class ConditionComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  onSubmitCondition(actor: Actor) {
+    let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
+    this.actorService.addBattleCondition(actor, battleCondition);
+  }
+
+  setConditionToAdd(event: Event) {
+    let conditionName = (<HTMLInputElement>event.target).value;
+    for (let condition of this.CONDITIONS) {
+      if (condition.getName() === conditionName) {
+        this.conditionToAdd = condition;
+      }
+    }
+  }
+
+  setConditionToAddDuration(event: Event) {
+    this.conditionToAddDuration = parseInt((<HTMLInputElement>event.target).value);
+    (<HTMLInputElement>event.target).value = '';
+  }
+
+  isUnconsciousCondition(battleCondition: BattleCondition): boolean {
+    return battleCondition.getCondition() === Condition.UNCONSCIOUS;
   }
 }

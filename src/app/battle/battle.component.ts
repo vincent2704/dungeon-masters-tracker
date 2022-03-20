@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor.service";
-import {Condition} from "../models/Condition";
-import {BattleCondition} from "../models/battleCondition";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -14,11 +12,6 @@ export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
   actors: Actor[] = []; //TODO: observable from ActorService?
   round: number = 1;
-  CONDITIONS: Condition[] = Condition.CONDITIONS;
-
-  // condition form
-  conditionToAdd!: Condition;
-  conditionToAddDuration: number = 0;
 
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
@@ -82,29 +75,10 @@ export class BattleComponent implements OnInit {
     return actorToCheck.isActorTurnProgressed();
   }
 
-  setConditionToAdd(event: Event) {
-    let conditionName = (<HTMLInputElement>event.target).value;
-    for (let condition of this.CONDITIONS) {
-      if (condition.getName() === conditionName) {
-        this.conditionToAdd = condition;
-      }
-    }
-  }
-
-  setConditionToAddDuration(event: Event) {
-    this.conditionToAddDuration = parseInt((<HTMLInputElement>event.target).value);
-    (<HTMLInputElement>event.target).value = '';
-  }
-
   onSubmitHP(actor: Actor, event: any) {
     let hpModifier = parseInt(event.target.value);
     actor.modifyHp(hpModifier);
     (<HTMLInputElement>event.target).value = '';
-  }
-
-  onSubmitCondition(actor: Actor) {
-    let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
-    this.actorService.addBattleCondition(actor, battleCondition);
   }
 
   onClickResolveConflict() {
