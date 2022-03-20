@@ -19,7 +19,6 @@ describe('ConditionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionComponent);
     component = fixture.componentInstance;
-    component.battleCondition = new BattleCondition(Condition.UNCONSCIOUS);
     component.actor = new Actor('Actor', 10);
     fixture.detectChanges();
   });

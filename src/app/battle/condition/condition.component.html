@@ -1,26 +1,39 @@
 <!--{{battleCondition | json}}-->
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
-    </div>
-    <div class="col-sm">
-      <div *ngIf="showDeathSavingThrows(); else durationBlock">
-        <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
+  <div *ngFor="let battleCondition of actor.battleConditions">
+    <div class="row">
+      <div class="col-sm">
+        <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
       </div>
-      <ng-template #durationBlock>
-        <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
-          Duration left: {{battleCondition.getDurationInTurns()}}
+      <div class="col-sm">
+        <div *ngIf="showDeathSavingThrows(); else durationBlock">
+          <app-death-saving-throws [actor]="actor" *ngIf="isUnconsciousCondition(battleCondition)"></app-death-saving-throws>
         </div>
-      </ng-template>
-    </div>
-    <div class="col-sm">
-      <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
-    </div>
-    <div class="row" *ngIf="showDescription">
-      <div *ngFor="let description of battleCondition.getDescription()">
-        {{description}}
+        <ng-template #durationBlock>
+          <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
+            Duration left: {{battleCondition.getDurationInTurns()}}
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-sm">
+        <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
+      </div>
+      <div class="row" *ngIf="showDescription">
+        <div *ngFor="let description of battleCondition.getDescription()">
+          {{description}}
+        </div>
       </div>
     </div>
   </div>
+  <form (ngSubmit)="onSubmitCondition(actor)">
+    <select
+      *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)"
+      (keydown.enter)="onSubmitCondition(actor)">
+      <option>Select condition</option>
+      <option *ngFor="let condition of actor.getAvailableConditions()">
+        {{condition.getName()}}
+      </option>
+    </select>
+    <input type="number" placeholder="Enter duration" (keydown.enter)="setConditionToAddDuration($event)">
+  </form>
 </div>
