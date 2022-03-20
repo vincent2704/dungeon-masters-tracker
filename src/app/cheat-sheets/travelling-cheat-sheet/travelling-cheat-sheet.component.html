@@ -1,6 +1,6 @@
 <h2>Travelling</h2>
 <div class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [checked]="showInSI"
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [checked]="isUsingSISystem()"
          (change)="onUseSISystemChange()">
   <label class="form-check-label" for="flexSwitchCheckDefault">Use metric system</label>
 </div>
@@ -25,5 +25,5 @@
   </div>
 </div>
 
-<app-paces-and-distances-cheat-sheet *ngIf="showPacesAndDistances" [showInSI]="showInSI"></app-paces-and-distances-cheat-sheet>
-<app-wilderness-cheat-sheet *ngIf="showWilderness" [showInSI]="showInSI"></app-wilderness-cheat-sheet>
+<app-paces-and-distances-cheat-sheet *ngIf="showPacesAndDistances" [showInSI]="isUsingSISystem()"></app-paces-and-distances-cheat-sheet>
+<app-wilderness-cheat-sheet *ngIf="showWilderness" [showInSI]="isUsingSISystem()"></app-wilderness-cheat-sheet>

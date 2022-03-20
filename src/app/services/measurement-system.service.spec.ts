@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DistanceConverterService } from './distance-converter.service';
+import { MeasurementSystemService } from './measurement-system.service';
 
-describe('DistanceConverterService', () => {
-  let service: DistanceConverterService;
+describe('MeasurementSystemService', () => {
+  let service: MeasurementSystemService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DistanceConverterService);
+    service = TestBed.inject(MeasurementSystemService);
   });
 
   it('should be created', () => {

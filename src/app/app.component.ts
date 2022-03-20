@@ -16,4 +16,5 @@ export class AppComponent {
   onShowCheatSheetComponent() {
     this.showCheatSheetComponent = !this.showCheatSheetComponent;
   }
+
 }
