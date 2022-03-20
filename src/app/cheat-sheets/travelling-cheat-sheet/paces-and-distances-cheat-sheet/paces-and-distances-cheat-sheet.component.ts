@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DistanceConverterService} from "../../../services/distance-converter.service";
+import {MeasurementSystemService} from "../../../services/measurement-system.service";
 
 @Component({
   selector: 'app-paces-and-distances-cheat-sheet',
@@ -11,12 +11,12 @@ export class PacesAndDistancesCheatSheetComponent implements OnInit {
   @Input()
   showInSI!: boolean;
 
-  constructor(private distanceConverterService: DistanceConverterService) { }
+  constructor(private distanceConverterService: MeasurementSystemService) { }
 
   ngOnInit(): void {
   }
 
-  getDistanceInMinute(distanceInFeet: number): string {
+  getDistanceForMinute(distanceInFeet: number): string {
     return this.showInSI
       ? this.distanceConverterService.convertFeetToMeters(distanceInFeet) + " m"
       : distanceInFeet + " feet";

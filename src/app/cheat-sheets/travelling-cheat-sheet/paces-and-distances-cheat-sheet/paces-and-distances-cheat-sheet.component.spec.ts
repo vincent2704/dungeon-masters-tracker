@@ -31,7 +31,7 @@ describe('PacesAndDistancesCheatSheetComponent', () => {
     component.showInSI = false;
 
     //when
-    let displayedFeetDistance = component.getDistanceInMinute(feetDistance);
+    let displayedFeetDistance = component.getDistanceForMinute(feetDistance);
     let displayedMilesDistance = component.getDistance(milesDistance);
 
     //then
@@ -47,7 +47,7 @@ describe('PacesAndDistancesCheatSheetComponent', () => {
     component.showInSI = true;
 
     //when
-    let displayedFeetDistance = component.getDistanceInMinute(feetDistance);
+    let displayedFeetDistance = component.getDistanceForMinute(feetDistance);
     let displayedMilesDistance = component.getDistance(milesDistance);
 
     //then
