@@ -53,6 +53,7 @@ export class ConditionComponent implements OnInit {
   onSubmitCondition(actor: Actor) {
     let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
     this.actorService.addBattleCondition(actor, battleCondition);
+    this.conditionToAddDuration = 0;
   }
 
   setConditionToAdd(event: Event) {
