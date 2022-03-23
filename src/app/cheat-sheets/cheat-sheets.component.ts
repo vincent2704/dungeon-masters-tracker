@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MeasurementSystemService} from "../services/measurement-system.service";
 
 @Component({
   selector: 'app-cheat-sheets',
@@ -10,7 +11,7 @@ export class CheatSheetsComponent implements OnInit {
   showCoverCheatSheet: boolean = false;
   showAbilityChecksCheatSheet: boolean = false;
 
-  constructor() { }
+  constructor(private measurementSystemService: MeasurementSystemService) { }
 
   ngOnInit(): void {
   }
@@ -25,5 +26,13 @@ export class CheatSheetsComponent implements OnInit {
 
   onShowAbilityChecksCheatSheet() {
     this.showAbilityChecksCheatSheet = !this.showAbilityChecksCheatSheet;
+  }
+
+  onUseSISystemChange() {
+    this.measurementSystemService.changeUsedMeasurementSystem();
+  }
+
+  isUsingSISystem() {
+    return this.measurementSystemService.isUsingSISystem();
   }
 }
