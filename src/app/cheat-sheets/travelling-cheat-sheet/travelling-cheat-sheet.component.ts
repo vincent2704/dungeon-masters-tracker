@@ -25,10 +25,6 @@ export class TravellingCheatSheetComponent implements OnInit {
     this.showWilderness = !this.showWilderness;
   }
 
-  onUseSISystemChange() {
-    this.measurementSystemService.changeUsedMeasurementSystem();
-  }
-
   isUsingSISystem() {
     return this.measurementSystemService.isUsingSISystem();
   }

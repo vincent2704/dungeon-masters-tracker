@@ -1,14 +1,33 @@
 <h2>Travelling calculator</h2>
-<div class="row">
-  <div class="col-sm-1">
-    <select (change)="setPace($event)">
-      <option>Select pace</option>
-      <option>Fast</option>
-      <option>Normal</option>
-      <option>Slow</option>
-    </select>
-  </div>
-  <div class="col-sm-1">
-    <input type="number" [placeholder]="getTypeDistancePlaceholder()">
-  </div>
-</div>
+<table class="table table-hover table-dark">
+  <thead>
+  <tr>
+    <th scope="col">
+      <select (change)="setPace($event)">
+        <option>Select pace</option>
+        <option>Fast</option>
+        <option>Normal</option>
+        <option>Slow</option>
+      </select>
+    </th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Calculate time</td>
+    <td>
+      <input type="number" [placeholder]="getTypeDistancePlaceholder()" (keydown.enter)="onCalculateTime($event)">
+    </td>
+  </tr>
+  <tr>
+    <td>Calculate distance</td>
+    <td>
+      <input type="number" [placeholder]="getTimePlaceholder()" (keydown.enter)="onCalculateDistance($event)">
+    </td>
+  </tr>
+  </tbody>
+</table>
+<h3>
+  {{travelTimeInformation}}
+</h3>
