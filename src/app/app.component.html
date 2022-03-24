@@ -3,8 +3,10 @@
     <div class="col">
       <button class="btn btn-primary" (click)="onShowBattleComponent()">Battle</button>
       <button class="btn btn-primary" (click)="onShowCheatSheetComponent()">Cheat Sheets</button>
+      <button class="btn btn-primary" (click)="onShowToolsComponent()">Tools</button>
     </div>
   </div>
   <app-battle *ngIf="showBattleComponent"></app-battle>
   <app-cheat-sheets *ngIf="showCheatSheetComponent"></app-cheat-sheets>
+  <app-tools *ngIf="showToolsComponent"></app-tools>
 </div>
