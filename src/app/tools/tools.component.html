@@ -8,5 +8,15 @@
       </div>
     </div>
   </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Travel calculator</h5>
+        <p class="card-text">Calculate travel time for given pace and distance</p>
+        <button class="btn btn-primary" (click)="onShowTravel()">Show</button>
+      </div>
+    </div>
+  </div>
 </div>
 <app-distance-calculator *ngIf="showCalculator"></app-distance-calculator>
+<app-travel *ngIf="showTravel"></app-travel>
