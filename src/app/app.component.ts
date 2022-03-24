@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   showBattleComponent: boolean = true;
   showCheatSheetComponent: boolean = false;
+  showToolsComponent: boolean = false;
 
   onShowBattleComponent() {
     this.showBattleComponent = !this.showBattleComponent;
@@ -15,6 +16,10 @@ export class AppComponent {
 
   onShowCheatSheetComponent() {
     this.showCheatSheetComponent = !this.showCheatSheetComponent;
+  }
+
+  onShowToolsComponent() {
+    this.showToolsComponent = !this.showToolsComponent;
   }
 
 }
