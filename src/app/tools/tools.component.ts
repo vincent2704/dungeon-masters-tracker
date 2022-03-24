@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ToolsComponent implements OnInit {
 
   showCalculator: boolean = false;
+  showTravel: boolean = false;
 
   constructor() { }
 
@@ -16,5 +17,9 @@ export class ToolsComponent implements OnInit {
 
   onShowCalculator() {
     this.showCalculator = !this.showCalculator;
+  }
+
+  onShowTravel() {
+    this.showTravel = !this.showTravel;
   }
 }
