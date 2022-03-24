@@ -1,0 +1,25 @@
+<h3>3D distance calculator</h3>
+<h4>Type distance in any unit of measure</h4>
+<table class="table table-hover table-dark">
+  <thead>
+  <tr>
+    <th scope="col">Horizontal distance</th>
+    <th scope="col">Vertical distance</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <input type="number" [(ngModel)]="horizontalDistance">
+    </td>
+    <td>
+      <input type="number" [(ngModel)]="verticalDistance">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Distance between objects: {{calculate()}}
+    </td>
+  </tr>
+  </tbody>
+</table>

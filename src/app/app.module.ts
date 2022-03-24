@@ -18,6 +18,7 @@ import { PacesAndDistancesCheatSheetComponent } from './cheat-sheets/travelling-
 import { WildernessCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component';
 import { TemporaryHitPointsComponent } from './battle/temporary-hit-points/temporary-hit-points.component';
 import { ToolsComponent } from './tools/tools.component';
+import { DistanceCalculatorComponent } from "./tools/distance-calculator/distance-calculator.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ToolsComponent } from './tools/tools.component';
     PacesAndDistancesCheatSheetComponent,
     WildernessCheatSheetComponent,
     TemporaryHitPointsComponent,
-    ToolsComponent
+    ToolsComponent,
+    DistanceCalculatorComponent
   ],
   imports: [
     BrowserModule,

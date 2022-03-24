@@ -28,7 +28,9 @@ game itself instead of counting initiative order etc.
     * Automatic next round when all actors participating in battle have progressed their turn
         * Automatic progressed turn for Unconscious/Dead actors
         * Automatic condition removal when its duration ends
-2. Cheat sheets
+2. Tools
+    * 3D distance calculator (e.g. to calculate distance between afoot players and a flying dragon)
+3. Cheat sheets
     * SI/imperial systems switch
     * Travelling cheat sheets
         * Travel paces and distances
@@ -49,8 +51,9 @@ game itself instead of counting initiative order etc.
     * Recording time spent in the campaign
     * Automatic passed time increasing on travel record
     * Adding recorded events on a timeline, time passed since that event
-4. Imperial to SI/vice-versa calculator (simplified for DnD usage)
-    * all needed units - feet to meters, miles to kilometers etc.
+4. Tools
+    * Imperial to SI/vice-versa calculator (simplified for DnD usage)
+    * Travel time calculator
 5. Notes/choices made by players
 6. Cheat sheets
 
