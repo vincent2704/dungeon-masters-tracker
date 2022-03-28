@@ -20,7 +20,7 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   getTypeDistancePlaceholder(): string {
-    return this.measurementSystemService.isUsingSISystem() ? 'Type distance in kilometers' : 'Type distance in miles';
+    return this.measurementSystemService.isUsingSISystem() ? 'Distance in kilometers' : 'Distance in miles';
   }
 
   getTimePlaceholder(): string {
