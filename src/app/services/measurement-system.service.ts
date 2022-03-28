@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MeasurementSystemService {
-  private useSISystem: boolean = true;
+  useSISystem: boolean = true;
 
   private readonly feetToMetersRatio: number = 0.3;
   private readonly milesToKilometersRatio: number = 1.5;
