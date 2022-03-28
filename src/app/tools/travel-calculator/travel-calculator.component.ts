@@ -8,7 +8,7 @@ import {MeasurementSystemService} from "../../services/measurement-system.servic
 })
 export class TravelCalculatorComponent implements OnInit {
   pace: string = '';
-  travelTimeInformation: string = '';
+  travelInformation: string = '';
 
   constructor(private measurementSystemService: MeasurementSystemService) { }
 
@@ -34,23 +34,28 @@ export class TravelCalculatorComponent implements OnInit {
 
   onCalculateDistance(event: any) {
     let time = parseFloat((<HTMLInputElement>event.target).value);
-
+    this.updateTravelDistance(time);
   }
 
   private updateTravelTime(distance: number) {
-    let distanceToPaceRatio = this.getRatioForPace(this.pace);
-    let travelTimeInHours: string = (distance/distanceToPaceRatio).toFixed(1);
-    this.travelTimeInformation =  `Travel time: ${travelTimeInHours} hours`;
+    let travelTimeInHours: string = (distance/this.getOneHourTravelToPaceRatio()).toFixed(1);
+    this.travelInformation =  `Travel time: ${travelTimeInHours} hours`;
   }
 
-  private getRatioForPace(pace: string): number {
-    if(pace === 'Fast') {
+  private updateTravelDistance(time: number) {
+    let distanceTraveledForHours = (time * this.getOneHourTravelToPaceRatio()).toFixed(1);
+    let measureUnit = this.measurementSystemService.isUsingSISystem() ? 'kilometers' : 'miles';
+    this.travelInformation =  `Traveled distance: ${distanceTraveledForHours} ${measureUnit}`;
+  }
+
+  private getOneHourTravelToPaceRatio(): number {
+    if(this.pace === 'Fast') {
       return this.measurementSystemService.isUsingSISystem() ? 6 : 4;
     }
-    if(pace === 'Normal') {
+    if(this.pace === 'Normal') {
       return this.measurementSystemService.isUsingSISystem() ? 4.5 : 3;
     }
-    if(pace === 'Slow') {
+    if(this.pace === 'Slow') {
       return this.measurementSystemService.isUsingSISystem() ? 3 : 2;
     }
     console.error('ERROR ON SELECTING PACE');
