@@ -20,6 +20,7 @@ import { TemporaryHitPointsComponent } from './battle/temporary-hit-points/tempo
 import { ToolsComponent } from './tools/tools.component';
 import { DistanceCalculatorComponent } from "./tools/distance-calculator/distance-calculator.component";
 import { TravelCalculatorComponent } from "./tools/travel-calculator/travel-calculator.component";
+import { CombatEncounterComponent } from './cheat-sheets/combat-encounter/combat-encounter.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TravelCalculatorComponent } from "./tools/travel-calculator/travel-calc
     ToolsComponent,
     DistanceCalculatorComponent,
     TravelCalculatorComponent,
+    CombatEncounterComponent,
   ],
   imports: [
     BrowserModule,

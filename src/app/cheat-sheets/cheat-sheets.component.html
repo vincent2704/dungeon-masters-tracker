@@ -31,7 +31,17 @@
       </div>
     </div>
   </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Combat Creation</h5>
+        <p class="card-text">Tables representing data useful to create combat encounters</p>
+        <button class="btn btn-primary" (click)="onShowCombatEncounterCheatSheet()">Show</button>
+      </div>
+    </div>
+  </div>
 </div>
 <app-travelling-cheat-sheet *ngIf="showTravellingCheatSheet"></app-travelling-cheat-sheet>
 <app-cover-cheat-sheet *ngIf="showCoverCheatSheet"></app-cover-cheat-sheet>
 <app-ability-checks-cheat-sheet *ngIf="showAbilityChecksCheatSheet"></app-ability-checks-cheat-sheet>
+<app-combat-encounter *ngIf="showCombatEncounterCheatSheet"></app-combat-encounter>
