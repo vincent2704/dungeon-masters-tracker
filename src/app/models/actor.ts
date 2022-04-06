@@ -8,6 +8,7 @@ export class Actor {
   maxHP: number;
   private currentHP: number;
   initiative: number;
+  private level: number;
   private dead: boolean;
   private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
@@ -19,6 +20,7 @@ export class Actor {
     maxHP: number,
     currentHP: number = maxHP,
     initiative: number = 0,
+    level: number = 0,
     unconscious: boolean = false,
     dead: boolean = false,
     progressedInTurn: boolean = false,
@@ -29,6 +31,7 @@ export class Actor {
     this.maxHP = maxHP;
     this.currentHP = currentHP;
     this.initiative = initiative;
+    this.level = level;
     this.dead = dead;
     this.progressedInTurn = progressedInTurn;
     this.battleConditions = battleConditions;
@@ -109,6 +112,14 @@ export class Actor {
 
   setInitiative(initiative: number) {
     this.initiative = initiative;
+  }
+
+  getLevel() {
+    return this.level;
+  }
+
+  setLevel(level: number) {
+    this.level = level;
   }
 
   setActorProgress(progressed: boolean) {

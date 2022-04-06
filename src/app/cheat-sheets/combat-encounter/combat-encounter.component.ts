@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {CombatDataService} from "../../services/combat-data.service";
+import {Difficulty} from "../../models/combat-data/Difficulty";
 
 @Component({
   selector: 'app-combat-encounter',
@@ -25,10 +27,26 @@ export class CombatEncounterComponent implements OnInit {
     "more player characters. Survival often requires good " +
     "tactics and quick thinking, and the party risks defeat.";
 
-  constructor() {
+  constructor(private combatDataService: CombatDataService) {
   }
 
   ngOnInit(): void {
+  }
+
+  getEasyThreshold(level: number) {
+    return this.combatDataService.getXpThreshold(Difficulty.EASY, level);
+  }
+
+  getMediumThreshold(level: number) {
+    return this.combatDataService.getXpThreshold(Difficulty.MEDIUM, level);
+  }
+
+  getHardThreshold(level: number) {
+    return this.combatDataService.getXpThreshold(Difficulty.HARD, level);
+  }
+
+  getDeadlyThreshold(level: number) {
+    return this.combatDataService.getXpThreshold(Difficulty.DEADLY, level);
   }
 
 }
