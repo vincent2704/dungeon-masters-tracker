@@ -30,6 +30,7 @@ game itself instead of counting initiative order etc.
         * Automatic condition removal when its duration ends
 2. Tools
     * 3D distance calculator (e.g. to calculate distance between afoot players and a flying dragon)
+    * Travel time calculator
 3. Cheat sheets
     * SI/imperial systems switch
     * Travelling cheat sheets
@@ -53,8 +54,16 @@ game itself instead of counting initiative order etc.
     * Adding recorded events on a timeline, time passed since that event
 4. Tools
     * Imperial to SI/vice-versa calculator (simplified for DnD usage)
-    * Travel time calculator
-5. Notes/choices made by players
+    * Travel time calculator enhancements
+        * Taking into account that e.g. day of traveling with slow pace doesn't add up to 8 hours etc.
+    * Combat encounter design tool
+        * Calculating difficulty for given actors and monsters
+        * Calculating monster options for desired difficulty
+        * Monster dropdown based on Monster Manual
+5. Custom notes
+    * Creating, editing, deleting and editing
+    * Displaying date when created and last edited
+    * Title and optional description
 6. Cheat sheets
 
 ## Known issues
