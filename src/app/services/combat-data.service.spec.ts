@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CombatDataService } from './combat-data.service';
+import {CombatDataService} from './combat-data.service';
 import {Actor} from "../models/actor";
 import {Difficulty} from "../models/combat-data/Difficulty";
 
@@ -43,14 +43,14 @@ describe('CombatDataService', () => {
     expect(deadlyXpThreshold).toEqual(8_800);
   });
 
-  it('should return combat multiplier', () => {
+  it('should return standard combat multiplier', () => {
     //when
-    let firstMultiplier = service.getCombatMultiplier(1);
-    let secondMultiplier = service.getCombatMultiplier(2);
-    let thirdMultiplier = service.getCombatMultiplier(5);
-    let fourthMultiplier = service.getCombatMultiplier(9);
-    let fifthMultiplier = service.getCombatMultiplier(14);
-    let sixthMultiplier = service.getCombatMultiplier(16);
+    let firstMultiplier = service.getCombatMultiplierValue(4, 1);
+    let secondMultiplier = service.getCombatMultiplierValue(4, 2);
+    let thirdMultiplier = service.getCombatMultiplierValue(4, 5);
+    let fourthMultiplier = service.getCombatMultiplierValue(4, 9);
+    let fifthMultiplier = service.getCombatMultiplierValue(4, 14);
+    let sixthMultiplier = service.getCombatMultiplierValue(4, 16);
 
     //then
     expect(firstMultiplier).toEqual(1);
@@ -59,6 +59,24 @@ describe('CombatDataService', () => {
     expect(fourthMultiplier).toEqual(2.5);
     expect(fifthMultiplier).toEqual(3);
     expect(sixthMultiplier).toEqual(4);
+  });
+
+  it('should return proper multiplier for party smaller than 3', () => {
+    //when
+    let firstMultiplier = service.getCombatMultiplierValue(2, 1);
+    let secondMultiplier = service.getCombatMultiplierValue(2, 2);
+    let thirdMultiplier = service.getCombatMultiplierValue(2, 5);
+    let fourthMultiplier = service.getCombatMultiplierValue(2, 9);
+    let fifthMultiplier = service.getCombatMultiplierValue(2, 14);
+    let sixthMultiplier = service.getCombatMultiplierValue(2, 16);
+
+    //then
+    expect(firstMultiplier).toEqual(1.5);
+    expect(secondMultiplier).toEqual(2);
+    expect(thirdMultiplier).toEqual(2.5);
+    expect(fourthMultiplier).toEqual(3);
+    expect(fifthMultiplier).toEqual(4);
+    expect(sixthMultiplier).toEqual(5);
   });
 
   it('should return easy difficulty for various monster XP and count', () => {

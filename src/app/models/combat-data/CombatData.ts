@@ -1,3 +1,5 @@
+import {EncounterMultiplier} from "./EncounterMultiplier";
+
 export class CombatData {
 
   private constructor() {}
@@ -99,28 +101,6 @@ export class CombatData {
     [18, 9500],
     [19, 10_900],
     [20, 12_700],
-  ]);
-
-  // data from Encounter Multipliers table. Key is number of monsters, value is the multiplier used to calculate
-  // encounter difficulty. Note that it has more rows than the one in DM guide, because table there uses monsters count
-  // range, e.g. 3-6 in one row, here for the sake of simpler calculating they are spread into 4 separate rows
-  // source - Dungeon Master's Guide, page 82.
-  static readonly ENCOUNTER_MULTIPLIERS = new Map<number, number>([
-    [1, 1],
-    [2, 1.5],
-    [3, 2],
-    [4, 2],
-    [5, 2],
-    [6, 2],
-    [7, 2.5],
-    [8, 2.5],
-    [9, 2.5],
-    [10, 2.5],
-    [11, 3],
-    [12, 3],
-    [13, 3],
-    [14, 3],
-    [15, 4],
   ]);
 
 }

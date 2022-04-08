@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CombatDataService} from "../../services/combat-data.service";
 import {Difficulty} from "../../models/combat-data/Difficulty";
+import {EncounterMultiplier} from "../../models/combat-data/EncounterMultiplier";
 
 @Component({
   selector: 'app-combat-encounter',
@@ -48,5 +49,30 @@ export class CombatEncounterComponent implements OnInit {
   getDeadlyThreshold(level: number) {
     return this.combatDataService.getXpThreshold(Difficulty.DEADLY, level);
   }
+
+  getOneMonsterMultiplier() {
+    return EncounterMultiplier.ONE_MONSTER_MULTIPLIER.getMultiplier();
+  }
+
+  getTwoMonstersMultiplier() {
+    return EncounterMultiplier.TWO_MONSTERS_MULTIPLIER.getMultiplier();
+  }
+
+  getThreeToSixMonstersMultiplier() {
+    return EncounterMultiplier.THREE_TO_SIX_MONSTERS_MULTIPLIER.getMultiplier();
+  }
+
+  getSevenToTenMonstersMultiplier() {
+    return EncounterMultiplier.SEVEN_TO_TEN_MONSTERS_MULTIPLIER.getMultiplier();
+  }
+
+  getElevenToFourteenMonstersMultiplier() {
+    return EncounterMultiplier.ELEVEN_TO_FOURTEEN_MONSTERS_MULTIPLIER.getMultiplier();
+  }
+
+  getFifteenAndMoreMonstersMultiplier() {
+    return EncounterMultiplier.FIFTEEN_AND_MORE_MONSTERS_MULTIPLIER.getMultiplier();
+  }
+
 
 }
