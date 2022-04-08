@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Difficulty} from "../models/combat-data/Difficulty";
 import {Actor} from "../models/actor";
 import {CombatData} from "../models/combat-data/CombatData";
+import {EncounterMultiplier} from "../models/combat-data/EncounterMultiplier";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class CombatDataService {
         and
       4. Modify Total XP for Multiple Monsters
     */
-    let multiplier = this.getCombatMultiplier(monsterCount);
+    let multiplier = this.getCombatMultiplierValue(actors.length, monsterCount);
     let monstersTotalXp = monstersXp * multiplier;
 
     /*
@@ -41,8 +42,7 @@ export class CombatDataService {
     }
     if (monstersTotalXp >= mediumDifficultyThreshold) {
       return Difficulty.MEDIUM;
-    }
-    else {
+    } else {
       return Difficulty.EASY;
     }
   }
@@ -85,15 +85,28 @@ export class CombatDataService {
     }
   }
 
-  getCombatMultiplier(monsterCount: number): number {
+  getCombatMultiplierValue(partySize: number, monsterCount: number): number {
     if (monsterCount < 0) {
       console.error(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
       return 0;
     }
-    if (monsterCount > 15) {
-      return 4;
+
+    let multiplier: EncounterMultiplier = EncounterMultiplier.getEncounterMultiplier(monsterCount);
+
+    if (partySize < 3) {
+      return this.getOneLevelHigherMultiplierValue(multiplier);
     }
-    return CombatData.ENCOUNTER_MULTIPLIERS.get(monsterCount)!;
+    return EncounterMultiplier.getEncounterMultiplier(monsterCount).getMultiplier();
+  }
+
+  private getOneLevelHigherMultiplierValue(multiplier: EncounterMultiplier): number {
+    let allMultipliers = EncounterMultiplier.ENCOUNTER_MULTIPLIERS;
+    let encounterMultiplierIndex = allMultipliers.indexOf(multiplier);
+    if (encounterMultiplierIndex === allMultipliers.length - 1) {
+      return 5;
+    }
+
+    return EncounterMultiplier.ENCOUNTER_MULTIPLIERS[encounterMultiplierIndex + 1].getMultiplier();
   }
 
 }
