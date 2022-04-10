@@ -79,6 +79,24 @@ describe('CombatDataService', () => {
     expect(sixthMultiplier).toEqual(5);
   });
 
+  it('should return proper multiplier for party bigger than 5', () => {
+    //when
+    let firstMultiplier = service.getCombatMultiplierValue(6, 1);
+    let secondMultiplier = service.getCombatMultiplierValue(6, 2);
+    let thirdMultiplier = service.getCombatMultiplierValue(6, 5);
+    let fourthMultiplier = service.getCombatMultiplierValue(6, 9);
+    let fifthMultiplier = service.getCombatMultiplierValue(6, 14);
+    let sixthMultiplier = service.getCombatMultiplierValue(6, 16);
+
+    //then
+    expect(firstMultiplier).toEqual(.5);
+    expect(secondMultiplier).toEqual(1);
+    expect(thirdMultiplier).toEqual(1.5);
+    expect(fourthMultiplier).toEqual(2);
+    expect(fifthMultiplier).toEqual(2.5);
+    expect(sixthMultiplier).toEqual(3);
+  });
+
   it('should return easy difficulty for various monster XP and count', () => {
     //given
     let actor1 = new Actor('Actor 1', 10);

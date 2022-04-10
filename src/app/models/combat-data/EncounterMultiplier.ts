@@ -1,6 +1,7 @@
 export class EncounterMultiplier {
 
-  private constructor(private multiplier: number) {}
+  private constructor(private multiplier: number) {
+  }
 
   getMultiplier() {
     return this.multiplier;
@@ -14,9 +15,12 @@ export class EncounterMultiplier {
   static FIFTEEN_AND_MORE_MONSTERS_MULTIPLIER = new EncounterMultiplier(4);
 
   static ENCOUNTER_MULTIPLIERS = [
-    EncounterMultiplier.ONE_MONSTER_MULTIPLIER, EncounterMultiplier.TWO_MONSTERS_MULTIPLIER,
-    EncounterMultiplier.THREE_TO_SIX_MONSTERS_MULTIPLIER, EncounterMultiplier.SEVEN_TO_TEN_MONSTERS_MULTIPLIER,
-    EncounterMultiplier.ELEVEN_TO_FOURTEEN_MONSTERS_MULTIPLIER, EncounterMultiplier.FIFTEEN_AND_MORE_MONSTERS_MULTIPLIER
+    EncounterMultiplier.ONE_MONSTER_MULTIPLIER,
+    EncounterMultiplier.TWO_MONSTERS_MULTIPLIER,
+    EncounterMultiplier.THREE_TO_SIX_MONSTERS_MULTIPLIER,
+    EncounterMultiplier.SEVEN_TO_TEN_MONSTERS_MULTIPLIER,
+    EncounterMultiplier.ELEVEN_TO_FOURTEEN_MONSTERS_MULTIPLIER,
+    EncounterMultiplier.FIFTEEN_AND_MORE_MONSTERS_MULTIPLIER
   ];
 
   // data from Encounter Multipliers table. Key is number of monsters, value is the multiplier used to calculate
@@ -42,7 +46,7 @@ export class EncounterMultiplier {
   ]);
 
   static getEncounterMultiplier(monsterCount: number): EncounterMultiplier {
-    if(monsterCount >= 15) {
+    if (monsterCount >= 15) {
       return this.ENCOUNTER_MULTIPLIERS_TABLE.get(15)!;
     }
     return this.ENCOUNTER_MULTIPLIERS_TABLE.get(monsterCount)!;
