@@ -64,6 +64,24 @@ export class CombatDataService {
     return xpThreshold;
   }
 
+  getCombatMultiplierValue(partySize: number, monsterCount: number): number {
+    if (monsterCount < 0) {
+      console.error(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
+      return 0;
+    }
+
+    let multiplier: EncounterMultiplier = EncounterMultiplier.getEncounterMultiplier(monsterCount);
+
+    // according to Dungeon Master's Guide, page 83.
+    if (partySize < 3) {
+      return this.getOneLevelHigherMultiplierValue(multiplier);
+    }
+    if(partySize > 5) {
+      return this.getOneLevelLowerMultiplierValue(multiplier);
+    }
+    return EncounterMultiplier.getEncounterMultiplier(monsterCount).getMultiplier();
+  }
+
   private getValueMap(difficulty: Difficulty): Map<number, number> {
     switch (difficulty) {
       case Difficulty.EASY: {
@@ -85,28 +103,21 @@ export class CombatDataService {
     }
   }
 
-  getCombatMultiplierValue(partySize: number, monsterCount: number): number {
-    if (monsterCount < 0) {
-      console.error(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
-      return 0;
-    }
-
-    let multiplier: EncounterMultiplier = EncounterMultiplier.getEncounterMultiplier(monsterCount);
-
-    if (partySize < 3) {
-      return this.getOneLevelHigherMultiplierValue(multiplier);
-    }
-    return EncounterMultiplier.getEncounterMultiplier(monsterCount).getMultiplier();
-  }
-
   private getOneLevelHigherMultiplierValue(multiplier: EncounterMultiplier): number {
     let allMultipliers = EncounterMultiplier.ENCOUNTER_MULTIPLIERS;
     let encounterMultiplierIndex = allMultipliers.indexOf(multiplier);
     if (encounterMultiplierIndex === allMultipliers.length - 1) {
       return 5;
     }
-
     return EncounterMultiplier.ENCOUNTER_MULTIPLIERS[encounterMultiplierIndex + 1].getMultiplier();
   }
 
+  private getOneLevelLowerMultiplierValue(multiplier: EncounterMultiplier) {
+    let allMultipliers = EncounterMultiplier.ENCOUNTER_MULTIPLIERS;
+    let encounterMultiplierIndex = allMultipliers.indexOf(multiplier);
+    if (encounterMultiplierIndex === 0) {
+      return 0.5;
+    }
+    return EncounterMultiplier.ENCOUNTER_MULTIPLIERS[encounterMultiplierIndex - 1].getMultiplier();
+  }
 }
