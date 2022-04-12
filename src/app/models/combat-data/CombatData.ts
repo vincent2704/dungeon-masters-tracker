@@ -1,5 +1,3 @@
-import {EncounterMultiplier} from "./EncounterMultiplier";
-
 export class CombatData {
 
   private constructor() {}

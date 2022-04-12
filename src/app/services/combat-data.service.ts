@@ -18,7 +18,6 @@ export class CombatDataService {
         and
       2. Determine the Party's XP Threshold
     */
-    //TODO: in future - take into account number of actors less than 3 and more than 5 for correct multiplier (DMG, page 83.)
     let mediumDifficultyThreshold = this.getActorsDifficultyThreshold(Difficulty.MEDIUM, actors);
     let hardDifficultyThreshold = this.getActorsDifficultyThreshold(Difficulty.HARD, actors);
     let deadlyDifficultyThreshold = this.getActorsDifficultyThreshold(Difficulty.DEADLY, actors);
@@ -30,6 +29,7 @@ export class CombatDataService {
     */
     let multiplier = this.getCombatMultiplierValue(actors.length, monsterCount);
     let monstersTotalXp = monstersXp * multiplier;
+    console.log(`monsters total XP: ${monstersTotalXp}`);
 
     /*
       5. Compare XP
@@ -65,7 +65,7 @@ export class CombatDataService {
   }
 
   getCombatMultiplierValue(partySize: number, monsterCount: number): number {
-    if (monsterCount < 0) {
+    if (monsterCount < 1) {
       console.error(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
       return 0;
     }

@@ -31,6 +31,9 @@ game itself instead of counting initiative order etc.
 2. Tools
     * 3D distance calculator (e.g. to calculate distance between afoot players and a flying dragon)
     * Travel time calculator
+    * Combat difficulty calculator
+        * Based on Dungeon Master's Guide, page 82.
+        * Calculates difficulty based on selected actors, monster total XP and monster count
 3. Cheat sheets
     * SI/imperial systems switch
     * Travelling cheat sheets
@@ -41,13 +44,14 @@ game itself instead of counting initiative order etc.
     * Ability checks cheat sheets
         * Abilities to associated skills
         * Difficulty checks cheat sheet
-
+     * XP Thresholds by Character Level and Encounter Multipliers
+     
 ## Upcoming features
 1. Battle tracking
     * Modifying actors' HP before the battle
     * Adding/removing actors before the battle
     * Editing condition duration mid-fight
-2. Persisting data after refresh
+2. Persisting data
 3. Time progress
     * Recording time spent in the campaign
     * Automatic passed time increasing on travel record
@@ -56,10 +60,11 @@ game itself instead of counting initiative order etc.
     * Imperial to SI/vice-versa calculator (simplified for DnD usage)
     * Travel time calculator enhancements
         * Taking into account that e.g. day of traveling with slow pace doesn't add up to 8 hours etc.
-    * Combat encounter design tool
-        * Calculating difficulty for given actors and monsters
-        * Calculating monster options for desired difficulty
-        * Monster dropdown based on Monster Manual
+    * Combat difficulty calculator
+        * Calculating monster total XP based on actors, monster count and desired difficulty
+        * Encounter builder based on desired actors and difficulty
+            * Monster dropdown based on Monster Manual
+            * Filtering available monsters from that dropdown
 5. Custom notes
     * Creating, editing, deleting and editing
     * Displaying date when created and last edited
