@@ -7,19 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolsComponent implements OnInit {
 
-  showCalculator: boolean = false;
-  showTravel: boolean = false;
+  show3dDistanceCalculator: boolean = false;
+  showTravelCalculator: boolean = false;
+  showCombatDifficultyCalculator: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onShowCalculator() {
-    this.showCalculator = !this.showCalculator;
+  onShow3dCalculator() {
+    this.show3dDistanceCalculator = !this.show3dDistanceCalculator;
   }
 
-  onShowTravel() {
-    this.showTravel = !this.showTravel;
+  onShowTravelCalculator() {
+    this.showTravelCalculator = !this.showTravelCalculator;
+  }
+
+  onShowCombatDifficultyCalculator() {
+    this.showCombatDifficultyCalculator = !this.showCombatDifficultyCalculator;
   }
 }

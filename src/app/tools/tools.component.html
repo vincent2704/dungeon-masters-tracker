@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5 class="card-title">3D distance calculator</h5>
         <p class="card-text">Calculate distance between actors and objects that are on a different height level, e.g. between standing players and a flying dragon.</p>
-        <button class="btn btn-primary" (click)="onShowCalculator()">Show</button>
+        <button class="btn btn-primary" (click)="onShow3dCalculator()">Show</button>
       </div>
     </div>
   </div>
@@ -13,10 +13,20 @@
       <div class="card-body">
         <h5 class="card-title">Travel calculator</h5>
         <p class="card-text">Calculate travel time for given pace and distance</p>
-        <button class="btn btn-primary" (click)="onShowTravel()">Show</button>
+        <button class="btn btn-primary" (click)="onShowTravelCalculator()">Show</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Combat difficulty calculator</h5>
+        <p class="card-text">Calculate combat difficulty based on actors and monsters input</p>
+        <button class="btn btn-primary" (click)="onShowCombatDifficultyCalculator()">Show</button>
       </div>
     </div>
   </div>
 </div>
-<app-distance-calculator *ngIf="showCalculator"></app-distance-calculator>
-<app-travel *ngIf="showTravel"></app-travel>
+<app-distance-calculator *ngIf="show3dDistanceCalculator"></app-distance-calculator>
+<app-travel-calculator *ngIf="showTravelCalculator"></app-travel-calculator>
+<app-combat-difficulty-calculator *ngIf="showCombatDifficultyCalculator"></app-combat-difficulty-calculator>

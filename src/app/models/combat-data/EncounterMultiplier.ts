@@ -14,7 +14,7 @@ export class EncounterMultiplier {
   static ELEVEN_TO_FOURTEEN_MONSTERS_MULTIPLIER = new EncounterMultiplier(3);
   static FIFTEEN_AND_MORE_MONSTERS_MULTIPLIER = new EncounterMultiplier(4);
 
-  static ENCOUNTER_MULTIPLIERS = [
+  static readonly ENCOUNTER_MULTIPLIERS = [
     EncounterMultiplier.ONE_MONSTER_MULTIPLIER,
     EncounterMultiplier.TWO_MONSTERS_MULTIPLIER,
     EncounterMultiplier.THREE_TO_SIX_MONSTERS_MULTIPLIER,

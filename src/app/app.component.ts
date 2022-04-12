@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  showBattleComponent: boolean = true;
+  showBattleComponent: boolean = false;
   showCheatSheetComponent: boolean = false;
-  showToolsComponent: boolean = false;
+  showToolsComponent: boolean = true;
 
   onShowBattleComponent() {
     this.showBattleComponent = !this.showBattleComponent;

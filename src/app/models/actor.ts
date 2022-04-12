@@ -20,7 +20,7 @@ export class Actor {
     maxHP: number,
     currentHP: number = maxHP,
     initiative: number = 0,
-    level: number = 0,
+    level: number = 1,
     unconscious: boolean = false,
     dead: boolean = false,
     progressedInTurn: boolean = false,

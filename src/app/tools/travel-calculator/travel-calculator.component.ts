@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MeasurementSystemService} from "../../services/measurement-system.service";
 
 @Component({
-  selector: 'app-travel',
+  selector: 'app-travel-calculator',
   templateUrl: './travel-calculator.component.html',
   styleUrls: ['./travel-calculator.component.css']
 })
