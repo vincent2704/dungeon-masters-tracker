@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CombatEncounterComponent } from './combat-encounter.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('CombatEncounterComponent', () => {
   let component: CombatEncounterComponent;
@@ -8,6 +9,7 @@ describe('CombatEncounterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgbModule],
       declarations: [ CombatEncounterComponent ]
     })
     .compileComponents();

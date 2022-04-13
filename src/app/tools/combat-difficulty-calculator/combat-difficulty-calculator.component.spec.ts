@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CombatDifficultyCalculatorComponent } from './combat-difficulty-calculator.component';
+import {FormsModule} from "@angular/forms";
 
 describe('CombatDifficultyCalculatorComponent', () => {
   let component: CombatDifficultyCalculatorComponent;
@@ -8,6 +9,7 @@ describe('CombatDifficultyCalculatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [ CombatDifficultyCalculatorComponent ]
     })
     .compileComponents();
