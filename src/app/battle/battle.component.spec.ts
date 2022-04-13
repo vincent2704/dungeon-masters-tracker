@@ -61,4 +61,30 @@ describe('BattleComponent', () => {
     expect(battleComponent.conflictedActors).toEqual([]);
   });
 
+  it("should resolve initiative conflicts and return actors in proper order", () => {
+    // given
+    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    let actor2 = new Actor('Actor 2', 1, 1, 3);
+    let actor3 = new Actor('Actor 3', 1, 1, 11);
+    let actor4 = new Actor('Actor 4', 1, 1, 20);
+    let actor5 = new Actor('Actor 5', 1, 1, 1);
+
+    battleComponent.setActors([actor1, actor2, actor3, actor4, actor5]);
+    battleComponent.sortActorsByInitiative();
+
+    //and
+    let actorsToPriorityMap = new Map<Actor, number>();
+    actorsToPriorityMap.set(actor2, 1);
+    actorsToPriorityMap.set(actor1, 2);
+    battleComponent.conflictedActorsToPriorityOrderNumbersMap = actorsToPriorityMap;
+    // remember priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
+    let expectedActors = [actor4, actor3, actor2, actor1, actor5];
+    //when
+    let sortedActors = battleComponent.getInitiativeConflictResolvedActors();
+
+    //then
+    expect(sortedActors).toEqual(expectedActors);
+    expect(battleComponent.actors).toEqual(expectedActors);
+  });
+
 });

@@ -31,7 +31,6 @@ export class ActorService {
 
   getProtagonistsActors(): Actor[] {
     this.actors = PROTAGONISTS.slice();
-
     return this.actors;
   }
 
@@ -73,22 +72,4 @@ export class ActorService {
     }
   }
 
-  getInitiativeConflictResolvedActors(conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number>): Actor[] {
-    for (let [currentActor, currentActorOrder] of conflictedActorsToPriorityOrderNumbersMap) {
-      for (let [nextActor, nextActorOrder] of conflictedActorsToPriorityOrderNumbersMap) {
-        if (currentActor != nextActor) {
-          // priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
-          if (nextActorOrder < currentActorOrder) {
-            let currentActorIndex = this.actors.indexOf(currentActor);
-            let nextActorIndex = this.actors.indexOf(nextActor);
-            if (nextActorIndex > currentActorIndex) {
-              this.actors[currentActorIndex] = nextActor;
-              this.actors[nextActorIndex] = currentActor;
-            }
-          }
-        }
-      }
-    }
-    return this.actors;
-  }
 }
