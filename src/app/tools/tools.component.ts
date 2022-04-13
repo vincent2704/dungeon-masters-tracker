@@ -9,7 +9,7 @@ export class ToolsComponent implements OnInit {
 
   show3dDistanceCalculator: boolean = false;
   showTravelCalculator: boolean = false;
-  showCombatDifficultyCalculator: boolean = true;
+  showCombatDifficultyCalculator: boolean = false;
 
   constructor() { }
 

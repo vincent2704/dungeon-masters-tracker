@@ -22,6 +22,7 @@ import { DistanceCalculatorComponent } from "./tools/distance-calculator/distanc
 import { TravelCalculatorComponent } from "./tools/travel-calculator/travel-calculator.component";
 import { CombatEncounterComponent } from './cheat-sheets/combat-encounter/combat-encounter.component';
 import { CombatDifficultyCalculatorComponent } from './tools/combat-difficulty-calculator/combat-difficulty-calculator.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CombatDifficultyCalculatorComponent } from './tools/combat-difficulty-c
     TravelCalculatorComponent,
     CombatEncounterComponent,
     CombatDifficultyCalculatorComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

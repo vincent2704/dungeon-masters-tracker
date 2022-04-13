@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MeasurementSystemService} from "../services/measurement-system.service";
 
 @Component({
   selector: 'app-cheat-sheets',
@@ -12,32 +11,36 @@ export class CheatSheetsComponent implements OnInit {
   showAbilityChecksCheatSheet: boolean = false;
   showCombatEncounterCheatSheet: boolean = false;
 
-  constructor(private measurementSystemService: MeasurementSystemService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  onUseSISystemChange() {
-    this.measurementSystemService.changeUsedMeasurementSystem();
-  }
-
-  isUsingSISystem() {
-    return this.measurementSystemService.isUsingSISystem();
-  }
-
   onShowTravellingCheatSheet() {
     this.showTravellingCheatSheet = !this.showTravellingCheatSheet;
+    this.showCoverCheatSheet = false;
+    this.showAbilityChecksCheatSheet = false;
+    this.showCombatEncounterCheatSheet = false;
   }
 
   onShowCoverCheatSheet() {
+    this.showTravellingCheatSheet = false;
     this.showCoverCheatSheet = !this.showCoverCheatSheet;
+    this.showAbilityChecksCheatSheet = false;
+    this.showCombatEncounterCheatSheet = false;
   }
 
   onShowAbilityChecksCheatSheet() {
+    this.showTravellingCheatSheet = false;
+    this.showCoverCheatSheet = false;
     this.showAbilityChecksCheatSheet = !this.showAbilityChecksCheatSheet;
+    this.showCombatEncounterCheatSheet = false;
   }
 
   onShowCombatEncounterCheatSheet() {
+    this.showTravellingCheatSheet = false;
+    this.showCoverCheatSheet = false;
+    this.showAbilityChecksCheatSheet = false;
     this.showCombatEncounterCheatSheet = !this.showCombatEncounterCheatSheet;
   }
 }
