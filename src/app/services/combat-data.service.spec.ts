@@ -128,17 +128,17 @@ describe('CombatDataService', () => {
     let actor3 = new Actor('Actor 3', 10);
     let actor4 = new Actor('Actor 4', 10);
 
-    actor1.setLevel(5);
-    actor2.setLevel(7);
-    actor3.setLevel(9);
-    actor4.setLevel(11);
+    actor1.setLevel(3);
+    actor2.setLevel(3);
+    actor3.setLevel(3);
+    actor4.setLevel(2);
 
     let actors = [actor1, actor2, actor3, actor4];
 
-    let monsterXpEasy = 800;
-    let monsterXpMedium = 1000;
-    let monsterXpHard = 3000;
-    let monsterXpDeadly = 4500;
+    let monsterXpEasy = 250; // threshold - 275, monster XP for 5 monsters - 500
+    let monsterXpMedium = 300; // 550, monster XP - 600
+    let monsterXpHard = 415; // 825, monster XP - 830
+    let monsterXpDeadly = 700; // 1400, monster XP - 1400
 
     //when
     let expectedEasy = service.getDifficulty(actors, monsterXpEasy, numberOfMonsters);
