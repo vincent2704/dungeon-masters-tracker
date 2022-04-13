@@ -1,7 +1,7 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand">Campaign Name</a>
+      <a class="navbar-brand">Campaign Overview</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,6 +17,9 @@
           <li class="nav-item">
             <a class="nav-link" (click)="onShowToolsComponent()">Tools</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="onShowSettingsComponent()">Settings</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -27,4 +30,5 @@
   <app-battle *ngIf="showBattleComponent"></app-battle>
   <app-cheat-sheets *ngIf="showCheatSheetComponent"></app-cheat-sheets>
   <app-tools *ngIf="showToolsComponent"></app-tools>
+  <app-settings *ngIf="showSettingsComponent"></app-settings>
 </div>
