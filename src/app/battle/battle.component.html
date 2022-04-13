@@ -1,5 +1,5 @@
 <div class="container">
-  <app-prepare-battle *ngIf="!isBattleStarted"></app-prepare-battle>
+  <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
     <h2>Round: {{round}}</h2>
@@ -37,12 +37,12 @@
       </tr>
       </tbody>
     </table>
-    <app-add-actor></app-add-actor>
+    <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
     <button class="btn" (click)="changeBattleStatus()">End battle!</button>
   </div>
 </div>
 
-<ng-template #initiativeConflictModal let-modal>
+<ng-template #initiativeConflictModal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Initiative conflict</h4>
   </div>

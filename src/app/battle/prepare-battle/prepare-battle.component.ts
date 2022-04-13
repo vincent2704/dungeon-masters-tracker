@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Actor } from "../../models/actor";
 import {ActorService} from "../../services/actor.service";
 
@@ -9,13 +9,24 @@ import {ActorService} from "../../services/actor.service";
 })
 export class PrepareBattleComponent implements OnInit {
 
-  actors: Actor[]; //TODO: observable from ActorService?
+  @Output()
+  actorsToEmit = new EventEmitter<Actor[]>();
+
+  actors: Actor[];
 
   constructor(private actorService: ActorService) {
-    this.actors = actorService.sortActorsByInitiative();
+    this.actors = actorService.sortActorsByInitiative().slice();
   }
 
   ngOnInit(): void {
   }
 
+  removeActor(actor: Actor) {
+    this.actorsToEmit.emit(this.actors)
+    this.actors.splice(this.actors.indexOf(actor), 1);
+  }
+
+  addActor(actor: Actor) {
+    this.actors.push(actor);
+  }
 }

@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actor";
-import {ActorService} from "../../services/actor.service";
 
 @Component({
   selector: 'app-add-actor',
@@ -13,7 +12,10 @@ export class AddActorComponent implements OnInit {
   formActorInitiative: number = 0;
   deathSavingThrowEligibility: boolean = false;
 
-  constructor(private actorService: ActorService) {
+  @Output()
+  actorEmitter = new EventEmitter<Actor>();
+
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -23,10 +25,14 @@ export class AddActorComponent implements OnInit {
     let newActor = new Actor(this.formActorName, this.formActorMaxHp);
     newActor.setInitiative(this.formActorInitiative);
     newActor.setDeathSavingThrowsEligibility(this.deathSavingThrowEligibility);
-    this.actorService.addActor(newActor);
+    this.addActor(newActor);
   }
 
   deathSavingThrowsEligibilityChange(event: any) {
     this.deathSavingThrowEligibility = event.target.checked;
+  }
+
+  addActor(actor: Actor) {
+    this.actorEmitter.emit(actor);
   }
 }

@@ -6,6 +6,7 @@
       <th scope="col">Actor</th>
       <th scope="col">HP (Max)</th>
       <th>Initiative</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -18,10 +19,13 @@
         <label for="initiative">Set initiative:</label>
         <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
       </td>
+      <td>
+        <button class="btn btn-primary" (click)="removeActor(actor)">Remove</button>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
 <div class="container-fluid">
-  <app-add-actor></app-add-actor>
+  <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
 </div>

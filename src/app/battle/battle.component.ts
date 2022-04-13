@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
 
 @Component({
   selector: 'app-battle',
@@ -10,11 +11,15 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 })
 export class BattleComponent implements OnInit {
   isBattleStarted: boolean = false;
-  actors: Actor[] = []; //TODO: observable from ActorService?
+  actors: Actor[] = [];
   round: number = 1;
 
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
+
+  @ViewChild('prepareBattleComponent')
+  prepareBattleComponent!: PrepareBattleComponent;
+
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
   conflictResolvedActors: Actor[] = [];
@@ -27,19 +32,28 @@ export class BattleComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addActor(actor: Actor) {
+    this.actors.push(actor);
+  }
+
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
-      this.actors = this.actorService.sortActorsByInitiative();
+      this.actors = this.sortActorsByInitiative();
       this.resolveInitiativeConflicts();
-      //TODO: battle started will have to be set only if all conflicts are resolved!
       this.isBattleStarted = true;
+      this.actors = this.prepareBattleComponent.actors;
     } else {
-      //TODO: missing test case - saves protagonists only after battle end with their current HP
       this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
       this.round = 1;
       this.conflictResolvedActors = [];
     }
+  }
+
+  sortActorsByInitiative(): Actor[] {
+    this.actors.sort(
+      ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
+    return this.actors;
   }
 
   resolveInitiativeConflicts() {
@@ -82,7 +96,7 @@ export class BattleComponent implements OnInit {
   }
 
   onClickResolveConflict() {
-    this.actors = this.actorService.getInitiativeConflictResolvedActors(this.conflictedActorsToPriorityOrderNumbersMap);
+    this.actors = this.getInitiativeConflictResolvedActors();
     for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
       this.conflictResolvedActors.push(resolvedActor);
     }
@@ -94,6 +108,25 @@ export class BattleComponent implements OnInit {
   onActorPriorityEntered(actor: Actor, priorityEvent: any) {
     let priority: number = parseInt((<HTMLInputElement>priorityEvent.target).value);
     this.conflictedActorsToPriorityOrderNumbersMap.set(actor, priority);
+  }
+
+  getInitiativeConflictResolvedActors(): Actor[] {
+    for (let [currentActor, currentActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
+      for (let [nextActor, nextActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
+        if (currentActor != nextActor) {
+          // priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
+          if (nextActorOrder < currentActorOrder) {
+            let currentActorIndex = this.actors.indexOf(currentActor);
+            let nextActorIndex = this.actors.indexOf(nextActor);
+            if (nextActorIndex > currentActorIndex) {
+              this.actors[currentActorIndex] = nextActor;
+              this.actors[nextActorIndex] = currentActor;
+            }
+          }
+        }
+      }
+    }
+    return this.actors;
   }
 
   private getInitiativeToActorsMap(): Map<number, Actor[]> {

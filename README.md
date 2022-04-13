@@ -12,6 +12,7 @@ game itself instead of counting initiative order etc.
 ## Current features
 1. Battle tracking
     * Automatically loads protagonists
+    * Removing not participating actors before the battle
     * Adding other actors
         * Checkbox for death saving throws eligibility when adding an actor to battle
     * Setting initiative and automatic sorting by initiative after starting the battle
@@ -49,7 +50,6 @@ game itself instead of counting initiative order etc.
 ## Upcoming features
 1. Battle tracking
     * Modifying actors' HP before the battle
-    * Adding/removing actors before the battle
     * Editing condition duration mid-fight
 2. Persisting data
 3. Time progress
