@@ -29,7 +29,6 @@ export class CombatDataService {
     */
     let multiplier = this.getCombatMultiplierValue(actors.length, monsterCount);
     let monstersTotalXp = monstersXp * multiplier;
-    console.log(`monsters total XP: ${monstersTotalXp}`);
 
     /*
       5. Compare XP

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DistanceCalculatorComponent } from './distance-calculator.component';
+import {FormsModule} from "@angular/forms";
 
 describe('HeightDistanceCalculatorComponent', () => {
   let component: DistanceCalculatorComponent;
@@ -8,6 +9,7 @@ describe('HeightDistanceCalculatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [ DistanceCalculatorComponent ]
     })
     .compileComponents();
