@@ -1,4 +1,4 @@
-import {Actor} from "./actor";
+import {Actor} from "../actor";
 
 export const PROTAGONISTS = [
   new Actor('Belmara', 53, 53, 4, 4),
