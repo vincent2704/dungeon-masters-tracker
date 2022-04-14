@@ -1,1 +1,42 @@
-<p>campaign-overview works!</p>
+<h2>Campaign overview</h2>
+
+<div class="row">
+  <div class="col">
+    <h3>Protagonists</h3>
+    <table class="table table-hover table-dark">
+      <thead>
+      <tr>
+        <th scope="col">Actor</th>
+        <th scope="col">Level</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of playerCharacters">
+        <td>{{player.name}}</td>
+        <td>{{player.getLevel()}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">
+    <h3>NPCs</h3>
+    <table class="table table-hover table-dark">
+      <thead>
+      <tr>
+        <th scope="col">NPC</th>
+        <th scope="col">Description</th>
+        <th scope="col">Notes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let npc of npcs">
+        <td>{{npc.getName()}}</td>
+        <td>{{npc.getDescription()}}</td>
+        <td>
+          <div class="row" *ngFor="let note of npc.getNotes()">{{note}}</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

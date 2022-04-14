@@ -18,6 +18,7 @@ import {
 import {CampaignOverviewComponent} from "./campaign-overview/campaign-overview.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
   { path: 'campaign-overview', component: CampaignOverviewComponent },
   { path: 'battle', component: BattleComponent },
   {

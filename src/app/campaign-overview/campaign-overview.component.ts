@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor.service";
+import {NpcService} from "../services/npc.service";
+import {Npc} from "../models/npc";
 
 @Component({
   selector: 'app-campaign-overview',
@@ -10,9 +12,11 @@ import {ActorService} from "../services/actor.service";
 export class CampaignOverviewComponent implements OnInit {
 
   playerCharacters: Actor[];
+  npcs: Npc[];
 
-  constructor(private actorService: ActorService) {
+  constructor(private actorService: ActorService, private npcService: NpcService) {
     this.playerCharacters = actorService.getActors();
+    this.npcs = npcService.getNpcs();
   }
 
   ngOnInit(): void {
