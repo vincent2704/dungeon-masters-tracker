@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
-import {PROTAGONISTS} from "../../models/actorsData";
+import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
 import {CombatDataService} from "../../services/combat-data.service";
 
 @Component({
