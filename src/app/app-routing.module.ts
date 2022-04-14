@@ -10,6 +10,11 @@ import {
 import {CombatEncounterComponent} from "./cheat-sheets/combat-encounter/combat-encounter.component";
 import {CoverCheatSheetComponent} from "./cheat-sheets/cover-cheat-sheet/cover-cheat-sheet.component";
 import {TravellingCheatSheetComponent} from "./cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component";
+import {DistanceCalculatorComponent} from "./tools/distance-calculator/distance-calculator.component";
+import {TravelCalculatorComponent} from "./tools/travel-calculator/travel-calculator.component";
+import {
+  CombatDifficultyCalculatorComponent
+} from "./tools/combat-difficulty-calculator/combat-difficulty-calculator.component";
 
 const routes: Routes = [
   { path: 'battle', component: BattleComponent },
@@ -22,7 +27,14 @@ const routes: Routes = [
       { path: 'traveling', component: TravellingCheatSheetComponent },
     ]
   },
-  { path: 'tools', component: ToolsComponent },
+  {
+    path: 'tools', component: ToolsComponent,
+    children: [
+      { path: '3d-distance-calculator', component: DistanceCalculatorComponent },
+      { path: 'travel-calculator', component: TravelCalculatorComponent },
+      { path: 'combat-difficulty-calculator', component: CombatDifficultyCalculatorComponent },
+    ]
+  },
   { path: 'settings', component: SettingsComponent },
 ];
 
