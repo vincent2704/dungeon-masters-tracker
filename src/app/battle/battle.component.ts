@@ -38,10 +38,10 @@ export class BattleComponent implements OnInit {
 
   changeBattleStatus(): void {
     if (!this.isBattleStarted) {
+      this.actors = this.prepareBattleComponent.actors;
       this.actors = this.sortActorsByInitiative();
       this.resolveInitiativeConflicts();
       this.isBattleStarted = true;
-      this.actors = this.prepareBattleComponent.actors;
     } else {
       this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
