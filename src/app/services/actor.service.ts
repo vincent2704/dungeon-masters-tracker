@@ -34,16 +34,6 @@ export class ActorService {
     return this.actors;
   }
 
-  sortActorsByInitiative(): Actor[] {
-    this.actors.sort(
-      ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
-    return this.actors;
-  }
-
-  addActor(actor: Actor): void {
-    this.actors.push(actor);
-  }
-
   progressActor(actorToProgress: Actor): void {
     let actor = this.actors.find(actor => actor == actorToProgress);
     if (actor) {

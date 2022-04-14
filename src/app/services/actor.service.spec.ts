@@ -31,24 +31,6 @@ describe('actorService', () => {
     expect(actorService.getActors()).toEqual(PROTAGONISTS)
   });
 
-  it("should sort battle actors by their initiative", () => {
-    // given
-    let actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ];
-    actorService.setActors(actors);
-
-    // when
-    let sortedActors = actorService.sortActorsByInitiative();
-    expect(sortedActors).toEqual([
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
-    ]);
-  });
-
   it("should return true if all actors have progressed their turn", () => {
     // given
     let actor1 = new Actor('Actor 1', 1);

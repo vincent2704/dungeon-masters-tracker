@@ -15,7 +15,7 @@ export class PrepareBattleComponent implements OnInit {
   actors: Actor[];
 
   constructor(private actorService: ActorService) {
-    this.actors = actorService.sortActorsByInitiative().slice();
+    this.actors = actorService.getActors().slice();
   }
 
   ngOnInit(): void {
