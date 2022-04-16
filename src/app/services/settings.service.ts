@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MeasurementSystemService } from "./measurement-system.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +7,16 @@ export class SettingsService {
 
   //TODO: later - save settings in local storage
   private autoLoadProtagonists: boolean = true;
+  private useSISystem: boolean = true;
 
-  constructor(private measurementService: MeasurementSystemService) { }
+  constructor() { }
 
   isUsingSISystem(): boolean {
-    return this.measurementService.isUsingSISystem();
+    return this.useSISystem;
   }
 
   changeUsedMeasurementSystem() {
-    this.measurementService.changeUsedMeasurementSystem();
+    this.useSISystem = !this.useSISystem;
   }
 
   isAutoLoadProtagonists(): boolean {
