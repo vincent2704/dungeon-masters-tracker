@@ -5,7 +5,7 @@
       <div class="card-body">
         <h5 class="card-title">Paces and distances</h5>
         <p class="card-text">Travel paces and covered distances.</p>
-        <button class="btn btn-primary" (click)="onShowPacesAndDistances()">Show</button>
+        <button class="btn btn-primary" routerLink="paces-and-distances">Show</button>
       </div>
     </div>
   </div>
@@ -14,11 +14,10 @@
       <div class="card-body">
         <h5 class="card-title">Wilderness</h5>
         <p class="card-text">Rules for movement in the wilderness</p>
-        <button class="btn btn-primary" (click)="onShowWilderness()">Show</button>
+        <button class="btn btn-primary" routerLink="wilderness">Show</button>
       </div>
     </div>
   </div>
 </div>
 
-<app-paces-and-distances-cheat-sheet *ngIf="showPacesAndDistances" [showInSI]="isUsingSISystem()"></app-paces-and-distances-cheat-sheet>
-<app-wilderness-cheat-sheet *ngIf="showWilderness" [showInSI]="isUsingSISystem()"></app-wilderness-cheat-sheet>
+<router-outlet></router-outlet>
