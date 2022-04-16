@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MeasurementSystemService} from "../../services/measurement-system.service";
+import {SettingsService} from "../../services/settings.service";
 
 @Component({
   selector: 'app-travelling-cheat-sheet',
@@ -11,7 +11,7 @@ export class TravellingCheatSheetComponent implements OnInit {
   showPacesAndDistances: boolean = false;
   showWilderness: boolean = false;
 
-  constructor(private measurementSystemService: MeasurementSystemService) {
+  constructor(private settingsService: SettingsService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +26,7 @@ export class TravellingCheatSheetComponent implements OnInit {
   }
 
   isUsingSISystem() {
-    return this.measurementSystemService.isUsingSISystem();
+    return this.settingsService.isUsingSISystem();
   }
+
 }
