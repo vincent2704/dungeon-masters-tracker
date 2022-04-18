@@ -1,14 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PacesAndDistancesCheatSheetComponent } from './paces-and-distances-cheat-sheet.component';
+import {SettingsService} from "../../../services/settings.service";
 
 describe('PacesAndDistancesCheatSheetComponent', () => {
   let component: PacesAndDistancesCheatSheetComponent;
   let fixture: ComponentFixture<PacesAndDistancesCheatSheetComponent>;
+  let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
 
   beforeEach(async () => {
+    const settingsService = jasmine.createSpyObj('SettingsService', ['isUsingSISystem']);
+
     await TestBed.configureTestingModule({
-      declarations: [ PacesAndDistancesCheatSheetComponent ]
+      declarations: [ PacesAndDistancesCheatSheetComponent ],
+      providers: [
+        { provide: SettingsService, useValue: settingsService }
+      ]
     })
     .compileComponents();
   });
@@ -16,6 +23,8 @@ describe('PacesAndDistancesCheatSheetComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PacesAndDistancesCheatSheetComponent);
     component = fixture.componentInstance;
+
+    settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
     fixture.detectChanges();
   });
 
@@ -28,7 +37,7 @@ describe('PacesAndDistancesCheatSheetComponent', () => {
     let feetDistance = 400;
     let milesDistance = 4;
     //and
-    component.showInSI = false;
+    settingsServiceSpy.isUsingSISystem.and.returnValue(false);
 
     //when
     let displayedFeetDistance = component.getDistanceForMinute(feetDistance);
@@ -44,7 +53,7 @@ describe('PacesAndDistancesCheatSheetComponent', () => {
     let feetDistance = 400;
     let milesDistance = 4;
     //and
-    component.showInSI = true;
+    settingsServiceSpy.isUsingSISystem.and.returnValue(true);
 
     //when
     let displayedFeetDistance = component.getDistanceForMinute(feetDistance);
