@@ -16,6 +16,12 @@ import {
   CombatDifficultyCalculatorComponent
 } from "./tools/combat-difficulty-calculator/combat-difficulty-calculator.component";
 import {CampaignOverviewComponent} from "./campaign-overview/campaign-overview.component";
+import {
+  PacesAndDistancesCheatSheetComponent
+} from "./cheat-sheets/travelling-cheat-sheet/paces-and-distances-cheat-sheet/paces-and-distances-cheat-sheet.component";
+import {
+  WildernessCheatSheetComponent
+} from "./cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
@@ -27,7 +33,13 @@ const routes: Routes = [
       { path: 'ability-checks', component: AbilityChecksCheatSheetComponent },
       { path: 'combat-encounter', component: CombatEncounterComponent },
       { path: 'cover', component: CoverCheatSheetComponent },
-      { path: 'traveling', component: TravellingCheatSheetComponent },
+      {
+        path: 'traveling', component: TravellingCheatSheetComponent,
+        children: [
+          { path: 'paces-and-distances', component: PacesAndDistancesCheatSheetComponent },
+          { path: 'wilderness', component: WildernessCheatSheetComponent }
+        ]
+      },
     ]
   },
   {

@@ -1,28 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TravelCalculatorComponent} from './travel-calculator.component';
-import {MeasurementSystemService} from "../../services/measurement-system.service";
+import {SettingsService} from "../../services/settings.service";
 
 describe('TravelCalculatorComponent', () => {
   let component: TravelCalculatorComponent;
   let fixture: ComponentFixture<TravelCalculatorComponent>;
 
-  let measurementSystemStub: Partial<MeasurementSystemService>;
-  let measurementSystem;
+  let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
 
   beforeEach(async () => {
-    measurementSystemStub = {
-      useSISystem: true,
-
-      isUsingSISystem(): boolean {
-        return this.useSISystem!;
-      }
-    };
+    const settingsService = jasmine.createSpyObj('SettingsService', ['isUsingSISystem'])
 
     await TestBed.configureTestingModule({
       declarations: [TravelCalculatorComponent],
       providers: [
-        {provide: MeasurementSystemService, useValue: measurementSystemStub}
+        {provide: SettingsService, useValue: settingsService}
       ]
     })
       .compileComponents();
@@ -30,7 +23,7 @@ describe('TravelCalculatorComponent', () => {
     fixture = TestBed.createComponent(TravelCalculatorComponent);
     component = fixture.componentInstance;
 
-    measurementSystem = TestBed.inject(MeasurementSystemService);
+    settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
     fixture.detectChanges();
   });
 
@@ -46,6 +39,8 @@ describe('TravelCalculatorComponent', () => {
 
   it('should return correct placeholder in SI', () => {
     //given
+    settingsServiceSpy.isUsingSISystem.and.returnValue(true);
+    // when
     let placeholder = component.getTypeDistancePlaceholder();
     //then
     expect(placeholder).toEqual('Distance in kilometers');
@@ -53,8 +48,7 @@ describe('TravelCalculatorComponent', () => {
 
   it('should return correct placeholder in Imperial', () => {
     //given
-    measurementSystemStub.useSISystem = false;
-    fixture.detectChanges();
+    settingsServiceSpy.isUsingSISystem.and.returnValue(false);
     //when
     let placeholder = component.getTypeDistancePlaceholder();
     //then

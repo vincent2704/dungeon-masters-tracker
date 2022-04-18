@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Actor } from "../../models/actor";
 import {ActorService} from "../../services/actor.service";
+import {SettingsService} from "../../services/settings.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -14,8 +15,12 @@ export class PrepareBattleComponent implements OnInit {
 
   actors: Actor[];
 
-  constructor(private actorService: ActorService) {
-    this.actors = actorService.getActors().slice();
+  constructor(private actorService: ActorService, private settingsService: SettingsService) {
+    if(settingsService.isAutoLoadProtagonists()) {
+      this.actors = actorService.getActors().slice();
+    } else {
+      this.actors = [];
+    }
   }
 
   ngOnInit(): void {

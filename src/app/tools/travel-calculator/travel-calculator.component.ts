@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MeasurementSystemService} from "../../services/measurement-system.service";
+import {SettingsService} from "../../services/settings.service";
 
 @Component({
   selector: 'app-travel-calculator',
@@ -10,7 +10,7 @@ export class TravelCalculatorComponent implements OnInit {
   pace: string = '';
   travelInformation: string = '';
 
-  constructor(private measurementSystemService: MeasurementSystemService) { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +20,7 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   getTypeDistancePlaceholder(): string {
-    return this.measurementSystemService.isUsingSISystem() ? 'Distance in kilometers' : 'Distance in miles';
+    return this.settingsService.isUsingSISystem() ? 'Distance in kilometers' : 'Distance in miles';
   }
 
   getTimePlaceholder(): string {
@@ -44,19 +44,19 @@ export class TravelCalculatorComponent implements OnInit {
 
   private updateTravelDistance(time: number) {
     let distanceTraveledForHours = (time * this.getOneHourTravelToPaceRatio()).toFixed(1);
-    let measureUnit = this.measurementSystemService.isUsingSISystem() ? 'kilometers' : 'miles';
+    let measureUnit = this.settingsService.isUsingSISystem() ? 'kilometers' : 'miles';
     this.travelInformation =  `Traveled distance: ${distanceTraveledForHours} ${measureUnit}`;
   }
 
   private getOneHourTravelToPaceRatio(): number {
     if(this.pace === 'Fast') {
-      return this.measurementSystemService.isUsingSISystem() ? 6 : 4;
+      return this.settingsService.isUsingSISystem() ? 6 : 4;
     }
     if(this.pace === 'Normal') {
-      return this.measurementSystemService.isUsingSISystem() ? 4.5 : 3;
+      return this.settingsService.isUsingSISystem() ? 4.5 : 3;
     }
     if(this.pace === 'Slow') {
-      return this.measurementSystemService.isUsingSISystem() ? 3 : 2;
+      return this.settingsService.isUsingSISystem() ? 3 : 2;
     }
     console.error('ERROR ON SELECTING PACE');
     return 0;

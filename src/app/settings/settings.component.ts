@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MeasurementSystemService} from "../services/measurement-system.service";
+import {SettingsService} from "../services/settings.service";
 
 @Component({
   selector: 'app-settings',
@@ -8,17 +8,25 @@ import {MeasurementSystemService} from "../services/measurement-system.service";
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private measurementSystemService: MeasurementSystemService) { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit(): void {
   }
 
   onUseSISystemChange() {
-    this.measurementSystemService.changeUsedMeasurementSystem();
+    this.settingsService.changeUsedMeasurementSystem();
   }
 
   isUsingSISystem() {
-    return this.measurementSystemService.isUsingSISystem();
+    return this.settingsService.isUsingSISystem();
+  }
+
+  isAutoLoadProtagonists() {
+    return this.settingsService.isAutoLoadProtagonists();
+  }
+
+  onAutoLoadProtagonistsChange() {
+    this.settingsService.changeAutoLoadProtagonists();
   }
 
 }

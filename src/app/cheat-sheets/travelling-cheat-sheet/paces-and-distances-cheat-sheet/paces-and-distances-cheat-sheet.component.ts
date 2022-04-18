@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MeasurementSystemService} from "../../../services/measurement-system.service";
+import {SettingsService} from "../../../services/settings.service";
 
 @Component({
   selector: 'app-paces-and-distances-cheat-sheet',
@@ -8,22 +9,21 @@ import {MeasurementSystemService} from "../../../services/measurement-system.ser
 })
 export class PacesAndDistancesCheatSheetComponent implements OnInit {
 
-  @Input()
-  showInSI!: boolean;
-
-  constructor(private distanceConverterService: MeasurementSystemService) { }
+  constructor(
+    private settingsService: SettingsService,
+              private distanceConverterService: MeasurementSystemService) { }
 
   ngOnInit(): void {
   }
 
   getDistanceForMinute(distanceInFeet: number): string {
-    return this.showInSI
+    return this.settingsService.isUsingSISystem()
       ? this.distanceConverterService.convertFeetToMeters(distanceInFeet) + " m"
       : distanceInFeet + " feet";
   }
 
   getDistance(distanceInMiles: number): string {
-    return this.showInSI
+    return this.settingsService.isUsingSISystem()
       ? this.distanceConverterService.convertMilesToKilometers(distanceInMiles) + " km"
       : distanceInMiles + " miles";
   }
