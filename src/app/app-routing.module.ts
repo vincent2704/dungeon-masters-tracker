@@ -15,8 +15,11 @@ import {TravelCalculatorComponent} from "./tools/travel-calculator/travel-calcul
 import {
   CombatDifficultyCalculatorComponent
 } from "./tools/combat-difficulty-calculator/combat-difficulty-calculator.component";
+import {CampaignOverviewComponent} from "./campaign-overview/campaign-overview.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
+  { path: 'campaign-overview', component: CampaignOverviewComponent },
   { path: 'battle', component: BattleComponent },
   {
     path: 'cheat-sheets', component: CheatSheetsComponent,

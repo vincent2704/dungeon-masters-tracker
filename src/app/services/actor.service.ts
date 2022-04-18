@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actor} from "../models/actor";
 import {Condition} from "../models/Condition";
 import {BattleCondition} from "../models/battleCondition";
-import {PROTAGONISTS} from "../models/actorsData";
+import {PROTAGONISTS} from "../models/dummy-backend-data/actorsData";
 
 @Injectable({
   providedIn: 'root'
