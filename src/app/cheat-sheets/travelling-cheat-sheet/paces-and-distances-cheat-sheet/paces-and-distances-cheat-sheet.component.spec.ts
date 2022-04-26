@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PacesAndDistancesCheatSheetComponent } from './paces-and-distances-cheat-sheet.component';
-import {SettingsService} from "../../../services/settings.service";
+import {SettingsService} from "../../../services/settings/settings.service";
 
 describe('PacesAndDistancesCheatSheetComponent', () => {
   let component: PacesAndDistancesCheatSheetComponent;

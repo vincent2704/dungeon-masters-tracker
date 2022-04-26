@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Difficulty} from "../models/combat-data/Difficulty";
-import {Actor} from "../models/actor";
-import {CombatData} from "../models/combat-data/CombatData";
-import {EncounterMultiplier} from "../models/combat-data/EncounterMultiplier";
+import {Difficulty} from "../../models/combat-data/Difficulty";
+import {Actor} from "../../models/actor";
+import {CombatData} from "../../models/combat-data/CombatData";
+import {EncounterMultiplier} from "../../models/combat-data/EncounterMultiplier";
 
 @Injectable({
   providedIn: 'root'

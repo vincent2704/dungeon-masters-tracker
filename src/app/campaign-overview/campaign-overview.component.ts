@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Actor} from "../models/actor";
-import {ActorService} from "../services/actor.service";
-import {NpcService} from "../services/npc.service";
+import {ActorService} from "../services/actor/actor.service";
+import {NpcService} from "../services/npc/npc.service";
 import {Npc} from "../models/npc";
 
 @Component({

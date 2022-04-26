@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ActorService} from './actor.service';
-import {Actor} from "../models/actor";
-import {PROTAGONISTS} from "../models/dummy-backend-data/actorsData";
+import {Actor} from "../../models/actor";
+import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
 
 describe('actorService', () => {
   let actorService: ActorService;

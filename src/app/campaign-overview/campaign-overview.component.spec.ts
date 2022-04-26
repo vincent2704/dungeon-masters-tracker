@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CampaignOverviewComponent } from './campaign-overview.component';
-import {ActorService} from "../services/actor.service";
+import {ActorService} from "../services/actor/actor.service";
 import {Actor} from "../models/actor";
 import {FormsModule} from "@angular/forms";
 

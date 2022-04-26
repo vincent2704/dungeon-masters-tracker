@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Npc} from "../models/npc";
-import {NPCs} from "../models/dummy-backend-data/npcData";
+import {Npc} from "../../models/npc";
+import {NPCs} from "../../models/dummy-backend-data/npcData";
 
 @Injectable({
   providedIn: 'root'

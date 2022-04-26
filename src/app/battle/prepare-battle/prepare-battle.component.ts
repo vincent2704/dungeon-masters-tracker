@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Actor } from "../../models/actor";
-import {ActorService} from "../../services/actor.service";
-import {SettingsService} from "../../services/settings.service";
+import {ActorService} from "../../services/actor/actor.service";
+import {SettingsService} from "../../services/settings/settings.service";
 
 @Component({
   selector: 'app-prepare-battle',
