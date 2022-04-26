@@ -14,11 +14,27 @@ export class ActorService {
     this.resetActors();
   }
 
-  getActors() {
+  getActors(): Actor[] {
     return this.actors;
   }
 
-  setActors(Actors: Actor[]) {
+  addActor(actor: Actor): void {
+    this.actors.push(actor);
+  }
+
+  deleteActor(actor: Actor): void {
+    this.actors.splice(this.actors.indexOf(actor), 1);
+  }
+
+  deleteActors(actorsToDelete: Actor[]): void {
+    for(let actor of actorsToDelete) {
+      if(this.actors.indexOf(actor) > -1) {
+        this.actors.splice(this.actors.indexOf(actor), 1);
+      }
+    }
+  }
+
+  setActors(Actors: Actor[]): void {
     this.actors = Actors;
   }
 
@@ -52,11 +68,11 @@ export class ActorService {
     }
   }
 
-  addBattleCondition(actor: Actor, condition: BattleCondition) {
+  addBattleCondition(actor: Actor, condition: BattleCondition): void {
     actor.battleConditions.push(condition);
   }
 
-  removeCondition(actor: Actor, conditionToRemove: Condition) {
+  removeCondition(actor: Actor, conditionToRemove: Condition): void {
     if (actor.battleConditions.find(battleCondition => battleCondition.getCondition() === conditionToRemove)) {
       actor.removeCondition(conditionToRemove);
     }
