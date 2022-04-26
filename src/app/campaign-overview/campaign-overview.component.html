@@ -8,12 +8,39 @@
       <tr>
         <th scope="col">Actor</th>
         <th scope="col">Level</th>
+        <th scope="col">Max HP</th>
+        <th scope="col">Current HP</th>
+        <th scope="col">
+          <button class="btn btn-primary" (click)="onManageProtagonists()" *ngIf="!managingProtagonists else submitBlock">Manage</button>
+          <ng-template #submitBlock><button class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button></ng-template>
+        </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let player of playerCharacters">
         <td>{{player.name}}</td>
         <td>{{player.getLevel()}}</td>
+        <td>{{player.getMaxHP()}}</td>
+        <td>{{player.getCurrentHP()}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">Delete</button>
+          <button class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">Retain</button>
+        </td>
+      </tr>
+      <tr *ngIf="managingProtagonists">
+        <td>
+          <input type="text" placeholder="New actor name" [(ngModel)]="newActorName">
+        </td>
+        <td>
+          <input type="number" placeholder="New actor level" [(ngModel)]="newActorLevel">
+        </td>
+        <td>
+          <input type="number" placeholder="New actor max Hit Points" [(ngModel)]="newActorMaxHp">
+        </td>
+        <td></td>
+        <td>
+          <button class="btn btn-primary" (click)="addActor()">Add</button>
+        </td>
       </tr>
       </tbody>
     </table>
