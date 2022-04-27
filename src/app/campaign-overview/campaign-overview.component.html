@@ -11,20 +11,48 @@
         <th scope="col">Max HP</th>
         <th scope="col">Current HP</th>
         <th scope="col">
-          <button class="btn btn-primary" (click)="onManageProtagonists()" *ngIf="!managingProtagonists else submitBlock">Manage</button>
-          <ng-template #submitBlock><button class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button></ng-template>
+          <button class="btn btn-primary" (click)="onManageProtagonists()"
+                  *ngIf="!managingProtagonists else submitBlock">Manage
+          </button>
+          <ng-template #submitBlock>
+            <button class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button>
+          </ng-template>
         </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let player of playerCharacters">
-        <td>{{player.name}}</td>
-        <td>{{player.getLevel()}}</td>
-        <td>{{player.getMaxHP()}}</td>
-        <td>{{player.getCurrentHP()}}</td>
+        <td *ngIf="managingProtagonists else playerNameBlock">
+          <input type="text" [value]="player.name">
+        </td>
+        <ng-template #playerNameBlock>
+          <td>{{player.name}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerLevelBlock">
+          <input type="number" [value]="player.getLevel()">
+        </td>
+        <ng-template #playerLevelBlock>
+          <td>{{player.getLevel()}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerMaxHpBlock">
+          <input type="number" [value]="player.getMaxHP()">
+        </td>
+        <ng-template #playerMaxHpBlock>
+          <td>{{player.getMaxHP()}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+          <input type="number" [value]="player.getCurrentHP()">
+        </td>
+        <ng-template #playerCurrentHpBlock>
+          <td>{{player.getCurrentHP()}}</td>
+        </ng-template>
         <td>
-          <button class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">Delete</button>
-          <button class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">Retain</button>
+          <button class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">
+            Delete
+          </button>
+          <button class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">
+            Retain
+          </button>
         </td>
       </tr>
       <tr *ngIf="managingProtagonists">
@@ -45,25 +73,25 @@
       </tbody>
     </table>
   </div>
-<!--  <div class="col">-->
-<!--    <h3>NPCs</h3>-->
-<!--    <table class="table table-hover table-dark">-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th scope="col">NPC</th>-->
-<!--        <th scope="col">Description</th>-->
-<!--        <th scope="col">Notes</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor="let npc of npcs">-->
-<!--        <td>{{npc.getName()}}</td>-->
-<!--        <td>{{npc.getDescription()}}</td>-->
-<!--        <td>-->
-<!--          <div class="row" *ngFor="let note of npc.getNotes()">{{note}}</div>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
+  <!--  <div class="col">-->
+  <!--    <h3>NPCs</h3>-->
+  <!--    <table class="table table-hover table-dark">-->
+  <!--      <thead>-->
+  <!--      <tr>-->
+  <!--        <th scope="col">NPC</th>-->
+  <!--        <th scope="col">Description</th>-->
+  <!--        <th scope="col">Notes</th>-->
+  <!--      </tr>-->
+  <!--      </thead>-->
+  <!--      <tbody>-->
+  <!--      <tr *ngFor="let npc of npcs">-->
+  <!--        <td>{{npc.getName()}}</td>-->
+  <!--        <td>{{npc.getDescription()}}</td>-->
+  <!--        <td>-->
+  <!--          <div class="row" *ngFor="let note of npc.getNotes()">{{note}}</div>-->
+  <!--        </td>-->
+  <!--      </tr>-->
+  <!--      </tbody>-->
+  <!--    </table>-->
+  <!--  </div>-->
 </div>
