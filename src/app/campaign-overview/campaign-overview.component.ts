@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor/actor.service";
-import {NpcService} from "../services/npc/npc.service";
-import {Npc} from "../models/npc";
 
 @Component({
   selector: 'app-campaign-overview',
@@ -12,7 +10,6 @@ import {Npc} from "../models/npc";
 export class CampaignOverviewComponent implements OnInit {
 
   playerCharacters: Actor[];
-  npcs: Npc[];
 
   // add new actor form
   newActorName: string = '';
@@ -22,9 +19,8 @@ export class CampaignOverviewComponent implements OnInit {
 
   actorsToDelete: Actor[] = [];
 
-  constructor(private actorService: ActorService, private npcService: NpcService) {
-    this.playerCharacters = actorService.getActors();
-    this.npcs = npcService.getNpcs();
+  constructor(private actorService: ActorService) {
+    this.playerCharacters = actorService.getActors().map(actor => Object.assign({}, actor));
   }
 
   ngOnInit(): void {
@@ -32,7 +28,7 @@ export class CampaignOverviewComponent implements OnInit {
 
   addActor(): void {
     let newActor = new Actor(this.newActorName, parseInt(this.newActorLevel), parseInt(this.newActorMaxHp));
-    this.actorService.addActor(newActor);
+    this.playerCharacters.push(newActor);
   }
 
   showDeleteButton(actor: Actor): boolean {
@@ -56,8 +52,23 @@ export class CampaignOverviewComponent implements OnInit {
   }
 
   onSubmitProtagonists(): void {
-    this.managingProtagonists = false;
+    this.deleteActors(this.actorsToDelete);
     //TODO: Backend call here
-    this.actorService.deleteActors(this.actorsToDelete);
+    this.actorService.setActors(this.playerCharacters);
+    this.managingProtagonists = false;
+  }
+
+  onCancelEdit(): void {
+    this.playerCharacters = this.actorService.getActors().map(actor => Object.assign({}, actor));
+    this.actorsToDelete = [];
+    this.managingProtagonists = false;
+  }
+
+  private deleteActors(actorsToDelete: Actor[]): void {
+    for(let actor of actorsToDelete) {
+      if(this.playerCharacters.indexOf(actor) > -1) {
+        this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
+      }
+    }
   }
 }
