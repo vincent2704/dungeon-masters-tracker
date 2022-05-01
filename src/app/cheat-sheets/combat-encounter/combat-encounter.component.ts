@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CombatDataService} from "../../services/combat-data.service";
+import {CombatDataService} from "../../services/combat-data/combat-data.service";
 import {Difficulty} from "../../models/combat-data/Difficulty";
 import {EncounterMultiplier} from "../../models/combat-data/EncounterMultiplier";
 

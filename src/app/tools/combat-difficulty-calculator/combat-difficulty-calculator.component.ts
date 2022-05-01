@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
 import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
-import {CombatDataService} from "../../services/combat-data.service";
+import {CombatDataService} from "../../services/combat-data/combat-data.service";
 
 @Component({
   selector: 'app-combat-difficulty-calculator',

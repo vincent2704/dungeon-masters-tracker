@@ -11,20 +11,80 @@
         <th scope="col">Max HP</th>
         <th scope="col">Current HP</th>
         <th scope="col">
-          <button class="btn btn-primary" (click)="onManageProtagonists()" *ngIf="!managingProtagonists else submitBlock">Manage</button>
-          <ng-template #submitBlock><button class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button></ng-template>
+          <button class="btn btn-primary" (click)="onManageProtagonists()"
+                  *ngIf="!managingProtagonists else submitBlock">Manage
+          </button>
+          <ng-template #submitBlock>
+            <button class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button>
+            <button class="btn btn-primary" (click)="onCancelEdit()">Cancel</button>
+          </ng-template>
         </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let player of playerCharacters">
-        <td>{{player.name}}</td>
-        <td>{{player.getLevel()}}</td>
-        <td>{{player.getMaxHP()}}</td>
-        <td>{{player.getCurrentHP()}}</td>
+        <td *ngIf="managingProtagonists else playerNameBlock">
+          <input type="text" [(ngModel)]="player.name">
+        </td>
+        <ng-template #playerNameBlock>
+          <td>{{player.name}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerLevelBlock">
+          <input type="number" [(ngModel)]="player.level">
+        </td>
+        <ng-template #playerLevelBlock>
+          <td>{{player.level}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerMaxHpBlock">
+          <input type="number" [(ngModel)]="player.maxHP">
+        </td>
+        <ng-template #playerMaxHpBlock>
+          <td>{{player.maxHP}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+          <input type="number" [(ngModel)]="player.currentHP">
+        </td>
+        <ng-template #playerCurrentHpBlock>
+          <td>{{player.currentHP}}</td>
+        </ng-template>
         <td>
-          <button class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">Delete</button>
-          <button class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">Retain</button>
+          <button class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">
+            Delete
+          </button>
+          <button class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">
+            Retain
+          </button>
+        </td>
+      </tr>
+      <tr *ngFor="let addedActor of actorsToAdd">
+        <td *ngIf="managingProtagonists else playerNameBlock">
+          <input type="text" [(ngModel)]="addedActor.name">
+        </td>
+        <ng-template #playerNameBlock>
+          <td>{{addedActor.name}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerLevelBlock">
+          <input type="number" [(ngModel)]="addedActor.level">
+        </td>
+        <ng-template #playerLevelBlock>
+          <td>{{addedActor.level}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerMaxHpBlock">
+          <input type="number" [(ngModel)]="addedActor.maxHP">
+        </td>
+        <ng-template #playerMaxHpBlock>
+          <td>{{addedActor.maxHP}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+          <input type="number" [(ngModel)]="addedActor.currentHP">
+        </td>
+        <ng-template #playerCurrentHpBlock>
+          <td>{{addedActor.currentHP}}</td>
+        </ng-template>
+        <td>
+          <button class="btn btn-primary" (click)="onDeleteNewActor(addedActor)" *ngIf="showDeleteButton(addedActor)">
+            Remove
+          </button>
         </td>
       </tr>
       <tr *ngIf="managingProtagonists">
@@ -40,27 +100,6 @@
         <td></td>
         <td>
           <button class="btn btn-primary" (click)="addActor()">Add</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col">
-    <h3>NPCs</h3>
-    <table class="table table-hover table-dark">
-      <thead>
-      <tr>
-        <th scope="col">NPC</th>
-        <th scope="col">Description</th>
-        <th scope="col">Notes</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let npc of npcs">
-        <td>{{npc.getName()}}</td>
-        <td>{{npc.getDescription()}}</td>
-        <td>
-          <div class="row" *ngFor="let note of npc.getNotes()">{{note}}</div>
         </td>
       </tr>
       </tbody>
