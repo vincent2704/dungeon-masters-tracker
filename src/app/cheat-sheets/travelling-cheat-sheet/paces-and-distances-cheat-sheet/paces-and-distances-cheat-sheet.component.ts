@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MeasurementSystemService} from "../../../services/measurement-system.service";
-import {SettingsService} from "../../../services/settings.service";
+import {MeasurementSystemService} from "../../../services/measurement-system/measurement-system.service";
+import {SettingsService} from "../../../services/settings/settings.service";
 
 @Component({
   selector: 'app-paces-and-distances-cheat-sheet',

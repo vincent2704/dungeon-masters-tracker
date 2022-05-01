@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 
 import {CombatDataService} from './combat-data.service';
-import {Actor} from "../models/actor";
-import {Difficulty} from "../models/combat-data/Difficulty";
+import {Actor} from "../../models/actor";
+import {Difficulty} from "../../models/combat-data/Difficulty";
 
 describe('CombatDataService', () => {
   let service: CombatDataService;

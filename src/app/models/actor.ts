@@ -6,9 +6,9 @@ export class Actor {
 
   name: string;
   maxHP: number;
-  private currentHP: number;
+  currentHP: number;
   initiative: number;
-  private level: number;
+  level: number;
   private dead: boolean;
   private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
