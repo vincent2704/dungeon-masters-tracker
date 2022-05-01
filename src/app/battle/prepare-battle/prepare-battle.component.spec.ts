@@ -14,7 +14,7 @@ describe('PrepareBattleComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
   let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
 
-  let loadedActors = [
+  let defaultActors = [
     new Actor('Actor 1', 1),
     new Actor('Actor 2', 2),
     new Actor('Actor 3', 3)
@@ -37,7 +37,7 @@ describe('PrepareBattleComponent', () => {
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
-    actorServiceSpy.getActors.and.returnValue(loadedActors);
+    actorServiceSpy.getActors.and.returnValue(defaultActors);
     settingsServiceSpy.isAutoLoadProtagonists.and.returnValue(true);
 
     fixture = TestBed.createComponent(PrepareBattleComponent);
@@ -50,7 +50,7 @@ describe('PrepareBattleComponent', () => {
   });
 
   it('should render actors to table', () => {
-    expect(component.actors).toEqual(loadedActors);
+    expect(component.actors).toEqual(defaultActors);
 
     let tableRows = fixture.debugElement.queryAll(By.css('tr'));
     expect(tableRows.length).toEqual(4);

@@ -56,6 +56,37 @@
           </button>
         </td>
       </tr>
+      <tr *ngFor="let addedActor of actorsToAdd">
+        <td *ngIf="managingProtagonists else playerNameBlock">
+          <input type="text" [(ngModel)]="addedActor.name">
+        </td>
+        <ng-template #playerNameBlock>
+          <td>{{addedActor.name}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerLevelBlock">
+          <input type="number" [(ngModel)]="addedActor.level">
+        </td>
+        <ng-template #playerLevelBlock>
+          <td>{{addedActor.level}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerMaxHpBlock">
+          <input type="number" [(ngModel)]="addedActor.maxHP">
+        </td>
+        <ng-template #playerMaxHpBlock>
+          <td>{{addedActor.maxHP}}</td>
+        </ng-template>
+        <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+          <input type="number" [(ngModel)]="addedActor.currentHP">
+        </td>
+        <ng-template #playerCurrentHpBlock>
+          <td>{{addedActor.currentHP}}</td>
+        </ng-template>
+        <td>
+          <button class="btn btn-primary" (click)="onDeleteNewActor(addedActor)" *ngIf="showDeleteButton(addedActor)">
+            Remove
+          </button>
+        </td>
+      </tr>
       <tr *ngIf="managingProtagonists">
         <td>
           <input type="text" placeholder="New actor name" [(ngModel)]="newActorName">
