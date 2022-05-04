@@ -1,0 +1,21 @@
+<p>
+  <span class="row">
+    <span class="col">
+      <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+    </span>
+    <span class="col">
+        <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample">
+    Edit
+  </button>
+    </span>
+  </span>
+</p>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="card">
+    <div class="card-body">
+      You can collapse this card by clicking Toggle
+    </div>
+  </div>
+</div>

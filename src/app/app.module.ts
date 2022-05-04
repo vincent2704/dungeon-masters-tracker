@@ -24,6 +24,7 @@ import { CombatEncounterComponent } from './cheat-sheets/combat-encounter/combat
 import { CombatDifficultyCalculatorComponent } from './tools/combat-difficulty-calculator/combat-difficulty-calculator.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CampaignOverviewComponent } from './campaign-overview/campaign-overview.component';
+import { TimeConfigurationComponent } from './campaign-overview/time-configuration/time-configuration.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CampaignOverviewComponent } from './campaign-overview/campaign-overview
     CombatDifficultyCalculatorComponent,
     SettingsComponent,
     CampaignOverviewComponent,
+    TimeConfigurationComponent,
   ],
   imports: [
     BrowserModule,
