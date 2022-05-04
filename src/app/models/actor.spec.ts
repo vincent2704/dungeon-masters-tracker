@@ -2,7 +2,6 @@
 import {Actor} from "./actor";
 import {Condition} from "./Condition";
 import {BattleCondition} from "./battleCondition";
-import {TemporaryHP} from "./temporaryHP";
 
 describe('Actor', () => {
 
@@ -99,22 +98,6 @@ describe('Actor', () => {
     expect(actor.getCurrentHP()).toEqual(1);
   });
 
-  it("should return progressed turn if actor is unconscious", () => {
-    //given
-    let actor = new Actor('Actor Name', 20, -5);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-    //then
-    expect(actor.isActorTurnProgressed()).toBeTrue();
-  });
-
-  it("should return progressed turn if actor is dead", () => {
-    //given
-    let actor = new Actor('Actor Name', 20, -5);
-    actor.kill();
-    //then
-    expect(actor.isActorTurnProgressed()).toBeTrue();
-  });
-
   it("should return conditions that the actor is not under state of", () => {
     //given
     let actor = new Actor('Actor Name', 20, 0);
@@ -149,19 +132,6 @@ describe('Actor', () => {
     //then
     expect(actor.getCurrentHP()).toEqual(18);
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
-  });
-
-  it("should set actor's temporary Hit Points to 0 after effect wears off", () => {
-    //given
-    let actor = new Actor('Actor Name', 20);
-    actor.setTemporaryHitPoints(5, 2);
-    //when
-    actor.progressActor();
-    actor.progressActor();
-    //then
-    let actorTemporaryHP = actor.getTemporaryHitPoints();
-    let expectedTemporaryHP = new TemporaryHP(0, 0);
-    expect(actorTemporaryHP).toEqual(expectedTemporaryHP);
   });
 
 });

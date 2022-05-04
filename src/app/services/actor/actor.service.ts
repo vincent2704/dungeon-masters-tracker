@@ -50,24 +50,6 @@ export class ActorService {
     return this.actors;
   }
 
-  progressActor(actorToProgress: Actor): void {
-    let actor = this.actors.find(actor => actor == actorToProgress);
-    if (actor) {
-      actor.progressActor();
-    }
-  }
-
-  allActorsProgressed(): boolean {
-    return this.actors.filter(
-      actor => actor.isActorTurnProgressed()).length == this.actors.length;
-  }
-
-  resetActorsProgress(): void {
-    for (let actor of this.actors) {
-      actor.setActorProgress(false);
-    }
-  }
-
   addBattleCondition(actor: Actor, condition: BattleCondition): void {
     actor.battleConditions.push(condition);
   }

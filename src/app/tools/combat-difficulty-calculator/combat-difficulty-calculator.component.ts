@@ -29,7 +29,6 @@ export class CombatDifficultyCalculatorComponent implements OnInit {
   onSelectActor(actor: Actor) {
     let selected = this.actorsSelected.get(actor);
     this.actorsSelected.set(actor, !selected);
-    console.log(this.actorsSelected);
   }
 
   isSelected(actor: Actor): boolean {
