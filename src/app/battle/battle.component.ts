@@ -3,6 +3,7 @@ import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
+import {Condition} from "../models/Condition";
 
 @Component({
   selector: 'app-battle',
@@ -19,6 +20,8 @@ export class BattleComponent implements OnInit {
 
   @ViewChild('prepareBattleComponent')
   prepareBattleComponent!: PrepareBattleComponent;
+
+  progressedActors: Actor[] = [];
 
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
@@ -56,7 +59,7 @@ export class BattleComponent implements OnInit {
     return this.actors;
   }
 
-  resolveInitiativeConflicts() {
+  resolveInitiativeConflicts(): void {
     let initiativeToActorsMap: Map<number, Actor[]> = this.getInitiativeToActorsMap();
     for (let actors of initiativeToActorsMap.values()) {
       if (actors.length > 1 && !this.areActorsConflictsResolved(actors)) {
@@ -74,28 +77,36 @@ export class BattleComponent implements OnInit {
   }
 
   progressActor(actor: Actor): void {
-    this.actorService.progressActor(actor);
-    if (this.actorService.allActorsProgressed()) {
+    this.progressedActors.push(actor);
+    actor.decrementConditionsDuration();
+    actor.decrementTemporaryHitPointDuration();
+    if (this.allActorsProgressed()) {
       this.progressRound();
     }
   }
 
-  progressRound() {
+  private allActorsProgressed(): boolean {
+    return this.actors.length === this.progressedActors.length;
+  }
+
+  progressRound(): void {
     this.round++;
-    this.actorService.resetActorsProgress();
+    this.progressedActors = [];
   }
 
   isActorProgressed(actorToCheck: Actor): boolean {
-    return actorToCheck.isActorTurnProgressed();
+    return this.progressedActors.includes(actorToCheck)
+      || actorToCheck.hasCondition(Condition.UNCONSCIOUS)
+      || actorToCheck.isDead();
   }
 
-  onSubmitHP(actor: Actor, event: any) {
+  onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
     actor.modifyHp(hpModifier);
     (<HTMLInputElement>event.target).value = '';
   }
 
-  onClickResolveConflict() {
+  onClickResolveConflict(): void {
     this.actors = this.getInitiativeConflictResolvedActors();
     for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
       this.conflictResolvedActors.push(resolvedActor);
@@ -105,7 +116,7 @@ export class BattleComponent implements OnInit {
     this.resolveInitiativeConflicts(); //repeat to resolve next conflicted actors if present
   }
 
-  onActorPriorityEntered(actor: Actor, priorityEvent: any) {
+  onActorPriorityEntered(actor: Actor, priorityEvent: any): void {
     let priority: number = parseInt((<HTMLInputElement>priorityEvent.target).value);
     this.conflictedActorsToPriorityOrderNumbersMap.set(actor, priority);
   }

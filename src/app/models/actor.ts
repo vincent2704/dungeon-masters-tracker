@@ -10,7 +10,6 @@ export class Actor {
   initiative: number;
   level: number;
   private dead: boolean;
-  private progressedInTurn: boolean;
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
@@ -23,7 +22,6 @@ export class Actor {
     level: number = 1,
     unconscious: boolean = false,
     dead: boolean = false,
-    progressedInTurn: boolean = false,
     battleConditions: BattleCondition[] = [],
     deathSavingThrowsEligibility: boolean = true,
   ) {
@@ -33,16 +31,9 @@ export class Actor {
     this.initiative = initiative;
     this.level = level;
     this.dead = dead;
-    this.progressedInTurn = progressedInTurn;
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
     this.temporaryHP = new TemporaryHP(0, 0);
-  }
-
-  progressActor(): void {
-    this.setActorProgress(true);
-    this.decrementConditionsDuration();
-    this.decrementTemporaryHitPointDuration();
   }
 
   getMaxHP() {
@@ -120,14 +111,6 @@ export class Actor {
 
   setLevel(level: number) {
     this.level = level;
-  }
-
-  setActorProgress(progressed: boolean) {
-    this.progressedInTurn = progressed;
-  }
-
-  isActorTurnProgressed(): boolean {
-    return this.progressedInTurn || this.hasCondition(Condition.UNCONSCIOUS) || this.isDead();
   }
 
   isDead() {

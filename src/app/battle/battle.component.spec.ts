@@ -7,6 +7,8 @@ import {AddActorComponent} from "./add-actor/add-actor.component";
 import {Actor} from "../models/actor";
 import {By} from "@angular/platform-browser";
 import {DebugElement} from "@angular/core";
+import {BattleCondition} from "../models/battleCondition";
+import {Condition} from "../models/Condition";
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -68,6 +70,58 @@ describe('BattleComponent', () => {
     ]);
   });
 
+  it("should add actors to battle component", () => {
+    // given
+    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
+    prepareBattleDebugElement.componentInstance.actors = [
+      new Actor('Actor 1', 1, 1, 1),
+      new Actor('Actor 2', 1, 1, 3),
+      new Actor('Actor 3', 1, 1, 2)
+    ]
+    component.isBattleStarted = false;
+
+    // when
+    let newActor = new Actor('New Actor', 10, 10, 4);
+    prepareBattleDebugElement.componentInstance.addActor(newActor);
+    component.changeBattleStatus();
+
+    // then
+    expect(component.actors).toEqual([
+      newActor,
+      new Actor('Actor 2', 1, 1, 3),
+      new Actor('Actor 3', 1, 1, 2),
+      new Actor('Actor 1', 1, 1, 1)
+    ]);
+  });
+
+  it("should allow to progress an actor added during battle setup", () => {
+    // given
+    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
+    prepareBattleDebugElement.componentInstance.actors = [
+      new Actor('Actor 1', 1, 1, 1),
+      new Actor('Actor 2', 1, 1, 3),
+      new Actor('Actor 3', 1, 1, 2)
+    ]
+    component.isBattleStarted = false;
+
+    // when
+    let newActor = new Actor('New Actor', 10, 10, 4);
+    prepareBattleDebugElement.componentInstance.addActor(newActor);
+    component.changeBattleStatus();
+
+    // then
+    expect(component.actors).toEqual([
+      newActor,
+      new Actor('Actor 2', 1, 1, 3),
+      new Actor('Actor 3', 1, 1, 2),
+      new Actor('Actor 1', 1, 1, 1)
+    ]);
+
+    // and when
+    component.progressActor(newActor);
+    expect(component.progressedActors).toEqual([newActor]);
+  });
+
   it("should properly recognize conflicted actors before opening conflict modal", () => {
     // given
     let actor1 = new Actor('Actor 1', 1, 1, 1);
@@ -125,6 +179,58 @@ describe('BattleComponent', () => {
     //then
     expect(sortedActors).toEqual(expectedActors);
     expect(component.actors).toEqual(expectedActors);
+  });
+
+  it("should increment round after all actors are progressed", () => {
+    // given
+    expect(component.round).toEqual(1);
+    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    let actor2 = new Actor('Actor 2', 1, 1, 3);
+    let actor3 = new Actor('Actor 3', 1, 1, 11);
+    component.actors = [actor1, actor2, actor3];
+
+    // when
+    component.progressActor(actor1);
+    component.progressActor(actor2);
+
+    // then
+    expect(component.progressedActors).toEqual([actor1, actor2])
+
+    // and when
+    component.progressActor(actor3);
+
+    // then
+    expect(component.round).toEqual(2);
+    expect(component.progressedActors).toEqual([]);
+  });
+
+  it("should decrement actor's temporary hit points duration after the end of actor's turn", () => {
+    // given
+    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    component.actors = [actor1];
+
+    // when
+    actor1.setTemporaryHitPoints(10, 3);
+    component.progressActor(actor1);
+
+    // then
+    expect(actor1.getTemporaryHitPoints().getTurnsLeft()).toEqual(2);
+  });
+
+  it("should decrement actor's condition duration after the end of actor's turn", () => {
+    // given
+    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    let actor2 = new Actor('Actor 1', 1, 1, 1);
+    component.actors = [actor1, actor2];
+
+    // when
+    actor1.addCondition(new BattleCondition(Condition.BLINDED, 2));
+    component.progressActor(actor1);
+    component.progressActor(actor2);
+
+    // then
+    expect(actor1.getConditions()[0].getDurationInTurns()).toEqual(1);
+    expect(actor2.getConditions()).toEqual([]);
   });
 
 });
