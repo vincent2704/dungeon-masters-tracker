@@ -10,6 +10,7 @@ export class TimeConfigurationComponent implements OnInit {
 
   model: NgbDateStruct;
   date?: {year: number, month: number};
+  pickerTime = {hour: 13, minute: 30};
 
   isCollapsed: boolean = true;
 
@@ -19,10 +20,6 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  selectToday() {
-    this.model = this.calendar.getToday();
   }
 
 }
