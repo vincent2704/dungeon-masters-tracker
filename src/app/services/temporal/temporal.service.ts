@@ -20,6 +20,7 @@ export class TemporalService {
   }
 
   setCurrentDate(newDate: NgbDateStruct, newTime: NgbTimeStruct) {
+    //TODO: backend call
     this.currentDate = new Date(
       // month-1 because NgbDateStruct counts months from 1 while Date counts months from 0
       newDate.year, newDate.month-1, newDate.day,

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeConfigurationComponent } from './time-configuration.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('TimeConfigurationComponent', () => {
   let component: TimeConfigurationComponent;
@@ -8,6 +9,7 @@ describe('TimeConfigurationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [NgbModule],
       declarations: [ TimeConfigurationComponent ]
     })
     .compileComponents();
