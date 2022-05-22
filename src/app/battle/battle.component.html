@@ -2,7 +2,8 @@
   <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted"></app-prepare-battle>
   <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
   <div *ngIf="isBattleStarted">
-    <h2>Round: {{round}}</h2>
+    <h3>Round: {{round}}</h3>
+    <h4>Time passed: {{(round-1) * 6}} seconds</h4>
     <table class="table table-hover table-dark">
       <thead>
       <tr>
@@ -39,6 +40,10 @@
     </table>
     <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
     <button class="btn" (click)="changeBattleStatus()">End battle!</button>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" value="" id="trackTimeCheckbox" [(ngModel)]="isTimeTracked">
+      <label for="trackTimeCheckbox" class="form-check-label">Save passed time</label>
+    </div>
   </div>
 </div>
 

@@ -23,12 +23,16 @@ export class TemporalService {
     //TODO: backend call
     this.currentDate = new Date(
       // month-1 because NgbDateStruct counts months from 1 while Date counts months from 0
-      newDate.year, newDate.month-1, newDate.day,
+      newDate.year, newDate.month - 1, newDate.day,
       newTime.hour, newTime.minute, newTime.second
     );
   }
 
   getCurrentDate(): Date {
     return this.currentDate;
+  }
+
+  addSeconds(secondsToAdd: number) {
+    this.currentDate.setSeconds(this.currentDate.getSeconds() + secondsToAdd);
   }
 }
