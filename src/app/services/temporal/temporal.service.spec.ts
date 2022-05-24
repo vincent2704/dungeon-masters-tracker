@@ -29,4 +29,17 @@ describe('TemporalService', () => {
     expect(service.getCurrentDate().getFullYear()).toEqual(1524);
   });
 
+  it('should add progressed time', () => {
+    //given
+    let newDate: NgbDateStruct = {day: 17, month: 12, year: 2020};
+    let newTime: NgbTimeStruct = {hour: 18, minute: 30, second: 0}
+    service.setCurrentDate(newDate, newTime);
+
+    //when
+    service.addSeconds(60);
+
+    //then
+    expect(service.getCurrentDate()).toEqual(new Date(2020, 11, 17, 18, 31, 0));
+  });
+
 });

@@ -4,6 +4,7 @@ import {ActorService} from "../services/actor/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
 import {Condition} from "../models/Condition";
+import {TemporalService} from "../services/temporal/temporal.service";
 
 @Component({
   selector: 'app-battle',
@@ -26,8 +27,14 @@ export class BattleComponent implements OnInit {
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
   conflictResolvedActors: Actor[] = [];
+  isTimeTracked: boolean = true;
 
-  constructor(private actorService: ActorService, private modalService: NgbModal, private modalConfig: NgbModalConfig) {
+  constructor(
+    private actorService: ActorService,
+    private modalService: NgbModal,
+    private modalConfig: NgbModalConfig,
+    private temporalService: TemporalService
+  ) {
     modalConfig.backdrop = 'static';
     modalConfig.keyboard = false;
   }
@@ -48,8 +55,11 @@ export class BattleComponent implements OnInit {
     } else {
       this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
-      this.round = 1;
       this.conflictResolvedActors = [];
+      if(this.isTimeTracked) {
+        this.temporalService.addSeconds((this.round-1) * 6);
+      }
+      this.round = 1;
     }
   }
 
