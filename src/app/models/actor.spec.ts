@@ -80,12 +80,13 @@ describe('Actor', () => {
 
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     //given
-    let actor = new Actor('Actor Name', 20, 0);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    let actor = new Actor('Actor Name', 20, 1);
+    actor.modifyHp(-1);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
     //when
     actor.modifyHp(1);
     //then
-    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
   it("should set actor's HP to 1 when removing unconsciousness triggered by damage", () => {
@@ -132,6 +133,25 @@ describe('Actor', () => {
     //then
     expect(actor.getCurrentHP()).toEqual(18);
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
+  });
+
+  it("should knock down actor if their HP reaches 0 or less", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.modifyHp(-20);
+    //then
+    expect(actor.isKnockedDown()).toBeTrue();
+  });
+
+  it("should remove knocked down state if actor gets healed above 1 HP", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.modifyHp(-21);
+    actor.modifyHp(2);
+    //then
+    expect(actor.isKnockedDown()).toBeFalse();
   });
 
 });

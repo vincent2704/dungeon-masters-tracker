@@ -4,6 +4,8 @@ import { CampaignOverviewComponent } from './campaign-overview.component';
 import {ActorService} from "../services/actor/actor.service";
 import {Actor} from "../models/actor";
 import {FormsModule} from "@angular/forms";
+import {TimeConfigurationComponent} from "./time-configuration/time-configuration.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('CampaignOverviewComponent', () => {
   let component: CampaignOverviewComponent;
@@ -14,8 +16,8 @@ describe('CampaignOverviewComponent', () => {
     const actorService = jasmine.createSpyObj('ActorService', ['getActors', 'deleteActor', 'setActors']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [ CampaignOverviewComponent ],
+      imports: [FormsModule, NgbModule],
+      declarations: [ CampaignOverviewComponent, TimeConfigurationComponent ],
       providers: [
         { provide: ActorService, useValue: actorService }
       ]

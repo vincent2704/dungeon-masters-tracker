@@ -13,6 +13,7 @@ export class Actor {
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
+  private knockedDown: boolean;
 
   constructor(
     name: string,
@@ -24,6 +25,7 @@ export class Actor {
     dead: boolean = false,
     battleConditions: BattleCondition[] = [],
     deathSavingThrowsEligibility: boolean = true,
+    knockedDown: boolean = false,
   ) {
     this.name = name;
     this.maxHP = maxHP;
@@ -34,6 +36,7 @@ export class Actor {
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
     this.temporaryHP = new TemporaryHP(0, 0);
+    this.knockedDown = knockedDown;
   }
 
   getMaxHP() {
@@ -78,9 +81,10 @@ export class Actor {
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;
     }
-    if (this.getCurrentHP() > 0 && this.hasCondition(Condition.UNCONSCIOUS)) {
+    if (this.getCurrentHP() > 0 && this.isKnockedDown()) {
       //TODO: this will have to be changed when unconsciousness source other than damage will be implemented!
       this.removeCondition(Condition.UNCONSCIOUS);
+      this.knockedDown = false;
     }
     if (this.getCurrentHP() <= -this.getMaxHP()) {
       this.kill();
@@ -90,6 +94,7 @@ export class Actor {
     if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
       if (this.isEligibleForDeathSavingThrows()) {
         this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+        this.knockedDown = true;
       } else {
         this.kill();
       }
@@ -136,6 +141,10 @@ export class Actor {
 
   setDeathSavingThrowsEligibility(eligible: boolean) {
     this.eligibleForDeathSavingThrows = eligible;
+  }
+
+  isKnockedDown(): boolean {
+    return this.knockedDown;
   }
 
   hasCondition(condition: Condition): boolean {
