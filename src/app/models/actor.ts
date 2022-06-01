@@ -14,6 +14,7 @@ export class Actor {
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private knockedDown: boolean;
+  private stabilized: boolean = false;
 
   constructor(
     name: string,
@@ -53,6 +54,9 @@ export class Actor {
 
   modifyHp(hitPointsModifier: number) {
     let isDamage: boolean = hitPointsModifier < 0;
+    if(this.isKnockedDown()) {
+      this.setStabilized(false);
+    }
 
     if (hitPointsModifier === 0) {
       console.warn("Actor's Hit Points are modified by 0!: " + this.name);
@@ -147,6 +151,14 @@ export class Actor {
     return this.knockedDown;
   }
 
+  isStabilized() {
+    return this.stabilized;
+  }
+
+  setStabilized(stabilized: boolean) {
+    this.stabilized = stabilized;
+  }
+
   hasCondition(condition: Condition): boolean {
     return !!this.battleConditions.find(conditionToFind => conditionToFind.getCondition() == condition);
   }
@@ -184,9 +196,9 @@ export class Actor {
   removeCondition(condition: Condition) {
     let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
-      if (conditionToRemove.getCondition() === Condition.UNCONSCIOUS && this.currentHP <= 0) {
-        this.currentHP = 1;
-      }
+      // if (conditionToRemove.getCondition() === Condition.UNCONSCIOUS && this.currentHP <= 0) {
+      //   this.currentHP = 1;
+      // }
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
     }

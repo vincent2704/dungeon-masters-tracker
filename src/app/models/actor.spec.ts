@@ -89,16 +89,6 @@ describe('Actor', () => {
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
-  it("should set actor's HP to 1 when removing unconsciousness triggered by damage", () => {
-    //given
-    let actor = new Actor('Actor Name', 20, -5);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-    //when
-    actor.removeCondition(Condition.UNCONSCIOUS);
-    //then
-    expect(actor.getCurrentHP()).toEqual(1);
-  });
-
   it("should return conditions that the actor is not under state of", () => {
     //given
     let actor = new Actor('Actor Name', 20, 0);

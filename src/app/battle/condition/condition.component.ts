@@ -44,7 +44,9 @@ export class ConditionComponent implements OnInit {
 
   showDeathSavingThrows(): boolean {
     if (this.actor.isEligibleForDeathSavingThrows()) {
-      return this.isUnconscious() && this.actor.getCurrentHP() <= 0 && !this.actor.isDead()
+      return this.isUnconscious()
+        && this.actor.getCurrentHP() <= 0
+        && !this.actor.isDead()
     } else {
       return false;
     }

@@ -26,7 +26,7 @@ describe('DeathSavingThrowsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should set actor's hit points to 1 after 3 successful death saving throws", () => {
+  it("should stabilize actor after 3 successful death saving throws", () => {
     //given
     component.actor.modifyHp(-1);
     //when
@@ -34,10 +34,12 @@ describe('DeathSavingThrowsComponent', () => {
     component.addSuccess();
     component.addSuccess();
     //then
-    expect(component.actor.getCurrentHP()).toEqual(1);
+    expect(component.actor.getCurrentHP()).toEqual(0);
+    expect(component.actor.isKnockedDown()).toBeTrue();
+    expect(component.actor.isStabilized()).toBeTrue();
   });
 
-  it("remove unconsciousness on successful death saving throws", () => {
+  it("should NOT remove unconsciousness on successful death saving throws", () => {
     //given
     component.actor.modifyHp(-1);
     //when
@@ -45,7 +47,7 @@ describe('DeathSavingThrowsComponent', () => {
     component.addSuccess();
     component.addSuccess();
     //then
-    expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
+    expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
   });
 
   it("should kill actor on 3 failed death saving throws", () => {
@@ -57,6 +59,7 @@ describe('DeathSavingThrowsComponent', () => {
     component.addFailure();
     //then
     expect(component.actor.isDead()).toBeTrue();
+    expect(component.actor.getCurrentHP()).toEqual(0);
   });
 
 });

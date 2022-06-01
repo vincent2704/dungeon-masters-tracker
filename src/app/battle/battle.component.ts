@@ -164,4 +164,8 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
+  showDeathSavingThrows(actor: Actor): boolean {
+    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
+  }
+
 }
