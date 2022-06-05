@@ -233,6 +233,16 @@ describe('BattleComponent', () => {
     expect(actor2.getConditions()).toEqual([]);
   });
 
+  it("should not display death saving throws if actor is dead", () => {
+    // given
+    let actor = new Actor('Actor 1', 1, 1, 3);
+    actor.setDeathSavingThrowsEligibility(true);
+    actor.kill();
+
+    // then
+    expect(component.showDeathSavingThrows(actor)).toBeFalse();
+  });
+
 });
 
 function findComponent<T>(

@@ -22,7 +22,6 @@ export class Actor {
     currentHP: number = maxHP,
     initiative: number = 0,
     level: number = 1,
-    unconscious: boolean = false,
     dead: boolean = false,
     battleConditions: BattleCondition[] = [],
     deathSavingThrowsEligibility: boolean = true,
@@ -196,9 +195,6 @@ export class Actor {
   removeCondition(condition: Condition) {
     let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
-      // if (conditionToRemove.getCondition() === Condition.UNCONSCIOUS && this.currentHP <= 0) {
-      //   this.currentHP = 1;
-      // }
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
     }

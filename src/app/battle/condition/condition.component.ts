@@ -42,16 +42,6 @@ export class ConditionComponent implements OnInit {
     this.showDescription = !this.showDescription;
   }
 
-  showDeathSavingThrows(): boolean {
-    if (this.actor.isEligibleForDeathSavingThrows()) {
-      return this.isUnconscious()
-        && this.actor.getCurrentHP() <= 0
-        && !this.actor.isDead()
-    } else {
-      return false;
-    }
-  }
-
   onSubmitCondition(actor: Actor) {
     let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
     this.actorService.addBattleCondition(actor, battleCondition);
@@ -72,7 +62,13 @@ export class ConditionComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
-  isUnconsciousCondition(battleCondition: BattleCondition): boolean {
-    return battleCondition.getCondition() === Condition.UNCONSCIOUS;
+  isDisabled(condition: BattleCondition, actor: Actor): boolean {
+    if (condition.getCondition() === Condition.UNCONSCIOUS) {
+      if(actor.getCurrentHP() <= 0) {
+        return true;
+      }
+    }
+    return false;
   }
+
 }

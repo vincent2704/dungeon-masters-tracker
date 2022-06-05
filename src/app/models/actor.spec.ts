@@ -144,4 +144,18 @@ describe('Actor', () => {
     expect(actor.isKnockedDown()).toBeFalse();
   });
 
+  it("should remove stabilized state if actor is hit", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.modifyHp(-21);
+    expect(actor.isStabilized()).toBeFalse();
+    actor.setStabilized(true);
+
+    //when
+    actor.modifyHp(-1);
+
+    //then
+    expect(actor.isStabilized()).toBeFalse();
+  });
+
 });
