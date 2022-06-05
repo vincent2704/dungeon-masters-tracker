@@ -13,6 +13,8 @@ export class Actor {
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
+  private knockedDown: boolean;
+  private stabilized: boolean = false;
 
   constructor(
     name: string,
@@ -20,10 +22,10 @@ export class Actor {
     currentHP: number = maxHP,
     initiative: number = 0,
     level: number = 1,
-    unconscious: boolean = false,
     dead: boolean = false,
     battleConditions: BattleCondition[] = [],
     deathSavingThrowsEligibility: boolean = true,
+    knockedDown: boolean = false,
   ) {
     this.name = name;
     this.maxHP = maxHP;
@@ -34,6 +36,7 @@ export class Actor {
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
     this.temporaryHP = new TemporaryHP(0, 0);
+    this.knockedDown = knockedDown;
   }
 
   getMaxHP() {
@@ -50,6 +53,9 @@ export class Actor {
 
   modifyHp(hitPointsModifier: number) {
     let isDamage: boolean = hitPointsModifier < 0;
+    if(this.isKnockedDown()) {
+      this.setStabilized(false);
+    }
 
     if (hitPointsModifier === 0) {
       console.warn("Actor's Hit Points are modified by 0!: " + this.name);
@@ -78,9 +84,10 @@ export class Actor {
     if (this.currentHP > this.maxHP) {
       this.currentHP = this.maxHP;
     }
-    if (this.getCurrentHP() > 0 && this.hasCondition(Condition.UNCONSCIOUS)) {
+    if (this.getCurrentHP() > 0 && this.isKnockedDown()) {
       //TODO: this will have to be changed when unconsciousness source other than damage will be implemented!
       this.removeCondition(Condition.UNCONSCIOUS);
+      this.knockedDown = false;
     }
     if (this.getCurrentHP() <= -this.getMaxHP()) {
       this.kill();
@@ -90,6 +97,8 @@ export class Actor {
     if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
       if (this.isEligibleForDeathSavingThrows()) {
         this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+        this.knockedDown = true;
+        this.stabilized = false;
       } else {
         this.kill();
       }
@@ -126,16 +135,28 @@ export class Actor {
     }
   }
 
-  resurrect() {
-    this.dead = false;
-  }
-
   isEligibleForDeathSavingThrows(): boolean {
     return this.eligibleForDeathSavingThrows;
   }
 
   setDeathSavingThrowsEligibility(eligible: boolean) {
     this.eligibleForDeathSavingThrows = eligible;
+  }
+
+  isKnockedDown(): boolean {
+    return this.knockedDown;
+  }
+
+  setKnockedDown(knockedDown: boolean) {
+    this.knockedDown = knockedDown;
+  }
+
+  isStabilized() {
+    return this.stabilized;
+  }
+
+  setStabilized(stabilized: boolean) {
+    this.stabilized = stabilized;
   }
 
   hasCondition(condition: Condition): boolean {
@@ -175,9 +196,6 @@ export class Actor {
   removeCondition(condition: Condition) {
     let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
-      if (conditionToRemove.getCondition() === Condition.UNCONSCIOUS && this.currentHP <= 0) {
-        this.currentHP = 1;
-      }
       let index = this.battleConditions.indexOf(conditionToRemove);
       this.battleConditions.splice(index, 1);
     }

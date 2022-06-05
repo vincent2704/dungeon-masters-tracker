@@ -6,17 +6,13 @@
         <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
       </div>
       <div class="col-sm">
-        <div *ngIf="showDeathSavingThrows(); else durationBlock">
-          <app-death-saving-throws [actor]="actor" *ngIf="isUnconsciousCondition(battleCondition)"></app-death-saving-throws>
+        <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
+          Duration left: {{battleCondition.getDurationInTurns()}}
         </div>
-        <ng-template #durationBlock>
-          <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
-            Duration left: {{battleCondition.getDurationInTurns()}}
-          </div>
-        </ng-template>
       </div>
       <div class="col-sm">
-        <button class="btn btn-info" (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
+        <button class="btn btn-info" [disabled]="isDisabled(battleCondition, actor)"
+                (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
       </div>
       <div class="row" *ngIf="showDescription">
         <div *ngFor="let description of battleCondition.getDescription()">

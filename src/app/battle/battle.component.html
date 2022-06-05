@@ -26,6 +26,9 @@
             </div>
           </div>
           <app-temporary-hit-points [actor]="actor"></app-temporary-hit-points>
+          <div *ngIf="showDeathSavingThrows(actor)">
+            <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
+          </div>
         </td>
         <td>
           <app-condition [actor]="actor"></app-condition>

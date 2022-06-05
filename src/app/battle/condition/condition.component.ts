@@ -28,26 +28,12 @@ export class ConditionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isUnconscious(): boolean {
-    return !!this.actor.battleConditions.find(battleCondition => {
-      return battleCondition.getCondition() === Condition.UNCONSCIOUS;
-    })
-  }
-
   removeCondition(condition: Condition) {
     this.actorService.removeCondition(this.actor, condition);
   }
 
   onShowDescription() {
     this.showDescription = !this.showDescription;
-  }
-
-  showDeathSavingThrows(): boolean {
-    if (this.actor.isEligibleForDeathSavingThrows()) {
-      return this.isUnconscious() && this.actor.getCurrentHP() <= 0 && !this.actor.isDead()
-    } else {
-      return false;
-    }
   }
 
   onSubmitCondition(actor: Actor) {
@@ -70,7 +56,13 @@ export class ConditionComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
-  isUnconsciousCondition(battleCondition: BattleCondition): boolean {
-    return battleCondition.getCondition() === Condition.UNCONSCIOUS;
+  isDisabled(condition: BattleCondition, actor: Actor): boolean {
+    if (condition.getCondition() === Condition.UNCONSCIOUS) {
+      if(actor.getCurrentHP() <= 0) {
+        return true;
+      }
+    }
+    return false;
   }
+
 }

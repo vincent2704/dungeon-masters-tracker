@@ -1,10 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      Successes: {{successes}} <button class="btn btn-success" (click)="addSuccess()">Success</button>
+      Successes: {{successes}} <button class="btn btn-success" (click)="success()">Success</button>
     </div>
     <div class="col-sm">
-      Failures: {{failures}} <button class="btn btn-danger" (click)="addFailure()">Failure</button>
+      <button class="btn btn-success" (click)="criticalSuccess()">Rolled 20</button>
+    </div>
+    <div class="col-sm">
+      Failures: {{failures}} <button class="btn btn-danger" (click)="failure()">Failure</button>
+    </div>
+    <div class="col-sm">
+      <button class="btn btn-danger" (click)="criticalFail()">Rolled 1</button>
     </div>
   </div>
 </div>

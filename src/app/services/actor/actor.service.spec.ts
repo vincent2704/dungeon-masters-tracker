@@ -3,6 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {ActorService} from './actor.service';
 import {Actor} from "../../models/actor";
 import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
+import {Condition} from "../../models/Condition";
 
 describe('actorService', () => {
   let actorService: ActorService;
@@ -58,6 +59,34 @@ describe('actorService', () => {
     actorService.deleteActors(actorsToDelete);
 
     expect(actorService.getActors()).toEqual([actor2]);
+  });
+
+  it("should unstabilize if knocked down actor is hit", () => {
+    // given
+    let actor = new Actor('Actor 1', 1);
+    actor.modifyHp(-1);
+    expect(actor.isKnockedDown()).toBeTrue();
+    actor.setStabilized(true);
+
+    // when
+    actor.modifyHp(-1);
+
+    // then
+    expect(actor.isStabilized()).toBeFalse();
+  });
+
+  it("should remove knocked down state if actor is healed above 0 HP", () => {
+    // given
+    let actor = new Actor('Actor 1', 1);
+    actor.modifyHp(-1);
+    expect(actor.isKnockedDown()).toBeTrue();
+
+    // when
+    actor.modifyHp(1);
+
+    // then
+    expect(actor.isKnockedDown()).toBeFalse();
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
 });

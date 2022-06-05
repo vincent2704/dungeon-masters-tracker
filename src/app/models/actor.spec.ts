@@ -80,22 +80,13 @@ describe('Actor', () => {
 
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     //given
-    let actor = new Actor('Actor Name', 20, 0);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+    let actor = new Actor('Actor Name', 20, 1);
+    actor.modifyHp(-1);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
     //when
     actor.modifyHp(1);
     //then
-    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toEqual(false);
-  });
-
-  it("should set actor's HP to 1 when removing unconsciousness triggered by damage", () => {
-    //given
-    let actor = new Actor('Actor Name', 20, -5);
-    actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-    //when
-    actor.removeCondition(Condition.UNCONSCIOUS);
-    //then
-    expect(actor.getCurrentHP()).toEqual(1);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
   it("should return conditions that the actor is not under state of", () => {
@@ -132,6 +123,39 @@ describe('Actor', () => {
     //then
     expect(actor.getCurrentHP()).toEqual(18);
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
+  });
+
+  it("should knock down actor if their HP reaches 0 or less", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.modifyHp(-20);
+    //then
+    expect(actor.isKnockedDown()).toBeTrue();
+  });
+
+  it("should remove knocked down state if actor gets healed above 1 HP", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.modifyHp(-21);
+    actor.modifyHp(2);
+    //then
+    expect(actor.isKnockedDown()).toBeFalse();
+  });
+
+  it("should remove stabilized state if actor is hit", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    actor.modifyHp(-21);
+    expect(actor.isStabilized()).toBeFalse();
+    actor.setStabilized(true);
+
+    //when
+    actor.modifyHp(-1);
+
+    //then
+    expect(actor.isStabilized()).toBeFalse();
   });
 
 });
