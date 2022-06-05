@@ -18,7 +18,6 @@ describe('DeathSavingThrowsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
-    component.actor = new Actor('Actor', 10, 1);
     fixture.detectChanges();
   });
 
@@ -28,11 +27,12 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should stabilize actor after 3 successful death saving throws", () => {
     //given
+    component.actor = new Actor('Actor', 10, 1);
     component.actor.modifyHp(-1);
     //when
-    component.addSuccess();
-    component.addSuccess();
-    component.addSuccess();
+    component.success();
+    component.success();
+    component.success();
     //then
     expect(component.actor.getCurrentHP()).toEqual(0);
     expect(component.actor.isKnockedDown()).toBeTrue();
@@ -41,25 +41,53 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should NOT remove unconsciousness on successful death saving throws", () => {
     //given
+    component.actor = new Actor('Actor', 10, 1);
     component.actor.modifyHp(-1);
     //when
-    component.addSuccess();
-    component.addSuccess();
-    component.addSuccess();
+    component.success();
+    component.success();
+    component.success();
     //then
     expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
   });
 
   it("should kill actor on 3 failed death saving throws", () => {
     //given
+    component.actor = new Actor('Actor', 10, 1);
     component.actor.modifyHp(-1);
     //when
-    component.addFailure();
-    component.addFailure();
-    component.addFailure();
+    component.failure();
+    component.failure();
+    component.failure();
     //then
     expect(component.actor.isDead()).toBeTrue();
     expect(component.actor.getCurrentHP()).toEqual(0);
+  });
+
+  it("should add 2 failures and kill actor on rolled 1", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1);
+    //when
+    component.failure();
+    component.failure();
+    expect(component.failures).toEqual(2);
+    //and
+    component.criticalFail();
+    //then
+    expect(component.actor.isDead()).toBeTrue();
+  });
+
+  it("should immediately rise actor after rolled 20", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1);
+    //when
+    component.criticalSuccess()
+    //then
+    expect(component.actor.isKnockedDown()).toBeFalse();
+    expect(component.actor.getCurrentHP()).toEqual(1);
+    expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
 });

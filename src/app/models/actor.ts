@@ -98,6 +98,7 @@ export class Actor {
       if (this.isEligibleForDeathSavingThrows()) {
         this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
         this.knockedDown = true;
+        this.stabilized = false;
       } else {
         this.kill();
       }
@@ -134,10 +135,6 @@ export class Actor {
     }
   }
 
-  resurrect() {
-    this.dead = false;
-  }
-
   isEligibleForDeathSavingThrows(): boolean {
     return this.eligibleForDeathSavingThrows;
   }
@@ -148,6 +145,10 @@ export class Actor {
 
   isKnockedDown(): boolean {
     return this.knockedDown;
+  }
+
+  setKnockedDown(knockedDown: boolean) {
+    this.knockedDown = knockedDown;
   }
 
   isStabilized() {
