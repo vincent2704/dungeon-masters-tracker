@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbCalendar, NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {TimeStructure} from "../../models/timeStructure";
 
 @Component({
   selector: 'app-time-configuration',
@@ -14,6 +15,8 @@ export class TimeConfigurationComponent implements OnInit {
   currentDate: Date;
 
   isCollapsed: boolean = true;
+
+  timeStructure: TimeStructure = new TimeStructure();
 
   constructor(private calendar: NgbCalendar, private temporalService: TemporalService) {
     this.currentDate = temporalService.getCurrentDate();
@@ -33,4 +36,11 @@ export class TimeConfigurationComponent implements OnInit {
     return this.dateModel;
   }
 
+  addTime() {
+    this.temporalService.addTime(this.timeStructure);
+  }
+
+  subtractTime() {
+    this.temporalService.subtractTime(this.timeStructure);
+  }
 }

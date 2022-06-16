@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
+import {TimeStructure} from "../../models/timeStructure";
 
 /*
   Service that manages time progress in the campaign
@@ -34,5 +35,25 @@ export class TemporalService {
 
   addSeconds(secondsToAdd: number) {
     this.currentDate.setSeconds(this.currentDate.getSeconds() + secondsToAdd);
+  }
+
+  addTime(timeStructure: TimeStructure) {
+    this.currentDate.setMonth(this.currentDate.getMonth() + timeStructure.months);
+    this.currentDate.setDate(this.currentDate.getDate() + timeStructure.days);
+    this.currentDate.setHours(
+      this.currentDate.getHours() + timeStructure.hours,
+      this.currentDate.getMinutes() + timeStructure.minutes,
+      this.currentDate.getSeconds() + timeStructure.seconds
+    );
+  }
+
+  subtractTime(timeStructure: TimeStructure) {
+    this.currentDate.setMonth(this.currentDate.getMonth() - timeStructure.months);
+    this.currentDate.setDate(this.currentDate.getDate() - timeStructure.days);
+    this.currentDate.setHours(
+      this.currentDate.getHours() - timeStructure.hours,
+      this.currentDate.getMinutes() - timeStructure.minutes,
+      this.currentDate.getSeconds() - timeStructure.seconds
+    );
   }
 }
