@@ -38,22 +38,34 @@ export class TemporalService {
   }
 
   addTime(timeStructure: TimeStructure) {
-    this.currentDate.setMonth(this.currentDate.getMonth() + timeStructure.months);
-    this.currentDate.setDate(this.currentDate.getDate() + timeStructure.days);
+    let months = timeStructure.months ? timeStructure.months : 0;
+    let days = timeStructure.days ? timeStructure.days : 0;
+    let hours = timeStructure.hours ? timeStructure.hours : 0;
+    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
+    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
+
+    this.currentDate.setMonth(this.currentDate.getMonth() + months);
+    this.currentDate.setDate(this.currentDate.getDate() + days);
     this.currentDate.setHours(
-      this.currentDate.getHours() + timeStructure.hours,
-      this.currentDate.getMinutes() + timeStructure.minutes,
-      this.currentDate.getSeconds() + timeStructure.seconds
+      this.currentDate.getHours() + hours,
+      this.currentDate.getMinutes() + minutes,
+      this.currentDate.getSeconds() + seconds
     );
   }
 
   subtractTime(timeStructure: TimeStructure) {
-    this.currentDate.setMonth(this.currentDate.getMonth() - timeStructure.months);
-    this.currentDate.setDate(this.currentDate.getDate() - timeStructure.days);
+    let months = timeStructure.months ? timeStructure.months : 0;
+    let days = timeStructure.days ? timeStructure.days : 0;
+    let hours = timeStructure.hours ? timeStructure.hours : 0;
+    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
+    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
+
+    this.currentDate.setMonth(this.currentDate.getMonth() - months);
+    this.currentDate.setDate(this.currentDate.getDate() - days);
     this.currentDate.setHours(
-      this.currentDate.getHours() - timeStructure.hours,
-      this.currentDate.getMinutes() - timeStructure.minutes,
-      this.currentDate.getSeconds() - timeStructure.seconds
+      this.currentDate.getHours() - hours,
+      this.currentDate.getMinutes() - minutes,
+      this.currentDate.getSeconds() - seconds
     );
   }
 }

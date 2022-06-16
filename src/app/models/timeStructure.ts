@@ -1,17 +1,17 @@
 export class TimeStructure {
 
-  readonly months: number
-  readonly days: number
-  readonly hours: number
-  readonly minutes: number
-  readonly seconds: number
+  months?: number
+  days?: number
+  hours?: number
+  minutes?: number
+  seconds?: number
 
   constructor(
-    months: number = 0,
-    days: number = 0,
-    hours: number = 0,
-    minutes: number = 0,
-    seconds: number = 0,
+    months?: number,
+    days?: number,
+    hours?: number,
+    minutes?: number,
+    seconds?: number,
   ) {
     this.months = months;
     this.days = days;

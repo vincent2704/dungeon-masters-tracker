@@ -36,11 +36,11 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Add or subtract time</h5>
-          <input type="text" placeholder="Months">
-          <input type="text" placeholder="Days">
-          <input type="text" placeholder="Hours">
-          <input type="text" placeholder="Minutes">
-          <input type="text" placeholder="Seconds">
+          <input type="number" placeholder="Months" [(ngModel)]="timeStructure.months">
+          <input type="number" placeholder="Days" [(ngModel)]="timeStructure.days">
+          <input type="number" placeholder="Hours" [(ngModel)]="timeStructure.hours">
+          <input type="number" placeholder="Minutes" [(ngModel)]="timeStructure.minutes">
+          <input type="number" placeholder="Seconds" [(ngModel)]="timeStructure.seconds">
           <button class="btn btn-info" (click)="addTime()">Add</button>
           <button class="btn btn-info" (click)="subtractTime()">Subtract</button>
         </div>
