@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
+import {TimeStructure} from "../../models/timeStructure";
 
 /*
   Service that manages time progress in the campaign
@@ -34,5 +35,38 @@ export class TemporalService {
 
   addSeconds(secondsToAdd: number) {
     this.currentDate.setSeconds(this.currentDate.getSeconds() + secondsToAdd);
+  }
+
+  addTime(timeStructure: TimeStructure) {
+    //TODO: backend call
+    let months = timeStructure.months ? timeStructure.months : 0;
+    let days = timeStructure.days ? timeStructure.days : 0;
+    let hours = timeStructure.hours ? timeStructure.hours : 0;
+    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
+    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
+
+    this.currentDate.setMonth(this.currentDate.getMonth() + months);
+    this.currentDate.setDate(this.currentDate.getDate() + days);
+    this.currentDate.setHours(
+      this.currentDate.getHours() + hours,
+      this.currentDate.getMinutes() + minutes,
+      this.currentDate.getSeconds() + seconds
+    );
+  }
+
+  subtractTime(timeStructure: TimeStructure) {
+    let months = timeStructure.months ? timeStructure.months : 0;
+    let days = timeStructure.days ? timeStructure.days : 0;
+    let hours = timeStructure.hours ? timeStructure.hours : 0;
+    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
+    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
+
+    this.currentDate.setMonth(this.currentDate.getMonth() - months);
+    this.currentDate.setDate(this.currentDate.getDate() - days);
+    this.currentDate.setHours(
+      this.currentDate.getHours() - hours,
+      this.currentDate.getMinutes() - minutes,
+      this.currentDate.getSeconds() - seconds
+    );
   }
 }

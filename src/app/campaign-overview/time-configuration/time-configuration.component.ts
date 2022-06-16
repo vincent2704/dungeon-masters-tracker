@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbCalendar, NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {TimeStructure} from "../../models/timeStructure";
 
 @Component({
   selector: 'app-time-configuration',
@@ -15,6 +16,8 @@ export class TimeConfigurationComponent implements OnInit {
 
   isCollapsed: boolean = true;
 
+  timeChangeInput: TimeStructure = new TimeStructure();
+
   constructor(private calendar: NgbCalendar, private temporalService: TemporalService) {
     this.currentDate = temporalService.getCurrentDate();
     this.dateModel = { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth()+1, day: this.currentDate.getDate() };
@@ -24,7 +27,7 @@ export class TimeConfigurationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onConfirmDate() {
+  onConfirmDate(): void {
     this.temporalService.setCurrentDate(this.dateModel, this.timeModel);
     this.currentDate = this.temporalService.getCurrentDate();
   }
@@ -33,4 +36,21 @@ export class TimeConfigurationComponent implements OnInit {
     return this.dateModel;
   }
 
+  addTime(): void {
+    this.temporalService.addTime(this.timeChangeInput);
+    this.clearTimeChangeInput();
+  }
+
+  subtractTime(): void {
+    this.temporalService.subtractTime(this.timeChangeInput);
+    this.clearTimeChangeInput();
+  }
+
+  clearTimeChangeInput(): void {
+    this.timeChangeInput.months = undefined;
+    this.timeChangeInput.days = undefined;
+    this.timeChangeInput.hours = undefined;
+    this.timeChangeInput.minutes = undefined;
+    this.timeChangeInput.seconds = undefined;
+  }
 }

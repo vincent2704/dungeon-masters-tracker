@@ -5,14 +5,15 @@
         <span class="card-body">
           <span class="row h3 fw-bold">
             {{this.currentDate.getDate()}},
-            {{this.currentDate.toLocaleString('en-US', { month: 'long' })}},
+            {{this.currentDate.toLocaleString('en-US', {month: 'long'})}},
             {{this.currentDate.getFullYear()}}</span>
           <span class="row h3 fw-bold">{{currentDate.getHours()}}:{{currentDate.getMinutes()}}</span>
         </span>
       </span>
     </span>
     <span class="col">
-        <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
+        <button type="button" class="btn btn-outline-primary"
+                (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
                 [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseExample">
           Edit
@@ -21,11 +22,29 @@
   </span>
 </p>
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <ngb-datepicker #dp [(ngModel)]="dateModel"></ngb-datepicker>
-      <ngb-timepicker [(ngModel)]="timeModel" [seconds]="true" [spinners]="false"></ngb-timepicker>
-      <button class="btn btn-primary" (click)="onConfirmDate()">Confirm date</button>
+  <div class="row">
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <ngb-datepicker #dp [(ngModel)]="dateModel"></ngb-datepicker>
+          <ngb-timepicker [(ngModel)]="timeModel" [seconds]="true" [spinners]="false"></ngb-timepicker>
+          <button class="btn btn-primary" (click)="onConfirmDate()">Confirm date</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add or subtract time</h5>
+          <input type="number" placeholder="Months" [(ngModel)]="timeChangeInput.months">
+          <input type="number" placeholder="Days" [(ngModel)]="timeChangeInput.days">
+          <input type="number" placeholder="Hours" [(ngModel)]="timeChangeInput.hours">
+          <input type="number" placeholder="Minutes" [(ngModel)]="timeChangeInput.minutes">
+          <input type="number" placeholder="Seconds" [(ngModel)]="timeChangeInput.seconds">
+          <button class="btn btn-info" (click)="addTime()">Add</button>
+          <button class="btn btn-info" (click)="subtractTime()">Subtract</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
