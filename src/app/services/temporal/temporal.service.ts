@@ -38,6 +38,7 @@ export class TemporalService {
   }
 
   addTime(timeStructure: TimeStructure) {
+    //TODO: backend call
     let months = timeStructure.months ? timeStructure.months : 0;
     let days = timeStructure.days ? timeStructure.days : 0;
     let hours = timeStructure.hours ? timeStructure.hours : 0;
