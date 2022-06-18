@@ -22,11 +22,13 @@ import {
 import {
   WildernessCheatSheetComponent
 } from "./cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component";
+import {RestingComponent} from "./resting/resting.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
   { path: 'campaign-overview', component: CampaignOverviewComponent },
   { path: 'battle', component: BattleComponent },
+  { path: 'resting', component: RestingComponent },
   {
     path: 'cheat-sheets', component: CheatSheetsComponent,
     children: [
