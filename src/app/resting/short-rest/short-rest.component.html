@@ -35,10 +35,10 @@
             {{actor.level}}
           </th>
           <th scope="row">
-            <input type="number" placeholder="Hit Dice amount">
+            <input type="number" placeholder="Hit Dice amount" [(ngModel)]="actorsToShortRestInput.get(actor)!.hitDiceToSpend">
           </th>
           <th scope="row">
-            <input type="number" placeholder="Add HP">
+            <input type="number" placeholder="Add HP" [(ngModel)]="actorsToShortRestInput.get(actor)!.hpToAdd">
           </th>
         </tr>
       </tbody>
@@ -46,10 +46,11 @@
     <div class="card-text">
       <div class="row">
         <div class="col">
-          <input type="number" placeholder="Hours">
+          <label for="restDuration">Rest duration in hours:</label>
+          <input type="number" placeholder="Hours" [(ngModel)]="shortRestDurationInHours" id="restDuration">
         </div>
         <div class="col">
-          <button class="btn btn-primary">Confirm</button>
+          <button class="btn btn-primary" (click)="confirmShortRest()">Confirm</button>
         </div>
       </div>
     </div>

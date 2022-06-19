@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RestingComponent } from './resting.component';
+import {ShortRestComponent} from "./short-rest/short-rest.component";
+import {FormsModule} from "@angular/forms";
 
 describe('RestingComponent', () => {
   let component: RestingComponent;
@@ -8,7 +10,8 @@ describe('RestingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RestingComponent ]
+      imports: [FormsModule],
+      declarations: [ RestingComponent, ShortRestComponent ]
     })
     .compileComponents();
   });
