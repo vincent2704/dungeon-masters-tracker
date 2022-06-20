@@ -1,0 +1,38 @@
+name: Build app for GH Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  compile-source-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WRITE_TOKEN }}
+      - name: Checkout branch
+        run: |
+          git config --global user.email "dungeon.masters.tracker@bot.com"
+          git config --global user.name "bot"
+          git fetch
+          git checkout -b ghpages
+          git rebase origin/master
+      - name: Build Application
+        id: build-application
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Move compiled files to docs folder
+        id: move-compiled-files
+        if: steps.build-application.outcome == 'success'
+        run: |
+          rm -rf ./docs
+          mkdir ./docs
+          mv ./dist/dungeon-masters-tracker/* ./docs/
+
+          git add .
+          git commit -m "docs folder update"
+          git push origin --delete ghpages
+          git push --set-upstream origin ghpages
