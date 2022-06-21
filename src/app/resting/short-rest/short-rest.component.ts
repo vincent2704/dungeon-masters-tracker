@@ -25,7 +25,11 @@ export class ShortRestComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  confirmShortRest() {
+  getAvailableHitDice(actor: Actor): number {
+    return this.restingService.getActorsAvailableHitDice(actor);
+  }
+
+  confirmShortRest(): void {
     //TODO: validation on hit dice to spend vs available hit dice
     this.restingService.performShortRest(this.shortRestDurationInHours, this.actorsToShortRestInput);
   }

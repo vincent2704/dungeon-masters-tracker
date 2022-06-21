@@ -36,6 +36,7 @@ export class ActorService {
 
   setActors(Actors: Actor[]): void {
     this.actors = Actors;
+    //TODO: backend call
   }
 
   resetActors(): Actor[] {
