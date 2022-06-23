@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      Short rest
+    </h5>
+    <table class="table table-hover table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">
+            Actor
+          </th>
+          <th scope="col">
+            Current HP
+          </th>
+          <th scope="col">
+            Available Hit Dice
+          </th>
+          <th scope="col">
+            Hit Dice to spend
+          </th>
+          <th scope="col">
+            HP to add
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actor of actors">
+          <th scope="row">
+            {{actor.name}}
+          </th>
+          <th scope="row">
+            {{actor.currentHP}}
+          </th>
+          <th scope="row">
+            {{getAvailableHitDice(actor)}}
+          </th>
+          <th scope="row">
+            <input type="number" placeholder="Hit Dice amount" [(ngModel)]="actorsToShortRestInput.get(actor)!.hitDiceToSpend">
+          </th>
+          <th scope="row">
+            <input type="number" placeholder="Add HP" [(ngModel)]="actorsToShortRestInput.get(actor)!.hpToAdd">
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card-text">
+      <div class="row">
+        <div class="col">
+          <label for="restDuration">Rest duration in hours:</label>
+          <input type="number" placeholder="Hours" [(ngModel)]="shortRestDurationInHours" id="restDuration">
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" (click)="confirmShortRest()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

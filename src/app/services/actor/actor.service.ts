@@ -36,16 +36,17 @@ export class ActorService {
 
   setActors(Actors: Actor[]): void {
     this.actors = Actors;
+    //TODO: backend call
   }
 
   resetActors(): Actor[] {
     this.actors = [];
 
-    this.actors = this.getProtagonistsActors();
+    this.actors = this.getProtagonistsActorsCopy();
     return this.actors;
   }
 
-  getProtagonistsActors(): Actor[] {
+  getProtagonistsActorsCopy(): Actor[] {
     this.actors = PROTAGONISTS.slice();
     return this.actors;
   }

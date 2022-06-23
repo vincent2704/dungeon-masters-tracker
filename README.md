@@ -13,15 +13,11 @@ game itself instead of counting initiative order etc.
 1. Battle tracking
     * Modifying actors' HP before the battle
     * Editing condition duration mid-fight
-    * Stabilized
-      * Adding Stabilized state on successful death saving throws
-      * Critical success/fail for death saving throws
 2. Persisting data
 3. Time progress
     * Recording time spent in the campaign
     * Automatic passed time increasing on travel record
     * Adding recorded events on a timeline, time passed since that event
-    * Manual time adding
     * Short/long rest time tracking
 4. Tools
     * Imperial to SI/vice-versa calculator (simplified for DnD usage)

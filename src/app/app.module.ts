@@ -25,6 +25,8 @@ import { CombatDifficultyCalculatorComponent } from './tools/combat-difficulty-c
 import { SettingsComponent } from './settings/settings.component';
 import { CampaignOverviewComponent } from './campaign-overview/campaign-overview.component';
 import { TimeConfigurationComponent } from './campaign-overview/time-configuration/time-configuration.component';
+import { RestingComponent } from './resting/resting.component';
+import { ShortRestComponent } from './resting/short-rest/short-rest.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { TimeConfigurationComponent } from './campaign-overview/time-configurati
     SettingsComponent,
     CampaignOverviewComponent,
     TimeConfigurationComponent,
+    RestingComponent,
+    ShortRestComponent,
   ],
   imports: [
     BrowserModule,

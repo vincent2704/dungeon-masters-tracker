@@ -24,7 +24,7 @@ export class Actor {
     level: number = 1,
     dead: boolean = false,
     battleConditions: BattleCondition[] = [],
-    deathSavingThrowsEligibility: boolean = true,
+    eligibleForSavingThrows: boolean = true,
     knockedDown: boolean = false,
   ) {
     this.name = name;
@@ -34,7 +34,7 @@ export class Actor {
     this.level = level;
     this.dead = dead;
     this.battleConditions = battleConditions;
-    this.eligibleForDeathSavingThrows = deathSavingThrowsEligibility;
+    this.eligibleForDeathSavingThrows = eligibleForSavingThrows;
     this.temporaryHP = new TemporaryHP(0, 0);
     this.knockedDown = knockedDown;
   }
@@ -217,6 +217,11 @@ export class Actor {
     for (let condition of this.getExpiredConditions()) {
       this.removeCondition(condition);
     }
+  }
+
+  copy(): Actor {
+    return new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
+      this.battleConditions, this.eligibleForDeathSavingThrows, this.knockedDown)
   }
 
   private getExpiredConditions(): Condition[] {
