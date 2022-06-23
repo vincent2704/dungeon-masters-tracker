@@ -22,8 +22,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14.x
+      - run: npm install -g @angular/cli@13.2.4
       - run: npm ci
-      - run: npm run build --if-present --base-href=""
+      - run: ng build --base-href=""
       - name: Move compiled files to docs folder
         id: move-compiled-files
         if: steps.build-application.outcome == 'success'
