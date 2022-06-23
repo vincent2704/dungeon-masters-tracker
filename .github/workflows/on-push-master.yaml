@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - actor_reset_after_battle_bugfix
 jobs:
   compile-source-files:
     runs-on: ubuntu-latest

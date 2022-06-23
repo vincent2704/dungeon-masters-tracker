@@ -53,7 +53,6 @@ export class BattleComponent implements OnInit {
       this.resolveInitiativeConflicts();
       this.isBattleStarted = true;
     } else {
-      this.actors = this.actorService.resetActors();
       this.isBattleStarted = false;
       this.conflictResolvedActors = [];
       if(this.isTimeTracked) {
