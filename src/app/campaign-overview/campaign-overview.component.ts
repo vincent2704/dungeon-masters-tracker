@@ -9,7 +9,7 @@ import {ActorService} from "../services/actor/actor.service";
 })
 export class CampaignOverviewComponent implements OnInit {
 
-  playerCharacters: Actor[];
+  playerCharacters: Actor[] = [];
 
   // add new actor form
   newActorName: string = '';
@@ -21,10 +21,10 @@ export class CampaignOverviewComponent implements OnInit {
   actorsToAdd: Actor[] = [];
 
   constructor(private actorService: ActorService) {
-    this.playerCharacters = actorService.getActors().map(actor => Object.assign({}, actor));
   }
 
   ngOnInit(): void {
+    this.playerCharacters = this.getProtagonistsCopy();
   }
 
   addActor(): void {
@@ -60,10 +60,18 @@ export class CampaignOverviewComponent implements OnInit {
   }
 
   onCancelEdit(): void {
-    this.playerCharacters = this.actorService.getActors().map(actor => Object.assign({}, actor));
+    this.playerCharacters = this.getProtagonistsCopy();
     this.actorsToDelete = [];
     this.actorsToAdd = [];
     this.managingProtagonists = false;
+  }
+
+  onDeleteNewActor(addedActor: Actor) {
+    for(let actor of this.actorsToAdd) {
+      if(this.actorsToAdd.indexOf(addedActor) > -1) {
+        this.actorsToAdd.splice(this.actorsToAdd.indexOf(actor), 1);
+      }
+    }
   }
 
   private addActors(actorsToAdd: Actor[]): void {
@@ -82,11 +90,8 @@ export class CampaignOverviewComponent implements OnInit {
     this.actorsToDelete = [];
   }
 
-  onDeleteNewActor(addedActor: Actor) {
-    for(let actor of this.actorsToAdd) {
-      if(this.actorsToAdd.indexOf(addedActor) > -1) {
-        this.actorsToAdd.splice(this.actorsToAdd.indexOf(actor), 1);
-      }
-    }
+  private getProtagonistsCopy() {
+    return this.actorService.getActors().map(actor => actor.copy());
   }
+
 }

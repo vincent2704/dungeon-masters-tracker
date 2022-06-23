@@ -14,7 +14,7 @@ describe('ShortRestComponent', () => {
   let restingServiceSpy: jasmine.SpyObj<RestingService>;
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getProtagonistsActorsCopy'])
+    const actorService = jasmine.createSpyObj('ActorService', ['getActors'])
     const restingService = jasmine.createSpyObj('RestingService', ['performShortRest'])
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -29,7 +29,7 @@ describe('ShortRestComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getProtagonistsActorsCopy.and.returnValue([]);
+    actorServiceSpy.getActors.and.returnValue([]);
 
     restingServiceSpy = TestBed.inject(RestingService) as jasmine.SpyObj<RestingService>;
 

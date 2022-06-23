@@ -42,9 +42,9 @@ describe('RestingService', () => {
     //given
     let actor1 = new Actor('Actor One', 14, 5, 1, 5);
     let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
-    let actorsToHitDiceMap = new Map<Actor, number>([
-      [actor1, actor1.level],
-      [actor2, actor2.level],
+    let actorsToHitDiceMap = new Map<string, number>([
+      [actor1.name, actor1.level],
+      [actor2.name, actor2.level],
     ])
 
     service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
@@ -59,9 +59,9 @@ describe('RestingService', () => {
     let actor1 = new Actor('Actor One', 14, 5, 1, 5);
     let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
 
-    let actorsToHitDiceMap = new Map<Actor, number>([
-      [actor1, actor1.level],
-      [actor2, actor2.level],
+    let actorsToHitDiceMap = new Map<string, number>([
+      [actor1.name, actor1.level],
+      [actor2.name, actor2.level],
     ])
     service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
 
@@ -79,9 +79,9 @@ describe('RestingService', () => {
     expect(actor1.getCurrentHP()).toEqual(10);
     expect(actor2.getCurrentHP()).toEqual(11);
 
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<Actor, number>([
-      [actor1, 2],
-      [actor2, 4],
+    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>([
+      [actor1.name, 2],
+      [actor2.name, 4],
     ]));
     expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(7200);
   });

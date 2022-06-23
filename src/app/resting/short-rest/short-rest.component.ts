@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ActorService} from "../../services/actor/actor.service";
+import {Component, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
 import {RestingService} from "../../services/resting/resting.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
+import {ActorService} from "../../services/actor/actor.service";
 
 @Component({
   selector: 'app-short-rest',
@@ -11,18 +11,18 @@ import {ShortRestInput} from "../../models/resting/shortRestInput";
 })
 export class ShortRestComponent implements OnInit {
 
-  actors: Actor[];
+  actors: Actor[] = [];
   actorsToShortRestInput: Map<Actor, ShortRestInput> = new Map<Actor, ShortRestInput>();
   shortRestDurationInHours: number = 1;
 
   constructor(private actorService: ActorService, private restingService: RestingService) {
-    this.actors = actorService.getProtagonistsActorsCopy();
-    for(let actor of this.actors) {
-      this.actorsToShortRestInput.set(actor, new ShortRestInput());
-    }
   }
 
   ngOnInit(): void {
+    this.actors = this.actorService.getActors()
+    for(let actor of this.actors) {
+      this.actorsToShortRestInput.set(actor, new ShortRestInput());
+    }
   }
 
   getAvailableHitDice(actor: Actor): number {
