@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      Long Rest
+    </h5>
+    <div class="card-text">
+      <table class="table table-hover table-borderless table-sm">
+        <tbody>
+        <tr>
+          <th scope="row">
+            Time since last Long Rest:
+          </th>
+          <th scope="row">
+            {{getTimeSinceLastRest()}} hours
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            Resting time in hours:
+          </th>
+          <th scope="row">
+            <input type="number" class="form-control" placeholder="Rest time in hours"
+                   [value]="getMinimumRestingTime()">
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <button class="btn btn-primary">Confirm</button>
+          </th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

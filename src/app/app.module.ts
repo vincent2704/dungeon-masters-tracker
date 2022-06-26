@@ -27,6 +27,7 @@ import { CampaignOverviewComponent } from './campaign-overview/campaign-overview
 import { TimeConfigurationComponent } from './campaign-overview/time-configuration/time-configuration.component';
 import { RestingComponent } from './resting/resting.component';
 import { ShortRestComponent } from './resting/short-rest/short-rest.component';
+import { LongRestComponent } from './resting/long-rest/long-rest.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ShortRestComponent } from './resting/short-rest/short-rest.component';
     TimeConfigurationComponent,
     RestingComponent,
     ShortRestComponent,
+    LongRestComponent,
   ],
   imports: [
     BrowserModule,
