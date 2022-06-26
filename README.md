@@ -10,6 +10,10 @@ that otherwise would slow down the pace of the gameplay, so everyone can focus o
 game itself instead of counting initiative order etc. 
 
 ## TO DO LIST
+
+Highest priority stuff is listed and tracked [here](https://github.com/users/vincent2704/projects/3/views/1).
+The below list will be gradually removed.
+
 1. Battle tracking
     * Modifying actors' HP before the battle
     * Editing condition duration mid-fight

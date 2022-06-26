@@ -9,13 +9,14 @@ import {TemporalService} from "../temporal/temporal.service";
 })
 export class RestingService {
 
-  private readonly actors: Actor[] = []
+  private readonly MILLISECONDS_IN_HOUR: number = 3_600_000;
+
+  //TODO: backend - this will probably have to be fixed once Actors are persisted to Map<Actor_ID, Hit_Dice>
   private actorsToAvailableHitDice: Map<string, number> = new Map<string, number>();
 
   constructor(private actorService: ActorService, private temporalService: TemporalService) {
-    //TODO: replace loop with backend call when backend is implemented
-    this.actors = actorService.getActors();
-    for (let actor of this.actors) {
+    //TODO: replace necessary stuff with backend call when backend is implemented
+    for (let actor of actorService.getActors()) {
       this.actorsToAvailableHitDice.set(actor.name, actor.level); // initial amount of hit dice should be equal to actor's level
     }
   }
@@ -28,6 +29,24 @@ export class RestingService {
     //TODO: backend call
   }
 
+  performLongRest(restTimeInHours: number): void {
+    if(restTimeInHours < this.getMinimumRestingTime()) {
+      console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
+      return;
+    }
+
+    this.actorsToAvailableHitDice.forEach((availableHitDice, actorName) => {
+      let actor = this.actorService.findActorByName(actorName);
+      if(actor.isKnockedDown()) {
+        return;
+      }
+      this.regainHitDice(actor);
+      actor.modifyHp(actor.maxHP);
+    })
+
+    this.temporalService.addSeconds(restTimeInHours * 3600);
+  }
+
   getActorsToAvailableHitDiceMap(): Map<string, number> {
     return this.actorsToAvailableHitDice;
   }
@@ -38,6 +57,28 @@ export class RestingService {
 
   getActorsAvailableHitDice(actor: Actor): number {
     return this.actorsToAvailableHitDice.get(actor.name)!;
+  }
+
+  getTimeSinceLastLongRest() {
+    return (this.temporalService.getCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime())
+      / this.MILLISECONDS_IN_HOUR;
+  }
+
+  getMinimumRestingTime() {
+    const timeSinceLastLongRestInHours = this.getTimeSinceLastLongRest()
+    return timeSinceLastLongRestInHours >= 8 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
+  }
+
+  private regainHitDice(actor: Actor): void {
+    let availableHitDice = this.getActorsAvailableHitDice(actor);
+    if(availableHitDice < actor.level) {
+      let maxDiceNumberToRegain = actor.level / 2;
+      availableHitDice += maxDiceNumberToRegain;
+      if (availableHitDice > actor.level) {
+        availableHitDice = actor.level;
+      }
+      this.actorsToAvailableHitDice.set(actor.name, availableHitDice);
+    }
   }
 
   private applyShortRestInput(actor: Actor, shortRestInput: ShortRestInput): void {
