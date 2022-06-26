@@ -18,6 +18,10 @@ export class ActorService {
     return this.actors;
   }
 
+  findActorByName(actorName: string): Actor {
+    return this.actors.find(actor => actor.name == actorName)!;
+  }
+
   addActor(actor: Actor): void {
     this.actors.push(actor);
   }

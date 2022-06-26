@@ -6,30 +6,47 @@ import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
 import {Condition} from "../../models/Condition";
 
 describe('actorService', () => {
-  let actorService: ActorService;
+  let service: ActorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    actorService = TestBed.inject(ActorService);
+    service = TestBed.inject(ActorService);
   });
 
   it('should be created', () => {
-    expect(actorService).toBeTruthy();
+    expect(service).toBeTruthy();
+  });
+
+  it("should find actor by their name", () => {
+    // given
+    let actorToFind = new Actor('Name 2', 2);
+    let actors = [
+      new Actor('Name 1', 1),
+      actorToFind,
+      new Actor('Name 3', 3),
+    ];
+    service.setActors(actors)
+
+    // when
+    let result = service.findActorByName('Name 2');
+
+    // then
+    expect(result).toEqual(actorToFind);
   });
 
   it("should reset battle actors to protagonists", () => {
     // given
-    let someActors = [
+    let actors = [
       new Actor('Name 1', 1),
       new Actor('Name 2', 2),
       new Actor('Name 3', 3),
     ];
-    actorService.setActors(someActors);
-    expect(actorService.getActors()).toEqual(someActors);
+    service.setActors(actors);
+    expect(service.getActors()).toEqual(actors);
 
     // when
-    actorService.resetActors();
-    expect(actorService.getActors()).toEqual(PROTAGONISTS)
+    service.resetActors();
+    expect(service.getActors()).toEqual(PROTAGONISTS)
   });
 
   it("should remove actor", () => {
@@ -37,13 +54,13 @@ describe('actorService', () => {
     let actor1 = new Actor('Actor 1', 1);
     let actor2 = new Actor('Actor 2', 1);
     let actor3 = new Actor('Actor 3', 1);
-    actorService.setActors([actor1, actor2, actor3]);
+    service.setActors([actor1, actor2, actor3]);
 
     // when
-    actorService.deleteActor(actor2);
+    service.deleteActor(actor2);
     let expectedActors = [actor1, actor3];
 
-    expect(actorService.getActors()).toEqual(expectedActors);
+    expect(service.getActors()).toEqual(expectedActors);
   });
 
   it("should remove multiple actors", () => {
@@ -51,14 +68,14 @@ describe('actorService', () => {
     let actor1 = new Actor('Actor 1', 1);
     let actor2 = new Actor('Actor 2', 1);
     let actor3 = new Actor('Actor 3', 1);
-    actorService.setActors([actor1, actor2, actor3]);
+    service.setActors([actor1, actor2, actor3]);
 
     // when
     let notPresentActor = new Actor('Not present actor', 1);
     let actorsToDelete = [actor1, actor3, notPresentActor];
-    actorService.deleteActors(actorsToDelete);
+    service.deleteActors(actorsToDelete);
 
-    expect(actorService.getActors()).toEqual([actor2]);
+    expect(service.getActors()).toEqual([actor2]);
   });
 
   it("should unstabilize if knocked down actor is hit", () => {

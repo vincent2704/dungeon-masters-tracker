@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RestingService} from "../../services/resting/resting.service";
 
 @Component({
   selector: 'app-long-rest',
@@ -7,16 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LongRestComponent implements OnInit {
 
-  constructor() { }
+  restTimeInHours: number;
+
+  constructor(private restingService: RestingService) {
+    this.restTimeInHours = restingService.getMinimumRestingTime();
+  }
 
   ngOnInit(): void {
+    this.restTimeInHours = this.restingService.getMinimumRestingTime();
+  }
+
+  rest(): void {
+    this.restingService.performLongRest(this.restTimeInHours);
   }
 
   getTimeSinceLastRest(): number {
-    return 18;
+    return this.restingService.getTimeSinceLastLongRest();
   }
 
   getMinimumRestingTime(): number {
-    return 8
+    return this.restingService.getMinimumRestingTime();
+  }
+
+  isRestingEnabled(): boolean {
+    return this.restTimeInHours >= this.restingService.getMinimumRestingTime();
   }
 }

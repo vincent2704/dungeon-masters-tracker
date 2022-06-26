@@ -20,12 +20,12 @@
           </th>
           <th scope="row">
             <input type="number" class="form-control" placeholder="Rest time in hours"
-                   [value]="getMinimumRestingTime()">
+                   [(ngModel)]="restTimeInHours">
           </th>
         </tr>
         <tr>
           <th scope="row">
-            <button class="btn btn-primary">Confirm</button>
+            <button class="btn btn-primary" [disabled]="!isRestingEnabled()" (click)="rest()">Confirm</button>
           </th>
         </tr>
         </tbody>
