@@ -45,6 +45,7 @@ export class RestingService {
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
+    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
   }
 
   getActorsToAvailableHitDiceMap(): Map<string, number> {
@@ -60,13 +61,14 @@ export class RestingService {
   }
 
   getTimeSinceLastLongRest() {
-    return (this.temporalService.getCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime())
-      / this.MILLISECONDS_IN_HOUR;
+    let timeSinceLastLongRest =
+      this.temporalService.getCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime();
+    return timeSinceLastLongRest / this.MILLISECONDS_IN_HOUR;
   }
 
   getMinimumRestingTime() {
     const timeSinceLastLongRestInHours = this.getTimeSinceLastLongRest()
-    return timeSinceLastLongRestInHours >= 8 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
+    return timeSinceLastLongRestInHours >= 24 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
   }
 
   private regainHitDice(actor: Actor): void {

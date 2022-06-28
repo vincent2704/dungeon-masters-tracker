@@ -13,7 +13,7 @@ describe('RestingService', () => {
 
   beforeEach(() => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'findActorByName']);
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate']);
+    const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -117,17 +117,17 @@ describe('RestingService', () => {
 
   it("should set minimum rest time for party that last time rested less than 24 hours ago", () => {
     //given
-    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
+    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
     // and
-    let currentDate = new Date(1524, 6, 17, 23, 30, 0);
+    let currentDate = new Date(1524, 6, 17, 19, 30, 0);
     temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
 
     //when
     let minimumLongRestTime = service.getMinimumRestingTime();
 
     //then
-    expect(minimumLongRestTime).toEqual(27);
+    expect(minimumLongRestTime).toEqual(23);
   });
 
   it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
@@ -147,9 +147,9 @@ describe('RestingService', () => {
     service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
 
     // and
-    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
+    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
-    let currentDate = new Date(1524, 6, 18, 18, 30, 0);
+    let currentDate = new Date(1524, 6, 18, 10, 30, 0);
     temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
 
     // and

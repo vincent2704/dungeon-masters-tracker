@@ -11,7 +11,7 @@ import {TimeStructure} from "../../models/timeStructure";
 export class TemporalService {
 
   private currentDate: Date;
-  private lastLongRestDate: Date;
+  private lastLongRestFinishedDate: Date;
 
   constructor() {
     //TODO: backend call
@@ -19,7 +19,7 @@ export class TemporalService {
       1524, 6, 17,
       18, 30, 0
     );
-    this.lastLongRestDate = this.currentDate;
+    this.lastLongRestFinishedDate = new Date(this.currentDate);
   }
 
   setCurrentDate(newDate: NgbDateStruct, newTime: NgbTimeStruct) {
@@ -36,7 +36,11 @@ export class TemporalService {
   }
 
   getLastLongRestDate(): Date {
-    return this.lastLongRestDate;
+    return this.lastLongRestFinishedDate;
+  }
+
+  setLastLongRestDate(lastLongRestFinishedDate: Date) {
+    this.lastLongRestFinishedDate = lastLongRestFinishedDate
   }
 
   addSeconds(secondsToAdd: number) {
