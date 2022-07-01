@@ -31,11 +31,17 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   onCalculateTime(event: any) {
+    if(!this.isPaceSelected()) {
+      return;
+    }
     let distance = parseFloat((<HTMLInputElement>event.target).value);
     this.updateTravelTime(distance);
   }
 
   onCalculateDistance(event: any) {
+    if(!this.isPaceSelected()) {
+      return;
+    }
     let time = parseFloat((<HTMLInputElement>event.target).value);
     this.updateTravelDistance(time);
   }
@@ -54,18 +60,30 @@ export class TravelCalculatorComponent implements OnInit {
     this.travelInformation = `Traveled distance: ${distanceTraveledForHours} ${measureUnit}`;
   }
 
+  private isPaceSelected(): boolean {
+    if(this.pace.length == 0) {
+      this.travelInformation = 'Travel pace is not selected';
+      return false;
+    }
+    return true;
+  }
+
   private getOneHourTravelToPaceRatio(): number {
-    if (this.pace === 'Fast') {
-      return this.settingsService.isUsingSISystem() ? 6 : 4;
+    switch (this.pace) {
+      case 'Fast': {
+        return this.settingsService.isUsingSISystem() ? 6 : 4;
+      }
+      case 'Normal': {
+        return this.settingsService.isUsingSISystem() ? 4.5 : 3;
+      }
+      case 'Slow': {
+        return this.settingsService.isUsingSISystem() ? 3 : 2;
+      }
+      default: {
+        console.warn(`Pace was not selected`)
+        return 0;
+      }
     }
-    if (this.pace === 'Normal') {
-      return this.settingsService.isUsingSISystem() ? 4.5 : 3;
-    }
-    if (this.pace === 'Slow') {
-      return this.settingsService.isUsingSISystem() ? 3 : 2;
-    }
-    console.error('ERROR ON SELECTING PACE');
-    return 0;
   }
 
 }
