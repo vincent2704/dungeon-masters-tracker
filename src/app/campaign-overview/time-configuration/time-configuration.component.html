@@ -1,26 +1,31 @@
-<p>
-  <span class="row">
-    <span class="col">
-      <span class="card" style="width: 18rem;">
-        <span class="card-body">
-          <span class="row h3 fw-bold">
+<div class="row">
+  <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <div class="row h3 fw-bold">
+          <div class="col">
             {{this.currentDate.getDate()}},
             {{this.currentDate.toLocaleString('en-US', {month: 'long'})}},
-            {{this.currentDate.getFullYear()}}</span>
-          <span class="row h3 fw-bold">{{currentDate.getHours()}}:{{currentDate.getMinutes()}}</span>
-        </span>
-      </span>
-    </span>
-    <span class="col">
-        <button type="button" class="btn btn-outline-primary"
-                (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
-                [attr.aria-expanded]="!isCollapsed"
-                aria-controls="collapseExample">
-          Edit
-        </button>
-    </span>
-  </span>
-</p>
+            {{this.currentDate.getFullYear()}}</div>
+        </div>
+        <div class="row h4 fw-bold">
+          <div class="col">
+            {{currentDate.getHours()}}:{{currentDate.getMinutes()}}
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary"
+                    (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapseExample">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <div class="row">
     <div class="col">
