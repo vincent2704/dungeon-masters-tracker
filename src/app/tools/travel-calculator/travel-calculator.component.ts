@@ -80,7 +80,6 @@ export class TravelCalculatorComponent implements OnInit {
         return this.settingsService.isUsingSISystem() ? 3 : 2;
       }
       default: {
-        console.warn(`Pace was not selected`)
         return 0;
       }
     }
