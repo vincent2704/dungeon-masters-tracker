@@ -31,18 +31,26 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   onCalculateTime(event: any) {
-    if(!this.isPaceSelected()) {
+    if (!this.isPaceSelected()) {
       return;
     }
     let distance = parseFloat((<HTMLInputElement>event.target).value);
+    if(!distance) {
+      this.travelInformation = "Distance input is empty";
+      return;
+    }
     this.updateTravelTime(distance);
   }
 
   onCalculateDistance(event: any) {
-    if(!this.isPaceSelected()) {
+    if (!this.isPaceSelected()) {
       return;
     }
     let time = parseFloat((<HTMLInputElement>event.target).value);
+    if (!time) {
+      this.travelInformation = "Time input is empty";
+      return;
+    }
     this.updateTravelDistance(time);
   }
 
@@ -61,7 +69,7 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   private isPaceSelected(): boolean {
-    if(this.pace.length == 0) {
+    if (this.pace.length == 0) {
       this.travelInformation = 'Travel pace is not selected';
       return false;
     }
