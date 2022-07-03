@@ -1,0 +1,33 @@
+<h3>
+  Campaign Events
+</h3>
+<div class="row">
+  <div class="col">
+    <button type="button" class="btn btn-primary"
+            (click)="collapse.toggle();"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapse">
+      Add event
+    </button>
+  </div>
+  <div class="col">
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div class="card-body">
+        <div class="card-title">
+          <input type="text" placeholder="Event title">
+        </div>
+        <textarea placeholder="Event description"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let event of events" class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{event.getTitle()}}</h5>
+    <p class="card-text">Cheat sheet for travelling paces, distance and time.</p>
+    <a class="btn btn-primary" routerLink="traveling">Show</a>
+  </div>
+</div>
+
