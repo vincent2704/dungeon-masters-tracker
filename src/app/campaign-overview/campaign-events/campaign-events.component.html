@@ -12,22 +12,35 @@
   </div>
   <div class="col">
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-      <div class="card-body">
-        <div class="card-title">
-          <input type="text" placeholder="Event title">
+      <form (ngSubmit)="onSubmit()">
+        <div class="card-body">
+          <div class="card-title">
+            <input type="text" class="form-control" placeholder="Event title" [(ngModel)]="newEventTitle" name="eventTitle">
+          </div>
+          <textarea class="form-control" placeholder="Event description" [(ngModel)]="newEventDescription" name="eventDescription"></textarea>
+          <button type="submit" class="btn btn-primary">Confirm</button>
         </div>
-        <textarea placeholder="Event description"></textarea>
-      </div>
+      </form>
     </div>
   </div>
 </div>
 
 
-<div *ngFor="let event of events" class="card" style="width: 18rem;">
+<div *ngFor="let event of events" class="card">
   <div class="card-body">
     <h5 class="card-title">{{event.getTitle()}}</h5>
-    <p class="card-text">Cheat sheet for travelling paces, distance and time.</p>
-    <a class="btn btn-primary" routerLink="traveling">Show</a>
+    <p class="card-text">{{event.getDescription()}}</p>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col">Date:</div>
+        <div class="col">{{event.getCampaignDateFormatted()}}</div>
+      </div>
+      <div class="row">
+        <div class="col">Real date:</div>
+        <div class="col">{{event.getRealWorldDateFormatted()}}</div>
+      </div>
+      <button class="btn btn-primary" (click)="deleteEvent(event)">Delete</button>
+    </div>
   </div>
 </div>
 
