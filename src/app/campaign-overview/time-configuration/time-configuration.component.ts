@@ -36,6 +36,13 @@ export class TimeConfigurationComponent implements OnInit {
     return this.dateModel;
   }
 
+  getCurrentDateFormatted(): string {
+    return `
+    ${this.currentDate.getDate()},
+    ${this.currentDate.toLocaleString('en-US', {month: 'long'})},
+    ${this.currentDate.getFullYear()}`;
+  }
+
   addTime(): void {
     this.temporalService.addTime(this.timeChangeInput);
     this.clearTimeChangeInput();

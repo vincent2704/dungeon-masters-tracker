@@ -1,8 +1,9 @@
 import {Actor} from "../actor";
 
 export const PROTAGONISTS = [
-  new Actor('Nathaniel', 53, 53, 4, 4),
-  new Actor('Rose', 49, 49, 3, 4),
-  new Actor("Shari'Va", 31, 31, 2, 4),
-  new Actor('Elise', 36, 36, 1, 4),
+  new Actor('Falimir', 11, 11, 4, 1),
+  new Actor('Dargorad', 14, 14, 3, 1),
+  new Actor('Żywia', 31, 31, 2, 1),
+  new Actor('Varban', 13, 13, 1, 1),
+  new Actor('Thellae', 12, 12, 1, 1),
 ];

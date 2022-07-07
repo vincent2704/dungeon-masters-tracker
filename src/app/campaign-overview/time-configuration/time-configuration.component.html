@@ -3,10 +3,7 @@
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <div class="row h3 fw-bold">
-          <div class="col">
-            {{this.currentDate.getDate()}},
-            {{this.currentDate.toLocaleString('en-US', {month: 'long'})}},
-            {{this.currentDate.getFullYear()}}</div>
+          <div class="col">{{getCurrentDateFormatted()}}</div>
         </div>
         <div class="row h4 fw-bold">
           <div class="col">
