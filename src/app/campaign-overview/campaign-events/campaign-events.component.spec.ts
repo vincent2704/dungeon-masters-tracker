@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CampaignEventsComponent } from './campaign-events.component';
+import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 describe('CampaignEventsComponent', () => {
   let component: CampaignEventsComponent;
@@ -8,7 +10,8 @@ describe('CampaignEventsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CampaignEventsComponent ]
+      imports: [ FormsModule ],
+      declarations: [ CampaignEventsComponent, NgbCollapse ]
     })
     .compileComponents();
   });

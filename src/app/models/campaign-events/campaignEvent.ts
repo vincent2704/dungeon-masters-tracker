@@ -13,15 +13,13 @@ export class CampaignEvent {
     return this.description;
   }
 
-  getCampaignDateFormatted() {
-    return `
-    ${this.campaignDate.getDate()},
-    ${this.campaignDate.toLocaleString('en-US', {month: 'long'})},
-    ${this.campaignDate.getFullYear()},
-    ${this.campaignDate.getHours()}:${this.campaignDate.getMinutes()}`;
+  getCampaignDateFormatted(): string {
+    return `${this.campaignDate.getDate()}` +
+    ` ${this.campaignDate.toLocaleString('en-US', {month: 'long'})}` +
+    ` ${this.campaignDate.getFullYear()}, ${this.campaignDate.getHours()}:${this.campaignDate.getMinutes()}`;
   }
 
-  getRealWorldDateFormatted() {
+  getRealWorldDateFormatted(): string {
     return `
     ${this.realWorldDate.getDate()},
     ${this.realWorldDate.toLocaleString('en-US', {month: 'long'})},

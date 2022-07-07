@@ -6,6 +6,7 @@ import {Actor} from "../models/actor";
 import {FormsModule} from "@angular/forms";
 import {TimeConfigurationComponent} from "./time-configuration/time-configuration.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {CampaignEventsComponent} from "./campaign-events/campaign-events.component";
 
 describe('CampaignOverviewComponent', () => {
   let component: CampaignOverviewComponent;
@@ -17,7 +18,7 @@ describe('CampaignOverviewComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [FormsModule, NgbModule],
-      declarations: [ CampaignOverviewComponent, TimeConfigurationComponent ],
+      declarations: [ CampaignOverviewComponent, TimeConfigurationComponent, CampaignEventsComponent ],
       providers: [
         { provide: ActorService, useValue: actorService }
       ]

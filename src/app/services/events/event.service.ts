@@ -14,7 +14,7 @@ export class EventService {
     this.campaignEvents = []
   }
 
-  getCampaignEvents() {
+  getCampaignEvents(): CampaignEvent[] {
     return this.campaignEvents;
   }
 
