@@ -5,25 +5,26 @@ import {BattleCondition} from "./battleCondition";
 
 describe('Actor', () => {
 
-  it('should add unconscious condition to actor at 0 HP', () => {
+  it('should add unconscious condition to actor at 0 HP and set them to knocked down', () => {
     let actor = new Actor('Actor Name', 100);
     actor.modifyHp(-100);
 
-    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBe(true);
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
+    expect(actor.isKnockedDown()).toBeTrue();
   });
 
   it("should heal and healing should not exceed actor's max HP", () => {
     let actor = new Actor('Actor Name', 20, 18);
     actor.modifyHp(5);
-    expect(actor.getCurrentHP()).toEqual(20)
+    expect(actor.getCurrentHP()).toEqual(20);
   });
 
   it("should not modify actor's HP if actor is dead", () => {
-    let actor = new Actor('Actor Name', 20, -20);
+    let actor = new Actor('Actor Name', 20, 0);
     actor.kill();
 
     actor.modifyHp(40);
-    expect(actor.getCurrentHP()).toEqual(-20);
+    expect(actor.getCurrentHP()).toEqual(0);
     expect(actor.isDead()).toBeTrue();
   });
 
@@ -68,7 +69,7 @@ describe('Actor', () => {
     expect(actor.isDead()).toEqual(true)
   });
 
-  it('should kill actor not eligible for death saving throws when their HP is 0 or less', () => {
+  it('should kill actor not eligible for death saving throws when their HP is 0', () => {
     //given
     let actor = new Actor('Actor Name', 20);
     actor.setDeathSavingThrowsEligibility(false);
@@ -125,13 +126,45 @@ describe('Actor', () => {
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
   });
 
-  it("should knock down actor if their HP reaches 0 or less", () => {
+  it("should knock down actor if their HP reaches 0", () => {
     //given
     let actor = new Actor('Actor Name', 20);
     //when
     actor.modifyHp(-20);
     //then
     expect(actor.isKnockedDown()).toBeTrue();
+  });
+
+  it("should not allow to create actor with maxHP lower than 1", () => {
+    //when
+    let actor = new Actor('Actor Name', 0);
+    //then
+    expect(actor.getMaxHP()).toEqual(1);
+  });
+
+  it("should not allow to create actor with currentHP lower than 0", () => {
+    //given
+    let actor = new Actor('Actor Name', 20, -5);
+    //then
+    expect(actor.getCurrentHP()).toEqual(0);
+  });
+
+  it("should not allow set actor's HP to lower than 0", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.setHP(-5);
+    //then
+    expect(actor.getCurrentHP()).toEqual(20);
+  });
+
+  it("should not allow actor to have HP less than 0", () => {
+    //given
+    let actor = new Actor('Actor Name', 20);
+    //when
+    actor.modifyHp(-30);
+    //then
+    expect(actor.getCurrentHP()).toEqual(0);
   });
 
   it("should remove knocked down state if actor gets healed above 1 HP", () => {
@@ -147,7 +180,7 @@ describe('Actor', () => {
   it("should remove stabilized state if actor is hit", () => {
     //given
     let actor = new Actor('Actor Name', 20);
-    actor.modifyHp(-21);
+    actor.modifyHp(-20);
     expect(actor.isStabilized()).toBeFalse();
     actor.setStabilized(true);
 

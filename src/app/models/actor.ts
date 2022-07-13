@@ -28,8 +28,18 @@ export class Actor {
     knockedDown: boolean = false,
   ) {
     this.name = name;
-    this.maxHP = maxHP;
-    this.currentHP = currentHP;
+
+    if(maxHP < 1) {
+      this.maxHP = 1;
+    } else {
+      this.maxHP = maxHP;
+    }
+
+    if(currentHP < 0) {
+      this.currentHP = 0;
+    } else {
+      this.currentHP = currentHP;
+    }
     this.initiative = initiative;
     this.level = level;
     this.dead = dead;
@@ -48,12 +58,14 @@ export class Actor {
   }
 
   setHP(hp: number) {
-    this.currentHP = hp;
+    if (hp >= 0) { // there should be no option to set HP less than 0 at any time
+      this.currentHP = hp;
+    }
   }
 
   modifyHp(hitPointsModifier: number) {
     let isDamage: boolean = hitPointsModifier < 0;
-    if(this.isKnockedDown()) {
+    if (this.isKnockedDown()) {
       this.setStabilized(false);
     }
 
@@ -91,8 +103,11 @@ export class Actor {
     }
     if (this.getCurrentHP() <= -this.getMaxHP()) {
       this.kill();
-      this.setHP(-this.getMaxHP());
+      this.setHP(0);
       return;
+    }
+    if (this.getCurrentHP() < 0) {
+      this.currentHP = 0;
     }
     if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
       if (this.isEligibleForDeathSavingThrows()) {
