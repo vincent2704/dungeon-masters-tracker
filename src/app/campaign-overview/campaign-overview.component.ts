@@ -55,7 +55,10 @@ export class CampaignOverviewComponent implements OnInit {
   onSubmitProtagonists(): void {
     this.deleteActors(this.actorsToDelete);
     this.addActors(this.actorsToAdd);
-    this.actorService.setActors(this.playerCharacters);
+    let playerCharacters = this.playerCharacters.map(playerCharacter => {
+      return playerCharacter.copy();
+    })
+    this.actorService.setActors(playerCharacters);
     this.managingProtagonists = false;
   }
 
