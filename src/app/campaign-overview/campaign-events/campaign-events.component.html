@@ -3,7 +3,7 @@
 </h3>
 <div class="row">
   <div class="col">
-    <button type="button" class="btn btn-primary"
+    <button i18n="add event button|Button used to add event that happened during campaign" type="button" class="btn btn-primary"
             (click)="collapse.toggle();"
             [attr.aria-expanded]="!isCollapsed"
             aria-controls="collapse">
@@ -15,10 +15,10 @@
       <form (ngSubmit)="onSubmit()">
         <div class="card-body">
           <div class="card-title">
-            <input type="text" class="form-control" placeholder="Event title" [(ngModel)]="newEventTitle" name="eventTitle">
+            <input i18n-placeholder="event title placeholder|New event title input placeholder" type="text" class="form-control" placeholder="Event title" [(ngModel)]="newEventTitle" name="eventTitle">
           </div>
-          <textarea class="form-control" placeholder="Event description" [(ngModel)]="newEventDescription" name="eventDescription"></textarea>
-          <button type="submit" class="btn btn-primary">Confirm</button>
+          <textarea i18n-placeholder="event description|New event description input placeholder" class="form-control" placeholder="Event description" [(ngModel)]="newEventDescription" name="eventDescription"></textarea>
+          <button i18n="confirm button|Button used to confirm" type="submit" class="btn btn-primary">Confirm</button>
         </div>
       </form>
     </div>
@@ -32,14 +32,14 @@
     <p class="card-text">{{event.getDescription()}}</p>
     <div class="card-footer">
       <div class="row">
-        <div class="col">Date:</div>
+        <div i18n="campaign date label|Label describing campaign date when event occured" class="col">Date:</div>
         <div class="col">{{event.getCampaignDateFormatted()}}</div>
       </div>
       <div class="row">
-        <div class="col">Real date:</div>
+        <div i18n="real date label|Label describing real-world time when the event was added in the application" class="col">Real date:</div>
         <div class="col">{{event.getRealWorldDateFormatted()}}</div>
       </div>
-      <button class="btn btn-primary" (click)="deleteEvent(event)">Delete</button>
+      <button i18n="delete button|Button used to delete an event from campaign history" class="btn btn-primary" (click)="deleteEvent(event)">Delete</button>
     </div>
   </div>
 </div>

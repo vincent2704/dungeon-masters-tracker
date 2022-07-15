@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/alert/alert.ts</context>
+          <context context-type="linenumber">59,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.slide-number" datatype="html">
+        <source> Slide <x id="INTERPOLATION" equiv-text="OnHover$ = new"/> of <x id="INTERPOLATION_1" equiv-text=";
+  private _pa"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">114,118</context>
+        </context-group>
+        <note priority="1" from="description">Currently selected slide number read by screen reader</note>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">132,137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/carousel/carousel.ts</context>
+          <context context-type="linenumber">154,157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">47,49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">50,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">65,68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation-select.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">52,55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/datepicker/datepicker-navigation.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">182,183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">191,192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">196,200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">206,207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">214,215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">224,228</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">233,234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/pagination/pagination.ts</context>
+          <context context-type="linenumber">249,252</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="animated.
+   *"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/progressbar/progressbar.ts</context>
+          <context context-type="linenumber">35,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">67,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">73,77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">82,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">87,90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">94,95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">102,104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">112,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="lect seconds."/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">131,138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">137,143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="this._minuteSte"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
+          <context context-type="linenumber">155,161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.toast.close-aria" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/src/toast/toast.ts</context>
+          <context context-type="linenumber">82,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="campaign-overview" datatype="html">
+        <source>Campaign Overview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Campaign Overview section name</note>
+        <note priority="1" from="meaning">campaign overview header</note>
+      </trans-unit>
+      <trans-unit id="2790961868143903262" datatype="html">
+        <source>Battle</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Battle section name</note>
+        <note priority="1" from="meaning">battle header</note>
+      </trans-unit>
+      <trans-unit id="7441548210245671471" datatype="html">
+        <source>Resting</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">Resting section name</note>
+        <note priority="1" from="meaning">resting header</note>
+      </trans-unit>
+      <trans-unit id="2299283348668587656" datatype="html">
+        <source>Cheat Sheets</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">Cheat sheets section name</note>
+        <note priority="1" from="meaning">cheat sheets header</note>
+      </trans-unit>
+      <trans-unit id="5189280796282181743" datatype="html">
+        <source>Tools</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">Tools section name</note>
+        <note priority="1" from="meaning">tools header</note>
+      </trans-unit>
+      <trans-unit id="5030346915192853812" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">Settings section name</note>
+        <note priority="1" from="meaning">settings header</note>
+      </trans-unit>
+      <trans-unit id="238676251800950618" datatype="html">
+        <source> Add event </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+        <note priority="1" from="description">Button used to add event that happened during campaign</note>
+        <note priority="1" from="meaning">add event button</note>
+      </trans-unit>
+      <trans-unit id="1234079064065448357" datatype="html">
+        <source>Event title</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">New event title input placeholder</note>
+        <note priority="1" from="meaning">event title placeholder</note>
+      </trans-unit>
+      <trans-unit id="6257528113582271900" datatype="html">
+        <source>Event description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">New event description input placeholder</note>
+        <note priority="1" from="meaning">event description</note>
+      </trans-unit>
+      <trans-unit id="712847124050167427" datatype="html">
+        <source>Confirm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">Button used to confirm</note>
+        <note priority="1" from="meaning">confirm button</note>
+      </trans-unit>
+      <trans-unit id="3676580536906820893" datatype="html">
+        <source>Date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <note priority="1" from="description">Label describing campaign date when event occured</note>
+        <note priority="1" from="meaning">campaign date label</note>
+      </trans-unit>
+      <trans-unit id="2876970643607595449" datatype="html">
+        <source>Real date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Label describing real-world time when the event was added in the application</note>
+        <note priority="1" from="meaning">real date label</note>
+      </trans-unit>
+      <trans-unit id="8337101822951616974" datatype="html">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-events/campaign-events.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">Button used to delete an event from campaign history</note>
+        <note priority="1" from="meaning">delete button</note>
+      </trans-unit>
+      <trans-unit id="3719355683725024844" datatype="html">
+        <source>Campaign overview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">campaign overview header</note>
+      </trans-unit>
+      <trans-unit id="1701324070321336661" datatype="html">
+        <source>Protagonists</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">Header related to protagonist characters</note>
+        <note priority="1" from="meaning">protagonists header</note>
+      </trans-unit>
+      <trans-unit id="742857410911207122" datatype="html">
+        <source>Actor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">Column that relates to given character&apos;s name</note>
+        <note priority="1" from="meaning">character</note>
+      </trans-unit>
+      <trans-unit id="5571234375376869331" datatype="html">
+        <source>Level</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">Column that relates to given character&apos;s level</note>
+        <note priority="1" from="meaning">level</note>
+      </trans-unit>
+      <trans-unit id="6259528545396898807" datatype="html">
+        <source>Max HP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Column that related to given character&apos;s maximum hit  points</note>
+        <note priority="1" from="meaning">max HP</note>
+      </trans-unit>
+      <trans-unit id="2844068054825463550" datatype="html">
+        <source>Current HP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Column that relates to given character&apos;s current hit points</note>
+        <note priority="1" from="meaning">current HP</note>
+      </trans-unit>
+      <trans-unit id="4017741800852439319" datatype="html">
+        <source>Manage </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+        <note priority="1" from="description">Button used to manage player characters in the campaign overview</note>
+        <note priority="1" from="meaning">manage button</note>
+      </trans-unit>
+      <trans-unit id="5095885732537397227" datatype="html">
+        <source>Submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">Button used to submit changes</note>
+        <note priority="1" from="meaning">submit button</note>
+      </trans-unit>
+      <trans-unit id="3180812269925909809" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Button used to cancel changes</note>
+        <note priority="1" from="meaning">cancel button</note>
+      </trans-unit>
+      <trans-unit id="7614812484917275929" datatype="html">
+        <source> Delete </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">51,53</context>
+        </context-group>
+        <note priority="1" from="description">Button used to delete a character</note>
+        <note priority="1" from="meaning">delete button</note>
+      </trans-unit>
+      <trans-unit id="4191781757651714365" datatype="html">
+        <source> Retain </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">54,56</context>
+        </context-group>
+        <note priority="1" from="description">Button used to cancel character deletion before submitting changes</note>
+        <note priority="1" from="meaning">retain button</note>
+      </trans-unit>
+      <trans-unit id="5327168953664362070" datatype="html">
+        <source> Remove </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+        <note priority="1" from="description">Button used to remove new character that wasn&apos;t submitted yet</note>
+        <note priority="1" from="meaning">remove button</note>
+      </trans-unit>
+      <trans-unit id="1985671508342574643" datatype="html">
+        <source>New actor name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for new character name</note>
+        <note priority="1" from="meaning">new character name placeholder</note>
+      </trans-unit>
+      <trans-unit id="4916261796015923474" datatype="html">
+        <source>New actor level</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for new character level</note>
+        <note priority="1" from="meaning">new character level placeholder</note>
+      </trans-unit>
+      <trans-unit id="5669845197160391431" datatype="html">
+        <source>New actor max hit points</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+        <note priority="1" from="description">Placeholder for new character max Hit Points</note>
+        <note priority="1" from="meaning">new character max HP placeholder</note>
+      </trans-unit>
+      <trans-unit id="6765013905188365242" datatype="html">
+        <source>Add</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/campaign-overview.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <note priority="1" from="description">Button used to add a new character</note>
+        <note priority="1" from="meaning">add button</note>
+      </trans-unit>
+      <trans-unit id="5403019780977570720" datatype="html">
+        <source> Edit </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+        <note priority="1" from="description">Button to start editing campaign time</note>
+        <note priority="1" from="meaning">edit button</note>
+      </trans-unit>
+      <trans-unit id="6721017470755785849" datatype="html">
+        <source>Confirm date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Button to finish campaign time editing</note>
+        <note priority="1" from="meaning">confirm date button</note>
+      </trans-unit>
+      <trans-unit id="4805252953931618197" datatype="html">
+        <source>Add or subtract time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">Button to add or subtract current time in campaign by a specified amount</note>
+        <note priority="1" from="meaning">add or subtract time button</note>
+      </trans-unit>
+      <trans-unit id="6636091012024432510" datatype="html">
+        <source>Months</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">Input placeholder to add or subtract months</note>
+        <note priority="1" from="meaning">months</note>
+      </trans-unit>
+      <trans-unit id="8718186924258908918" datatype="html">
+        <source>Days</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">Input placeholder to add or subtract days</note>
+        <note priority="1" from="meaning">days</note>
+      </trans-unit>
+      <trans-unit id="1064889362805757046" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">Input placeholder to add or subtract hours</note>
+        <note priority="1" from="meaning">hours</note>
+      </trans-unit>
+      <trans-unit id="2821848088734848307" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <note priority="1" from="description">Input placeholder to add or subtract minutes</note>
+        <note priority="1" from="meaning">minutes</note>
+      </trans-unit>
+      <trans-unit id="5470683500676016402" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description">Input placeholder to add or subtract seconds</note>
+        <note priority="1" from="meaning">months</note>
+      </trans-unit>
+      <trans-unit id="7342384502065084541" datatype="html">
+        <source>Subtract</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/campaign-overview/time-configuration/time-configuration.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <note priority="1" from="description">Button to subtract time from the current campaign date</note>
+        <note priority="1" from="meaning">subtract button</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

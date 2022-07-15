@@ -10,7 +10,7 @@
             {{currentDate.getHours()}}:{{currentDate.getMinutes()}}
           </div>
           <div class="col">
-            <button type="button" class="btn btn-primary"
+            <button i18n="edit button|Button to start editing campaign time" type="button" class="btn btn-primary"
                     (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
                     [attr.aria-expanded]="!isCollapsed"
                     aria-controls="collapseExample">
@@ -30,21 +30,21 @@
         <div class="card-body">
           <ngb-datepicker #dp [(ngModel)]="dateModel"></ngb-datepicker>
           <ngb-timepicker [(ngModel)]="timeModel" [seconds]="true" [spinners]="false"></ngb-timepicker>
-          <button class="btn btn-primary" (click)="onConfirmDate()">Confirm date</button>
+          <button i18n="confirm date button|Button to finish campaign time editing" class="btn btn-primary" (click)="onConfirmDate()">Confirm date</button>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Add or subtract time</h5>
-          <input type="number" placeholder="Months" [(ngModel)]="timeChangeInput.months">
-          <input type="number" placeholder="Days" [(ngModel)]="timeChangeInput.days">
-          <input type="number" placeholder="Hours" [(ngModel)]="timeChangeInput.hours">
-          <input type="number" placeholder="Minutes" [(ngModel)]="timeChangeInput.minutes">
-          <input type="number" placeholder="Seconds" [(ngModel)]="timeChangeInput.seconds">
-          <button class="btn btn-info" (click)="addTime()">Add</button>
-          <button class="btn btn-info" (click)="subtractTime()">Subtract</button>
+          <h5 i18n="add or subtract time button|Button to add or subtract current time in campaign by a specified amount" class="card-title">Add or subtract time</h5>
+          <input i18n-placeholder="months|Input placeholder to add or subtract months" type="number" placeholder="Months" [(ngModel)]="timeChangeInput.months">
+          <input i18n-placeholder="days|Input placeholder to add or subtract days" type="number" placeholder="Days" [(ngModel)]="timeChangeInput.days">
+          <input i18n-placeholder="hours|Input placeholder to add or subtract hours" type="number" placeholder="Hours" [(ngModel)]="timeChangeInput.hours">
+          <input i18n-placeholder="minutes|Input placeholder to add or subtract minutes " type="number" placeholder="Minutes" [(ngModel)]="timeChangeInput.minutes">
+          <input i18n-placeholder="months|Input placeholder to add or subtract seconds" type="number" placeholder="Seconds" [(ngModel)]="timeChangeInput.seconds">
+          <button i18n="add button|Button to add time to the campaign current date" class="btn btn-info" (click)="addTime()">Add</button>
+          <button i18n="subtract button|Button to subtract time from the current campaign date" class="btn btn-info" (click)="subtractTime()">Subtract</button>
         </div>
       </div>
     </div>
