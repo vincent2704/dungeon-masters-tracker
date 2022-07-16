@@ -105,8 +105,7 @@ export class BattleComponent implements OnInit {
 
   isActorProgressed(actorToCheck: Actor): boolean {
     return this.progressedActors.includes(actorToCheck)
-      || actorToCheck.hasCondition(Condition.UNCONSCIOUS)
-      || actorToCheck.isDead();
+      || actorToCheck.hasCondition(Condition.UNCONSCIOUS);
   }
 
   onSubmitHP(actor: Actor, event: any): void {

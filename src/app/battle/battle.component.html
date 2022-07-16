@@ -44,10 +44,13 @@
           <app-condition [actor]="actor"></app-condition>
         </td>
         <td>
-          <button i18n="progress button|Button used to indicate that a character has progressed its turn"
+          <button i18n="progress button|Button used to indicate that a character have progressed their turn"
                   class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
             Progress
           </button>
+          <div class="row">
+            <app-resurrection *ngIf="actor.isDead()" [character]="actor"></app-resurrection>
+          </div>
         </td>
       </tr>
       </tbody>
