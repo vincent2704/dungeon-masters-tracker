@@ -191,4 +191,18 @@ describe('Actor', () => {
     expect(actor.isStabilized()).toBeFalse();
   });
 
+  it("should remove knocked down state if actor is healed above 0 HP", () => {
+    // given
+    let actor = new Actor('Actor 1', 1);
+    actor.modifyHp(-1);
+    expect(actor.isKnockedDown()).toBeTrue();
+
+    // when
+    actor.modifyHp(1);
+
+    // then
+    expect(actor.isKnockedDown()).toBeFalse();
+    expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
+  });
+
 });

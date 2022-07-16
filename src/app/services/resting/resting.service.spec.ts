@@ -136,7 +136,6 @@ describe('RestingService', () => {
     let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
     let actor3 = new Actor('Actor Three', 14, 5, 1, 6);
     let actor4 = new Actor('Actor Four', 14, 0, 1, 6);
-    actor4.setKnockedDown(true);
 
     let actorsToAvailableHitDice = new Map<string, number>([
       [actor1.name, 1],

@@ -13,7 +13,6 @@ export class Actor {
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
-  private knockedDown: boolean;
   private stabilized: boolean = false;
 
   constructor(
@@ -25,17 +24,16 @@ export class Actor {
     dead: boolean = false,
     battleConditions: BattleCondition[] = [],
     eligibleForSavingThrows: boolean = true,
-    knockedDown: boolean = false,
   ) {
     this.name = name;
 
-    if(maxHP < 1) {
+    if (maxHP < 1) {
       this.maxHP = 1;
     } else {
       this.maxHP = maxHP;
     }
 
-    if(currentHP < 0) {
+    if (currentHP < 0) {
       this.currentHP = 0;
     } else {
       this.currentHP = currentHP;
@@ -46,7 +44,6 @@ export class Actor {
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = eligibleForSavingThrows;
     this.temporaryHP = new TemporaryHP(0, 0);
-    this.knockedDown = knockedDown;
   }
 
   getMaxHP() {
@@ -64,19 +61,18 @@ export class Actor {
   }
 
   modifyHp(hitPointsModifier: number) {
+    let hpBeforeModifying = this.currentHP;
+    let isHeal: boolean = hitPointsModifier > 0;
     let isDamage: boolean = hitPointsModifier < 0;
-    if (this.isKnockedDown()) {
-      this.setStabilized(false);
-    }
-
-    if (hitPointsModifier === 0) {
-      console.warn("Actor's Hit Points are modified by 0!: " + this.name);
-    }
 
     if (this.isDead()) {
       return;
     }
+
     if (isDamage) {
+      if (this.isKnockedDown()) {
+        this.setStabilized(false);
+      }
       if (this.temporaryHP.hasTemporaryHitPoints()) {
         let temporaryHitPoints = this.temporaryHP.getHitPoints();
         let receivedDamage = -hitPointsModifier;
@@ -90,35 +86,40 @@ export class Actor {
           return;
         }
       }
+
+      this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
+      if (this.getCurrentHP() <= -this.getMaxHP()) {
+        this.kill();
+        this.setHP(0);
+        return;
+      }
+      if (this.getCurrentHP() < 0) {
+        this.currentHP = 0;
+      }
+      if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
+        if (this.isEligibleForDeathSavingThrows()) {
+          this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
+          this.stabilized = false;
+        } else {
+          this.kill();
+        }
+        return;
+      }
     }
 
-    this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
-    if (this.currentHP > this.maxHP) {
-      this.currentHP = this.maxHP;
-    }
-    if (this.getCurrentHP() > 0 && this.isKnockedDown()) {
-      //TODO: this will have to be changed when unconsciousness source other than damage will be implemented!
-      this.removeCondition(Condition.UNCONSCIOUS);
-      this.knockedDown = false;
-    }
-    if (this.getCurrentHP() <= -this.getMaxHP()) {
-      this.kill();
-      this.setHP(0);
-      return;
-    }
-    if (this.getCurrentHP() < 0) {
-      this.currentHP = 0;
-    }
-    if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
-      if (this.isEligibleForDeathSavingThrows()) {
-        this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
-        this.knockedDown = true;
-        this.stabilized = false;
-      } else {
-        this.kill();
+
+    if (isHeal) {
+      this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
+      if (this.currentHP > this.maxHP) {
+        this.currentHP = this.maxHP;
       }
-      return;
+
+      if (hpBeforeModifying == 0) {
+        //TODO: this will have to be changed when unconsciousness source other than damage will be implemented!
+        this.removeCondition(Condition.UNCONSCIOUS);
+      }
     }
+
   }
 
   getInitiative() {
@@ -159,11 +160,7 @@ export class Actor {
   }
 
   isKnockedDown(): boolean {
-    return this.knockedDown;
-  }
-
-  setKnockedDown(knockedDown: boolean) {
-    this.knockedDown = knockedDown;
+    return this.currentHP == 0;
   }
 
   isStabilized() {
@@ -236,7 +233,7 @@ export class Actor {
 
   copy(): Actor {
     return new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
-      this.battleConditions, this.eligibleForDeathSavingThrows, this.knockedDown)
+      this.battleConditions, this.eligibleForDeathSavingThrows)
   }
 
   private getExpiredConditions(): Condition[] {
