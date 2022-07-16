@@ -55,7 +55,7 @@ export class Actor {
     return this.currentHP;
   }
 
-  modifyHp(hitPointsModifier: number): void {
+  modifyHp(hitPointsModifier: number, currentDate: Date): void {
     let hpBeforeModifying = this.currentHP;
     let isHeal: boolean = hitPointsModifier > 0;
     let isDamage: boolean = hitPointsModifier < 0;
@@ -74,7 +74,7 @@ export class Actor {
         if (receivedDamage > temporaryHitPoints) {
           let leftOverHitPoints = receivedDamage - temporaryHitPoints;
           this.temporaryHP.subtractTemporaryHitPoints(receivedDamage);
-          this.modifyHp(-leftOverHitPoints);
+          this.modifyHp(-leftOverHitPoints, currentDate);
           return;
         } else {
           this.temporaryHP.subtractTemporaryHitPoints(receivedDamage);
@@ -84,7 +84,7 @@ export class Actor {
 
       this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
       if (this.getCurrentHP() <= -this.getMaxHP()) {
-        this.kill();
+        this.kill(currentDate);
         this.currentHP = 0;
         return;
       }
@@ -96,7 +96,7 @@ export class Actor {
           this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
           this.stabilized = false;
         } else {
-          this.kill();
+          this.kill(currentDate);
         }
         return;
       }
@@ -137,13 +137,14 @@ export class Actor {
     return this.dead;
   }
 
-  kill(): void {
+  kill(deathTime: Date): void {
     this.dead = true;
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
     } else {
       this.removeConditions(Condition.CONDITIONS);
     }
+    this.diedAt = deathTime;
   }
 
   isEligibleForDeathSavingThrows(): boolean {
@@ -231,18 +232,18 @@ export class Actor {
       this.battleConditions, this.eligibleForDeathSavingThrows)
   }
 
-  revivify(currentTime: Date): void {
+  revivify(currentDate: Date): void {
     if(this.isDead()) {
       let characterDeathTime = this.diedAt;
       if(!characterDeathTime) {
         console.error(`Character ${this.name} set to revive is dead but death time not found!`);
         return;
       }
-      let timeSinceDiedInSeconds = currentTime.getSeconds()-this.diedAt!.getSeconds();
+      let timeSinceDiedInSeconds = currentDate.getSeconds()-this.diedAt!.getSeconds();
       if(timeSinceDiedInSeconds <= 60) {
         this.dead = false;
         this.diedAt = undefined;
-        this.modifyHp(1);
+        this.modifyHp(1, currentDate);
       }
     }
   }

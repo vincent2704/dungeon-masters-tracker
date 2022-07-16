@@ -12,6 +12,8 @@ import {TemporalService} from "../services/temporal/temporal.service";
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
+  private static readonly MILLISECONDS_IN_ROUND = 1_000;
+
   isBattleStarted: boolean = false;
   actors: Actor[] = [];
   round: number = 1;
@@ -110,7 +112,15 @@ export class BattleComponent implements OnInit {
 
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
-    actor.modifyHp(hpModifier);
+    let timeSinceBattleStartedInMilliseconds = this.round * BattleComponent.MILLISECONDS_IN_ROUND;
+    //TODO: handle situation when tracked time checkbox value is changed after dealing damage
+    if(this.isTimeTracked) {
+      actor.modifyHp(hpModifier,
+        new Date(this.temporalService.getCurrentDate().getMilliseconds() + timeSinceBattleStartedInMilliseconds)
+      );
+    } else {
+     actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
+    }
     (<HTMLInputElement>event.target).value = '';
   }
 

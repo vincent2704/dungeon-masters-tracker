@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {Condition} from "../../../models/Condition";
+import {TemporalService} from "../../../services/temporal/temporal.service";
 
 @Component({
   selector: 'app-death-saving-throws',
@@ -14,7 +15,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   successes: number = 0;
   failures: number = 0;
 
-  constructor() { }
+  constructor(private temporalService: TemporalService) { }
 
   ngOnInit(): void {
   }
@@ -29,20 +30,20 @@ export class DeathSavingThrowsComponent implements OnInit {
   failure() {
     this.failures++;
     if(this.failures >= 3) {
-      this.actor.kill();
+      this.actor.kill(this.temporalService.getCurrentDate());
     }
   }
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.modifyHp(1);
+    this.actor.modifyHp(1, this.temporalService.getCurrentDate());
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
   criticalFail() {
     this.failures += 2;
     if(this.failures >= 3) {
-      this.actor.kill();
+      this.actor.kill(this.temporalService.getCurrentDate());
     }
   }
 }

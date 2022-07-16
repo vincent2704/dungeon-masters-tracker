@@ -41,7 +41,7 @@ export class RestingService {
         return;
       }
       this.regainHitDice(actor);
-      actor.modifyHp(actor.maxHP);
+      actor.modifyHp(actor.maxHP, this.temporalService.getCurrentDate());
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
@@ -86,6 +86,6 @@ export class RestingService {
   private applyShortRestInput(actor: Actor, shortRestInput: ShortRestInput): void {
     let currentlyAvailableHitDice = this.actorsToAvailableHitDice.get(actor.name)!;
     this.actorsToAvailableHitDice.set(actor.name, currentlyAvailableHitDice - shortRestInput.hitDiceToSpend);
-    actor.modifyHp(shortRestInput.hpToAdd);
+    actor.modifyHp(shortRestInput.hpToAdd, this.temporalService.getCurrentDate());
   }
 }

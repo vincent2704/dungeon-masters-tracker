@@ -80,12 +80,13 @@ describe('actorService', () => {
   it("should unstabilize if knocked down actor is hit", () => {
     // given
     let actor = new Actor('Actor 1', 1);
-    actor.modifyHp(-1);
+    let date = new Date();
+    actor.modifyHp(-1, date);
     expect(actor.isKnockedDown()).toBeTrue();
     actor.setStabilized(true);
 
     // when
-    actor.modifyHp(-1);
+    actor.modifyHp(-1, date);
 
     // then
     expect(actor.isStabilized()).toBeFalse();

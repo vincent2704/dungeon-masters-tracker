@@ -7,7 +7,8 @@ describe('Actor', () => {
 
   it('should add unconscious condition to actor at 0 HP and set them to knocked down', () => {
     let actor = new Actor('Actor Name', 100);
-    actor.modifyHp(-100);
+    let date = new Date();
+    actor.modifyHp(-100, date);
 
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
     expect(actor.isKnockedDown()).toBeTrue();
@@ -15,21 +16,24 @@ describe('Actor', () => {
 
   it("should heal and healing should not exceed actor's max HP", () => {
     let actor = new Actor('Actor Name', 20, 18);
-    actor.modifyHp(5);
+    let date = new Date();
+    actor.modifyHp(5, date);
     expect(actor.getCurrentHP()).toEqual(20);
   });
 
   it("should not modify actor's HP if actor is dead", () => {
     let actor = new Actor('Actor Name', 20, 0);
-    actor.kill();
+    let date = new Date();
+    actor.kill(date);
 
-    actor.modifyHp(40);
+    actor.modifyHp(40, date);
     expect(actor.getCurrentHP()).toEqual(0);
     expect(actor.isDead()).toBeTrue();
   });
 
   it('should remove all non-magical conditions when death saving throw eligible actor is killed', () => {
     let actor = new Actor('Actor Name', 20, 20);
+    let date = new Date();
     actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
     actor.addCondition(new BattleCondition(Condition.CHARMED));
     actor.addCondition(new BattleCondition(Condition.STUNNED));
@@ -38,7 +42,7 @@ describe('Actor', () => {
     actor.addCondition(new BattleCondition(Condition.PETRIFIED));
     actor.addCondition(new BattleCondition(Condition.GRAPPLED));
     actor.addCondition(new BattleCondition(Condition.INCAPACITATED));
-    actor.kill();
+    actor.kill(date);
 
     let actorConditions = actor.getConditions().map(battleCondition => battleCondition.getCondition());
     expect(actorConditions).toEqual(Condition.MAGICAL_CONDITIONS);
@@ -46,6 +50,7 @@ describe('Actor', () => {
 
   it('should remove all conditions when death saving throw non-eligible actor is killed', () => {
     let actor = new Actor('Actor Name', 20, 20);
+    let date = new Date();
     actor.setDeathSavingThrowsEligibility(false);
     actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
     actor.addCondition(new BattleCondition(Condition.CHARMED));
@@ -55,7 +60,7 @@ describe('Actor', () => {
     actor.addCondition(new BattleCondition(Condition.PETRIFIED));
     actor.addCondition(new BattleCondition(Condition.GRAPPLED));
     actor.addCondition(new BattleCondition(Condition.INCAPACITATED));
-    actor.kill();
+    actor.kill(date);
 
     expect(actor.getConditions().length).toEqual(0);
   });
@@ -63,8 +68,9 @@ describe('Actor', () => {
   it('should kill actor when their HP reaches opposite value of their max HP', () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     //when
-    actor.modifyHp(-40);
+    actor.modifyHp(-40, date);
     //then
     expect(actor.isDead()).toEqual(true)
   });
@@ -73,8 +79,9 @@ describe('Actor', () => {
     //given
     let actor = new Actor('Actor Name', 20);
     actor.setDeathSavingThrowsEligibility(false);
+    let date = new Date();
     //when
-    actor.modifyHp(-20);
+    actor.modifyHp(-20, date);
     //then
     expect(actor.isDead()).toEqual(true)
   });
@@ -82,10 +89,11 @@ describe('Actor', () => {
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     //given
     let actor = new Actor('Actor Name', 20, 1);
-    actor.modifyHp(-1);
+    let date = new Date();
+    actor.modifyHp(-1, date);
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
     //when
-    actor.modifyHp(1);
+    actor.modifyHp(1, date);
     //then
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
@@ -107,9 +115,10 @@ describe('Actor', () => {
   it("should deplete actor's temporary Hit Points first", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     actor.setTemporaryHitPoints(5, 3);
     //when
-    actor.modifyHp(-4);
+    actor.modifyHp(-4, date);
     //then
     expect(actor.getCurrentHP()).toEqual(20);
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(1);
@@ -118,9 +127,10 @@ describe('Actor', () => {
   it("should deplete actor's temporary Hit Points first and then deplete actor's true Hit Points", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     actor.setTemporaryHitPoints(5, 3);
     //when
-    actor.modifyHp(-7);
+    actor.modifyHp(-7, date);
     //then
     expect(actor.getCurrentHP()).toEqual(18);
     expect(actor.getTemporaryHitPoints().getHitPoints()).toEqual(0);
@@ -129,8 +139,9 @@ describe('Actor', () => {
   it("should knock down actor if their HP reaches 0", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     //when
-    actor.modifyHp(-20);
+    actor.modifyHp(-20, date);
     //then
     expect(actor.isKnockedDown()).toBeTrue();
   });
@@ -152,8 +163,9 @@ describe('Actor', () => {
   it("should not allow set actor's HP to lower than 0", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     //when
-    actor.modifyHp(-25);
+    actor.modifyHp(-25, date);
     //then
     expect(actor.getCurrentHP()).toEqual(0);
   });
@@ -161,8 +173,9 @@ describe('Actor', () => {
   it("should not allow actor to have HP less than 0", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     //when
-    actor.modifyHp(-30);
+    actor.modifyHp(-30, date);
     //then
     expect(actor.getCurrentHP()).toEqual(0);
   });
@@ -170,9 +183,10 @@ describe('Actor', () => {
   it("should remove knocked down state if actor gets healed above 1 HP", () => {
     //given
     let actor = new Actor('Actor Name', 20);
+    let date = new Date();
     //when
-    actor.modifyHp(-21);
-    actor.modifyHp(2);
+    actor.modifyHp(-21, date);
+    actor.modifyHp(2, date);
     //then
     expect(actor.isKnockedDown()).toBeFalse();
   });
@@ -180,12 +194,13 @@ describe('Actor', () => {
   it("should remove stabilized state if actor is hit", () => {
     //given
     let actor = new Actor('Actor Name', 20);
-    actor.modifyHp(-20);
+    let date = new Date();
+    actor.modifyHp(-20, date);
     expect(actor.isStabilized()).toBeFalse();
     actor.setStabilized(true);
 
     //when
-    actor.modifyHp(-1);
+    actor.modifyHp(-1, date);
 
     //then
     expect(actor.isStabilized()).toBeFalse();
@@ -194,11 +209,12 @@ describe('Actor', () => {
   it("should remove knocked down state if actor is healed above 0 HP", () => {
     // given
     let actor = new Actor('Actor 1', 1);
-    actor.modifyHp(-1);
+    let date = new Date();
+    actor.modifyHp(-1, date);
     expect(actor.isKnockedDown()).toBeTrue();
 
     // when
-    actor.modifyHp(1);
+    actor.modifyHp(1, date);
 
     // then
     expect(actor.isKnockedDown()).toBeFalse();
