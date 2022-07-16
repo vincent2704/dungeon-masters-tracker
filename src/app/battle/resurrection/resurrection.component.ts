@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
+import {TemporalService} from "../../services/temporal/temporal.service";
 
 @Component({
   selector: 'app-resurrection',
@@ -12,9 +13,12 @@ export class ResurrectionComponent implements OnInit {
   character!: Actor;
   isCollapsed: boolean = true;
 
-  constructor() { }
+  constructor(private temporalService: TemporalService) { }
 
   ngOnInit(): void {
   }
 
+  revivify() {
+    this.character.revivify(this.temporalService.getCurrentDate());
+  }
 }

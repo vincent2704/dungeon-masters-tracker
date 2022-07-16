@@ -153,9 +153,9 @@ describe('Actor', () => {
     //given
     let actor = new Actor('Actor Name', 20);
     //when
-    actor.setHP(-5);
+    actor.modifyHp(-25);
     //then
-    expect(actor.getCurrentHP()).toEqual(20);
+    expect(actor.getCurrentHP()).toEqual(0);
   });
 
   it("should not allow actor to have HP less than 0", () => {
@@ -203,6 +203,16 @@ describe('Actor', () => {
     // then
     expect(actor.isKnockedDown()).toBeFalse();
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
+  });
+
+  it("should revivify character that has been dead up to 1 minute", () => {
+    // given
+    expect(true).toBeFalse();
+  });
+
+  it("should not revivify character that has been dead for more than 1 minute", () => {
+    // given
+    expect(true).toBeFalse();
   });
 
 });

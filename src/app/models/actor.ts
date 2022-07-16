@@ -14,6 +14,7 @@ export class Actor {
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
+  private diedAt?: Date;
 
   constructor(
     name: string,
@@ -46,21 +47,15 @@ export class Actor {
     this.temporaryHP = new TemporaryHP(0, 0);
   }
 
-  getMaxHP() {
+  getMaxHP(): number {
     return this.maxHP;
   }
 
-  getCurrentHP() {
+  getCurrentHP(): number {
     return this.currentHP;
   }
 
-  setHP(hp: number) {
-    if (hp >= 0) { // there should be no option to set HP less than 0 at any time
-      this.currentHP = hp;
-    }
-  }
-
-  modifyHp(hitPointsModifier: number) {
+  modifyHp(hitPointsModifier: number): void {
     let hpBeforeModifying = this.currentHP;
     let isHeal: boolean = hitPointsModifier > 0;
     let isDamage: boolean = hitPointsModifier < 0;
@@ -90,7 +85,7 @@ export class Actor {
       this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
       if (this.getCurrentHP() <= -this.getMaxHP()) {
         this.kill();
-        this.setHP(0);
+        this.currentHP = 0;
         return;
       }
       if (this.getCurrentHP() < 0) {
@@ -122,27 +117,27 @@ export class Actor {
 
   }
 
-  getInitiative() {
+  getInitiative(): number {
     return this.initiative;
   }
 
-  setInitiative(initiative: number) {
+  setInitiative(initiative: number): void {
     this.initiative = initiative;
   }
 
-  getLevel() {
+  getLevel(): number {
     return this.level;
   }
 
-  setLevel(level: number) {
+  setLevel(level: number): void {
     this.level = level;
   }
 
-  isDead() {
+  isDead(): boolean {
     return this.dead;
   }
 
-  kill() {
+  kill(): void {
     this.dead = true;
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
@@ -163,11 +158,11 @@ export class Actor {
     return this.currentHP == 0;
   }
 
-  isStabilized() {
+  isStabilized(): boolean {
     return this.stabilized;
   }
 
-  setStabilized(stabilized: boolean) {
+  setStabilized(stabilized: boolean): void {
     this.stabilized = stabilized;
   }
 
@@ -175,7 +170,7 @@ export class Actor {
     return !!this.battleConditions.find(conditionToFind => conditionToFind.getCondition() == condition);
   }
 
-  addCondition(condition: BattleCondition) {
+  addCondition(condition: BattleCondition): void {
     this.battleConditions.push(condition);
   }
 
@@ -183,19 +178,19 @@ export class Actor {
     return this.battleConditions;
   }
 
-  getTemporaryHitPoints() {
+  getTemporaryHitPoints(): TemporaryHP {
     return this.temporaryHP;
   }
 
-  setTemporaryHitPoints(hitPoints: number, duration: number) {
+  setTemporaryHitPoints(hitPoints: number, duration: number): void {
     this.temporaryHP = new TemporaryHP(hitPoints, duration);
   }
 
-  decrementTemporaryHitPointDuration() {
+  decrementTemporaryHitPointDuration(): void {
     this.temporaryHP.decrementDuration();
   }
 
-  getAvailableConditions() {
+  getAvailableConditions(): Condition[] {
     let availableConditions: Condition[] = [];
     for (let condition of Condition.CONDITIONS) {
       if (!this.battleConditions.find(battleCondition => battleCondition.getCondition() === condition)) {
@@ -205,7 +200,7 @@ export class Actor {
     return availableConditions;
   }
 
-  removeCondition(condition: Condition) {
+  removeCondition(condition: Condition): void {
     let conditionToRemove = this.battleConditions.find(conditionToRemove => conditionToRemove.getCondition() == condition);
     if (conditionToRemove) {
       let index = this.battleConditions.indexOf(conditionToRemove);
@@ -213,13 +208,13 @@ export class Actor {
     }
   }
 
-  removeConditions(conditions: Condition[]) {
+  removeConditions(conditions: Condition[]): void {
     for (let condition of conditions) {
       this.removeCondition(condition);
     }
   }
 
-  decrementConditionsDuration() {
+  decrementConditionsDuration(): void {
     for (let battleCondition of this.battleConditions) {
       if (!battleCondition.isPermanent()) {
         battleCondition.decrementDuration();
@@ -234,6 +229,22 @@ export class Actor {
   copy(): Actor {
     return new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
       this.battleConditions, this.eligibleForDeathSavingThrows)
+  }
+
+  revivify(currentTime: Date): void {
+    if(this.isDead()) {
+      let characterDeathTime = this.diedAt;
+      if(!characterDeathTime) {
+        console.error(`Character ${this.name} set to revive is dead but death time not found!`);
+        return;
+      }
+      let timeSinceDiedInSeconds = currentTime.getSeconds()-this.diedAt!.getSeconds();
+      if(timeSinceDiedInSeconds <= 60) {
+        this.dead = false;
+        this.diedAt = undefined;
+        this.modifyHp(1);
+      }
+    }
   }
 
   private getExpiredConditions(): Condition[] {

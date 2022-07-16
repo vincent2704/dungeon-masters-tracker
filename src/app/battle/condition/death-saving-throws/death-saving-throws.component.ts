@@ -35,7 +35,7 @@ export class DeathSavingThrowsComponent implements OnInit {
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.setHP(1);
+    this.actor.modifyHp(1);
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
