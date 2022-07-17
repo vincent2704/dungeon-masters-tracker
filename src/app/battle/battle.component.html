@@ -49,7 +49,7 @@
             Progress
           </button>
           <div class="row">
-            <app-resurrection *ngIf="actor.isDead()" [character]="actor"></app-resurrection>
+            <app-resurrection *ngIf="actor.isDead()" [character]="actor" [round]="this.round"></app-resurrection>
           </div>
         </td>
       </tr>

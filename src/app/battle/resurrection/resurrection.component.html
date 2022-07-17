@@ -1,10 +1,18 @@
 <div class="row">
   <button i18n="dead button|Button indicating that given character is dead"
-          class="btn btn-primary" (click)="collapse.toggle()">Dead</button>
+          class="btn btn-primary" (click)="collapse.toggle()">Dead
+  </button>
 </div>
-<div #collapse="ngbCollapse" class="row" [(ngbCollapse)]="isCollapsed">
-  <div class="col">
-    <button i18n="revivify button|Button with a spell name, see Basic Rules pg. 272"
-            class="btn btn-primary" (click)="revivify()">Revivify</button>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="row">
+    Time of death: {{getTimeOfDeathFormatted()}} ({{getDiedAgoTime()}} ago)
+  </div>
+  <div class="row">
+    <div class="col">
+      <button i18n="revivify button|Button with a spell name, see Basic Rules pg. 272"
+              class="btn btn-primary" (click)="revivify()" [disabled]="!canRevivify()">Revivify
+      </button>
+    </div>
   </div>
 </div>
+

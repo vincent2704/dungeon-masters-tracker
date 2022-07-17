@@ -14,7 +14,7 @@ export class Actor {
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
-  private diedAt?: Date;
+  private timeOfDeath?: Date;
 
   constructor(
     name: string,
@@ -144,7 +144,7 @@ export class Actor {
     } else {
       this.removeConditions(Condition.CONDITIONS);
     }
-    this.diedAt = deathTime;
+    this.timeOfDeath = deathTime;
   }
 
   isEligibleForDeathSavingThrows(): boolean {
@@ -177,6 +177,10 @@ export class Actor {
 
   getConditions(): BattleCondition[] {
     return this.battleConditions;
+  }
+
+  getTimeOfDeath(): Date {
+    return this.timeOfDeath!;
   }
 
   getTemporaryHitPoints(): TemporaryHP {
@@ -234,15 +238,14 @@ export class Actor {
 
   revivify(currentDate: Date): void {
     if(this.isDead()) {
-      let characterDeathTime = this.diedAt;
-      if(!characterDeathTime) {
+      if(!this.timeOfDeath) {
         console.error(`Character ${this.name} set to revive is dead but death time not found!`);
         return;
       }
-      let timeSinceDiedInSeconds = currentDate.getSeconds()-this.diedAt!.getSeconds();
+      let timeSinceDiedInSeconds = (currentDate.getTime()-this.timeOfDeath.getTime()) / 1000;
       if(timeSinceDiedInSeconds <= 60) {
         this.dead = false;
-        this.diedAt = undefined;
+        this.timeOfDeath = undefined;
         this.modifyHp(1, currentDate);
       }
     }

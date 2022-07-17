@@ -223,12 +223,31 @@ describe('Actor', () => {
 
   it("should revivify character that has been dead up to 1 minute", () => {
     // given
-    expect(true).toBeFalse();
+    let character = new Actor('Character 1', 1);
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1524, 11, 17, 18, 31, 0)
+    character.kill(charactersDeathDate);
+
+    // when
+    character.revivify(currentDate);
+
+    // then
+    expect(character.isDead()).toBeFalse();
+    expect(character.getCurrentHP()).toEqual(1);
   });
 
   it("should not revivify character that has been dead for more than 1 minute", () => {
     // given
-    expect(true).toBeFalse();
+    let character = new Actor('Character 1', 1);
+    let currentDate = new Date(1524, 11, 17, 18, 32, 1);
+    let charactersDeathDate = new Date(1524, 11, 17, 18, 31, 0)
+    character.kill(charactersDeathDate);
+
+    // when
+    character.revivify(currentDate);
+
+    // then
+    expect(character.isDead()).toBeTrue();
   });
 
 });

@@ -12,7 +12,6 @@ import {TemporalService} from "../services/temporal/temporal.service";
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
-  private static readonly MILLISECONDS_IN_ROUND = 1_000;
 
   isBattleStarted: boolean = false;
   actors: Actor[] = [];
@@ -112,11 +111,10 @@ export class BattleComponent implements OnInit {
 
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
-    let timeSinceBattleStartedInMilliseconds = this.round * BattleComponent.MILLISECONDS_IN_ROUND;
-    //TODO: handle situation when tracked time checkbox value is changed after dealing damage
+    let timeSinceBattleStartedInMilliseconds = (this.round-1) * 6000;
     if(this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.temporalService.getCurrentDate().getMilliseconds() + timeSinceBattleStartedInMilliseconds)
+        new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
       );
     } else {
      actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
@@ -158,6 +156,10 @@ export class BattleComponent implements OnInit {
     return this.actors;
   }
 
+  showDeathSavingThrows(actor: Actor): boolean {
+    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
+  }
+
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
     let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
     this.actors.map(actor => {
@@ -170,10 +172,6 @@ export class BattleComponent implements OnInit {
       }
     });
     return initiativeToActorsMap;
-  }
-
-  showDeathSavingThrows(actor: Actor): boolean {
-    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
   }
 
 }
