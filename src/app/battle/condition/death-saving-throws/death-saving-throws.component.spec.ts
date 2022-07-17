@@ -28,7 +28,8 @@ describe('DeathSavingThrowsComponent', () => {
   it("should stabilize actor after 3 successful death saving throws", () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1);
+    let date = new Date();
+    component.actor.modifyHp(-1, date);
     //when
     component.success();
     component.success();
@@ -42,7 +43,8 @@ describe('DeathSavingThrowsComponent', () => {
   it("should NOT remove unconsciousness on successful death saving throws", () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1);
+    let date = new Date();
+    component.actor.modifyHp(-1, date);
     //when
     component.success();
     component.success();
@@ -54,7 +56,8 @@ describe('DeathSavingThrowsComponent', () => {
   it("should kill actor on 3 failed death saving throws", () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1);
+    let date = new Date();
+    component.actor.modifyHp(-1, date);
     //when
     component.failure();
     component.failure();
@@ -67,7 +70,8 @@ describe('DeathSavingThrowsComponent', () => {
   it("should add 2 failures and kill actor on rolled 1", () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1);
+    let date = new Date();
+    component.actor.modifyHp(-1, date);
     //when
     component.failure();
     component.failure();
@@ -81,7 +85,8 @@ describe('DeathSavingThrowsComponent', () => {
   it("should immediately rise actor after rolled 20", () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1);
+    let date = new Date();
+    component.actor.modifyHp(-1, date);
     //when
     component.criticalSuccess()
     //then

@@ -236,8 +236,9 @@ describe('BattleComponent', () => {
   it("should not display death saving throws if actor is dead", () => {
     // given
     let actor = new Actor('Actor 1', 1, 1, 3);
+    let date = new Date();
     actor.setDeathSavingThrowsEligibility(true);
-    actor.kill();
+    actor.kill(date);
 
     // then
     expect(component.showDeathSavingThrows(actor)).toBeFalse();

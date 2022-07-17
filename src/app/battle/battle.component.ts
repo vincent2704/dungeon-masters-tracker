@@ -12,6 +12,7 @@ import {TemporalService} from "../services/temporal/temporal.service";
   styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
+
   isBattleStarted: boolean = false;
   actors: Actor[] = [];
   round: number = 1;
@@ -105,13 +106,19 @@ export class BattleComponent implements OnInit {
 
   isActorProgressed(actorToCheck: Actor): boolean {
     return this.progressedActors.includes(actorToCheck)
-      || actorToCheck.hasCondition(Condition.UNCONSCIOUS)
-      || actorToCheck.isDead();
+      || actorToCheck.hasCondition(Condition.UNCONSCIOUS);
   }
 
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
-    actor.modifyHp(hpModifier);
+    let timeSinceBattleStartedInMilliseconds = (this.round-1) * 6000;
+    if(this.isTimeTracked) {
+      actor.modifyHp(hpModifier,
+        new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
+      );
+    } else {
+     actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
+    }
     (<HTMLInputElement>event.target).value = '';
   }
 
@@ -149,6 +156,10 @@ export class BattleComponent implements OnInit {
     return this.actors;
   }
 
+  showDeathSavingThrows(actor: Actor): boolean {
+    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
+  }
+
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
     let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
     this.actors.map(actor => {
@@ -161,10 +172,6 @@ export class BattleComponent implements OnInit {
       }
     });
     return initiativeToActorsMap;
-  }
-
-  showDeathSavingThrows(actor: Actor): boolean {
-    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
   }
 
 }

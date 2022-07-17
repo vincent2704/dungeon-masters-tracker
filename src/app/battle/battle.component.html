@@ -1,27 +1,37 @@
 <div class="container">
   <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted"></app-prepare-battle>
-  <button class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!</button>
+  <button i18n="start battle button|Button used to start combat"
+          class="btn" *ngIf="!isBattleStarted" (click)="changeBattleStatus()">Start battle!
+  </button>
   <div *ngIf="isBattleStarted">
-    <h3>Round: {{round}}</h3>
-    <h4>Time passed: {{(round-1) * 6}} seconds</h4>
+    <h3 i18n="round header|Header presenting which round it is during combat"
+    >Round: {{round}}</h3>
+    <h4>Time passed: {{(round - 1) * 6}} seconds</h4>
     <table class="table table-hover table-dark">
       <thead>
       <tr>
-        <th scope="col">Actor</th>
-        <th scope="col">Hit Points (Max)</th>
-        <th scope="col">Conditions</th>
+        <th i18n="|Column showing character name"
+            scope="col">Character
+        </th>
+        <th i18n="|Column showing character Hit Points, current and maximum in brackets"
+            scope="col">Hit Points (Max)
+        </th>
+        <th i18n="|Column showing Conditions which given character is under effect of"
+            scope="col">Conditions
+        </th>
         <th scope="col"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let actor of actors">
         <td>{{actor.name}}</td>
-<!--                <td>{{actor | json}}</td>-->
+        <!--                <td>{{actor | json}}</td>-->
         <td>
           <div class="row">
             <div class="col">{{actor.getCurrentHP()}} ({{actor.getMaxHP()}})</div>
             <div class="col">
-              <input type="number" class="input" placeholder="Add or subtract"
+              <input i18n-placeholder="add or subtract HP|Placeholder for input modifying character's HP"
+                     type="number" class="input" placeholder="Add or subtract"
                      (keydown.enter)="onSubmitHP(actor, $event)">
             </div>
           </div>
@@ -34,28 +44,37 @@
           <app-condition [actor]="actor"></app-condition>
         </td>
         <td>
-          <button class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
+          <button i18n="progress button|Button used to indicate that a character have progressed their turn"
+                  class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
             Progress
           </button>
+          <div class="row">
+            <app-resurrection *ngIf="actor.isDead()" [character]="actor" [round]="this.round"></app-resurrection>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
     <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
-    <button class="btn" (click)="changeBattleStatus()">End battle!</button>
+    <button i18n="end battle button|Button used to conclude combat"
+            class="btn" (click)="changeBattleStatus()">End battle!
+    </button>
     <div class="form-check">
       <input type="checkbox" class="form-check-input" value="" id="trackTimeCheckbox" [(ngModel)]="isTimeTracked">
-      <label for="trackTimeCheckbox" class="form-check-label">Save passed time</label>
+      <label
+        i18n="save passed time checkbox|If this checkbox is checked, it adds the time spent in combat to the campaign current time"
+        for="trackTimeCheckbox" class="form-check-label">Save passed time</label>
     </div>
   </div>
 </div>
 
 <ng-template #initiativeConflictModal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Initiative conflict</h4>
+    <h4 i18n="initiative conflict modal header|Title for modal"
+        class="modal-title" id="modal-basic-title">Initiative conflict</h4>
   </div>
   <div class="modal-body">
-    Set priority for conflicted actors:
+    <p i18n="set priority header">Set priority for conflicted actors:</p>
     <div *ngFor="let actor of this.conflictedActors">
       <div class="row">
         <div class="col-sm-6">{{actor.name}}</div>
@@ -66,7 +85,9 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="onClickResolveConflict()">Resolve</button>
+    <button i18n="resolve button|Button clicked when initiative conflicts are resolved"
+            type="button" class="btn btn-outline-dark" (click)="onClickResolveConflict()">Resolve
+    </button>
   </div>
 </ng-template>
 
