@@ -1,4 +1,5 @@
 import {$localize} from "@angular/localize/init";
+import {MonsterSource} from "./monsterSource";
 
 export class MonsterId {
 

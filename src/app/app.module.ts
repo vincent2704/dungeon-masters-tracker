@@ -30,6 +30,7 @@ import { ShortRestComponent } from './resting/short-rest/short-rest.component';
 import { LongRestComponent } from './resting/long-rest/long-rest.component';
 import { CampaignEventsComponent } from './campaign-overview/campaign-events/campaign-events.component';
 import { ResurrectionComponent } from './battle/resurrection/resurrection.component';
+import { MonstersComponent } from './monsters/monsters.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ResurrectionComponent } from './battle/resurrection/resurrection.compon
     LongRestComponent,
     CampaignEventsComponent,
     ResurrectionComponent,
+    MonstersComponent,
   ],
   imports: [
     BrowserModule,

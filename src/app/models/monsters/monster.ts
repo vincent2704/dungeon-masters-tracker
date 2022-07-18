@@ -2,6 +2,7 @@ import {MonsterSize} from "./monsterSize";
 import {MonsterId} from "./monsterId";
 import {MonsterType} from "./monsterType";
 import {Alignment} from "./alignment";
+import {$localize} from "@angular/localize/init";
 
 export class Monster {
 
@@ -10,7 +11,7 @@ export class Monster {
     private alignment: Alignment
   ) {}
 
-  static AARAKOCRA = new Monster(
-    MonsterId.AARAKOCRA_ID, 'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, Alignment.NEUTRAL_GOOD
-  )
+  getName() {
+    return $localize`${this.name}`;
+  }
 }
