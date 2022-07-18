@@ -57,12 +57,7 @@ export class ConditionComponent implements OnInit {
   }
 
   isDisabled(condition: BattleCondition, actor: Actor): boolean {
-    if (condition.getCondition() === Condition.UNCONSCIOUS) {
-      if(actor.getCurrentHP() <= 0) {
-        return true;
-      }
-    }
-    return false;
+    return condition.getCondition() === Condition.UNCONSCIOUS && actor.getCurrentHP() == 0;
   }
 
 }

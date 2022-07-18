@@ -6,7 +6,7 @@ import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 describe('TemporaryHitPointsComponent', () => {
   let component: TemporaryHitPointsComponent;
   let fixture: ComponentFixture<TemporaryHitPointsComponent>;
-  let actor = new Actor('Example Actor', 10);
+  let character = new Actor('Example Actor', 10);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('TemporaryHitPointsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TemporaryHitPointsComponent);
     component = fixture.componentInstance;
-    component.actor = actor;
+    component.character = character;
     fixture.detectChanges();
   });
 

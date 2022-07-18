@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col">
     <div>
-      Temporary Hit Points: {{actor.getTemporaryHitPoints().getHitPoints()}}
-      Turns left: {{actor.getTemporaryHitPoints().getTurnsLeft()}}
+      Temporary Hit Points: {{character.getTemporaryHitPoints().getHitPoints()}}
+      Turns left: {{character.getTemporaryHitPoints().getTurnsLeft()}}
     </div>
   </div>
   <div class="col">
@@ -22,6 +22,6 @@
     <input type="number" class="input" placeholder="Duration (leave blank if permanent)"
            (keyup)="setTemporaryHitPointsToAddDuration($event)"
     >
-    <button class="btn btn-primary" (click)="onSubmitTemporaryHitPoints(actor)">Submit</button>
+    <button class="btn btn-primary" (click)="onSubmitTemporaryHitPoints(character)">Submit</button>
   </div>
 </div>

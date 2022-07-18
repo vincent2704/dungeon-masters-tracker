@@ -9,7 +9,7 @@ import {Actor} from "../../models/actor";
 export class TemporaryHitPointsComponent implements OnInit {
 
   @Input()
-  actor!: Actor;
+  character!: Actor;
 
   // temporary Hit Points form
   temporaryHitPointsAmount: number = 0;

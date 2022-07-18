@@ -6,12 +6,14 @@
         <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
       </div>
       <div class="col-sm">
-        <div *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
+        <div i18n="duration left label|Text representing how many turns are left for a Condition to wear off"
+          *ngIf="!battleCondition.isPermanent() && battleCondition.getDurationInTurns() > 0">
           Duration left: {{battleCondition.getDurationInTurns()}}
         </div>
       </div>
       <div class="col-sm">
-        <button class="btn btn-info" [disabled]="isDisabled(battleCondition, actor)"
+        <button i18n="remove condition button|Button used to remove condition from a Character"
+                class="btn btn-info" [disabled]="isDisabled(battleCondition, actor)"
                 (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
       </div>
       <div class="row" *ngIf="showDescription">
@@ -23,13 +25,15 @@
   </div>
   <form (ngSubmit)="onSubmitCondition(actor)">
     <select
-      *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)"
+      *ngIf="actor.getAvailableConditions().length > 0" (change)="setConditionToAdd($event)" [disabled]="actor.isDead()"
       (keydown.enter)="onSubmitCondition(actor)">
-      <option>Select condition</option>
+      <option i18n="select condition|Initial state of condition selector dropdown">Select condition</option>
       <option *ngFor="let condition of actor.getAvailableConditions()">
         {{condition.getName()}}
       </option>
     </select>
-    <input type="number" placeholder="Enter duration" (keydown.enter)="setConditionToAddDuration($event)">
+    <input i18n="enter duration|Placeholder in number input for duration of added condition"
+           [disabled]="actor.isDead()"
+           type="number" placeholder="Enter duration" (keydown.enter)="setConditionToAddDuration($event)">
   </form>
 </div>

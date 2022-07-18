@@ -31,11 +31,11 @@
             <div class="col">{{actor.getCurrentHP()}} ({{actor.getMaxHP()}})</div>
             <div class="col">
               <input i18n-placeholder="add or subtract HP|Placeholder for input modifying character's HP"
-                     type="number" class="input" placeholder="Add or subtract"
+                     type="number" class="input" placeholder="Add or subtract" [disabled]="actor.isDead()"
                      (keydown.enter)="onSubmitHP(actor, $event)">
             </div>
           </div>
-          <app-temporary-hit-points [actor]="actor"></app-temporary-hit-points>
+          <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
           <div *ngIf="showDeathSavingThrows(actor)">
             <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
           </div>
