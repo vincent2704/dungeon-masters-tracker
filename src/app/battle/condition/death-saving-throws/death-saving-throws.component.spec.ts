@@ -51,6 +51,7 @@ describe('DeathSavingThrowsComponent', () => {
     component.success();
     //then
     expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
+    expect(component.actor.getCurrentHP()).toEqual(0);
   });
 
   it("should kill actor on 3 failed death saving throws", () => {
