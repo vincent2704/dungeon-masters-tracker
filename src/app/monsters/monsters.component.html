@@ -1,3 +1,12 @@
 <div *ngFor="let monster of monsters" class="card">
-  <div class="card-title">{{monster.getName()}}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{monster.getName()}}</h5>
+    <h6 class="card-subtitle">{{monster.getOverview()}}</h6>
+    <hr/>
+    <div class="list-group-flush">
+      <li *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()" class="list-group-item">
+        {{abilityScore.getAbility().getNameShort()}} ({{abilityScore.getAbility().getModifier(abilityScore.getScore())}})
+      </li>
+    </div>
+  </div>
 </div>

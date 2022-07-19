@@ -1,6 +1,6 @@
 export class MonsterType {
 
-  private constructor(private name: string) {
+  private constructor(private readonly name: string) {
   }
 
   public getName(): string {

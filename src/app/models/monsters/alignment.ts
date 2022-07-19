@@ -7,6 +7,6 @@ export class Alignment {
     return this.alignment;
   }
 
-  static NEUTRAL_GOOD = new Alignment('Neutral good')
+  static NEUTRAL_GOOD = new Alignment('neutral good')
 
 }
