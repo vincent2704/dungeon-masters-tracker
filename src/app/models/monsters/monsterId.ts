@@ -1,4 +1,3 @@
-import {$localize} from "@angular/localize/init";
 import {MonsterSource} from "./monsterSource";
 
 export class MonsterId {
@@ -13,7 +12,7 @@ export class MonsterId {
   }
 
   getSource(): string {
-    return $localize`${this.source}`;
+    return this.source;
   }
 
 }

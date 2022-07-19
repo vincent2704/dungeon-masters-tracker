@@ -1,0 +1,20 @@
+export enum Skill {
+  ATHLETICS = 'Athletics',
+  ACROBATICS = 'Acrobatics',
+  ANIMAL_HANDLING = 'Animal Handling',
+  ARCANA = 'Arcana',
+  DECEPTION = 'Deception',
+  HISTORY = 'History',
+  INTIMIDATION = 'Intimidation',
+  INSIGHT = 'Insight',
+  INVESTIGATION = 'Investigation',
+  MEDICINE = 'Medicine',
+  NATURE = 'Nature',
+  PERCEPTION = 'Perception',
+  PERFORMANCE = 'Performance',
+  PERSUASION = 'Persuasion',
+  RELIGION = 'Religion',
+  SLEIGHT_OF_HAND = 'Sleight of Hand',
+  STEALTH = 'Stealth',
+  SURVIVAL = 'Survival'
+}

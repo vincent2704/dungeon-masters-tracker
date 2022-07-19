@@ -2,7 +2,6 @@ import {MonsterSize} from "./monsterSize";
 import {MonsterId} from "./monsterId";
 import {MonsterType} from "./monsterType";
 import {Alignment} from "./alignment";
-import {$localize} from "@angular/localize/init";
 
 export class Monster {
 
@@ -12,6 +11,6 @@ export class Monster {
   ) {}
 
   getName() {
-    return $localize`${this.name}`;
+    return this.name;
   }
 }

@@ -4,11 +4,11 @@ export class MonsterSize {
   }
 
   public getSize(): string {
-    return $localize`${this.size}`;
+    return this.size;
   }
 
   public getSpace(): string {
-    return $localize`${this.space}`;
+    return this.space;
   }
 
   static TINY = new MonsterSize('Tiny', '2.5 by 2.5 ft.');
