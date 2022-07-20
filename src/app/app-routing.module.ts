@@ -23,6 +23,7 @@ import {
   WildernessCheatSheetComponent
 } from "./cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component";
 import {RestingComponent} from "./resting/resting.component";
+import {MonstersComponent} from "./monsters/monsters.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'combat-difficulty-calculator', component: CombatDifficultyCalculatorComponent },
     ]
   },
+  { path: 'monsters', component: MonstersComponent },
   { path: 'settings', component: SettingsComponent },
 ];
 
