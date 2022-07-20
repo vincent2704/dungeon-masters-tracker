@@ -3,7 +3,7 @@ import {MonsterId} from "./monsterId";
 import {MonsterSize} from "./monsterSize";
 import {MonsterType} from "./monsterType";
 import {Alignment} from "./alignment";
-import {AbilitySet} from "../common/abilitySet";
+import {AbilitySet} from "../common/ability/abilitySet";
 import {MonsterTag} from "./monsterTag";
 
 export class MonsterManualMonsters {

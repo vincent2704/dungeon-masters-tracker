@@ -1,4 +1,4 @@
-import {Skill} from "./skill";
+import {Skill} from "../skill";
 
 export class Ability {
 
@@ -30,12 +30,8 @@ export class Ability {
     return this.nameShort;
   }
 
-  getModifier(score: number): number {
-    return this.ABILITY_MODIFIERS.get(score)!;
-  }
-
-  // source - Player's Handbook, page 173
-  private readonly ABILITY_MODIFIERS: Map<number, number> = new Map<number, number>([
+  // source - Basic Rules, pg. 60
+  static readonly ABILITY_MODIFIERS: Map<number, number> = new Map<number, number>([
     [1, -5],
     [2, -4],
     [3, -4],

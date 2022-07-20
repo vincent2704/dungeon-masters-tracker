@@ -2,7 +2,7 @@ import {MonsterSize} from "./monsterSize";
 import {MonsterId} from "./monsterId";
 import {MonsterType} from "./monsterType";
 import {Alignment} from "./alignment";
-import {AbilitySet} from "../common/abilitySet";
+import {AbilitySet} from "../common/ability/abilitySet";
 import {MonsterTag} from "./monsterTag";
 
 export class Monster {
@@ -25,6 +25,18 @@ export class Monster {
     }
     let tags = this.tags.join(', ')
     return `${this.size.getSize()} ${this.type.getName()} (${tags}), ${this.alignment.getAlignment()}`
+  }
+
+  getArmorClass(): number {
+    return this.armorClass;
+  }
+
+  getHitPoints(): number {
+    return this.hitPoints;
+  }
+
+  getSpeed(): string {
+    return this.speed;
   }
 
   getAbilitySet(): AbilitySet {
