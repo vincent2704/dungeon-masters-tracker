@@ -8,5 +8,6 @@ export class Alignment {
   }
 
   static NEUTRAL_GOOD = new Alignment('neutral good')
+  static LAWFUL_EVIL = new Alignment('lawful evil')
 
 }

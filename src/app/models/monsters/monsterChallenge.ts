@@ -39,4 +39,12 @@ export class MonsterChallenge {
 
   static THIRTY = new MonsterChallenge(20, 155_000);
 
+  getChallengeLevel(): number {
+    return this.challengeLevel;
+  }
+
+  getExperiencePoints(): number {
+    return this.experiencePoints;
+  }
+
 }
