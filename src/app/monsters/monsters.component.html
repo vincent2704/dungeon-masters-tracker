@@ -62,6 +62,14 @@
           {{trait.getDescription()}}
         </div>
       </div>
+      <hr/>
+      <div class="row">Actions</div>
+      <div class="row" *ngFor="let action of monster.getActions()">
+        <div class="col-4 fw-bold">{{action.getName()}}</div>
+        <div class="col-8">
+          {{action.getDescription()}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

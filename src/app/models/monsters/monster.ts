@@ -12,6 +12,7 @@ import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
 import {MonsterLanguages} from "./monsterLanguages";
 import {SpecialTrait} from "./specialTrait";
+import {Action} from "./action";
 
 export class Monster {
 
@@ -34,7 +35,8 @@ export class Monster {
     private readonly languages?: MonsterLanguages,
     // 5th part
     // special traits
-    private readonly specialTraits: SpecialTrait[] = []
+    private readonly specialTraits: SpecialTrait[] = [],
+    private readonly actions: Action[] = []
   ) {}
 
   getName() {
@@ -93,7 +95,11 @@ export class Monster {
     return this.challenge;
   }
 
-  getSpecialTraits() {
+  getSpecialTraits(): SpecialTrait[] {
     return this.specialTraits;
+  }
+
+  getActions(): Action[] {
+    return this.actions;
   }
 }

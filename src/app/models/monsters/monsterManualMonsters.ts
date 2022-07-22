@@ -19,6 +19,7 @@ import {Sense} from "../common/sense";
 import {MonsterLanguages} from "./monsterLanguages";
 import {Language} from "../common/language";
 import {SpecialTrait} from "./specialTrait";
+import {Action} from "./action";
 
 export class MonsterManualMonsters {
 
@@ -36,7 +37,8 @@ export class MonsterManualMonsters {
     undefined, undefined,
     new MonsterSenses([], [new MonsterSkill(Skill.PERCEPTION, 15)]),
     new MonsterLanguages([Language.AURAN]),
-    [SpecialTrait.DIVE_ATTACK]
+    [SpecialTrait.DIVE_ATTACK],
+    Action.AARAKOCRA_ACTIONS
   )
 
   static ABOLETH = new Monster(MonsterId.ABOLETH_ID,
@@ -50,7 +52,8 @@ export class MonsterManualMonsters {
     undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], '120 ft.'),
-    [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY]
+    [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
+    Action.ABOLETH_ACTIONS
   )
 
   static DEVA = new Monster(MonsterId.DEVA_ID,
@@ -65,7 +68,8 @@ export class MonsterManualMonsters {
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 19)]),
     new MonsterLanguages([Language.ALL], '120 ft.'),
-    [SpecialTrait.ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE]
+    [SpecialTrait.ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
+    Action.DEVA_ACTIONS
   )
 
   static MONSTERS: Monster[] = [
