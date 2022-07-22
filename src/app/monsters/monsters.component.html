@@ -1,40 +1,47 @@
-<div *ngFor="let monster of monsters" class="card col-sm-4">
-  <div class="card-body">
-    <h5 class="card-title">{{monster.getName()}}</h5>
-    <h6 class="card-subtitle">{{monster.getOverview()}}</h6>
-    <hr/>
-    <div class="row">Armor Class: {{monster.getArmorClass()}}</div>
-    <div class="row">Hit Points: {{monster.getHitPoints()}}</div>
-    <div class="row">Speed: {{monster.getSpeed()}}</div>
-    <hr/>
-    <table class="table table-sm">
-      <thead>
-      <tr>
-        <th scope="col" *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
-          {{abilityScore.getAbility().getNameShort()}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
-          {{getAbilityScoreInfo(abilityScore)}}
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="row">
-      <div class="col-4 fw-bold">Saving throws</div>
-      <div class="col-4"
-           *ngFor="let savingThrow of monster.getSavingThrows()">{{savingThrow.getAbility().getName()}} {{savingThrow.getModifier()}}</div>
-    </div>
-    <div class="row">
-      <div class="col-4 fw-bold">Skills</div>
-      <div class="col-4" *ngFor="let skill of monster.getSkills()">{{skill.getSkill()}} {{skill.getScore()}}</div>
-    </div>
-    <div class="row">
-      <div class="col-4 fw-bold">Challenge</div>
-      <div class="col-4">
-        {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}})
+<div class="row">
+  <div *ngFor="let monster of monsters" class="card col-sm-4">
+    <div class="card-body">
+      <h5 class="card-title">{{monster.getName()}}</h5>
+      <h6 class="card-subtitle">{{monster.getOverview()}}</h6>
+      <hr/>
+      <div class="row">Armor Class: {{monster.getArmorClass()}}</div>
+      <div class="row">Hit Points: {{monster.getHitPoints()}}</div>
+      <div class="row">Speed: {{monster.getSpeed()}}</div>
+      <hr/>
+      <table class="table table-sm">
+        <thead>
+        <tr>
+          <th scope="col" *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
+            {{abilityScore.getAbility().getNameShort()}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
+            {{getAbilityScoreInfo(abilityScore)}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-4 fw-bold">Saving throws</div>
+        <div class="col-4"
+             *ngFor="let savingThrow of monster.getSavingThrows()">{{savingThrow.getAbility().getName()}} {{savingThrow.getModifier()}}</div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-4 fw-bold">Skills</div>
+        <div class="col-4" *ngFor="let skill of monster.getSkills()">{{skill.getSkill()}} {{skill.getScore()}}</div>
+      </div>
+      <div class="row" *ngIf="monster.getDamageResistances()">
+        <div class="col-4 fw-bold">Damage Resistances</div>
+        <div class="col">{{monster.getDamageResistances().getResistances()}}</div>
+      </div>
+      <div class="row">
+        <div class="col-4 fw-bold">Challenge</div>
+        <div class="col-8">
+          {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}})
+        </div>
       </div>
     </div>
   </div>

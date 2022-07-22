@@ -10,6 +10,8 @@ import {SavingThrow} from "./savingThrow";
 import {Ability} from "../common/ability/ability";
 import {MonsterSkill} from "./monsterSkill";
 import {Skill} from "../common/skill";
+import {DamageType} from "./damageType";
+import {DamageResistances} from "./damageResistances";
 
 export class MonsterManualMonsters {
 
@@ -36,8 +38,19 @@ export class MonsterManualMonsters {
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)]
   )
 
+  static DEVA = new Monster(MonsterId.DEVA_ID,
+    'Deva', MonsterSize.MEDIUM, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
+    17, 136, '30 ft., fly 90 ft.',
+    new AbilitySet(18, 18, 18, 17, 20, 20),
+    MonsterChallenge.TEN,
+    [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
+    [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
+    new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
+      DamageType.SLASHING])
+  )
+
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH
+    this.AARAKOCRA, this.ABOLETH, this.DEVA
   ]
 
 }

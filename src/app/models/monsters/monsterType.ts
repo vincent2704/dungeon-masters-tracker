@@ -9,5 +9,6 @@ export class MonsterType {
 
   static HUMANOID = new MonsterType('humanoid');
   static ABERRATION = new MonsterType('aberration');
+  static CELESTIAL = new MonsterType('celestial');
 
 }
