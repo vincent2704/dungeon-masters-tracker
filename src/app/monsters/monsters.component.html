@@ -39,7 +39,11 @@
       </div>
       <div class="row" *ngIf="monster.getConditionImmunities().length > 0">
         <div class="col-4 fw-bold">Condition Immunities</div>
-        <div class="col">{{monster.getConditionImmunities()}}</div>
+        <div class="col">{{getConditionImmunities(monster)}}</div>
+      </div>
+      <div class="row" *ngIf="monster.getSenses()">
+        <div class="col-4 fw-bold">Senses</div>
+        <div class="col">{{getSenses(monster)}}</div>
       </div>
       <div class="row">
         <div class="col-4 fw-bold">Challenge</div>

@@ -13,6 +13,9 @@ import {Skill} from "../common/skill";
 import {DamageType} from "./damageType";
 import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
+import {MonsterSenses} from "./monsterSenses";
+import {MonsterSense} from "./monsterSense";
+import {Sense} from "../common/sense";
 
 export class MonsterManualMonsters {
 
@@ -48,7 +51,8 @@ export class MonsterManualMonsters {
     [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
     new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
       DamageType.SLASHING]),
-    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED]
+    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 19)])
   )
 
   static MONSTERS: Monster[] = [

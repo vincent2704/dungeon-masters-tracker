@@ -28,4 +28,28 @@ export class MonstersComponent implements OnInit {
     return `${score} (${modifierValue})`;
   }
 
+  getConditionImmunities(monster: Monster): string {
+    return monster.getConditionImmunities().map(condition => condition.getName()).join(', ');
+  }
+
+  getSenses(monster: Monster){
+    let senses =  monster.getSenses().getMonsterSenses().map(monsterSense => {
+      let sense = monsterSense.getSense().getName();
+      let radius = monsterSense.getRadius();
+      return sense + radius;
+    }).join(', ');
+
+    let passiveSkills = monster.getSenses().getPassiveSkills();
+    if(passiveSkills.length > 0) {
+      let passives = passiveSkills.map(passiveSkill => {
+        let skill = passiveSkill.getSkill();
+        let score = passiveSkill.getScore();
+        return `${skill} ${score}`
+      }).join(', ');
+
+      return `${senses}, ${passives}`
+    }
+    return senses;
+  }
+
 }
