@@ -55,6 +55,13 @@
           {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}})
         </div>
       </div>
+      <hr/>
+      <div class="row" *ngFor="let trait of monster.getSpecialTraits()">
+        <div class="col-4 fw-bold">{{trait.getName()}}</div>
+        <div class="col-8">
+          {{trait.getDescription()}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

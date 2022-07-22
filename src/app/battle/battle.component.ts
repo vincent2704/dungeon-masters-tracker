@@ -3,7 +3,6 @@ import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
-import {Condition} from "../models/Condition";
 import {TemporalService} from "../services/temporal/temporal.service";
 
 @Component({
