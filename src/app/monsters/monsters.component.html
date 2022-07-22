@@ -37,6 +37,10 @@
         <div class="col-4 fw-bold">Damage Resistances</div>
         <div class="col">{{monster.getDamageResistances().getResistances()}}</div>
       </div>
+      <div class="row" *ngIf="monster.getConditionImmunities().length > 0">
+        <div class="col-4 fw-bold">Condition Immunities</div>
+        <div class="col">{{monster.getConditionImmunities()}}</div>
+      </div>
       <div class="row">
         <div class="col-4 fw-bold">Challenge</div>
         <div class="col-8">

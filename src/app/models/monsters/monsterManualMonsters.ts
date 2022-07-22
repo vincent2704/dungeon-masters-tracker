@@ -12,6 +12,7 @@ import {MonsterSkill} from "./monsterSkill";
 import {Skill} from "../common/skill";
 import {DamageType} from "./damageType";
 import {DamageResistances} from "./damageResistances";
+import {Condition} from "../Condition";
 
 export class MonsterManualMonsters {
 
@@ -46,7 +47,8 @@ export class MonsterManualMonsters {
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
     new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
-      DamageType.SLASHING])
+      DamageType.SLASHING]),
+    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED]
   )
 
   static MONSTERS: Monster[] = [

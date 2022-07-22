@@ -8,6 +8,7 @@ import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {MonsterSkill} from "./monsterSkill";
 import {DamageResistances} from "./damageResistances";
+import {Condition} from "../Condition";
 
 export class Monster {
 
@@ -24,9 +25,9 @@ export class Monster {
     private readonly challenge: MonsterChallenge,
     private readonly savingThrows: SavingThrow[] = [],
     private readonly skills: MonsterSkill[] = [],
-    // damage resistances
-    private readonly damageResistances?: DamageResistances
+    private readonly damageResistances?: DamageResistances,
     // condition immunities
+    private readonly conditionImmunities: Condition[] = []
     // senses
     // languages
   ) {}
@@ -69,6 +70,11 @@ export class Monster {
 
   getDamageResistances(): DamageResistances {
     return this.damageResistances!;
+  }
+
+  getConditionImmunities(): string {
+    return this.conditionImmunities.map(condition => condition.getName())
+      .join(', ');
   }
 
   getChallenge(): MonsterChallenge {
