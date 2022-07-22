@@ -10,6 +10,7 @@ import {MonsterSkill} from "./monsterSkill";
 import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
+import {MonsterLanguages} from "./monsterLanguages";
 
 export class Monster {
 
@@ -28,8 +29,8 @@ export class Monster {
     private readonly skills: MonsterSkill[] = [],
     private readonly damageResistances?: DamageResistances,
     private readonly conditionImmunities: Condition[] = [],
-    private readonly senses?: MonsterSenses
-    // languages
+    private readonly senses?: MonsterSenses,
+    private readonly languages?: MonsterLanguages
   ) {}
 
   getName() {
@@ -82,6 +83,10 @@ export class Monster {
 
   getChallenge(): MonsterChallenge {
     return this.challenge;
+  }
+
+  getLanguages() {
+    return this.languages;
   }
 
 }

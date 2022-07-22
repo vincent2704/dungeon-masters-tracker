@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
 import {AbilityScore} from "../models/common/ability/abilityScore";
@@ -13,7 +13,8 @@ export class MonstersComponent implements OnInit {
 
   monsters: Monster[] = []
 
-  constructor(private monsterService: MonsterService) { }
+  constructor(private monsterService: MonsterService) {
+  }
 
   ngOnInit(): void {
     this.monsters = this.monsterService.getMonsters();
@@ -32,24 +33,39 @@ export class MonstersComponent implements OnInit {
     return monster.getConditionImmunities().map(condition => condition.getName()).join(', ');
   }
 
-  getSenses(monster: Monster){
-    let senses =  monster.getSenses().getMonsterSenses().map(monsterSense => {
+  getSenses(monster: Monster): string {
+    let senses = monster.getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
       return sense + radius;
     }).join(', ');
 
     let passiveSkills = monster.getSenses().getPassiveSkills();
-    if(passiveSkills.length > 0) {
+    if (passiveSkills.length > 0) {
       let passives = passiveSkills.map(passiveSkill => {
         let skill = passiveSkill.getSkill();
         let score = passiveSkill.getScore();
         return `${skill} ${score}`
       }).join(', ');
 
-      return `${senses}, ${passives}`
+      if (senses.length > 0) {
+        return `${senses}, passive ${passives}`;
+      }
+      return `passive ${passives}`;
     }
     return senses;
   }
 
+  getLanguages(monster: Monster): string {
+    let monsterLanguages = monster.getLanguages();
+    if (!monsterLanguages) {
+      return '—'
+    }
+    let languages = monsterLanguages.getLanguages().join(', ');
+    let telepathyRadius = monsterLanguages.getTelepathyRadius();
+    if (telepathyRadius) {
+      return `${languages}, telepathy ${telepathyRadius}`
+    }
+    return languages;
+  }
 }

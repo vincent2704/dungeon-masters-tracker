@@ -46,6 +46,10 @@
         <div class="col">{{getSenses(monster)}}</div>
       </div>
       <div class="row">
+        <div class="col-4 fw-bold">Languages</div>
+        <div class="col">{{getLanguages(monster)}}</div>
+      </div>
+      <div class="row">
         <div class="col-4 fw-bold">Challenge</div>
         <div class="col-8">
           {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}})
