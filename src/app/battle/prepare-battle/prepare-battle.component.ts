@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Actor } from "../../models/actor";
 import {ActorService} from "../../services/actor/actor.service";
-import {SettingsService} from "../../services/settings/settings.service";
+import {Settings} from "../../services/settings/settings";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -15,8 +15,8 @@ export class PrepareBattleComponent implements OnInit {
 
   actors: Actor[];
 
-  constructor(private actorService: ActorService, private settingsService: SettingsService) {
-    if(settingsService.isAutoLoadProtagonists()) {
+  constructor(private actorService: ActorService) {
+    if(Settings.isAutoLoadProtagonists()) {
       this.actors = actorService.getActors().slice();
     } else {
       this.actors = [];

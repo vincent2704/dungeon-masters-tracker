@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SettingsService} from "../../../services/settings/settings.service";
+import {Settings} from "../../../services/settings/settings";
 import {MeasurementSystem} from "../../../services/measurement-system/measurement.system";
 
 @Component({
@@ -9,20 +9,19 @@ import {MeasurementSystem} from "../../../services/measurement-system/measuremen
 })
 export class PacesAndDistancesCheatSheetComponent implements OnInit {
 
-  constructor(
-    private settingsService: SettingsService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   getDistanceForMinute(distanceInFeet: number): string {
-    return this.settingsService.isUsingSISystem()
+    return Settings.isUsingSISystem()
       ? MeasurementSystem.convertFeetToMeters(distanceInFeet) + " m"
       : distanceInFeet + " feet";
   }
 
   getDistance(distanceInMiles: number): string {
-    return this.settingsService.isUsingSISystem()
+    return Settings.isUsingSISystem()
       ? MeasurementSystem.convertMilesToKilometers(distanceInMiles) + " km"
       : distanceInMiles + " miles";
   }
