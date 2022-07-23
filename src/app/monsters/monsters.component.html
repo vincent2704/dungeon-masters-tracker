@@ -70,6 +70,16 @@
           {{action.getDescription()}}
         </div>
       </div>
+      <div *ngIf="monster.getReactions().length > 0">
+        <hr/>
+        <div class="row">Reactions</div>
+        <div class="row" *ngFor="let reaction of monster.getReactions()">
+          <div class="col-4 fw-bold">{{reaction.getName()}}</div>
+          <div class="col-8">
+            {{reaction.getDescription()}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

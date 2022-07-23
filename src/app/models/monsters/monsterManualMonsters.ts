@@ -20,6 +20,7 @@ import {MonsterLanguages} from "./monsterLanguages";
 import {Language} from "../common/language";
 import {SpecialTrait} from "./specialTrait";
 import {Action} from "./action";
+import {Reaction} from "./reaction";
 
 export class MonsterManualMonsters {
 
@@ -72,8 +73,19 @@ export class MonsterManualMonsters {
     Action.DEVA_ACTIONS
   )
 
+  static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
+    'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
+    14, 39, '0 ft., fly 30 ft. (hover)',
+    new AbilitySet(8, 14, 14, 13, 14, 11),
+    MonsterChallenge.THREE, [], [new MonsterSkill(Skill.PERCEPTION, 6)],
+    undefined, [Condition.PRONE],
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120ft.')], [new MonsterSkill(Skill.PERCEPTION, 16)]),
+    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], '120 ft.'), [],
+    Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
+    )
+
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.SPECTATOR
   ]
 
 }

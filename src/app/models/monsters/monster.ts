@@ -13,6 +13,7 @@ import {MonsterSenses} from "./monsterSenses";
 import {MonsterLanguages} from "./monsterLanguages";
 import {SpecialTrait} from "./specialTrait";
 import {Action} from "./action";
+import {Reaction} from "./reaction";
 
 export class Monster {
 
@@ -36,7 +37,8 @@ export class Monster {
     // 5th part
     // special traits
     private readonly specialTraits: SpecialTrait[] = [],
-    private readonly actions: Action[] = []
+    private readonly actions: Action[] = [],
+    private readonly reactions: Reaction[] = []
   ) {}
 
   getName() {
@@ -101,5 +103,9 @@ export class Monster {
 
   getActions(): Action[] {
     return this.actions;
+  }
+
+  getReactions(): Reaction[] {
+    return this.reactions;
   }
 }

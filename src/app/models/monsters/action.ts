@@ -85,4 +85,37 @@ export class Action {
 
   static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE]
 
+  static SPECTATOR_BITE = new Action('Bite',
+    "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
+    "Hit: 2 (1d6- 1) piercing damage. ")
+
+  static SPECTATOR_EYE_RAYS = new Action('Eye Rays',
+    "The spectator shoots up to two of the following " +
+    "magical eye rays at one or two creatures it can see within 90 " +
+    "feet of it. It can use each ray only once on a turn. " +
+    "7. Confusion Ray. The target must succeed on a DC 13 " +
+    "Wisdom saving throw, or it can't take reactions until the end " +
+    "of its next turn. On its turn, the target can't move, and it uses " +
+    "its action to make a melee or ranged attack against a randomly " +
+    "determined creature within range. If the target can't attack, it " +
+    "does nothing on its turn. \n\t" +
+    "2. Paralyzing Ray. The target must succeed on a DC 13 " +
+    "Constitution saving throw or be paralyzed for 1 minute. The " +
+    "target can repeat the saving throw at the end of each of its " +
+    "turns, ending the effect on itself on a success. " +
+    "3. Fear Ray. The target must succeed on a DC 13 Wisdom " +
+    "saving throw or be frightened for 1 minute. The target can " +
+    "repeat the saving throw at the end of each of its turns, with " +
+    "disadvantage if the spectator is visible to the target, ending the " +
+    "effect on itself on a success. " +
+    "4. Wounding Ray. The target must make a DC 13 Constitution " +
+    "saving throw, taking 16 (3d10) necrotic damage on a failed " +
+    "save, or half as much damage on a successful one. ")
+
+  static SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
+    "The spectator magically creates " +
+    "enough food and water to sustain itself for 24 hours. ")
+
+  static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER]
+
 }

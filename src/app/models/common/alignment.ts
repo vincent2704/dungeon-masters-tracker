@@ -10,5 +10,6 @@ export class Alignment {
   static readonly LAWFUL_GOOD = new Alignment('lawful good')
   static readonly NEUTRAL_GOOD = new Alignment('neutral good')
   static readonly LAWFUL_EVIL = new Alignment('lawful evil')
+  static readonly LAWFUL_NEUTRAL = new Alignment('lawful neutral')
 
 }
