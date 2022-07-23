@@ -17,6 +17,7 @@ import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterHitPoints} from "./monsterHitPoints";
+import {MonsterArmor} from "./monsterArmor";
 
 export class Monster {
 
@@ -25,7 +26,7 @@ export class Monster {
     private readonly id: MonsterId, private readonly name: string, private readonly size: MonsterSize,
     private readonly type: MonsterType, private readonly tags: MonsterTag[], private readonly alignment: Alignment,
     // second part
-    private readonly armorClass: number,
+    private readonly armorClass: MonsterArmor,
     private readonly hitPoints: MonsterHitPoints,
     private readonly speed: MonsterSpeed,
     // third part
@@ -52,13 +53,13 @@ export class Monster {
 
   getOverview(): string {
     if(this.tags.length == 0) {
-      return `${this.size.getSize()} ${this.type.getName()}, ${this.alignment.getAlignment()}`
+      return `${this.size.getSize()} ${this.type.getName()}, ${this.alignment}`
     }
     let tags = this.tags.join(', ')
-    return `${this.size.getSize()} ${this.type.getName()} (${tags}), ${this.alignment.getAlignment()}`
+    return `${this.size.getSize()} ${this.type.getName()} (${tags}), ${this.alignment}`
   }
 
-  getArmorClass(): number {
+  getArmorClass(): MonsterArmor {
     return this.armorClass;
   }
 

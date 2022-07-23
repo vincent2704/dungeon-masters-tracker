@@ -23,13 +23,14 @@ export class MonstersComponent implements OnInit {
     })
   }
 
-  showMonster(monster: Monster): boolean {
-    return this.monsterShowMap.get(monster)!;
-  }
-
-  toggleDetails(monster: Monster) {
-    let currentShowStatus = this.monsterShowMap.get(monster);
-    this.monsterShowMap.set(monster, !currentShowStatus);
+  getArmorClass(monster: Monster): string {
+    let armor = monster.getArmorClass();
+    let armorClass = `${armor.getArmorClassValue()}`
+    let equipment = armor.getEquipment();
+    if(armor.getEquipment().length > 0) {
+      armorClass += ` (${equipment.join(', ')})`
+    }
+    return armorClass;
   }
 
   getHitPoints(monster: Monster): string {
@@ -63,4 +64,14 @@ export class MonstersComponent implements OnInit {
 
     return monsterSpeed;
   }
+
+  toggleDetails(monster: Monster) {
+    let currentShowStatus = this.monsterShowMap.get(monster);
+    this.monsterShowMap.set(monster, !currentShowStatus);
+  }
+
+  showMonster(monster: Monster): boolean {
+    return this.monsterShowMap.get(monster)!;
+  }
+
 }

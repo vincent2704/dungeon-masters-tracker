@@ -92,7 +92,7 @@ export class Action {
     "of its next turn. On its turn, the target can't move, and it uses " +
     "its action to make a melee or ranged attack against a randomly " +
     "determined creature within range. If the target can't attack, it " +
-    "does nothing on its turn. \n\t" +
+    "does nothing on its turn. " +
     "2. Paralyzing Ray. The target must succeed on a DC 13 " +
     "Constitution saving throw or be paralyzed for 1 minute. The " +
     "target can repeat the saving throw at the end of each of its " +
@@ -110,10 +110,20 @@ export class Action {
     "The spectator magically creates " +
     "enough food and water to sustain itself for 24 hours. ")
 
-  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN]
-  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
-  static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE]
+  private static GOBLIN_SCIMITAR = new Action('Scimitar',
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
+    "target. Hit: 5 (1d6 + 2) slashing damage.")
 
-  static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER]
+  private static GOBLIN_SHORTBOW = new Action('Shortbow',
+    "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
+    "Hit: 5 (1d6 + 2) piercing damage.")
+
+  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN];
+  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
+  static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE];
+
+  static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER];
+
+  static GOBLIN_ACTIONS = [Action.GOBLIN_SCIMITAR, Action.GOBLIN_SHORTBOW];
 
 }
