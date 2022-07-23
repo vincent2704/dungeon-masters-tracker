@@ -35,7 +35,7 @@ export class MonsterDetailsComponent implements OnInit {
     let senses = this.monster.getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
-      return sense + radius;
+      return `${sense} ${radius}`;
     }).join(', ');
 
     let passiveSkills = this.monster.getSenses().getPassiveSkills();

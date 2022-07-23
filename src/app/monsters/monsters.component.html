@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col">
         <div class="row">Armor Class: {{monster.getArmorClass()}}</div>
-        <div class="row">Hit Points: {{monster.getHitPoints()}}</div>
+        <div class="row">Hit Points: {{getHitPoints(monster)}}</div>
         <div class="row">Speed: {{getSpeed(monster)}}</div>
         <div class="row">Challenge: {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}}XP)</div>
       </div>

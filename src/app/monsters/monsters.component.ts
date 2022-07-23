@@ -32,6 +32,19 @@ export class MonstersComponent implements OnInit {
     this.monsterShowMap.set(monster, !currentShowStatus);
   }
 
+  getHitPoints(monster: Monster): string {
+    let monsterHitPoints = monster.getHitPoints();
+    let diceThrows = monsterHitPoints.getDiceThrows();
+    let dieType = monsterHitPoints.getDieType();
+    let staticHP = monsterHitPoints.getStaticAdditionalHP();
+
+    let hitPoints = `${monsterHitPoints.getHitPoints()} (${diceThrows}d${dieType}`
+    if(staticHP > 0) {
+      return `${hitPoints} + ${staticHP})`;
+    }
+    return `${hitPoints})`;
+  }
+
   getSpeed(monster: Monster): string {
     let speed = monster.getSpeed();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
@@ -45,7 +58,7 @@ export class MonstersComponent implements OnInit {
       monsterSpeed += `, fly ${MeasurementSystem.getFeetDistance(flyingSpeed)} ${measurementUnit}`;
     }
     if(swimmingSpeed > 0) {
-      monsterSpeed += `, swim ${MeasurementSystem.getFeetDistance(swimmingSpeed)} ${measurementUnit}`
+      monsterSpeed += `, swim ${MeasurementSystem.getFeetDistance(swimmingSpeed)} ${measurementUnit}`;
     }
 
     return monsterSpeed;
