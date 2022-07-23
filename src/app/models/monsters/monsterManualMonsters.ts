@@ -37,7 +37,7 @@ export class MonsterManualMonsters {
     // 3
     new AbilitySet(10, 14, 10, 11, 12, 11),
     // 4
-    MonsterChallenge.TEN,
+    MonsterChallenge.ONE_FOURTH,
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.PERCEPTION, 5)],
     undefined, undefined,

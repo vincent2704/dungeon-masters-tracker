@@ -5,10 +5,10 @@
     <hr/>
     <div class="row">
       <div class="col-9">
-        <div class="row">Armor Class: {{getArmorClass(monster)}}</div>
-        <div class="row">Hit Points: {{getHitPoints(monster)}}</div>
-        <div class="row">Speed: {{getSpeed(monster)}}</div>
-        <div class="row">Challenge: {{monster.getChallenge().getChallengeLevel()}} ({{monster.getChallenge().getExperiencePoints()}}XP)</div>
+        <div class="row">{{getArmorClass(monster)}}</div>
+        <div class="row">{{getHitPoints(monster)}}</div>
+        <div class="row">{{getSpeed(monster)}}</div>
+        <div class="row">{{getChallenge(monster)}}</div>
       </div>
       <div class="col-3">
         <button class="btn btn-primary"
