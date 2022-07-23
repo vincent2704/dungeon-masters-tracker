@@ -5,14 +5,13 @@ import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
 import {Actor} from "../../models/actor";
-import {SettingsService} from "../../services/settings/settings.service";
+import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
   let fixture: ComponentFixture<PrepareBattleComponent>;
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
-  let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
 
   let defaultActors = [
     new Actor('Actor 1', 1),
@@ -22,13 +21,11 @@ describe('PrepareBattleComponent', () => {
 
   beforeEach(async () => {
     const actorService = jasmine.createSpyObj('ActorService', ['getActors']);
-    const settingsService = jasmine.createSpyObj('SettingsService', ['isAutoLoadProtagonists']);
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [ PrepareBattleComponent, AddActorComponent ],
       providers: [
-        { provide: ActorService, useValue: actorService },
-        { provide: SettingsService, useValue: settingsService }
+        { provide: ActorService, useValue: actorService }
       ]
     })
     .compileComponents();
@@ -36,9 +33,8 @@ describe('PrepareBattleComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
     actorServiceSpy.getActors.and.returnValue(defaultActors);
-    settingsServiceSpy.isAutoLoadProtagonists.and.returnValue(true);
+    Settings.setAutoLoadProtagonists(true);
 
     fixture = TestBed.createComponent(PrepareBattleComponent);
     component = fixture.componentInstance;

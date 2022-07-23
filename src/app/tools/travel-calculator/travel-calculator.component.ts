@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SettingsService} from "../../services/settings/settings.service";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {Settings} from "../../services/settings/settings";
 
 @Component({
   selector: 'app-travel-calculator',
@@ -12,7 +12,7 @@ export class TravelCalculatorComponent implements OnInit {
   travelInformation: string = '';
   trackTime: boolean = true;
 
-  constructor(private settingsService: SettingsService, private temporalService: TemporalService) {
+  constructor( private temporalService: TemporalService) {
   }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   getTypeDistancePlaceholder(): string {
-    return this.settingsService.isUsingSISystem() ? 'Distance in kilometers' : 'Distance in miles';
+    return Settings.isUsingSISystem() ? 'Distance in kilometers' : 'Distance in miles';
   }
 
   getTimePlaceholder(): string {
@@ -64,7 +64,7 @@ export class TravelCalculatorComponent implements OnInit {
 
   private updateTravelDistance(time: number) {
     let distanceTraveledForHours = (time * this.getOneHourTravelToPaceRatio()).toFixed(1);
-    let measureUnit = this.settingsService.isUsingSISystem() ? 'kilometers' : 'miles';
+    let measureUnit = Settings.isUsingSISystem() ? 'kilometers' : 'miles';
     this.travelInformation = `Traveled distance: ${distanceTraveledForHours} ${measureUnit}`;
   }
 
@@ -79,13 +79,13 @@ export class TravelCalculatorComponent implements OnInit {
   private getOneHourTravelToPaceRatio(): number {
     switch (this.pace) {
       case 'Fast': {
-        return this.settingsService.isUsingSISystem() ? 6 : 4;
+        return Settings.isUsingSISystem() ? 6 : 4;
       }
       case 'Normal': {
-        return this.settingsService.isUsingSISystem() ? 4.5 : 3;
+        return Settings.isUsingSISystem() ? 4.5 : 3;
       }
       case 'Slow': {
-        return this.settingsService.isUsingSISystem() ? 3 : 2;
+        return Settings.isUsingSISystem() ? 3 : 2;
       }
       default: {
         return 0;

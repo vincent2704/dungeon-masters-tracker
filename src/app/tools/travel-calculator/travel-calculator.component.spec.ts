@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TravelCalculatorComponent} from './travel-calculator.component';
-import {SettingsService} from "../../services/settings/settings.service";
+import {Settings} from "../../services/settings/settings";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {FormsModule} from "@angular/forms";
 
@@ -9,18 +9,15 @@ describe('TravelCalculatorComponent', () => {
   let component: TravelCalculatorComponent;
   let fixture: ComponentFixture<TravelCalculatorComponent>;
 
-  let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
   let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
 
   beforeEach(async () => {
-    const settingsService = jasmine.createSpyObj('SettingsService', ['isUsingSISystem'])
     const temporalService = jasmine.createSpyObj('TemporalService', ['addSeconds'])
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [TravelCalculatorComponent],
       providers: [
-        {provide: SettingsService, useValue: settingsService},
         {provide: TemporalService, useValue: temporalService},
       ]
     })
@@ -29,7 +26,6 @@ describe('TravelCalculatorComponent', () => {
     fixture = TestBed.createComponent(TravelCalculatorComponent);
     component = fixture.componentInstance;
 
-    settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
     temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
     fixture.detectChanges();
   });
@@ -50,7 +46,7 @@ describe('TravelCalculatorComponent', () => {
 
   it('should return correct placeholder in SI', () => {
     //given
-    settingsServiceSpy.isUsingSISystem.and.returnValue(true);
+    Settings.setSISystem(true);
     // when
     let placeholder = component.getTypeDistancePlaceholder();
     //then
@@ -59,7 +55,7 @@ describe('TravelCalculatorComponent', () => {
 
   it('should return correct placeholder in Imperial', () => {
     //given
-    settingsServiceSpy.isUsingSISystem.and.returnValue(false);
+    Settings.setSISystem(false);
     //when
     let placeholder = component.getTypeDistancePlaceholder();
     //then
@@ -68,7 +64,7 @@ describe('TravelCalculatorComponent', () => {
 
   it('should update travel time if time progress checkbox is checked', () => {
     //given
-    settingsServiceSpy.isUsingSISystem.and.returnValue(true);
+    Settings.setSISystem(true);
     component.trackTime = true;
     component.pace = 'Fast'
     //when
@@ -79,7 +75,7 @@ describe('TravelCalculatorComponent', () => {
 
   it('should update travel time if time progress checkbox is not checked', () => {
     //given
-    settingsServiceSpy.isUsingSISystem.and.returnValue(true);
+    Settings.setSISystem(true);
     component.trackTime = false;
     component.pace = 'Fast' //4 godziny
     //when

@@ -51,4 +51,8 @@ export class SpecialTrait {
     "The deva has advantage on saving throws " +
     "against spells and other magical effects. ")
 
+  static readonly NIMBLE_ESCAPE = new SpecialTrait('Nimble Escape',
+    "The goblin can take the Disengage or Hide " +
+    "action as a bonus action on each of its turns")
+
 }

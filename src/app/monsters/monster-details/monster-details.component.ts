@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Monster} from "../../models/monsters/monster";
 import {AbilityScore} from "../../models/common/ability/abilityScore";
 import {Ability} from "../../models/common/ability/ability";
+import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
 
 @Component({
   selector: 'app-monster-details',
@@ -35,7 +36,7 @@ export class MonsterDetailsComponent implements OnInit {
     let senses = this.monster.getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
-      return sense + radius;
+      return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
     }).join(', ');
 
     let passiveSkills = this.monster.getSenses().getPassiveSkills();
@@ -62,7 +63,7 @@ export class MonsterDetailsComponent implements OnInit {
     let languages = monsterLanguages.getLanguages().join(', ');
     let telepathyRadius = monsterLanguages.getTelepathyRadius();
     if (telepathyRadius) {
-      return `${languages}, telepathy ${telepathyRadius}`
+      return `${languages}, telepathy ${telepathyRadius} ${MeasurementSystem.getMeasurementUnit()}`
     }
     return languages;
   }

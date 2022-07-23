@@ -1,15 +1,13 @@
-export class Alignment {
+export enum Alignment {
 
-  private constructor(private alignment: string) {
-  }
-
-  public getAlignment() {
-    return this.alignment;
-  }
-
-  static readonly LAWFUL_GOOD = new Alignment('lawful good')
-  static readonly NEUTRAL_GOOD = new Alignment('neutral good')
-  static readonly LAWFUL_EVIL = new Alignment('lawful evil')
-  static readonly LAWFUL_NEUTRAL = new Alignment('lawful neutral')
+  LAWFUL_GOOD = 'lawful good',
+  NEUTRAL_GOOD = 'neutral good',
+  CHAOTIC_GOOD = 'chaotic good',
+  NEUTRAL_EVIL = 'neutral evil',
+  LAWFUL_EVIL = 'lawful evil',
+  CHAOTIC_EVIL = 'chaotic evil',
+  LAWFUL_NEUTRAL = 'lawful neutral',
+  NEUTRAL = 'neutral',
+  CHAOTIC_NEUTRAL = 'chaotic neutral'
 
 }

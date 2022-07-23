@@ -1,7 +1,8 @@
 import {Sense} from "../common/sense";
+import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
 
 export class MonsterSense {
-  constructor(private sense: Sense, private radius: string) {
+  constructor(private sense: Sense, private radiusInFeet: number) {
   }
 
   getSense() {
@@ -9,6 +10,6 @@ export class MonsterSense {
   }
 
   getRadius() {
-    return this.radius;
+    return MeasurementSystem.getFeetDistance(this.radiusInFeet);
   }
 }
