@@ -14,14 +14,14 @@ describe('MeasurementSystemService', () => {
     let valueEightInFeet = 15;
 
     //when
-    let valueOneInMeters = MeasurementSystem.convertFeetToMeters(valueOneInFeet);
-    let valueTwoInMeters = MeasurementSystem.convertFeetToMeters(valueTwoInFeet);
-    let valueThreeInMeters = MeasurementSystem.convertFeetToMeters(valueThreeInFeet);
-    let valueFourInMeters = MeasurementSystem.convertFeetToMeters(valueFourInFeet);
-    let valueFiveInMeters = MeasurementSystem.convertFeetToMeters(valueFiveInFeet);
-    let valueSixInMeters = MeasurementSystem.convertFeetToMeters(valueSixInFeet);
-    let valueSevenInMeters = MeasurementSystem.convertFeetToMeters(valueSevenInFeet);
-    let valueEightInMeters = MeasurementSystem.convertFeetToMeters(valueEightInFeet);
+    let valueOneInMeters = MeasurementSystem.getFeetDistance(valueOneInFeet);
+    let valueTwoInMeters = MeasurementSystem.getFeetDistance(valueTwoInFeet);
+    let valueThreeInMeters = MeasurementSystem.getFeetDistance(valueThreeInFeet);
+    let valueFourInMeters = MeasurementSystem.getFeetDistance(valueFourInFeet);
+    let valueFiveInMeters = MeasurementSystem.getFeetDistance(valueFiveInFeet);
+    let valueSixInMeters = MeasurementSystem.getFeetDistance(valueSixInFeet);
+    let valueSevenInMeters = MeasurementSystem.getFeetDistance(valueSevenInFeet);
+    let valueEightInMeters = MeasurementSystem.getFeetDistance(valueEightInFeet);
 
     //then
     expect(valueOneInMeters).toEqual(6);

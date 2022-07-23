@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
+import {MeasurementSystem} from "../services/measurement-system/measurement.system";
 
 @Component({
   selector: 'app-monsters',
@@ -29,5 +30,24 @@ export class MonstersComponent implements OnInit {
   toggleDetails(monster: Monster) {
     let currentShowStatus = this.monsterShowMap.get(monster);
     this.monsterShowMap.set(monster, !currentShowStatus);
+  }
+
+  getSpeed(monster: Monster): string {
+    let speed = monster.getSpeed();
+    let measurementUnit = MeasurementSystem.getMeasurementUnit();
+    let landSpeed = MeasurementSystem.getFeetDistance(speed.getLandSpeed());
+    let flyingSpeed = speed.getFlyingSpeed();
+    let swimmingSpeed = speed.getSwimmingSpeed();
+
+
+    let monsterSpeed = `${landSpeed} ${measurementUnit}`;
+    if(flyingSpeed > 0) {
+      monsterSpeed += `, fly ${MeasurementSystem.getFeetDistance(flyingSpeed)} ${measurementUnit}`;
+    }
+    if(swimmingSpeed > 0) {
+      monsterSpeed += `, swim ${MeasurementSystem.getFeetDistance(swimmingSpeed)} ${measurementUnit}`
+    }
+
+    return monsterSpeed;
   }
 }

@@ -1,14 +1,19 @@
+import {Settings} from "../settings/settings";
+
 export class MeasurementSystem {
 
   private static readonly feetToMetersRatio: number = 0.3;
   private static readonly milesToKilometersRatio: number = 1.5;
 
-  static convertFeetToMeters(feet: number): number {
-    return feet * this.feetToMetersRatio;
+  static getFeetDistance(feet: number): number {
+    return Settings.isUsingSISystem() ? feet * this.feetToMetersRatio : feet;
   }
 
   static convertMilesToKilometers(miles: number): number {
-    return miles * this.milesToKilometersRatio;
+    return Settings.isUsingSISystem() ? miles * this.milesToKilometersRatio : miles;
   }
 
+  static getMeasurementUnit(): string {
+    return Settings.isUsingSISystem() ? 'm' : 'ft.'
+  }
 }

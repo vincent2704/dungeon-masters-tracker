@@ -22,6 +22,7 @@ import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
+import {MonsterSpeed} from "./monsterSpeed";
 
 export class MonsterManualMonsters {
 
@@ -29,7 +30,7 @@ export class MonsterManualMonsters {
     // 1st monster card section
     'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.AARAKOCRA], Alignment.NEUTRAL_GOOD,
     // 2
-    12, 13, '20 ft., fly 50 ft.',
+    12, 13, new MonsterSpeed(20, 50),
     // 3
     new AbilitySet(10, 14, 10, 11, 12, 11),
     // 4
@@ -45,7 +46,7 @@ export class MonsterManualMonsters {
 
   static ABOLETH = new Monster(MonsterId.ABOLETH_ID,
     'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, [], Alignment.LAWFUL_EVIL,
-    17, 135, '10 ft., swim 40ft.',
+    17, 135, new MonsterSpeed(10, 0, 40),
     new AbilitySet(21, 9, 15, 18, 15, 18),
     MonsterChallenge.TEN,
     [new SavingThrow(Ability.CONSTITUTION, 6), new SavingThrow(Ability.INTELLIGENCE, 8),
@@ -60,7 +61,7 @@ export class MonsterManualMonsters {
 
   static DEVA = new Monster(MonsterId.DEVA_ID,
     'Deva', MonsterSize.MEDIUM, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
-    17, 136, '30 ft., fly 90 ft.',
+    17, 136, new MonsterSpeed(30, 90),
     new AbilitySet(18, 18, 18, 17, 20, 20),
     MonsterChallenge.TEN,
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
@@ -76,7 +77,7 @@ export class MonsterManualMonsters {
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
-    14, 39, '0 ft., fly 30 ft. (hover)',
+    14, 39, new MonsterSpeed(0, 30),
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, [], [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, [Condition.PRONE],

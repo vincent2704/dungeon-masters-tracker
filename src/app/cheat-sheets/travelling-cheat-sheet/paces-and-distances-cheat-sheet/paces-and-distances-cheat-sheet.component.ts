@@ -16,7 +16,7 @@ export class PacesAndDistancesCheatSheetComponent implements OnInit {
 
   getDistanceForMinute(distanceInFeet: number): string {
     return Settings.isUsingSISystem()
-      ? MeasurementSystem.convertFeetToMeters(distanceInFeet) + " m"
+      ? MeasurementSystem.getFeetDistance(distanceInFeet) + " m"
       : distanceInFeet + " feet";
   }
 
