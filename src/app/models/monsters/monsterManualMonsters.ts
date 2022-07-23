@@ -54,8 +54,8 @@ export class MonsterManualMonsters {
       new SavingThrow(Ability.WISDOM, 6)],
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
     undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 20)]),
-    new MonsterLanguages([Language.DEEP_SPEECH], '120 ft.'),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
+    new MonsterLanguages([Language.DEEP_SPEECH], 120),
     [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
     Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
   )
@@ -70,8 +70,8 @@ export class MonsterManualMonsters {
     new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
       DamageType.SLASHING]),
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 19)]),
-    new MonsterLanguages([Language.ALL], '120 ft.'),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 19)]),
+    new MonsterLanguages([Language.ALL], 120),
     [SpecialTrait.ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
     Action.DEVA_ACTIONS
   )
@@ -82,8 +82,8 @@ export class MonsterManualMonsters {
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, [], [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, [Condition.PRONE],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120ft.')], [new MonsterSkill(Skill.PERCEPTION, 16)]),
-    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], '120 ft.'), [],
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 16)]),
+    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), [],
     Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
     )
 

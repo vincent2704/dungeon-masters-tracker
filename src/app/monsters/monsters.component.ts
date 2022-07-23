@@ -48,17 +48,17 @@ export class MonstersComponent implements OnInit {
   getSpeed(monster: Monster): string {
     let speed = monster.getSpeed();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
-    let landSpeed = MeasurementSystem.getFeetDistance(speed.getLandSpeed());
+    let landSpeed = speed.getLandSpeed();
     let flyingSpeed = speed.getFlyingSpeed();
     let swimmingSpeed = speed.getSwimmingSpeed();
 
 
     let monsterSpeed = `${landSpeed} ${measurementUnit}`;
     if(flyingSpeed > 0) {
-      monsterSpeed += `, fly ${MeasurementSystem.getFeetDistance(flyingSpeed)} ${measurementUnit}`;
+      monsterSpeed += `, fly ${flyingSpeed} ${measurementUnit}`;
     }
     if(swimmingSpeed > 0) {
-      monsterSpeed += `, swim ${MeasurementSystem.getFeetDistance(swimmingSpeed)} ${measurementUnit}`;
+      monsterSpeed += `, swim ${swimmingSpeed} ${measurementUnit}`;
     }
 
     return monsterSpeed;
