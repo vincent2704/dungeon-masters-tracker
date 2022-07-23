@@ -19,8 +19,6 @@ export class Action {
     "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
     "range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage.")
 
-  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN]
-
   private static ABOLETH_MULTIATTACK = new Action('Multiattack',
     "The aboleth makes three tentacle attacks")
 
@@ -55,8 +53,6 @@ export class Action {
     "more than once every 24 hours, the target can also repeat the " +
     "saving throw when it is at least 1 mile away from the aboleth.")
 
-  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
-
   private static DEVA_MULTIATTACK = new Action('Multiattack',
     "The deva makes two melee attacks.")
 
@@ -83,13 +79,11 @@ export class Action {
     "legendary actions, and lair actions) that the new form has but " +
     "that it lacks.")
 
-  static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE]
-
-  static SPECTATOR_BITE = new Action('Bite',
+  private static SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
     "Hit: 2 (1d6- 1) piercing damage. ")
 
-  static SPECTATOR_EYE_RAYS = new Action('Eye Rays',
+  private static SPECTATOR_EYE_RAYS = new Action('Eye Rays',
     "The spectator shoots up to two of the following " +
     "magical eye rays at one or two creatures it can see within 90 " +
     "feet of it. It can use each ray only once on a turn. " +
@@ -112,9 +106,13 @@ export class Action {
     "saving throw, taking 16 (3d10) necrotic damage on a failed " +
     "save, or half as much damage on a successful one. ")
 
-  static SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
+  private static SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
     "The spectator magically creates " +
     "enough food and water to sustain itself for 24 hours. ")
+
+  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN]
+  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
+  static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE]
 
   static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER]
 

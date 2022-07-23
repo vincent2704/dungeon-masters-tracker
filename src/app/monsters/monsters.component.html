@@ -80,6 +80,16 @@
           </div>
         </div>
       </div>
+      <div *ngIf="monster.getLegendaryActions().length > 0">
+        <hr/>
+        <div class="row">Legendary Actions</div>
+        <div class="row" *ngFor="let action of monster.getLegendaryActions()">
+          <div class="col-4 fw-bold">{{action.getName()}}</div>
+          <div class="col-8">
+            {{action.getDescription()}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

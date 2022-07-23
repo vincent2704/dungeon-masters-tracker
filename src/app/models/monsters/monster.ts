@@ -11,9 +11,10 @@ import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
 import {MonsterLanguages} from "./monsterLanguages";
-import {SpecialTrait} from "./specialTrait";
-import {Action} from "./action";
-import {Reaction} from "./reaction";
+import {SpecialTrait} from "./actions-and-traits/specialTrait";
+import {Action} from "./actions-and-traits/action";
+import {Reaction} from "./actions-and-traits/reaction";
+import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 
 export class Monster {
 
@@ -38,7 +39,8 @@ export class Monster {
     // special traits
     private readonly specialTraits: SpecialTrait[] = [],
     private readonly actions: Action[] = [],
-    private readonly reactions: Reaction[] = []
+    private readonly reactions: Reaction[] = [],
+    private readonly legendaryActions: LegendaryAction[] = [],
   ) {}
 
   getName() {
@@ -107,5 +109,9 @@ export class Monster {
 
   getReactions(): Reaction[] {
     return this.reactions;
+  }
+
+  getLegendaryActions(): LegendaryAction[] {
+    return this.legendaryActions;
   }
 }

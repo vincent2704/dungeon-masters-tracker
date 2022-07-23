@@ -18,9 +18,10 @@ import {MonsterSense} from "./monsterSense";
 import {Sense} from "../common/sense";
 import {MonsterLanguages} from "./monsterLanguages";
 import {Language} from "../common/language";
-import {SpecialTrait} from "./specialTrait";
-import {Action} from "./action";
-import {Reaction} from "./reaction";
+import {SpecialTrait} from "./actions-and-traits/specialTrait";
+import {Action} from "./actions-and-traits/action";
+import {Reaction} from "./actions-and-traits/reaction";
+import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 
 export class MonsterManualMonsters {
 
@@ -54,7 +55,7 @@ export class MonsterManualMonsters {
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, '120 ft.')], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], '120 ft.'),
     [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
-    Action.ABOLETH_ACTIONS
+    Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
   )
 
   static DEVA = new Monster(MonsterId.DEVA_ID,
