@@ -3,13 +3,12 @@ import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {Actor} from "../../models/actor";
 import {ActorService} from "../actor/actor.service";
 import {TemporalService} from "../temporal/temporal.service";
+import {DateUtils} from "../../utilities/date/dateUtils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestingService {
-
-  private readonly MILLISECONDS_IN_HOUR: number = 3_600_000;
 
   //TODO: backend - this will probably have to be fixed once Actors are persisted to Map<Actor_ID, Hit_Dice>
   private actorsToAvailableHitDice: Map<string, number> = new Map<string, number>();
@@ -63,7 +62,7 @@ export class RestingService {
   getTimeSinceLastLongRest() {
     let timeSinceLastLongRest =
       this.temporalService.getCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime();
-    return timeSinceLastLongRest / this.MILLISECONDS_IN_HOUR;
+    return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
   }
 
   getMinimumRestingTime() {

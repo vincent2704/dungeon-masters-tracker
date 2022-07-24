@@ -9,7 +9,7 @@ export class MeasurementSystem {
     return Settings.isUsingSISystem() ? feet * this.feetToMetersRatio : feet;
   }
 
-  static convertMilesToKilometers(miles: number): number {
+  static getMilesDistance(miles: number): number {
     return Settings.isUsingSISystem() ? miles * this.milesToKilometersRatio : miles;
   }
 

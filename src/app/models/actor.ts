@@ -1,6 +1,7 @@
 import {Condition} from "./Condition";
 import {BattleCondition} from "./battleCondition";
 import {TemporaryHP} from "./temporaryHP";
+import {DateUtils} from "../utilities/date/dateUtils";
 
 export class Actor {
 
@@ -15,6 +16,7 @@ export class Actor {
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
   private timeOfDeath?: Date;
+  private resurrectionPenalty: number = 0;
 
   constructor(
     name: string,
@@ -183,6 +185,10 @@ export class Actor {
     return this.timeOfDeath!;
   }
 
+  getResurrectionPenalty(): number {
+    return this.resurrectionPenalty;
+  }
+
   getTemporaryHitPoints(): TemporaryHP {
     return this.temporaryHP;
   }
@@ -237,18 +243,43 @@ export class Actor {
   }
 
   revivify(currentDate: Date): void {
-    if(this.isDead()) {
-      if(!this.timeOfDeath) {
-        console.error(`Character ${this.name} set to revive is dead but death time not found!`);
-        return;
-      }
-      let timeSinceDiedInSeconds = (currentDate.getTime()-this.timeOfDeath.getTime()) / 1000;
-      if(timeSinceDiedInSeconds <= 60) {
-        this.dead = false;
-        this.timeOfDeath = undefined;
-        this.modifyHp(1, currentDate);
-      }
+    if (!this.isDead()) {
+      console.error(`Character ${this.name} it not dead`);
+      return;
     }
+
+    if (!this.timeOfDeath) {
+      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
+      return;
+    }
+
+    if (DateUtils.getDifferenceInMinutes(currentDate, this.timeOfDeath) <= 1) {
+      this.dead = false;
+      this.timeOfDeath = undefined;
+      this.modifyHp(1, currentDate);
+    }
+  }
+
+  raiseDead(currentDate: Date): void {
+    if (!this.isDead()) {
+      console.error(`Character ${this.name} it not dead`);
+      return;
+    }
+
+    if (!this.timeOfDeath) {
+      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
+      return;
+    }
+
+    if (DateUtils.getDifferenceInDays(currentDate, this.timeOfDeath) > 10) {
+      return;
+    }
+
+    this.dead = false;
+    this.modifyHp(1, currentDate);
+    this.resurrectionPenalty = 4;
+    this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
+    this.timeOfDeath = undefined;
   }
 
   private getExpiredConditions(): Condition[] {

@@ -4,6 +4,7 @@ import { ResurrectionComponent } from './resurrection.component';
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../models/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {DateUtils} from "../../utilities/date/dateUtils";
 
 describe('ResurrectionComponent', () => {
   let component: ResurrectionComponent;
@@ -45,7 +46,7 @@ describe('ResurrectionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should allow to use revivify', () => {
+  it('should allow to use Revivify', () => {
     //given
     component.round = 11;
 
@@ -53,12 +54,38 @@ describe('ResurrectionComponent', () => {
     expect(component.canRevivify()).toBeTrue();
   });
 
-  it('should not allow to use revivify', () => {
+  it('should not allow to use Revivify', () => {
     //given
     component.round = 12;
 
     //then
     expect(component.canRevivify()).toBeFalse();
+
+    // and when
+    DateUtils.subtractDays(component.character.getTimeOfDeath(), 10)
+    // then
+    expect(component.canRevivify()).toBeFalse();
+  });
+
+  it('should allow to use Raise Dead', () => {
+    //given
+    //pass exactly 10 days since character's death, not a second more
+    DateUtils.subtractDays(component.character.getTimeOfDeath(), 10)
+    //and
+    component.round = 1;
+
+    //then
+    expect(component.canRaiseDead()).toBeTrue();
+  });
+
+  it('should not allow to use Raise Dead', () => {
+    //given
+    //pass exactly 10 days since character's death, not a second more
+    DateUtils.subtractDays(component.character.getTimeOfDeath(), 10)
+    component.round = 2;
+
+    //then
+    expect(component.canRaiseDead()).toBeFalse();
   });
 
   it('should return time of death formatted', () => {

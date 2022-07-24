@@ -234,6 +234,7 @@ describe('Actor', () => {
     // then
     expect(character.isDead()).toBeFalse();
     expect(character.getCurrentHP()).toEqual(1);
+    expect(character.getTimeOfDeath()).toBeUndefined();
   });
 
   it("should not revivify character that has been dead for more than 1 minute", () => {
@@ -245,6 +246,46 @@ describe('Actor', () => {
 
     // when
     character.revivify(currentDate);
+
+    // then
+    expect(character.isDead()).toBeTrue();
+  });
+
+  it("should Raise Dead character that has been dead up to 10 days", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    let magicalConditions = Condition.MAGICAL_CONDITIONS.map(condition => {
+      let battleCondition = new BattleCondition(condition);
+      character.addCondition(battleCondition);
+      return battleCondition;
+    })
+    Condition.NON_MAGICAL_CONDITIONS.forEach(condition => {
+      character.addCondition(new BattleCondition(condition));
+    })
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1524, 11, 17, 18, 31, 0);
+    character.kill(charactersDeathDate);
+
+    // when
+    character.raiseDead(currentDate);
+
+    // then
+    expect(character.isDead()).toBeFalse();
+    expect(character.getCurrentHP()).toEqual(1);
+    expect(character.getConditions()).toEqual(magicalConditions);
+    expect(character.getResurrectionPenalty()).toEqual(4);
+    expect(character.getTimeOfDeath()).toBeUndefined();
+  });
+
+  it("should not Raise Dead character that has been dead up to 10 days", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1524, 11, 7, 18, 31, 0);
+    character.kill(charactersDeathDate);
+
+    // when
+    character.raiseDead(currentDate);
 
     // then
     expect(character.isDead()).toBeTrue();
