@@ -1,9 +1,11 @@
 export class DateUtils {
 
-  private static readonly MILLISECONDS_IN_DAY = 86_400_000;
-  private static readonly MILLISECONDS_IN_HOUR = 3_600_000;
-  private static readonly MILLISECONDS_IN_MINUTE = 60_000;
-  private static readonly MILLISECONDS_IN_SECOND = 1_000;
+  static readonly MILLISECONDS_IN_DAY = 86_400_000;
+  static readonly MILLISECONDS_IN_HOUR = 3_600_000;
+  static readonly MILLISECONDS_IN_MINUTE = 60_000;
+  static readonly MILLISECONDS_IN_SECOND = 1_000;
+
+  static readonly MILLISECONDS_IN_ROUND = 6_000;
 
   static addDays(date: Date, daysToAdd: number): Date {
     return new Date(date.getTime() + (daysToAdd * this.MILLISECONDS_IN_DAY));
@@ -23,6 +25,10 @@ export class DateUtils {
 
   static addSeconds(date: Date, secondsToAdd: number): Date {
     return new Date(date.getTime() + (secondsToAdd * this.MILLISECONDS_IN_SECOND));
+  }
+
+  static addRounds(date: Date, roundsToAdd: number): Date {
+    return new Date(date.getTime() + (roundsToAdd * DateUtils.MILLISECONDS_IN_ROUND));
   }
 
   static getDifferenceInDays(first: Date, second: Date): number {
