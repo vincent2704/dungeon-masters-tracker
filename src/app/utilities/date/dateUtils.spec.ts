@@ -70,6 +70,42 @@ describe('DateUtils', () => {
     ));
   });
 
+  it('should return time difference in days', () => {
+    // given
+    let first = new Date(
+      1524, 6, 17,
+      18, 30, 0
+    );
+    let second = new Date(
+      1524, 6, 19,
+      18, 30, 0
+    );
+
+    // when
+    let differenceMillis = DateUtils.getDifferenceInDays(first, second);
+
+    // then
+    expect(differenceMillis).toEqual(-2);
+  })
+
+  it('should return time difference in hours', () => {
+    // given
+    let first = new Date(
+      1524, 6, 17,
+      18, 30, 0
+    );
+    let second = new Date(
+      1524, 6, 19,
+      18, 30, 0
+    );
+
+    // when
+    let differenceMillis = DateUtils.getDifferenceInHours(first, second);
+
+    // then
+    expect(differenceMillis).toEqual(-48);
+  })
+
   it('should return time difference in milliseconds', () => {
     // given
     let first = new Date(

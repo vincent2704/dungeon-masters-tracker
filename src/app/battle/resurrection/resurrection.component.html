@@ -9,8 +9,13 @@
   </div>
   <div class="row">
     <div class="col">
-      <button i18n="revivify button|Button with a spell name, see Basic Rules pg. 272"
+      <button i18n="revivify button|Button with a spell name, see Basic Rules pg. 104"
               class="btn btn-primary" (click)="revivify()" [disabled]="!canRevivify()">Revivify
+      </button>
+    </div>
+    <div class="col">
+      <button i18n="raise dead button|Button with a spell name, see Basic Rules pg. 103"
+              class="btn btn-primary" (click)="raiseDead()" [disabled]="!canRaiseDead()">Raise Dead
       </button>
     </div>
   </div>

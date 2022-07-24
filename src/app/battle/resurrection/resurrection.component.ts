@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {DateUtils} from "../../utilities/date/dateUtils";
 
 @Component({
   selector: 'app-resurrection',
@@ -33,7 +34,8 @@ export class ResurrectionComponent implements OnInit {
   }
 
   getDiedAgoTime(): string {
-    return `${this.getSecondsPassedSince(this.character.getTimeOfDeath())} seconds`;
+    return`${DateUtils.getDifferenceInSeconds(
+      this.getCurrentTimeInBattle(), this.character.getTimeOfDeath())} seconds`;
   }
 
   revivify(): void {
@@ -41,16 +43,22 @@ export class ResurrectionComponent implements OnInit {
   }
 
   canRevivify(): boolean {
-    return this.getSecondsPassedSince(this.character.getTimeOfDeath()) <= 60;
+    return DateUtils.getDifferenceInMinutes(this.getCurrentTimeInBattle(), this.character.getTimeOfDeath()) <= 1;
+  }
+
+  raiseDead() {
+    return DateUtils.getDifferenceMillis(this.getCurrentTimeInBattle(), this.character.getTimeOfDeath());
+  }
+
+  canRaiseDead(): boolean {
+    return DateUtils.getDifferenceMillis(this.getCurrentTimeInBattle(), this.character.getTimeOfDeath()) <= 10;
   }
 
   private getCurrentTimeInBattle(): Date {
     // temporal service current time is actually battle start time and is
     // updated only after battle is finished, because there's an option not to track time in battle.
-    return new Date(this.temporalService.getCurrentDate().getTime() + ((this.round - 1) * this.MILLISECONDS_IN_ROUND));
+    let currentDate = this.temporalService.getCurrentDate().getTime()
+    return new Date(currentDate + ((this.round - 1) * this.MILLISECONDS_IN_ROUND));
   }
 
-  private getSecondsPassedSince(date: Date): number {
-    return (this.getCurrentTimeInBattle().getTime() - date.getTime()) / 1000;
-  }
 }

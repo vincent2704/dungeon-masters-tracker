@@ -1,9 +1,11 @@
 import { MeasurementSystem } from './measurement.system';
+import {Settings} from "../settings/settings";
 
 describe('MeasurementSystemService', () => {
 
   it('should properly convert feet to meters', () => {
     //given
+    Settings.setSISystem(true);
     let valueOneInFeet = 20; // 6m
     let valueTwoInFeet = 50; // 15m
     let valueThreeInFeet = 10; // 3
@@ -36,14 +38,15 @@ describe('MeasurementSystemService', () => {
 
   it('should properly convert miles to kilometers', () => {
     //given
+    Settings.setSISystem(true);
     let valueOneInMiles = 30;
     let valueTwoInMiles = 24;
     let valueThreeInMiles = 18;
 
     //when
-    let valueOneInKilometers = MeasurementSystem.convertMilesToKilometers(valueOneInMiles);
-    let valueTwoInKilometers = MeasurementSystem.convertMilesToKilometers(valueTwoInMiles);
-    let valueThreeInKilometers = MeasurementSystem.convertMilesToKilometers(valueThreeInMiles);
+    let valueOneInKilometers = MeasurementSystem.getMilesDistance(valueOneInMiles);
+    let valueTwoInKilometers = MeasurementSystem.getMilesDistance(valueTwoInMiles);
+    let valueThreeInKilometers = MeasurementSystem.getMilesDistance(valueThreeInMiles);
 
     //then
     expect(valueOneInKilometers).toEqual(45);

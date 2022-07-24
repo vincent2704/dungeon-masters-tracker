@@ -22,7 +22,7 @@ export class PacesAndDistancesCheatSheetComponent implements OnInit {
 
   getDistance(distanceInMiles: number): string {
     return Settings.isUsingSISystem()
-      ? MeasurementSystem.convertMilesToKilometers(distanceInMiles) + " km"
+      ? MeasurementSystem.getMilesDistance(distanceInMiles) + " km"
       : distanceInMiles + " miles";
   }
 
