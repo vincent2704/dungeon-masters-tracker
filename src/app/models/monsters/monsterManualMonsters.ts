@@ -1,16 +1,16 @@
 import {Monster} from "./monster";
 import {MonsterId} from "./monsterId";
 import {MonsterSize} from "./monsterSize";
-import {MonsterType} from "./monsterType";
+import {MonsterType} from "./enums/monsterType";
 import {Alignment} from "../common/alignment";
 import {AbilitySet} from "../common/ability/abilitySet";
-import {MonsterTag} from "./monsterTag";
+import {MonsterTag} from "./enums/monsterTag";
 import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {Ability} from "../common/ability/ability";
 import {MonsterSkill} from "./monsterSkill";
 import {Skill} from "../common/skill";
-import {DamageType} from "./damageType";
+import {DamageType} from "./enums/damageType";
 import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
@@ -25,7 +25,7 @@ import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
-import {MonsterEquipment} from "./monsterEquipment";
+import {MonsterEquipment} from "./enums/monsterEquipment";
 
 export class MonsterManualMonsters {
 
@@ -76,6 +76,13 @@ export class MonsterManualMonsters {
     new MonsterLanguages([Language.ALL], 120),
     [SpecialTrait.ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
     Action.DEVA_ACTIONS
+  )
+
+  static ANIMATED_ARMOR = new Monster(MonsterId.ANIMATED_ARMOR_ID,
+    'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
+    new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(33, 6, 8, 6),
+    new MonsterSpeed(25), new AbilitySet(14, 11, 13, 1, 3, 1),
+    MonsterChallenge.ONE
   )
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,

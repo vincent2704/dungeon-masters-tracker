@@ -1,9 +1,9 @@
 import {MonsterSize} from "./monsterSize";
 import {MonsterId} from "./monsterId";
-import {MonsterType} from "./monsterType";
+import {MonsterType} from "./enums/monsterType";
 import {Alignment} from "../common/alignment";
 import {AbilitySet} from "../common/ability/abilitySet";
-import {MonsterTag} from "./monsterTag";
+import {MonsterTag} from "./enums/monsterTag";
 import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {MonsterSkill} from "./monsterSkill";
@@ -36,6 +36,7 @@ export class Monster {
     private readonly savingThrows: SavingThrow[] = [],
     private readonly skills: MonsterSkill[] = [],
     private readonly damageResistances?: DamageResistances,
+    private readonly damageImmunities,
     private readonly conditionImmunities: Condition[] = [],
     private readonly senses?: MonsterSenses,
     private readonly languages?: MonsterLanguages,

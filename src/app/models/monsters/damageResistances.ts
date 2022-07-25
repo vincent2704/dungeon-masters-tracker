@@ -1,4 +1,4 @@
-import {DamageType} from "./damageType";
+import {DamageType} from "./enums/damageType";
 
 export class DamageResistances {
   constructor(private alwaysResistant: DamageType[], private nonMagicalWeaponResistant: DamageType[] = []) {
