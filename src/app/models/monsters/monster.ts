@@ -47,16 +47,24 @@ export class Monster {
     private readonly legendaryActions: LegendaryAction[] = [],
   ) {}
 
-  getName() {
+  getName(): string {
     return this.name;
   }
 
-  getOverview(): string {
-    if(this.tags.length == 0) {
-      return `${this.size.getSize()} ${this.type.getName()}, ${this.alignment}`
-    }
-    let tags = this.tags.join(', ')
-    return `${this.size.getSize()} ${this.type.getName()} (${tags}), ${this.alignment}`
+  getSize(): MonsterSize {
+    return this.size;
+  }
+
+  getType(): MonsterType {
+    return this.type;
+  }
+
+  getTags(): MonsterTag[] {
+    return this.tags;
+  }
+
+  getAlignment(): Alignment {
+    return this.alignment;
   }
 
   getArmorClass(): MonsterArmor {
@@ -118,4 +126,5 @@ export class Monster {
   getLegendaryActions(): LegendaryAction[] {
     return this.legendaryActions;
   }
+
 }

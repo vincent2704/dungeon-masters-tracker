@@ -24,12 +24,20 @@ export class MonstersComponent implements OnInit {
     })
   }
 
+  getOverview(monster: Monster): string {
+    if(monster.getTags().length == 0) {
+      return `${monster.getSize().getName()} ${monster.getType().getName()}, ${monster.getAlignment()}`;
+    }
+    let tags = monster.getTags().join(', ');
+    return `${monster.getSize().getName()} ${monster.getType().getName()} (${tags}), ${monster.getAlignment()}`;
+  }
+
   getArmorClass(monster: Monster): string {
     let armor = monster.getArmorClass();
     let armorClass = `${armor.getArmorClassValue()}`
     let equipment = armor.getEquipment();
     if(armor.getEquipment().length > 0) {
-      armorClass += ` (${equipment.join(', ')})`
+      armorClass += ` (${equipment.join(', ')})`;
     }
     return `Armor Class: ${armorClass}`;
   }
