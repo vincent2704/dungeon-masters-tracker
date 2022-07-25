@@ -24,6 +24,8 @@ import {Language} from "../../models/common/language";
 import {SpecialTrait} from "../../models/monsters/actions-and-traits/specialTrait";
 import {Action} from "../../models/monsters/actions-and-traits/action";
 import {LegendaryAction} from "../../models/monsters/actions-and-traits/legendaryAction";
+import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
+import {Settings} from "../../services/settings/settings";
 
 describe('MonsterDetailsComponent', () => {
   let component: MonsterDetailsComponent;
@@ -71,6 +73,28 @@ describe('MonsterDetailsComponent', () => {
     expect(component.getAbilityScoreInfo(abilityScores[3])).toEqual('18 (+4)');
     expect(component.getAbilityScoreInfo(abilityScores[4])).toEqual('15 (+2)');
     expect(component.getAbilityScoreInfo(abilityScores[5])).toEqual('18 (+4)');
+  });
+
+  it('should display senses', () => {
+    Settings.setSISystem(true);
+    expect(component.getSenses()).toEqual('Darkvision 36 m, passive Perception 20');
+
+    component.monster = MonsterManualMonsters.AARAKOCRA;
+    expect(component.getSenses()).toEqual('passive Perception 15');
+
+    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    expect(component.getSenses()).toEqual('Blindsight 18 m (blind beyond this radius), passive Perception 6');
+  });
+
+  it('should display languages', () => {
+    Settings.setSISystem(true);
+    expect(component.getLanguages()).toEqual('Deep Speech, telepathy 36 m');
+
+    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    expect(component.getLanguages()).toEqual('—');
+
+    component.monster = MonsterManualMonsters.GOBLIN;
+    expect(component.getLanguages()).toEqual('Common, Goblin');
   });
 
 });
