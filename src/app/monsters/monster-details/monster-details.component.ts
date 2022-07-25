@@ -36,6 +36,11 @@ export class MonsterDetailsComponent implements OnInit {
     let senses = this.monster.getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
+      let note = monsterSense.getNote();
+
+      if(note) {
+        return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()} (${note})`;
+      }
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
     }).join(', ');
 

@@ -49,10 +49,20 @@ export class SpecialTrait {
 
   static readonly MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
     "The deva has advantage on saving throws " +
-    "against spells and other magical effects. ")
+    "against spells and other magical effects.")
 
   static readonly NIMBLE_ESCAPE = new SpecialTrait('Nimble Escape',
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
+
+  static readonly ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
+    "The armor is incapacitated while in " +
+    "the area of an antimagic field. If targeted by dispel magic, the " +
+    "armor must succeed on a Constitution saving throw against the " +
+    "caster's spell save DC or fall unconscious for 1 minute")
+
+  static readonly FALSE_APPEARANCE = new SpecialTrait('False Appearance',
+    "While the armor remains motion less, it is " +
+    "indistinguishable from a normal suit of armor.")
 
 }

@@ -26,10 +26,10 @@ export class MonstersComponent implements OnInit {
 
   getOverview(monster: Monster): string {
     if(monster.getTags().length == 0) {
-      return `${monster.getSize().getName()} ${monster.getType().getName()}, ${monster.getAlignment()}`;
+      return `${monster.getSize().getName()} ${monster.getType()}, ${monster.getAlignment()}`;
     }
     let tags = monster.getTags().join(', ');
-    return `${monster.getSize().getName()} ${monster.getType().getName()} (${tags}), ${monster.getAlignment()}`;
+    return `${monster.getSize().getName()} ${monster.getType()} (${tags}), ${monster.getAlignment()}`;
   }
 
   getArmorClass(monster: Monster): string {

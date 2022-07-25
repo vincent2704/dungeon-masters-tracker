@@ -79,6 +79,13 @@ export class Action {
     "legendary actions, and lair actions) that the new form has but " +
     "that it lacks.")
 
+  private static ANIMATED_ARMOR_MULTIATTACK = new Action('Multiattack',
+    "The armor makes two melee attacks.")
+
+  private static ANIMATED_ARMOR_SLAM = new Action('Slam',
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
+    "Hit: 5 (1d6 + 2) bludgeoning damage.")
+
   private static SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
     "Hit: 2 (1d6- 1) piercing damage. ")
@@ -121,6 +128,8 @@ export class Action {
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN];
   static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
   static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE];
+
+  static ANIMATED_ARMOR_ACTIONS = [Action.ANIMATED_ARMOR_MULTIATTACK, Action.ANIMATED_ARMOR_SLAM];
 
   static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER];
 

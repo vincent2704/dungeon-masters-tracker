@@ -37,7 +37,7 @@ describe('MonsterDetailsComponent', () => {
     [new SavingThrow(Ability.CONSTITUTION, 6), new SavingThrow(Ability.INTELLIGENCE, 8),
       new SavingThrow(Ability.WISDOM, 6)],
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
-    undefined, undefined,
+    undefined, undefined, [],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], 120),
     [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],

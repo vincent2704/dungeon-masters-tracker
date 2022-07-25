@@ -18,6 +18,7 @@ import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
+import {DamageImmunities} from "./damageImmunities";
 
 export class Monster {
 
@@ -36,7 +37,7 @@ export class Monster {
     private readonly savingThrows: SavingThrow[] = [],
     private readonly skills: MonsterSkill[] = [],
     private readonly damageResistances?: DamageResistances,
-    private readonly damageImmunities,
+    private readonly damageImmunities?: DamageImmunities,
     private readonly conditionImmunities: Condition[] = [],
     private readonly senses?: MonsterSenses,
     private readonly languages?: MonsterLanguages,
@@ -94,6 +95,10 @@ export class Monster {
 
   getDamageResistances(): DamageResistances {
     return this.damageResistances!;
+  }
+
+  getDamageImmunities(): DamageImmunities {
+    return this.damageImmunities!;
   }
 
   getConditionImmunities(): Condition[] {

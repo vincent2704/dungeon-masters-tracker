@@ -14,14 +14,14 @@
   </tr>
   </tbody>
 </table>
-<div class="row">
+<div class="row" *ngIf="monster.getSavingThrows().length > 0">
   <div class="col-4 fw-bold">Saving throws</div>
   <div class="col-4"
        *ngFor="let savingThrow of monster.getSavingThrows()">{{savingThrow.getAbility().getName()}} {{savingThrow.getModifier()}}</div>
 </div>
 <hr/>
 <div class="row">
-  <div class="col-4 fw-bold">Skills</div>
+  <div class="col-4 fw-bold" *ngIf="monster.getSkills().length > 0">Skills</div>
   <div class="col-4" *ngFor="let skill of monster.getSkills()">{{skill.getSkill()}} {{skill.getScore()}}</div>
 </div>
 <div class="row" *ngIf="monster.getDamageResistances()">
@@ -40,7 +40,6 @@
   <div class="col-4 fw-bold">Languages</div>
   <div class="col">{{getLanguages()}}</div>
 </div>
-<hr/>
 <div class="row" *ngFor="let trait of monster.getSpecialTraits()">
   <div class="col-4 fw-bold">{{trait.getName()}}</div>
   <div class="col-8">
