@@ -42,8 +42,7 @@ describe('MonsterDetailsComponent', () => {
     undefined, undefined, [],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], 120),
-    [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
-    Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
+    SpecialTrait.ABOLETH_SPECIAL_TRAITS, Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
   );
 
   beforeEach(async () => {

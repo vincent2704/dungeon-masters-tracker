@@ -32,6 +32,7 @@ import { CampaignEventsComponent } from './campaign-overview/campaign-events/cam
 import { ResurrectionComponent } from './battle/resurrection/resurrection.component';
 import { MonstersComponent } from './monsters/monsters.component';
 import { MonsterDetailsComponent } from './monsters/monster-details/monster-details.component';
+import { TrackerComponent } from './battle/tracker/tracker.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MonsterDetailsComponent } from './monsters/monster-details/monster-deta
     ResurrectionComponent,
     MonstersComponent,
     MonsterDetailsComponent,
+    TrackerComponent,
   ],
   imports: [
     BrowserModule,
