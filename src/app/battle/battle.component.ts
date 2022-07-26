@@ -3,7 +3,6 @@ import {Actor} from "../models/actor";
 import {ActorService} from "../services/actor/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
-import {TemporalService} from "../services/temporal/temporal.service";
 
 @Component({
   selector: 'app-battle',
@@ -14,7 +13,6 @@ export class BattleComponent implements OnInit {
 
   isBattleStarted: boolean = false;
   actors: Actor[] = [];
-  round: number = 1;
 
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
@@ -22,18 +20,14 @@ export class BattleComponent implements OnInit {
   @ViewChild('prepareBattleComponent')
   prepareBattleComponent!: PrepareBattleComponent;
 
-  progressedActors: Actor[] = [];
-
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
   conflictResolvedActors: Actor[] = [];
-  isTimeTracked: boolean = true;
 
   constructor(
     private actorService: ActorService,
     private modalService: NgbModal,
-    private modalConfig: NgbModalConfig,
-    private temporalService: TemporalService
+    private modalConfig: NgbModalConfig
   ) {
     modalConfig.backdrop = 'static';
     modalConfig.keyboard = false;
@@ -42,24 +36,16 @@ export class BattleComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addActor(actor: Actor) {
-    this.actors.push(actor);
+  startBattle(): void {
+    this.actors = this.prepareBattleComponent.actors;
+    this.actors = this.sortActorsByInitiative();
+    this.resolveInitiativeConflicts();
+    this.isBattleStarted = true;
   }
 
-  changeBattleStatus(): void {
-    if (!this.isBattleStarted) {
-      this.actors = this.prepareBattleComponent.actors;
-      this.actors = this.sortActorsByInitiative();
-      this.resolveInitiativeConflicts();
-      this.isBattleStarted = true;
-    } else {
-      this.isBattleStarted = false;
-      this.conflictResolvedActors = [];
-      if(this.isTimeTracked) {
-        this.temporalService.addSeconds((this.round-1) * 6);
-      }
-      this.round = 1;
-    }
+  endBattle(): void {
+    this.isBattleStarted = false;
+    this.conflictResolvedActors = [];
   }
 
   sortActorsByInitiative(): Actor[] {
@@ -83,41 +69,6 @@ export class BattleComponent implements OnInit {
   areActorsConflictsResolved(actors: Actor[]): boolean {
     return actors.filter(actor => this.conflictResolvedActors.includes(actor))
       .length == actors.length;
-  }
-
-  progressActor(actor: Actor): void {
-    this.progressedActors.push(actor);
-    actor.decrementConditionsDuration();
-    actor.decrementTemporaryHitPointDuration();
-    if (this.allActorsProgressed()) {
-      this.progressRound();
-    }
-  }
-
-  private allActorsProgressed(): boolean {
-    return this.actors.length === this.progressedActors.length;
-  }
-
-  progressRound(): void {
-    this.round++;
-    this.progressedActors = [];
-  }
-
-  isActorProgressed(actorToCheck: Actor): boolean {
-    return this.progressedActors.includes(actorToCheck);
-  }
-
-  onSubmitHP(actor: Actor, event: any): void {
-    let hpModifier = parseInt(event.target.value);
-    let timeSinceBattleStartedInMilliseconds = (this.round-1) * 6000;
-    if(this.isTimeTracked) {
-      actor.modifyHp(hpModifier,
-        new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
-      );
-    } else {
-     actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
-    }
-    (<HTMLInputElement>event.target).value = '';
   }
 
   onClickResolveConflict(): void {
@@ -152,10 +103,6 @@ export class BattleComponent implements OnInit {
       }
     }
     return this.actors;
-  }
-
-  showDeathSavingThrows(actor: Actor): boolean {
-    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
   }
 
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
