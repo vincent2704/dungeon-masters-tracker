@@ -70,7 +70,9 @@ describe('ResurrectionComponent', () => {
   it('should allow to use Raise Dead', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
-    DateUtils.subtractDays(component.character.getTimeOfDeath(), 10)
+    component.character = new Actor('Character', 10);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getCurrentDate(), 10);
+    component.character.kill(exactlyTenDaysAgo);
     //and
     component.round = 1;
 
@@ -80,9 +82,10 @@ describe('ResurrectionComponent', () => {
 
   it('should not allow to use Raise Dead', () => {
     //given
-    //pass exactly 10 days since character's death, not a second more
-    DateUtils.subtractDays(component.character.getTimeOfDeath(), 10)
-    component.round = 2;
+    component.character = new Actor('Character', 10);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getCurrentDate(), 10);
+    component.character.kill(exactlyTenDaysAgo);
+    component.round = 2; // 10 days ago + 6 seconds (after 1st round finished)
 
     //then
     expect(component.canRaiseDead()).toBeFalse();

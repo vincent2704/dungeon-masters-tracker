@@ -282,6 +282,10 @@ export class Actor {
     this.timeOfDeath = undefined;
   }
 
+  reincarnate(currentTimeInBattle: Date): void {
+
+  }
+
   private getExpiredConditions(): Condition[] {
     return this.battleConditions.filter(battleCondition => {
       return battleCondition.getDurationInTurns() == 0 && !battleCondition.isPermanent();
