@@ -11,7 +11,7 @@ import {Condition} from "../../models/Condition";
 })
 export class ConditionComponent implements OnInit {
 
-  CONDITIONS: Condition[] = Condition.CONDITIONS;
+  CONDITIONS: Condition[] = Condition.ALL_CONDITIONS;
 
   @Input()
   actor!: Actor;
