@@ -1,4 +1,4 @@
-import {MonsterSource} from "./monsterSource";
+import {MonsterSource} from "./enums/monsterSource";
 
 export class MonsterId {
 

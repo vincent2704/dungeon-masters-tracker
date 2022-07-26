@@ -1,4 +1,4 @@
-import {MonsterEquipment} from "./monsterEquipment";
+import {MonsterEquipment} from "./enums/monsterEquipment";
 
 export class MonsterArmor {
   constructor(private readonly armorClass: number, private readonly equipment: MonsterEquipment[] = []) {

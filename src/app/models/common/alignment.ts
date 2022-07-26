@@ -1,5 +1,6 @@
 export enum Alignment {
 
+  UNALIGNED = 'unaligned',
   LAWFUL_GOOD = 'lawful good',
   NEUTRAL_GOOD = 'neutral good',
   CHAOTIC_GOOD = 'chaotic good',

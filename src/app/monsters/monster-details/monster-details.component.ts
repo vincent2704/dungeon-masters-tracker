@@ -28,6 +28,26 @@ export class MonsterDetailsComponent implements OnInit {
     return `${score} (${modifierValue})`;
   }
 
+  getDamageResistances(): string {
+    let resistances = this.monster.getDamageResistances().getResistances();
+    let nonMagicalResistances = this.monster.getDamageResistances().getNonMagicalResistances();
+
+    if(nonMagicalResistances.length == 0) {
+      return resistances.join(', ');
+    }
+    return `${resistances.join(', ')}; ${nonMagicalResistances.join(', ')} from nonmagical weapons`;
+  }
+
+  getDamageImmunities(): string {
+    let immunities = this.monster.getDamageImmunities().getImmunities();
+    let nonMagicalImmunities = this.monster.getDamageImmunities().getNonMagicalImmunities();
+
+    if(nonMagicalImmunities.length == 0) {
+      return immunities.join(', ');
+    }
+    return `${immunities.join(', ')}; ${nonMagicalImmunities.join(', ')} form nonmagical weapons`;
+  }
+
   getConditionImmunities(): string {
     return this.monster.getConditionImmunities().map(condition => condition.getName()).join(', ');
   }
@@ -36,6 +56,11 @@ export class MonsterDetailsComponent implements OnInit {
     let senses = this.monster.getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
+      let note = monsterSense.getNote();
+
+      if(note) {
+        return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()} (${note})`;
+      }
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
     }).join(', ');
 

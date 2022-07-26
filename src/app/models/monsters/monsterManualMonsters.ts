@@ -1,16 +1,16 @@
 import {Monster} from "./monster";
 import {MonsterId} from "./monsterId";
 import {MonsterSize} from "./monsterSize";
-import {MonsterType} from "./monsterType";
+import {MonsterType} from "./enums/monsterType";
 import {Alignment} from "../common/alignment";
 import {AbilitySet} from "../common/ability/abilitySet";
-import {MonsterTag} from "./monsterTag";
+import {MonsterTag} from "./enums/monsterTag";
 import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {Ability} from "../common/ability/ability";
 import {MonsterSkill} from "./monsterSkill";
 import {Skill} from "../common/skill";
-import {DamageType} from "./damageType";
+import {DamageType} from "./enums/damageType";
 import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
@@ -25,7 +25,9 @@ import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
-import {MonsterEquipment} from "./monsterEquipment";
+import {MonsterEquipment} from "./enums/monsterEquipment";
+import {DamageImmunities} from "./damageImmunities";
+import {MonsterSenseNote} from "./enums/monsterSenseNote";
 
 export class MonsterManualMonsters {
 
@@ -40,7 +42,7 @@ export class MonsterManualMonsters {
     MonsterChallenge.ONE_FOURTH,
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.PERCEPTION, 5)],
-    undefined, undefined,
+    undefined, undefined, undefined,
     new MonsterSenses([], [new MonsterSkill(Skill.PERCEPTION, 15)]),
     new MonsterLanguages([Language.AURAN]),
     [SpecialTrait.DIVE_ATTACK],
@@ -55,7 +57,7 @@ export class MonsterManualMonsters {
     [new SavingThrow(Ability.CONSTITUTION, 6), new SavingThrow(Ability.INTELLIGENCE, 8),
       new SavingThrow(Ability.WISDOM, 6)],
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
-    undefined, undefined,
+    undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], 120),
     [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
@@ -70,7 +72,7 @@ export class MonsterManualMonsters {
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
     new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
-      DamageType.SLASHING]),
+      DamageType.SLASHING]), undefined,
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 19)]),
     new MonsterLanguages([Language.ALL], 120),
@@ -78,12 +80,25 @@ export class MonsterManualMonsters {
     Action.DEVA_ACTIONS
   )
 
+  static ANIMATED_ARMOR = new Monster(MonsterId.ANIMATED_ARMOR_ID,
+    'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
+    new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(33, 6, 8, 6),
+    new MonsterSpeed(25), new AbilitySet(14, 11, 13, 1, 3, 1),
+    MonsterChallenge.ONE,
+    [], [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
+      Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
+      [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
+    [SpecialTrait.ANTIMAGIC_SUSCEPTIBILITY, SpecialTrait.FALSE_APPEARANCE],Action.ANIMATED_ARMOR_ACTIONS
+  )
+
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(39, 6, 8, 12), new MonsterSpeed(0, 30),
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, [], [new MonsterSkill(Skill.PERCEPTION, 6)],
-    undefined, [Condition.PRONE],
+    undefined, undefined, [Condition.PRONE],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 16)]),
     new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), [],
     Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
@@ -93,14 +108,14 @@ export class MonsterManualMonsters {
     'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, [MonsterTag.GOBLINOID], Alignment.NEUTRAL_EVIL,
     new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD]), new MonsterHitPoints(7, 2, 6),
     new MonsterSpeed(30), new AbilitySet(8, 14, 10, 10, 8, 8),
-    MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined,
+    MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], [new MonsterSkill(Skill.PERCEPTION, 9)]),
     new MonsterLanguages([Language.COMMON, Language.GOBLIN]), [SpecialTrait.NIMBLE_ESCAPE],
     Action.GOBLIN_ACTIONS
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.SPECTATOR, this.GOBLIN
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
   ]
 
 }

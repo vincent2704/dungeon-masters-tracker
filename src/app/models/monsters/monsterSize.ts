@@ -1,10 +1,10 @@
 export class MonsterSize {
 
-  private constructor(private size: string, private space: string) {
+  private constructor(private name: string, private space: string) {
   }
 
-  public getSize(): string {
-    return this.size;
+  public getName(): string {
+    return this.name;
   }
 
   public getSpace(): string {

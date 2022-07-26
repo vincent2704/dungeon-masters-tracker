@@ -1,9 +1,9 @@
 import {MonsterSize} from "./monsterSize";
 import {MonsterId} from "./monsterId";
-import {MonsterType} from "./monsterType";
+import {MonsterType} from "./enums/monsterType";
 import {Alignment} from "../common/alignment";
 import {AbilitySet} from "../common/ability/abilitySet";
-import {MonsterTag} from "./monsterTag";
+import {MonsterTag} from "./enums/monsterTag";
 import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {MonsterSkill} from "./monsterSkill";
@@ -18,6 +18,7 @@ import {LegendaryAction} from "./actions-and-traits/legendaryAction";
 import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
+import {DamageImmunities} from "./damageImmunities";
 
 export class Monster {
 
@@ -36,6 +37,7 @@ export class Monster {
     private readonly savingThrows: SavingThrow[] = [],
     private readonly skills: MonsterSkill[] = [],
     private readonly damageResistances?: DamageResistances,
+    private readonly damageImmunities?: DamageImmunities,
     private readonly conditionImmunities: Condition[] = [],
     private readonly senses?: MonsterSenses,
     private readonly languages?: MonsterLanguages,
@@ -47,16 +49,24 @@ export class Monster {
     private readonly legendaryActions: LegendaryAction[] = [],
   ) {}
 
-  getName() {
+  getName(): string {
     return this.name;
   }
 
-  getOverview(): string {
-    if(this.tags.length == 0) {
-      return `${this.size.getSize()} ${this.type.getName()}, ${this.alignment}`
-    }
-    let tags = this.tags.join(', ')
-    return `${this.size.getSize()} ${this.type.getName()} (${tags}), ${this.alignment}`
+  getSize(): MonsterSize {
+    return this.size;
+  }
+
+  getType(): MonsterType {
+    return this.type;
+  }
+
+  getTags(): MonsterTag[] {
+    return this.tags;
+  }
+
+  getAlignment(): Alignment {
+    return this.alignment;
   }
 
   getArmorClass(): MonsterArmor {
@@ -85,6 +95,10 @@ export class Monster {
 
   getDamageResistances(): DamageResistances {
     return this.damageResistances!;
+  }
+
+  getDamageImmunities(): DamageImmunities {
+    return this.damageImmunities!;
   }
 
   getConditionImmunities(): Condition[] {
@@ -118,4 +132,5 @@ export class Monster {
   getLegendaryActions(): LegendaryAction[] {
     return this.legendaryActions;
   }
+
 }

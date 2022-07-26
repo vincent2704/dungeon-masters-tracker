@@ -23,27 +23,28 @@ export class AbilitySet {
     this.charisma = new AbilityScore(Ability.CHARISMA, charismaScore);
   }
 
-  getAbilityScore(ability: Ability): AbilityScore {
-    switch (ability) {
-      case Ability.STRENGTH: {
-        return this.strength;
-      }
-      case Ability.DEXTERITY: {
-        return this.dexterity;
-      }
-      case Ability.CONSTITUTION: {
-        return this.constitution;
-      }
-      case Ability.INTELLIGENCE: {
-        return this.intelligence;
-      }
-      case Ability.WISDOM: {
-        return this.wisdom;
-      }
-      default: {
-        return this.charisma;
-      }
-    }
+  getStrength(): AbilityScore {
+    return this.strength;
+  }
+
+  getDexterity(): AbilityScore {
+    return this.dexterity;
+  }
+
+  getConstitution(): AbilityScore {
+    return this.constitution;
+  }
+
+  getIntelligence(): AbilityScore {
+    return this.intelligence;
+  }
+
+  getWisdom(): AbilityScore {
+    return this.wisdom;
+  }
+
+  getCharisma(): AbilityScore {
+    return this.charisma;
   }
 
   getAbilityScores(): AbilityScore[] {
