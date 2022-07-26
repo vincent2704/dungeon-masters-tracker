@@ -64,6 +64,17 @@ describe('MonsterDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should display resistances', () => {
+    component.monster = MonsterManualMonsters.DEVA;
+    expect(component.getDamageResistances()).toEqual('radiant; bludgeoning, piercing, ' +
+      'slashing from nonmagical weapons');
+  });
+
+  it('should display immunities', () => {
+    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    expect(component.getDamageImmunities()).toEqual('poison, psychic');
+  });
+
   it('should display ability score info', () => {
     let abilityScores = component.monster.getAbilitySet().getAbilityScores();
 

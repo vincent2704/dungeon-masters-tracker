@@ -14,13 +14,4 @@ export class DamageResistances {
     return this.nonMagicalResistances;
   }
 
-  // getResistances(): string {
-  //   let resistances = this.resistances.join(', ')
-  //   if(this.nonMagicalResistances.length > 0) {
-  //     let nonMagicalResistances = this.nonMagicalResistances.join(', ')
-  //     resistances+= `; ${nonMagicalResistances} from nonmagical weapons`
-  //   }
-  //   return resistances;
-  // }
-
 }
