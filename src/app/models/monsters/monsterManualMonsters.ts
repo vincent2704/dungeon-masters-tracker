@@ -32,21 +32,16 @@ import {MonsterSenseNote} from "./enums/monsterSenseNote";
 export class MonsterManualMonsters {
 
   static AARAKOCRA = new Monster(MonsterId.AARAKOCRA_ID,
-    // 1st monster card section
     'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.AARAKOCRA], Alignment.NEUTRAL_GOOD,
-    // 2
     new MonsterArmor(12), new MonsterHitPoints(13, 3, 8), new MonsterSpeed(20, 50),
-    // 3
     new AbilitySet(10, 14, 10, 11, 12, 11),
-    // 4
     MonsterChallenge.ONE_FOURTH,
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.PERCEPTION, 5)],
     undefined, undefined, undefined,
     new MonsterSenses([], [new MonsterSkill(Skill.PERCEPTION, 15)]),
     new MonsterLanguages([Language.AURAN]),
-    [SpecialTrait.DIVE_ATTACK],
-    Action.AARAKOCRA_ACTIONS
+    SpecialTrait.AARAKOCRA_SPECIAL_TRAITS, Action.AARAKOCRA_ACTIONS
   )
 
   static ABOLETH = new Monster(MonsterId.ABOLETH_ID,
@@ -60,7 +55,7 @@ export class MonsterManualMonsters {
     undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
     new MonsterLanguages([Language.DEEP_SPEECH], 120),
-    [SpecialTrait.AMPHIBIOUS, SpecialTrait.MUCOUS_CLOUD, SpecialTrait.PROBING_TELEPATHY],
+    SpecialTrait.ABOLETH_SPECIAL_TRAITS,
     Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
   )
 
@@ -76,8 +71,7 @@ export class MonsterManualMonsters {
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 19)]),
     new MonsterLanguages([Language.ALL], 120),
-    [SpecialTrait.DEVA_ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
-    Action.DEVA_ACTIONS
+    SpecialTrait.DEVA_SPECIAL_TRAITS, Action.DEVA_ACTIONS
   )
 
   static PLANETAR = new Monster(MonsterId.PLANETAR_ID,
@@ -93,6 +87,16 @@ export class MonsterManualMonsters {
     Action.PLANETAR_ACTIONS
   );
 
+  static SOLAR = new Monster(MonsterId.SOLAR_ID, 'Solar', MonsterSize.LARGE, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
+    new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(243, 18, 10,144),
+    new MonsterSpeed(50, 150), new AbilitySet(26, 22, 26, 25, 25, 30),
+    MonsterChallenge.TWENTY_ONE, [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
+    [new MonsterSkill(Skill.PERCEPTION, 14)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+    new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
+    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], [new MonsterSkill(Skill.PERCEPTION, 24)]), new MonsterLanguages([Language.ALL], 120),
+    SpecialTrait.SOLAR_SPECIAL_TRAITS, Action.SOLAR_ACTIONS, [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
+  )
+
   static ANIMATED_ARMOR = new Monster(MonsterId.ANIMATED_ARMOR_ID,
     'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
     new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(33, 6, 8, 6),
@@ -103,7 +107,7 @@ export class MonsterManualMonsters {
       Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
     new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
       [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
-    [SpecialTrait.ANTIMAGIC_SUSCEPTIBILITY, SpecialTrait.FALSE_APPEARANCE],Action.ANIMATED_ARMOR_ACTIONS
+    [SpecialTrait.ANTIMAGIC_SUSCEPTIBILITY, SpecialTrait.FALSE_APPEARANCE], Action.ANIMATED_ARMOR_ACTIONS
   )
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
@@ -128,7 +132,7 @@ export class MonsterManualMonsters {
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
   ]
 
 }
