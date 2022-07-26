@@ -6,7 +6,7 @@ export class SpecialTrait {
   private constructor(private readonly name: string, private readonly description: string) {
   }
 
-  getName(){
+  getName() {
     return this.name;
   }
 
@@ -35,7 +35,7 @@ export class SpecialTrait {
     "with the aboleth, the aboleth learns the creature's greatest " +
     "desires if the aboleth can see the creature.")
 
-  static readonly ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
+  static readonly DEVA_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
     " The deva's weapon attacks are magical. " +
     "When the deva hits with any weapon, the weapon deals an " +
     "extra 4d8 radiant damage (included in the attack).")
@@ -50,6 +50,30 @@ export class SpecialTrait {
   static readonly MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
     "The deva has advantage on saving throws " +
     "against spells and other magical effects.")
+
+  private static readonly PLANETAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
+    " The planetar's weapon attacks are magical. " +
+    "When the planetar hits with any weapon, the weapon deals an " +
+    "extra 5d8 radiant damage (included in the attack).")
+
+  private static readonly PLANETAR_DIVINE_AWARENESS = new SpecialTrait('Divine Awareness',
+    "The planetar knows if it hears a lie.")
+
+  private static readonly PLANETAR_INNATE_SPELLCASTING = new SpecialTrait('Innate Spellcasting',
+    "The planetar's spellcasting ability is " +
+    "Charisma (spell save DC 20). The planetar can innately cast the " +
+    "following spells, requiring no material components: " +
+    "At will: detect evil and good, invisibility (self only) " +
+    "3/day each: blade barrier, dispel evil and good, flame strike, " +
+    "raise dead " +
+    "1/day each: commune, control weather, insect plague")
+
+  private static readonly PLANETAR_MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
+    "The planetar has advantage on saving " +
+    "throws against spells and other magical effects.")
+
+  static readonly PLANETAR_SPECIAL_TRAITS = [SpecialTrait.PLANETAR_ANGELIC_WEAPONS, SpecialTrait.PLANETAR_DIVINE_AWARENESS,
+    SpecialTrait.PLANETAR_INNATE_SPELLCASTING, SpecialTrait.PLANETAR_MAGIC_RESISTANCE];
 
   static readonly NIMBLE_ESCAPE = new SpecialTrait('Nimble Escape',
     "The goblin can take the Disengage or Hide " +

@@ -76,9 +76,22 @@ export class MonsterManualMonsters {
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 19)]),
     new MonsterLanguages([Language.ALL], 120),
-    [SpecialTrait.ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
+    [SpecialTrait.DEVA_ANGELIC_WEAPONS, SpecialTrait.INNATE_SPELLCASTING, SpecialTrait.MAGIC_RESISTANCE],
     Action.DEVA_ACTIONS
   )
+
+  static PLANETAR = new Monster(MonsterId.PLANETAR_ID,
+    'Planetar', MonsterSize.LARGE, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
+    new MonsterArmor(19, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(200, 16, 10, 112),
+    new MonsterSpeed(40, 120), new AbilitySet(24, 20, 24, 19, 22, 25),
+    MonsterChallenge.SIXTEEN,
+    [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
+    [new MonsterSkill(Skill.PERCEPTION, 11)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+    undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
+    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], [new MonsterSkill(Skill.PERCEPTION, 21)]),
+    new MonsterLanguages([Language.ALL], 120), SpecialTrait.PLANETAR_SPECIAL_TRAITS,
+    Action.PLANETAR_ACTIONS
+  );
 
   static ANIMATED_ARMOR = new Monster(MonsterId.ANIMATED_ARMOR_ID,
     'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
@@ -115,7 +128,7 @@ export class MonsterManualMonsters {
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
   ]
 
 }

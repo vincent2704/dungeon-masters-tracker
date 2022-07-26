@@ -11,18 +11,18 @@ export class Action {
     return this.description;
   }
 
-  private static AARAKOCRA_TALON = new Action('Talon',
+  private static readonly AARAKOCRA_TALON = new Action('Talon',
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
     "Hit: 4 (ld4 + 2) slashing damage .")
 
-  private static AARAKOCRA_JAVELIN = new Action('Javelin',
+  private static readonly AARAKOCRA_JAVELIN = new Action('Javelin',
     "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
     "range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage.")
 
-  private static ABOLETH_MULTIATTACK = new Action('Multiattack',
+  private static readonly ABOLETH_MULTIATTACK = new Action('Multiattack',
     "The aboleth makes three tentacle attacks")
 
-  private static ABOLETH_TENTACLE = new Action('Tentacle',
+  private static readonly ABOLETH_TENTACLE = new Action('Tentacle',
     " Melee Weapon Attack: +9 to hit, reach 10ft., one " +
     "target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a " +
     "creature, it must succeed on a DC 14 Constitution saving throw " +
@@ -35,11 +35,11 @@ export class Action {
     "of water, it takes 6 (1d12) acid damage every 10 minutes unless " +
     "moisture is applied to the skin before 10 minutes have passed")
 
-  private static ABOLETH_TAIL = new Action('Tail',
+  private static readonly ABOLETH_TAIL = new Action('Tail',
     "Melee Weapon Attack: +9 to hit, reach 10ft. one target. " +
     "Hit: 15 (3d6 + 5) bludgeoning damage.")
 
-  private static ABOLETH_ENSLAVE = new Action('Enslave (3/Day)',
+  private static readonly ABOLETH_ENSLAVE = new Action('Enslave (3/Day)',
     "The aboleth targets one creature it can see " +
     "within 30 feet of it. The target must succeed on a DC 14 " +
     "Wisdom saving throw or be magically charmed by the aboleth " +
@@ -53,20 +53,20 @@ export class Action {
     "more than once every 24 hours, the target can also repeat the " +
     "saving throw when it is at least 1 mile away from the aboleth.")
 
-  private static DEVA_MULTIATTACK = new Action('Multiattack',
+  private static readonly DEVA_MULTIATTACK = new Action('Multiattack',
     "The deva makes two melee attacks.")
 
-  private static DEVA_MACE = new Action('Mace',
+  private static readonly DEVA_MACE = new Action('Mace',
     "Melee Weapon Attack: +8 to hit, reach 5 ft., one " +
     "target. Hit: 7 (1d6 + 4) bludgeoning damage plus 18 (4d8) " +
     "radiant damage. ")
 
-  private static DEVA_HEALING_TOUCH = new Action('Healing Touch (3/Day)',
+  private static readonly DEVA_HEALING_TOUCH = new Action('Healing Touch (3/Day)',
     "The deva touches another creature. " +
     "The target magically regains 20 (4d8 + 2) hit points and is freed " +
     "from any curse, disease, poison, blindness, or deafness.")
 
-  private static DEVA_CHANGE_SHAPE = new Action('Change Shape',
+  private static readonly DEVA_CHANGE_SHAPE = new Action('Change Shape',
     "The deva magically polymorphs into a " +
     "humanoid or beast that has a challenge rating equal to or " +
     "less than its own, or back into its true form. It reverts to its " +
@@ -79,18 +79,31 @@ export class Action {
     "legendary actions, and lair actions) that the new form has but " +
     "that it lacks.")
 
-  private static ANIMATED_ARMOR_MULTIATTACK = new Action('Multiattack',
+  private static readonly PLANETAR_MULTIATTACK = new Action('Multiattack',
+    "The planetar makes two melee attacks.")
+
+  private static readonly PLANETAR_GREATSWORD = new Action('Greatsword',
+    "Melee Weapon Attack: +12 to hit, reach 5 ft., " +
+    "one target. Hit: 21 (4d6 + 7) slashing damage plus 22 (5d8) " +
+    "radiant damage.")
+
+  private static readonly PLANETAR_HEALING_TOUCH = new Action('Healing Touch (4/Day)',
+    "The planetar touches another creature. " +
+    "The target magically regains 30 (6d8 + 3) hit points and is freed " +
+    "from any curse, disease, poison, blindness, or deafness.")
+
+  private static readonly ANIMATED_ARMOR_MULTIATTACK = new Action('Multiattack',
     "The armor makes two melee attacks.")
 
-  private static ANIMATED_ARMOR_SLAM = new Action('Slam',
+  private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
     "Hit: 5 (1d6 + 2) bludgeoning damage.")
 
-  private static SPECTATOR_BITE = new Action('Bite',
+  private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
     "Hit: 2 (1d6- 1) piercing damage. ")
 
-  private static SPECTATOR_EYE_RAYS = new Action('Eye Rays',
+  private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
     "The spectator shoots up to two of the following " +
     "magical eye rays at one or two creatures it can see within 90 " +
     "feet of it. It can use each ray only once on a turn. " +
@@ -111,28 +124,29 @@ export class Action {
     "effect on itself on a success. " +
     "4. Wounding Ray. The target must make a DC 13 Constitution " +
     "saving throw, taking 16 (3d10) necrotic damage on a failed " +
-    "save, or half as much damage on a successful one. ")
+    "save, or half as much damage on a successful one.")
 
-  private static SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
+  private static readonly SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
     "The spectator magically creates " +
     "enough food and water to sustain itself for 24 hours. ")
 
-  private static GOBLIN_SCIMITAR = new Action('Scimitar',
+  private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
     "target. Hit: 5 (1d6 + 2) slashing damage.")
 
-  private static GOBLIN_SHORTBOW = new Action('Shortbow',
+  private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
     "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
     "Hit: 5 (1d6 + 2) piercing damage.")
 
-  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, Action.AARAKOCRA_JAVELIN];
-  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, Action.ABOLETH_TENTACLE, Action.ABOLETH_TAIL, Action.ABOLETH_ENSLAVE];
-  static DEVA_ACTIONS = [Action.DEVA_MULTIATTACK, Action.DEVA_MACE, Action.DEVA_HEALING_TOUCH, Action.DEVA_CHANGE_SHAPE];
+  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
+  static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, this.ABOLETH_TENTACLE, this.ABOLETH_TAIL, this.ABOLETH_ENSLAVE];
+  static DEVA_ACTIONS = [this.DEVA_MULTIATTACK, this.DEVA_MACE, this.DEVA_HEALING_TOUCH, this.DEVA_CHANGE_SHAPE];
+  static PLANETAR_ACTIONS = [this.PLANETAR_MULTIATTACK, this.PLANETAR_GREATSWORD, this.PLANETAR_HEALING_TOUCH];
 
-  static ANIMATED_ARMOR_ACTIONS = [Action.ANIMATED_ARMOR_MULTIATTACK, Action.ANIMATED_ARMOR_SLAM];
+  static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
 
-  static SPECTATOR_ACTIONS = [Action.SPECTATOR_BITE, Action.SPECTATOR_EYE_RAYS, Action.SPECTATOR_CREATE_FOOD_AND_WATER];
+  static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
-  static GOBLIN_ACTIONS = [Action.GOBLIN_SCIMITAR, Action.GOBLIN_SHORTBOW];
+  static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
 
 }
