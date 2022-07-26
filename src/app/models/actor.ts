@@ -144,7 +144,7 @@ export class Actor {
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
     } else {
-      this.removeConditions(Condition.CONDITIONS);
+      this.removeConditions(Condition.ALL_CONDITIONS);
     }
     this.timeOfDeath = deathTime;
   }
@@ -203,7 +203,7 @@ export class Actor {
 
   getAvailableConditions(): Condition[] {
     let availableConditions: Condition[] = [];
-    for (let condition of Condition.CONDITIONS) {
+    for (let condition of Condition.ALL_CONDITIONS) {
       if (!this.battleConditions.find(battleCondition => battleCondition.getCondition() === condition)) {
         availableConditions.push(condition);
       }
@@ -243,17 +243,11 @@ export class Actor {
   }
 
   revivify(currentDate: Date): void {
-    if (!this.isDead()) {
-      console.error(`Character ${this.name} it not dead`);
+    if(!this.canBringBackFromDead()) {
       return;
     }
 
-    if (!this.timeOfDeath) {
-      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
-      return;
-    }
-
-    if (DateUtils.getDifferenceInMinutes(currentDate, this.timeOfDeath) <= 1) {
+    if (DateUtils.getDifferenceInMinutes(currentDate, this.timeOfDeath!) <= 1) {
       this.dead = false;
       this.timeOfDeath = undefined;
       this.modifyHp(1, currentDate);
@@ -261,24 +255,32 @@ export class Actor {
   }
 
   raiseDead(currentDate: Date): void {
-    if (!this.isDead()) {
-      console.error(`Character ${this.name} it not dead`);
+    if(!this.canBringBackFromDead()) {
       return;
     }
 
-    if (!this.timeOfDeath) {
-      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
-      return;
-    }
-
-    if (DateUtils.getDifferenceInDays(currentDate, this.timeOfDeath) > 10) {
+    if (DateUtils.getDifferenceInDays(currentDate, this.timeOfDeath!) > 10) {
       return;
     }
 
     this.dead = false;
     this.modifyHp(1, currentDate);
     this.resurrectionPenalty = 4;
-    this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
+    this.timeOfDeath = undefined;
+  }
+
+  reincarnate(currentDate: Date): void {
+    if(!this.canBringBackFromDead()) {
+      return;
+    }
+
+    if (DateUtils.getDifferenceInDays(currentDate, this.timeOfDeath!) > 10) {
+      return;
+    }
+
+    this.dead = false;
+    this.modifyHp(this.maxHP, currentDate);
+    this.removeConditions(Condition.MAGICAL_CONDITIONS);
     this.timeOfDeath = undefined;
   }
 
@@ -288,6 +290,20 @@ export class Actor {
     }).map(battleCondition => {
       return battleCondition.getCondition()
     })
+  }
+
+  private canBringBackFromDead(): boolean {
+    if (!this.isDead()) {
+      console.error(`Character ${this.name} it not dead`);
+      return false;
+    }
+
+    if (!this.timeOfDeath) {
+      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
+      return false;
+    }
+
+    return true;
   }
 
 }

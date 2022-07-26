@@ -135,7 +135,7 @@ export class Condition {
     []
   );
 
-  static CONDITIONS: Condition[] = [
+  static ALL_CONDITIONS: Condition[] = [
     Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.GRAPPLED,
     Condition.INCAPACITATED, Condition.INVISIBLE, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED,
     Condition.PRONE, Condition.RESTRAINED, Condition.STUNNED, Condition.UNCONSCIOUS, Condition.EXHAUSTION

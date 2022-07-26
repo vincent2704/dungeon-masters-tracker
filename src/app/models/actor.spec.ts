@@ -221,7 +221,7 @@ describe('Actor', () => {
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
   });
 
-  it("should revivify character that has been dead up to 1 minute", () => {
+  it("should Revivify", () => {
     // given
     let character = new Actor('Character 1', 1);
     let currentDate = new Date(1524, 11, 17, 18, 32, 0);
@@ -235,9 +235,10 @@ describe('Actor', () => {
     expect(character.isDead()).toBeFalse();
     expect(character.getCurrentHP()).toEqual(1);
     expect(character.getTimeOfDeath()).toBeUndefined();
+    expect(character.getResurrectionPenalty()).toEqual(0);
   });
 
-  it("should not revivify character that has been dead for more than 1 minute", () => {
+  it("should not Revivify character that has been dead for more than 1 minute", () => {
     // given
     let character = new Actor('Character 1', 1);
     let currentDate = new Date(1524, 11, 17, 18, 32, 1);
@@ -251,7 +252,7 @@ describe('Actor', () => {
     expect(character.isDead()).toBeTrue();
   });
 
-  it("should Raise Dead character that has been dead up to 10 days", () => {
+  it("should Raise Dead", () => {
     // given
     let character = new Actor('Character 1', 1);
     let magicalConditions = Condition.MAGICAL_CONDITIONS.map(condition => {
@@ -286,6 +287,42 @@ describe('Actor', () => {
 
     // when
     character.raiseDead(currentDate);
+
+    // then
+    expect(character.isDead()).toBeTrue();
+  });
+
+  it("should Reincarnate", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    Condition.ALL_CONDITIONS.forEach(condition => {
+      let battleCondition = new BattleCondition(condition);
+      character.addCondition(battleCondition);
+    })
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1524, 11, 17, 18, 31, 0);
+    character.modifyHp(-5, charactersDeathDate);
+
+    // when
+    character.reincarnate(currentDate);
+
+    // then
+    expect(character.isDead()).toBeFalse();
+    expect(character.getCurrentHP()).toEqual(character.getMaxHP());
+    expect(character.getConditions().length).toEqual(0);
+    expect(character.getResurrectionPenalty()).toEqual(0);
+    expect(character.getTimeOfDeath()).toBeUndefined();
+  });
+
+  it("should not Reincarnate character that has been dead up to 10 days", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1524, 11, 7, 18, 31, 0);
+    character.kill(charactersDeathDate);
+
+    // when
+    character.reincarnate(currentDate);
 
     // then
     expect(character.isDead()).toBeTrue();
