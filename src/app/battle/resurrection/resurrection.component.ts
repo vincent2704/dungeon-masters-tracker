@@ -49,7 +49,7 @@ export class ResurrectionComponent implements OnInit {
   }
 
   canResurrection(): boolean {
-    return DateUtils.isTimePassedLongerThanYears(
+    return !DateUtils.isTimePassedLongerThanYears(
       this.getCurrentTimeInBattle(), this.character.getTimeOfDeath(), 100);
   }
 

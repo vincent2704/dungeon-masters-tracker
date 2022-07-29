@@ -350,7 +350,7 @@ describe('Actor', () => {
     expect(character.getTimeOfDeath()).toBeUndefined();
   });
 
-  it("should not succeed with Resurrection character that has been dead up to 100 years", () => {
+  it("should not succeed with Resurrection", () => {
     // given
     let character = new Actor('Character 1', 1);
     let currentDate = new Date(1524, 11, 17, 18, 32, 0);

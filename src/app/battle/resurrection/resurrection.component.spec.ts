@@ -119,26 +119,26 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getCurrentDate(), 10);
-    component.character.kill(exactlyTenDaysAgo);
+    let exactlyHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getCurrentDate(), 100);
+    component.character.kill(exactlyHundredYearsAgo);
     //and
     component.round = 1;
 
     //then
-    expect(component.canReincarnate()).toBeTrue();
+    expect(component.canResurrection()).toBeTrue();
   });
 
   it('should not allow to use Resurrection', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getCurrentDate(), 10);
-    component.character.kill(exactlyTenDaysAgo);
+    let exactlyHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getCurrentDate(), 100);
+    component.character.kill(exactlyHundredYearsAgo);
     //and
-    component.round = 1;
+    component.round = 2;
 
     //then
-    expect(component.canReincarnate()).toBeTrue();
+    expect(component.canResurrection()).toBeFalse();
   });
 
   it('should return time of death formatted', () => {
