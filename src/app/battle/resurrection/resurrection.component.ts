@@ -48,6 +48,10 @@ export class ResurrectionComponent implements OnInit {
     return !this.moreThanTenDaysPassed();
   }
 
+  canResurrection(): boolean {
+    return DateUtils.getDifferenceInYears(this.getCurrentTimeInBattle(), this.character.getTimeOfDeath()) <= 100;
+  }
+
   revivify(): void {
     this.character.revivify(this.getCurrentTimeInBattle());
   }
@@ -58,6 +62,10 @@ export class ResurrectionComponent implements OnInit {
 
   reincarnate() {
     this.character.reincarnate(this.getCurrentTimeInBattle());
+  }
+
+  resurrection(): void {
+    this.character.resurrection(this.getCurrentTimeInBattle());
   }
 
   private getCurrentTimeInBattle(): Date {

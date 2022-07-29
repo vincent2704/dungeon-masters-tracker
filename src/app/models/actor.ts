@@ -284,6 +284,21 @@ export class Actor {
     this.timeOfDeath = undefined;
   }
 
+  resurrection(currentDate: Date) {
+    if(!this.canBringBackFromDead()) {
+      return;
+    }
+
+    if(DateUtils.getDifferenceInYears(currentDate, this.timeOfDeath!) > 100) {
+      return
+    }
+
+    this.dead = false;
+    this.modifyHp(this.maxHP, currentDate);
+    this.resurrectionPenalty = 4;
+    this.timeOfDeath = undefined;
+  }
+
   private getExpiredConditions(): Condition[] {
     return this.battleConditions.filter(battleCondition => {
       return battleCondition.getDurationInTurns() == 0 && !battleCondition.isPermanent();
@@ -302,7 +317,6 @@ export class Actor {
       console.error(`Character ${this.name} set to revive is dead but death time not found!`);
       return false;
     }
-
     return true;
   }
 

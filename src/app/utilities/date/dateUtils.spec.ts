@@ -53,6 +53,20 @@ describe('DateUtils', () => {
     ));
   });
 
+  it('should return date with subtracted years', () => {
+    // given
+    let date = new Date(
+      1524, 6, 17,
+      18, 30, 0
+    );
+
+    // when
+    let newDate = DateUtils.subtractYears(date, 2);
+
+    // then
+    expect(newDate.getFullYear()).toEqual(1522);
+  });
+
   it('should return date with added seconds', () => {
     // given
     let date = new Date(

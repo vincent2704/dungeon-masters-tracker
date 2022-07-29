@@ -15,6 +15,10 @@ export class DateUtils {
     return new Date(date.getTime() - (daysToSubtract * this.MILLISECONDS_IN_DAY));
   }
 
+  static subtractYears(date: Date, yearsToSubtract: number): Date {
+    return new Date(date.getTime() - (this.MILLISECONDS_IN_DAY * 365) * yearsToSubtract);
+  }
+
   static addHours(date: Date, hoursToAdd: number): Date {
     return new Date(date.getTime() + (hoursToAdd * this.MILLISECONDS_IN_HOUR));
   }
@@ -29,6 +33,10 @@ export class DateUtils {
 
   static addRounds(date: Date, roundsToAdd: number): Date {
     return new Date(date.getTime() + (roundsToAdd * DateUtils.MILLISECONDS_IN_ROUND));
+  }
+
+  static getDifferenceInYears(first: Date, second: Date): number {
+    return this.getDifferenceMillis(first, second) / (this.MILLISECONDS_IN_DAY * 365);
   }
 
   static getDifferenceInDays(first: Date, second: Date): number {
