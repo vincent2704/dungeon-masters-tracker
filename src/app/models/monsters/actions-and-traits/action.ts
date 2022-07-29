@@ -99,6 +99,10 @@ export class Action {
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
     "Hit: 5 (1d6 + 2) bludgeoning damage.")
 
+  private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
+    "Melee Weapon Attack: +3 to hit, reach 5 ft., one " +
+    "target. Hit: 5 (1d8 + 1) slashing damage. ")
+
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
     "Hit: 2 (1d6- 1) piercing damage. ")
@@ -175,6 +179,7 @@ export class Action {
     this.SOLAR_FLYING_SWORD, this.SOLAR_HEALING_TOUCH]
 
   static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
+  static FLYING_SWORD_ACTIONS = [this.FLYING_SWORD_LONGSWORD];
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
