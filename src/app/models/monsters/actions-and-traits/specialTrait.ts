@@ -1,6 +1,3 @@
-// these are often monster-specific and could be created in
-// Monster constructor, but they're listed here because of
-// code readability and some of them might repeat
 export class SpecialTrait {
 
   private constructor(private readonly name: string, private readonly description: string) {
@@ -76,15 +73,25 @@ export class SpecialTrait {
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
 
-  static readonly ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
+  private static readonly ANIMATED_ARMOR_ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
     "The armor is incapacitated while in " +
     "the area of an antimagic field. If targeted by dispel magic, the " +
     "armor must succeed on a Constitution saving throw against the " +
     "caster's spell save DC or fall unconscious for 1 minute")
 
-  static readonly FALSE_APPEARANCE = new SpecialTrait('False Appearance',
+  private static readonly ANIMATED_ARMOR_FALSE_APPEARANCE = new SpecialTrait('False Appearance',
     "While the armor remains motion less, it is " +
     "indistinguishable from a normal suit of armor.")
+
+  private static readonly FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
+    "The sword is incapacitated while in " +
+    "the area of an anti magic field. If targeted by dispel magic, the " +
+    "sword must succeed on a Constitution saving throw against " +
+    "the caster's spell save DC or fall unconscious for 1 minute.")
+
+  private static readonly FLYING_SWORD_FALSE_APPEARANCE = new SpecialTrait('False Appearance',
+    "While the sword remains motionless and " +
+    "isn't flying, it is indistinguishable from a normal sword. ")
 
   private static readonly SOLAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
     "The solar's weapon attacks are magical. " +
@@ -115,5 +122,8 @@ export class SpecialTrait {
     SpecialTrait.PLANETAR_INNATE_SPELLCASTING, SpecialTrait.PLANETAR_MAGIC_RESISTANCE];
   static readonly SOLAR_SPECIAL_TRAITS = [SpecialTrait.SOLAR_ANGELIC_WEAPONS, SpecialTrait.SOLAR_DIVINE_AWARENESS,
     SpecialTrait.SOLAR_INNATE_SPELLCASTING, SpecialTrait.SOLAR_MAGIC_RESISTANCE];
+
+  static readonly ANIMATED_ARMOR_SPECIAL_TRAITS = [this.ANIMATED_ARMOR_ANTIMAGIC_SUSCEPTIBILITY, this.ANIMATED_ARMOR_FALSE_APPEARANCE]
+  static readonly FLYING_SWORD_SPECIAL_TRAITS = [this.FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY, this.FLYING_SWORD_FALSE_APPEARANCE]
 
 }

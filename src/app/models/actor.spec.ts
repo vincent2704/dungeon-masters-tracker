@@ -328,4 +328,40 @@ describe('Actor', () => {
     expect(character.isDead()).toBeTrue();
   });
 
+  it("should use Resurrection", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    Condition.ALL_CONDITIONS.forEach(condition => {
+      let battleCondition = new BattleCondition(condition);
+      character.addCondition(battleCondition);
+    })
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1424, 11, 17, 18, 32, 0);
+    character.modifyHp(-5, charactersDeathDate);
+
+    // when
+    character.resurrection(currentDate);
+
+    // then
+    expect(character.isDead()).toBeFalse();
+    expect(character.getCurrentHP()).toEqual(character.getMaxHP());
+    expect(character.getConditions().length).toEqual(3);
+    expect(character.getResurrectionPenalty()).toEqual(4);
+    expect(character.getTimeOfDeath()).toBeUndefined();
+  });
+
+  it("should not succeed with Resurrection", () => {
+    // given
+    let character = new Actor('Character 1', 1);
+    let currentDate = new Date(1524, 11, 17, 18, 32, 0);
+    let charactersDeathDate = new Date(1424, 11, 17, 18, 31, 59);
+    character.kill(charactersDeathDate);
+
+    // when
+    character.resurrection(currentDate);
+
+    // then
+    expect(character.isDead()).toBeTrue();
+  });
+
 });

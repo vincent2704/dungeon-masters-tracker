@@ -48,6 +48,11 @@ export class ResurrectionComponent implements OnInit {
     return !this.moreThanTenDaysPassed();
   }
 
+  canResurrection(): boolean {
+    return !DateUtils.isTimePassedLongerThanYears(
+      this.getCurrentTimeInBattle(), this.character.getTimeOfDeath(), 100);
+  }
+
   revivify(): void {
     this.character.revivify(this.getCurrentTimeInBattle());
   }
@@ -60,11 +65,15 @@ export class ResurrectionComponent implements OnInit {
     this.character.reincarnate(this.getCurrentTimeInBattle());
   }
 
+  resurrection(): void {
+    this.character.resurrection(this.getCurrentTimeInBattle());
+  }
+
   private getCurrentTimeInBattle(): Date {
     // temporal service current time is actually battle start time and is
     // updated only after battle is finished, because there's an option not to track time in battle.
     let currentDate = this.temporalService.getCurrentDate();
-    return DateUtils.addRounds(currentDate, this.round-1); // current round time hasn't passed yet, that's why -1
+    return DateUtils.addRounds(currentDate, this.round - 1); // current round time hasn't passed yet, that's why -1
   }
 
   private moreThanTenDaysPassed(): boolean {

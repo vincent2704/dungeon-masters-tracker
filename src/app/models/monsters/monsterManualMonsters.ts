@@ -88,7 +88,7 @@ export class MonsterManualMonsters {
   );
 
   static SOLAR = new Monster(MonsterId.SOLAR_ID, 'Solar', MonsterSize.LARGE, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
-    new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(243, 18, 10,144),
+    new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(243, 18, 10, 144),
     new MonsterSpeed(50, 150), new AbilitySet(26, 22, 26, 25, 25, 30),
     MonsterChallenge.TWENTY_ONE, [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
     [new MonsterSkill(Skill.PERCEPTION, 14)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
@@ -107,7 +107,17 @@ export class MonsterManualMonsters {
       Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
     new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
       [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
-    [SpecialTrait.ANTIMAGIC_SUSCEPTIBILITY, SpecialTrait.FALSE_APPEARANCE], Action.ANIMATED_ARMOR_ACTIONS
+    SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS, Action.ANIMATED_ARMOR_ACTIONS
+  )
+
+  static FLYING_SWORD = new Monster(MonsterId.FLYING_SWORD_ID,
+    'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
+    new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(17, 5, 6),
+    new MonsterSpeed(0, 50), new AbilitySet(12, 15, 11, 1, 5, 1),
+    MonsterChallenge.ONE_FOURTH, [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], [new MonsterSkill(Skill.PERCEPTION, 7)]), undefined,
+    SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS, Action.FLYING_SWORD_ACTIONS
   )
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
@@ -132,7 +142,7 @@ export class MonsterManualMonsters {
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.SPECTATOR, this.GOBLIN
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD, this.SPECTATOR, this.GOBLIN
   ]
 
 }

@@ -53,6 +53,23 @@ describe('DateUtils', () => {
     ));
   });
 
+  it('should return date with subtracted years', () => {
+    // given
+    let date = new Date(
+      1524, 6, 17,
+      18, 30, 0
+    );
+
+    // when
+    let newDate = DateUtils.subtractYears(date, 100);
+
+    // then
+    expect(newDate).toEqual(new Date(
+      1424, 6, 17,
+      18, 30, 0
+    ));
+  });
+
   it('should return date with added seconds', () => {
     // given
     let date = new Date(
@@ -122,6 +139,35 @@ describe('DateUtils', () => {
 
     // then
     expect(differenceMillis).toEqual(-172_800_000);
+  })
+
+  it('should check if time passed is longer than X years', () => {
+    // given
+    let first = new Date(
+      1524, 6, 17,
+      18, 30, 0
+    );
+    let second = new Date(
+      1424, 6, 17,
+      18, 30, 0
+    );
+    // when
+    let shouldBeFalse = DateUtils.isTimePassedLongerThanYears(first, second, 100);
+    // then
+    expect(shouldBeFalse).toBeFalse()
+
+    // and
+    let third = new Date(
+      1524, 6, 17,
+      18, 30, 1
+    );
+    let fourth = new Date(
+      1424, 6, 17,
+      18, 30, 0
+    );
+    let shouldBeTrue = DateUtils.isTimePassedLongerThanYears(third, fourth, 100);
+    // then
+    expect(shouldBeTrue).toBeTrue()
   })
 
 });
