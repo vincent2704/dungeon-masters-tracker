@@ -289,8 +289,8 @@ export class Actor {
       return;
     }
 
-    if(DateUtils.getDifferenceInYears(currentDate, this.timeOfDeath!) > 100) {
-      return
+    if(DateUtils.isTimePassedLongerThanYears(currentDate, this.timeOfDeath!, 100)) {
+      return;
     }
 
     this.dead = false;

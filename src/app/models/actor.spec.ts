@@ -336,7 +336,7 @@ describe('Actor', () => {
       character.addCondition(battleCondition);
     })
     let currentDate = new Date(1524, 11, 17, 18, 32, 0);
-    let charactersDeathDate = new Date(1425, 11, 17, 18, 31, 0);
+    let charactersDeathDate = new Date(1424, 11, 17, 18, 32, 0);
     character.modifyHp(-5, charactersDeathDate);
 
     // when
@@ -354,7 +354,7 @@ describe('Actor', () => {
     // given
     let character = new Actor('Character 1', 1);
     let currentDate = new Date(1524, 11, 17, 18, 32, 0);
-    let charactersDeathDate = new Date(1424, 11, 7, 18, 31, 0);
+    let charactersDeathDate = new Date(1424, 11, 17, 18, 31, 59);
     character.kill(charactersDeathDate);
 
     // when

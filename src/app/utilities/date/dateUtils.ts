@@ -16,7 +16,9 @@ export class DateUtils {
   }
 
   static subtractYears(date: Date, yearsToSubtract: number): Date {
-    return new Date(date.getTime() - (this.MILLISECONDS_IN_DAY * 365) * yearsToSubtract);
+    // not using milliseconds here because we want leap years to be counted properly as well
+    return new Date(date.getFullYear()-yearsToSubtract, date.getMonth(), date.getDate(), date.getHours(),
+      date.getMinutes(), date.getSeconds(), date.getMilliseconds());
   }
 
   static addHours(date: Date, hoursToAdd: number): Date {
@@ -35,8 +37,9 @@ export class DateUtils {
     return new Date(date.getTime() + (roundsToAdd * DateUtils.MILLISECONDS_IN_ROUND));
   }
 
-  static getDifferenceInYears(first: Date, second: Date): number {
-    return this.getDifferenceMillis(first, second) / (this.MILLISECONDS_IN_DAY * 365);
+  static isTimePassedLongerThanYears(currentDate: Date, dateInPast: Date, yearsToCheck: number): boolean {
+    let currentDateMinusYears = this.subtractYears(currentDate, yearsToCheck);
+    return dateInPast < currentDateMinusYears;
   }
 
   static getDifferenceInDays(first: Date, second: Date): number {
