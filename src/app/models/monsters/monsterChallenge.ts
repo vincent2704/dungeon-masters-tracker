@@ -1,3 +1,4 @@
+// source: Monster Manual, page 9
 export class MonsterChallenge {
 
   private constructor(private challengeLevel: number, private experiencePoints: number) {
@@ -32,12 +33,17 @@ export class MonsterChallenge {
   static NINETEEN = new MonsterChallenge(19, 22_000);
   static TWENTY = new MonsterChallenge(20, 25_000);
 
-  static TWENTY_ONE = new MonsterChallenge(20, 33_000);
-  static TWENTY_TWO = new MonsterChallenge(20, 41_000);
-  static TWENTY_THREE = new MonsterChallenge(20, 50_000);
-  static TWENTY_FOUR = new MonsterChallenge(20, 62_000);
+  static TWENTY_ONE = new MonsterChallenge(21, 33_000);
+  static TWENTY_TWO = new MonsterChallenge(22, 41_000);
+  static TWENTY_THREE = new MonsterChallenge(23, 50_000);
+  static TWENTY_FOUR = new MonsterChallenge(24, 62_000);
+  static TWENTY_FIVE = new MonsterChallenge(25, 75_000);
 
-  static THIRTY = new MonsterChallenge(20, 155_000);
+  static TWENTY_SIX = new MonsterChallenge(26, 90_000);
+  static TWENTY_SEVEN = new MonsterChallenge(27, 105_000);
+  static TWENTY_EIGHT = new MonsterChallenge(28, 120_000);
+  static TWENTY_NINE = new MonsterChallenge(29, 135_000);
+  static THIRTY = new MonsterChallenge(40, 155_000);
 
   getChallengeLevel(): number {
     return this.challengeLevel;
