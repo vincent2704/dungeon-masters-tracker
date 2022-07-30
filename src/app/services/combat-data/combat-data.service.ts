@@ -65,7 +65,7 @@ export class CombatDataService {
 
   getCombatMultiplierValue(partySize: number, monsterCount: number): number {
     if (monsterCount < 1) {
-      console.error(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
+      console.warn(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
       return 0;
     }
 

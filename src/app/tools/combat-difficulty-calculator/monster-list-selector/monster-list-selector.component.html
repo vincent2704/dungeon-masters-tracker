@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-sm-4">
-    Difficulty: Deadly
+    <div>
+      Difficulty: {{getDifficulty().getDescription()}}
+    </div>
+    <div class="div">
+      Monster count: {{selectedMonsters.length}}
+    </div>
   </div>
   <div class="col-sm-8">
     <div class="list-group" *ngFor="let monster of monsterService.getMonsters()">
@@ -9,8 +14,8 @@
           <div class="col">{{monster.getName()}}</div>
           <div class="col">{{getChallenge(monster)}}</div>
           <div class="col">
-            <button class="btn btn-primary">+</button>
-            <button class="btn btn-primary">-</button>
+            <button class="btn btn-primary" (click)="addMonster(monster)">+</button>
+            <button class="btn btn-primary" (click)="subtractMonster(monster)">-</button>
           </div>
         </div>
       </div>
