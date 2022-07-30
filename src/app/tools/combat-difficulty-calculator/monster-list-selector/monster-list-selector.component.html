@@ -1,6 +1,19 @@
-<div *ngFor="let monster of monsterService.getMonsters()">
-  <div class="row">
-    <div class="col">{{monster.getName()}}</div>
-    <div class="col">{{getChallenge(monster)}}</div>
+<div class="row">
+  <div class="col-sm-4">
+    Difficulty: Deadly
+  </div>
+  <div class="col-sm-8">
+    <div class="list-group" *ngFor="let monster of monsterService.getMonsters()">
+      <div class="list-group-item list-group-item-action list-group-item-dark">
+        <div class="row">
+          <div class="col">{{monster.getName()}}</div>
+          <div class="col">{{getChallenge(monster)}}</div>
+          <div class="col">
+            <button class="btn btn-primary">+</button>
+            <button class="btn btn-primary">-</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

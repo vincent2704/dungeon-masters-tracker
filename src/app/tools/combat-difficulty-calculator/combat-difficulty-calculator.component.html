@@ -3,25 +3,24 @@
 </h2>
 <div class="row">
   <div class="col-sm-8">
-    <h4>Insert monsters</h4>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-                role="tab" aria-controls="home" aria-selected="true">Manually
+                role="tab" aria-controls="home" aria-selected="true">Select from list
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
-                role="tab" aria-controls="profile" aria-selected="false">Select from list
+                role="tab" aria-controls="profile" aria-selected="false">Manually
         </button>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <app-manual-calculator [selectedActors]="selectedActors"></app-manual-calculator>
+        <app-monster-list-selector [selectedActors]="selectedActors"></app-monster-list-selector>
       </div>
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <app-monster-list-selector [selectedActors]="selectedActors"></app-monster-list-selector>
+        <app-manual-calculator [selectedActors]="selectedActors"></app-manual-calculator>
       </div>
     </div>
   </div>
