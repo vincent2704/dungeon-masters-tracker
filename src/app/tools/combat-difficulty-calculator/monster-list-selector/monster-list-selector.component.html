@@ -1,1 +1,6 @@
-Monster list
+<div *ngFor="let monster of monsterService.getMonsters()">
+  <div class="row">
+    <div class="col">{{monster.getName()}}</div>
+    <div class="col">{{getChallenge(monster)}}</div>
+  </div>
+</div>

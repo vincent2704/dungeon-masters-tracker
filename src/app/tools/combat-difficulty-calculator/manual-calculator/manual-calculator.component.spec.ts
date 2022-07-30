@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManualCalculatorComponent } from './manual-calculator.component';
+import {FormsModule} from "@angular/forms";
 
 describe('ManualCalculatorComponent', () => {
   let component: ManualCalculatorComponent;
@@ -8,6 +9,7 @@ describe('ManualCalculatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ ManualCalculatorComponent ]
     })
     .compileComponents();

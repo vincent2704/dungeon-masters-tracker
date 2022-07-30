@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
 import {MeasurementSystem} from "../services/measurement-system/measurement.system";
-import {MonsterChallenge} from "../models/monsters/monsterChallenge";
 
 @Component({
   selector: 'app-monsters',
@@ -25,7 +24,7 @@ export class MonstersComponent implements OnInit {
   }
 
   getOverview(monster: Monster): string {
-    if(monster.getTags().length == 0) {
+    if (monster.getTags().length == 0) {
       return `${monster.getSize().getName()} ${monster.getType()}, ${monster.getAlignment()}`;
     }
     let tags = monster.getTags().join(', ');
@@ -36,7 +35,7 @@ export class MonstersComponent implements OnInit {
     let armor = monster.getArmorClass();
     let armorClass = `${armor.getArmorClassValue()}`
     let equipment = armor.getEquipment();
-    if(armor.getEquipment().length > 0) {
+    if (armor.getEquipment().length > 0) {
       armorClass += ` (${equipment.join(', ')})`;
     }
     return `Armor Class: ${armorClass}`;
@@ -49,7 +48,7 @@ export class MonstersComponent implements OnInit {
     let staticHP = monsterHitPoints.getStaticAdditionalHP();
 
     let hitPoints = `${monsterHitPoints.getHitPoints()} (${diceThrows}d${dieType}`
-    if(staticHP > 0) {
+    if (staticHP > 0) {
       return `Hit Points: ${hitPoints} + ${staticHP})`;
     }
     return `Hit Points: ${hitPoints})`;
@@ -63,10 +62,10 @@ export class MonstersComponent implements OnInit {
     let swimmingSpeed = speed.getSwimmingSpeed();
 
     let monsterSpeed = `Speed: ${landSpeed} ${measurementUnit}`;
-    if(flyingSpeed > 0) {
+    if (flyingSpeed > 0) {
       monsterSpeed += `, fly ${flyingSpeed} ${measurementUnit}`;
     }
-    if(swimmingSpeed > 0) {
+    if (swimmingSpeed > 0) {
       monsterSpeed += `, swim ${swimmingSpeed} ${measurementUnit}`;
     }
 
@@ -74,7 +73,7 @@ export class MonstersComponent implements OnInit {
   }
 
   getChallenge(monster: Monster): string {
-    return `Challenge: ${MonstersComponent.formatChallengeLevel(monster.getChallenge())} (${monster.getChallenge().getExperiencePoints()}XP)`
+    return `Challenge: ${monster.getChallenge().getChallengeFormatted()}`
   }
 
   toggleDetails(monster: Monster) {
@@ -86,22 +85,5 @@ export class MonstersComponent implements OnInit {
     return this.monsterShowMap.get(monster)!;
   }
 
-  private static formatChallengeLevel(challenge: MonsterChallenge): string {
-    let challengeLevel = challenge.getChallengeLevel();
-    switch (challengeLevel) {
-      case 1/8: {
-        return '1/8';
-      }
-      case 1/4: {
-        return  '1/4';
-      }
-      case 1/2: {
-        return  '1/2';
-      }
-      default: {
-        return `${challengeLevel}`;
-      }
-    }
-  }
 
 }
