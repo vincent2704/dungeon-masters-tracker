@@ -33,6 +33,8 @@ import { ResurrectionComponent } from './battle/resurrection/resurrection.compon
 import { MonstersComponent } from './monsters/monsters.component';
 import { MonsterDetailsComponent } from './monsters/monster-details/monster-details.component';
 import { TrackerComponent } from './battle/tracker/tracker.component';
+import { ManualCalculatorComponent } from './tools/combat-difficulty-calculator/manual-calculator/manual-calculator.component';
+import { MonsterListSelectorComponent } from './tools/combat-difficulty-calculator/monster-list-selector/monster-list-selector.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { TrackerComponent } from './battle/tracker/tracker.component';
     MonstersComponent,
     MonsterDetailsComponent,
     TrackerComponent,
+    ManualCalculatorComponent,
+    MonsterListSelectorComponent,
   ],
   imports: [
     BrowserModule,
