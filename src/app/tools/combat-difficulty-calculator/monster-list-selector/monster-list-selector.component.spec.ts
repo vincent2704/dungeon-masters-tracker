@@ -55,15 +55,16 @@ describe('MonsterListSelectorComponent', () => {
       [MonsterManualMonsters.ANIMATED_ARMOR, 2], // 400 XP
       [MonsterManualMonsters.GOBLIN, 2] // 100 XP
     ]);
-
-    // then
-    // 500 monster XP * 2 (because 4 monsters) == 1000
     expect(component.getDifficulty()).toEqual(Difficulty.HARD);
   });
 
   it('should get total number of monster selected', () => {
-    // TODO
-    expect();
+    // when
+    component.selectedMonstersCount = new Map<Monster, number>([
+      [MonsterManualMonsters.ANIMATED_ARMOR, 1],
+      [MonsterManualMonsters.GOBLIN, 4]
+    ]);
+    expect(component.getTotalMonstersSelected()).toEqual(5);
   });
 
   it('should get formatted challenge info for monster', () => {

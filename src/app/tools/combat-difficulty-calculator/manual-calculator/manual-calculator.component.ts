@@ -10,7 +10,7 @@ import {CombatDataService} from "../../../services/combat-data/combat-data.servi
 export class ManualCalculatorComponent implements OnInit {
 
   @Input()
-  selectedActors!: Map<Actor, boolean>;
+  participatingActors!: Actor[];
 
   monsterXp: string = '';
   monsterCount: string = '';
@@ -27,12 +27,6 @@ export class ManualCalculatorComponent implements OnInit {
       this.difficultyDescription = 'Invalid input';
       return;
     }
-    let selectedActors: Actor[] = [];
-    for(let [actor, isSelected] of this.selectedActors) {
-      if(isSelected) {
-        selectedActors.push(actor);
-      }
-    }
 
     let monsterXp = parseInt(this.monsterXp);
     let monsterCount = parseInt(this.monsterCount);
@@ -41,7 +35,7 @@ export class ManualCalculatorComponent implements OnInit {
       this.difficultyDescription = 'Invalid input';
       return;
     }
-    let difficulty = CombatDataService.getDifficulty(selectedActors, monsterXp, monsterCount);
+    let difficulty = CombatDataService.getDifficulty(this.participatingActors, monsterXp, monsterCount);
     this.difficultyDescription = `Predicted difficulty: ${difficulty}`;
   }
 
