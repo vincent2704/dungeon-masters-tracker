@@ -1,25 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonsterListSelectorComponent } from './monster-list-selector.component';
-import {Monster} from "../../../models/monsters/monster";
-import {Actor} from "../../../models/actor";
+import {MonsterService} from "../../../services/monster/monster.service";
 
 describe('MonsterListSelectorComponent', () => {
   let component: MonsterListSelectorComponent;
   let fixture: ComponentFixture<MonsterListSelectorComponent>;
+  let monsterServiceSpy: jasmine.SpyObj<MonsterService>
 
   beforeEach(async () => {
+    const monsterService = jasmine.createSpyObj('MonsterService', ['getMonsters'])
+
     await TestBed.configureTestingModule({
-      declarations: [ MonsterListSelectorComponent ]
+      declarations: [ MonsterListSelectorComponent ],
+      providers: [
+        {provide: MonsterService, useValue: monsterService}
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MonsterListSelectorComponent);
-    component.participatingActors = [new Actor('Name', 12)];
-    component.selectedMonstersCount = new Map<Monster, number>();
     component = fixture.componentInstance;
+    component.participatingActors = [];
+
+    monsterServiceSpy = TestBed.inject(MonsterService) as jasmine.SpyObj<MonsterService>;
     fixture.detectChanges();
   });
 
@@ -27,7 +33,4 @@ describe('MonsterListSelectorComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should monster count', () => {
-    expect(component).toBeTruthy();
-  });
 });

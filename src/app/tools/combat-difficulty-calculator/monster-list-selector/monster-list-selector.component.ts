@@ -45,6 +45,9 @@ export class MonsterListSelectorComponent implements OnInit {
   }
 
   getDifficulty(): Difficulty {
+    if(this.getTotalMonstersSelected() === 0 ) {
+      return Difficulty.EASY;
+    }
     return CombatDataService.getDifficulty(
       this.participatingActors, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
   }
