@@ -16,7 +16,7 @@ export class ManualCalculatorComponent implements OnInit {
   monsterCount: string = '';
   difficultyDescription: string = '';
 
-  constructor(private combatDataService: CombatDataService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class ManualCalculatorComponent implements OnInit {
       this.difficultyDescription = 'Invalid input';
       return;
     }
-    let difficulty = this.combatDataService.getDifficulty(selectedActors, monsterXp, monsterCount);
+    let difficulty = CombatDataService.getDifficulty(selectedActors, monsterXp, monsterCount);
     this.difficultyDescription = `Predicted difficulty: ${difficulty.getDescription()}`;
   }
 

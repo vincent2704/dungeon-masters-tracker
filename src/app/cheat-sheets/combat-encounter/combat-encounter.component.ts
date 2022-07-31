@@ -28,26 +28,26 @@ export class CombatEncounterComponent implements OnInit {
     "more player characters. Survival often requires good " +
     "tactics and quick thinking, and the party risks defeat.";
 
-  constructor(private combatDataService: CombatDataService) {
+  constructor() {
   }
 
   ngOnInit(): void {
   }
 
   getEasyThreshold(level: number) {
-    return this.combatDataService.getXpThreshold(Difficulty.EASY, level);
+    return CombatDataService.getXpThreshold(Difficulty.EASY, level);
   }
 
   getMediumThreshold(level: number) {
-    return this.combatDataService.getXpThreshold(Difficulty.MEDIUM, level);
+    return CombatDataService.getXpThreshold(Difficulty.MEDIUM, level);
   }
 
   getHardThreshold(level: number) {
-    return this.combatDataService.getXpThreshold(Difficulty.HARD, level);
+    return CombatDataService.getXpThreshold(Difficulty.HARD, level);
   }
 
   getDeadlyThreshold(level: number) {
-    return this.combatDataService.getXpThreshold(Difficulty.DEADLY, level);
+    return CombatDataService.getXpThreshold(Difficulty.DEADLY, level);
   }
 
   getOneMonsterMultiplier() {

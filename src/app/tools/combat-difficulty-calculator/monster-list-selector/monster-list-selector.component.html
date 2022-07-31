@@ -7,11 +7,13 @@
       Protagonist count: {{participatingActors.length}}
     </div>
     <div class="div">
-      Monster count: {{selectedMonsters.length}}
+      Monster count: {{getTotalMonstersSelected()}}
     </div>
     <div>
       Selected monsters:
-      <div *ngFor="let monster of selectedMonsters">{{monster.getName()}}</div>
+      <div *ngFor="let monsterCountEntry of selectedMonstersCount | keyvalue">
+        {{monsterCountEntry.key.getName()}} ({{monsterCountEntry.value}})
+      </div>
     </div>
   </div>
   <div class="col-sm-8">

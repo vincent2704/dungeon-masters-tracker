@@ -16,9 +16,9 @@ export class MonsterListSelectorComponent implements OnInit {
   participatingActors!: Actor[];
   monsterService: MonsterService;
 
-  selectedMonsters: Monster[] = [];
+  selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
 
-  constructor(monsterService: MonsterService, private combatDataService: CombatDataService) {
+  constructor(monsterService: MonsterService) {
     this.monsterService = monsterService;
   }
 
@@ -30,23 +30,46 @@ export class MonsterListSelectorComponent implements OnInit {
   }
 
   addMonster(monster: Monster): void {
-    this.selectedMonsters.push(monster);
+    let monsterCount = this.getMonsterCount(monster);
+    this.selectedMonstersCount.set(monster, monsterCount++)
   }
 
   subtractMonster(monster: Monster): void {
-    this.selectedMonsters.splice(this.selectedMonsters.indexOf(monster), 1);
+    let monsterCount = this.getMonsterCount(monster);
+    if (monsterCount > 0) {
+      this.selectedMonstersCount.set(monster, monsterCount--)
+    }
+    if(monsterCount === 0){
+      this.selectedMonstersCount.delete(monster);
+    }
   }
 
   getDifficulty(): Difficulty {
-    return this.combatDataService.getDifficulty(
-      this.participatingActors, this.getMonsterExperiencePointsSum(), this.selectedMonsters.length);
+    return CombatDataService.getDifficulty(
+      this.participatingActors, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
   }
 
   getMonsterExperiencePointsSum(): number {
-    if(this.selectedMonsters.length == 0) {
+    if (this.getTotalMonstersSelected() === 0) {
       return 0;
     }
-    return this.selectedMonsters.map(monster => monster.getChallenge().getExperiencePoints())
-      .reduce((previous, currentValue) => previous + currentValue);
+    let totalXp = 0;
+    this.selectedMonstersCount.forEach(value => totalXp += value);
+    return totalXp;
+  }
+
+  getMonsterCount(monster: Monster): number {
+    let monsterCount = this.selectedMonstersCount.get(monster);
+    if (!monsterCount) {
+      return 0;
+    }
+    return monsterCount;
+  }
+
+  getTotalMonstersSelected(): number {
+    return Array.from(this.selectedMonstersCount.values())
+      .reduce((previousValue, currentValue) => {
+        return previousValue + currentValue
+      }, 0);
   }
 }

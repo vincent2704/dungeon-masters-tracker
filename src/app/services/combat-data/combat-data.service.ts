@@ -1,18 +1,14 @@
-import {Injectable} from '@angular/core';
 import {Difficulty} from "../../models/combat-data/Difficulty";
 import {Actor} from "../../models/actor";
 import {CombatData} from "../../models/combat-data/CombatData";
 import {EncounterMultiplier} from "../../models/combat-data/EncounterMultiplier";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class CombatDataService {
 
   constructor() {
   }
 
-  getDifficulty(actors: Actor[], monstersXp: number, monsterCount: number): Difficulty {
+  static getDifficulty(actors: Actor[], monstersXp: number, monsterCount: number): Difficulty {
     /* Steps as written in Dungeon Master's Guide, page 82.
       1. Determine XP Thresholds
         and
@@ -46,12 +42,12 @@ export class CombatDataService {
     }
   }
 
-  getXpThreshold(difficulty: Difficulty, level: number): number {
+  static getXpThreshold(difficulty: Difficulty, level: number): number {
     let valueMap = this.getValueMap(difficulty);
     return valueMap.get(level)!;
   }
 
-  getActorsDifficultyThreshold(difficulty: Difficulty, actors: Actor[]): number {
+  static getActorsDifficultyThreshold(difficulty: Difficulty, actors: Actor[]): number {
     let valueMap = this.getValueMap(difficulty);
     let actorLevels: number[] = actors.map(actor => actor.getLevel());
     let xpThreshold = 0;
@@ -63,7 +59,7 @@ export class CombatDataService {
     return xpThreshold;
   }
 
-  getCombatMultiplierValue(partySize: number, monsterCount: number): number {
+  static getCombatMultiplierValue(partySize: number, monsterCount: number): number {
     if (monsterCount < 1) {
       console.warn(`ENTERED MONSTER COUNT ${monsterCount} IS LESS THAN 1`);
       return 0;
@@ -81,7 +77,7 @@ export class CombatDataService {
     return EncounterMultiplier.getEncounterMultiplier(monsterCount).getMultiplier();
   }
 
-  private getValueMap(difficulty: Difficulty): Map<number, number> {
+  private static getValueMap(difficulty: Difficulty): Map<number, number> {
     switch (difficulty) {
       case Difficulty.EASY: {
         return CombatData.EASY_XP_THRESHOLDS;
@@ -102,7 +98,7 @@ export class CombatDataService {
     }
   }
 
-  private getOneLevelHigherMultiplierValue(multiplier: EncounterMultiplier): number {
+  private static getOneLevelHigherMultiplierValue(multiplier: EncounterMultiplier): number {
     let allMultipliers = EncounterMultiplier.ENCOUNTER_MULTIPLIERS;
     let encounterMultiplierIndex = allMultipliers.indexOf(multiplier);
     if (encounterMultiplierIndex === allMultipliers.length - 1) {
@@ -111,7 +107,7 @@ export class CombatDataService {
     return EncounterMultiplier.ENCOUNTER_MULTIPLIERS[encounterMultiplierIndex + 1].getMultiplier();
   }
 
-  private getOneLevelLowerMultiplierValue(multiplier: EncounterMultiplier) {
+  private static getOneLevelLowerMultiplierValue(multiplier: EncounterMultiplier) {
     let allMultipliers = EncounterMultiplier.ENCOUNTER_MULTIPLIERS;
     let encounterMultiplierIndex = allMultipliers.indexOf(multiplier);
     if (encounterMultiplierIndex === 0) {
