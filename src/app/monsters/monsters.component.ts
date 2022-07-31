@@ -47,7 +47,7 @@ export class MonstersComponent implements OnInit {
     let dieType = monsterHitPoints.getDieType();
     let staticHP = monsterHitPoints.getStaticAdditionalHP();
 
-    let hitPoints = `${monsterHitPoints.getHitPoints()} (${diceThrows}d${dieType}`
+    let hitPoints = `${monsterHitPoints.getHitPoints()} (${diceThrows}${dieType.getName()}`
     if (staticHP > 0) {
       return `Hit Points: ${hitPoints} + ${staticHP})`;
     }

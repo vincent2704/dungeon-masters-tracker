@@ -1,7 +1,9 @@
+import {DieType} from "../common/dieType";
+
 export class MonsterHitPoints {
 
   constructor(private hitPoints: number, private diceThrows: number,
-              private dieType: number, private staticAdditionalHP: number = 0) {
+              private dieType: DieType, private staticAdditionalHP: number = 0) {
   }
 
   getHitPoints(): number {
@@ -12,7 +14,7 @@ export class MonsterHitPoints {
     return this.diceThrows;
   }
 
-  getDieType(): number {
+  getDieType(): DieType {
     return this.dieType;
   }
 
