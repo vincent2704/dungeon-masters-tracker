@@ -25,25 +25,6 @@ export class MonsterListSelectorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getChallenge(monster: Monster): string {
-    return monster.getChallenge().getChallengeFormatted();
-  }
-
-  addMonster(monster: Monster): void {
-    let monsterCount = this.getMonsterCount(monster);
-    this.selectedMonstersCount.set(monster, monsterCount++)
-  }
-
-  subtractMonster(monster: Monster): void {
-    let monsterCount = this.getMonsterCount(monster);
-    if (monsterCount > 0) {
-      this.selectedMonstersCount.set(monster, monsterCount--)
-    }
-    if(monsterCount === 0){
-      this.selectedMonstersCount.delete(monster);
-    }
-  }
-
   getDifficulty(): Difficulty {
     if(this.getTotalMonstersSelected() === 0 ) {
       return Difficulty.EASY;
@@ -52,13 +33,30 @@ export class MonsterListSelectorComponent implements OnInit {
       this.participatingActors, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
   }
 
-  getMonsterExperiencePointsSum(): number {
-    if (this.getTotalMonstersSelected() === 0) {
-      return 0;
+  getTotalMonstersSelected(): number {
+    return Array.from(this.selectedMonstersCount.values())
+      .reduce((previousValue, currentValue) => {
+        return previousValue + currentValue
+      }, 0);
+  }
+
+  getChallenge(monster: Monster): string {
+    return monster.getChallenge().getChallengeFormatted();
+  }
+
+  addMonster(monster: Monster): void {
+    let monsterCount = this.getMonsterCount(monster);
+    this.selectedMonstersCount.set(monster, ++monsterCount)
+  }
+
+  subtractMonster(monster: Monster): void {
+    let monsterCount = this.getMonsterCount(monster);
+    if (monsterCount > 0) {
+      this.selectedMonstersCount.set(monster, --monsterCount)
     }
-    let totalXp = 0;
-    this.selectedMonstersCount.forEach(value => totalXp += value);
-    return totalXp;
+    if(monsterCount === 0){
+      this.selectedMonstersCount.delete(monster);
+    }
   }
 
   getMonsterCount(monster: Monster): number {
@@ -69,10 +67,16 @@ export class MonsterListSelectorComponent implements OnInit {
     return monsterCount;
   }
 
-  getTotalMonstersSelected(): number {
-    return Array.from(this.selectedMonstersCount.values())
-      .reduce((previousValue, currentValue) => {
-        return previousValue + currentValue
-      }, 0);
+  private getMonsterExperiencePointsSum(): number {
+    if (this.getTotalMonstersSelected() === 0) {
+      return 0;
+    }
+    let totalXp = 0;
+    this.selectedMonstersCount.forEach((count, monster) => {
+      let totalXpFromMonster = monster.getChallenge().getExperiencePoints() * count;
+      totalXp += totalXpFromMonster;
+    });
+    return totalXp;
   }
+
 }
