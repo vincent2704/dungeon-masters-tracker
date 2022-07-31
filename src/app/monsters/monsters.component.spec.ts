@@ -28,12 +28,12 @@ describe('MonstersComponent', () => {
   it('should show monster details', () => {
     let monster = MonsterManualMonsters.ABOLETH;
 
-    expect(component.showMonster(monster)).toBeFalse();
+    expect(component.showMonsterDetails(monster)).toBeFalse();
 
     component.toggleDetails(monster);
-    expect(component.showMonster(monster)).toBeTrue();
+    expect(component.showMonsterDetails(monster)).toBeTrue();
     component.toggleDetails(monster);
-    expect(component.showMonster(monster)).toBeFalse();
+    expect(component.showMonsterDetails(monster)).toBeFalse();
   });
 
   it('should process basic monster info', () => {
