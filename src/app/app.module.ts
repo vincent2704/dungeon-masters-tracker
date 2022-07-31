@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BattleComponent } from './battle/battle.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {PrepareBattleComponent} from "./battle/prepare-battle/prepare-battle.component";
+import { PrepareBattleComponent } from "./battle/prepare-battle/prepare-battle.component";
 import { ConditionComponent } from './battle/condition/condition.component';
 import { AddActorComponent } from './battle/add-actor/add-actor.component';
 import { DeathSavingThrowsComponent } from './battle/condition/death-saving-throws/death-saving-throws.component';
@@ -33,6 +33,8 @@ import { ResurrectionComponent } from './battle/resurrection/resurrection.compon
 import { MonstersComponent } from './monsters/monsters.component';
 import { MonsterDetailsComponent } from './monsters/monster-details/monster-details.component';
 import { TrackerComponent } from './battle/tracker/tracker.component';
+import { ManualCalculatorComponent } from './tools/combat-difficulty-calculator/manual-calculator/manual-calculator.component';
+import { MonsterListSelectorComponent } from './tools/combat-difficulty-calculator/monster-list-selector/monster-list-selector.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { TrackerComponent } from './battle/tracker/tracker.component';
     MonstersComponent,
     MonsterDetailsComponent,
     TrackerComponent,
+    ManualCalculatorComponent,
+    MonsterListSelectorComponent,
   ],
   imports: [
     BrowserModule,

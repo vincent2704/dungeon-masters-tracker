@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    Enter XP and count manually:
+    <div class="row">
+      <div class="col">
+        <input type="number" id="monsterXpInput" placeholder="Enter total monster XP" [(ngModel)]="monsterXp">
+      </div>
+      <div class="col">
+        <input type="number" id="monsterCountInput" placeholder="Enter monster count"
+               [(ngModel)]="monsterCount">
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+      </div>
+      <h3>{{difficultyDescription}}</h3>
+    </div>
+  </div>
+</div>

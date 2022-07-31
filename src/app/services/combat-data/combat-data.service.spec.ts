@@ -1,20 +1,8 @@
-import {TestBed} from '@angular/core/testing';
-
 import {CombatDataService} from './combat-data.service';
 import {Actor} from "../../models/actor";
 import {Difficulty} from "../../models/combat-data/Difficulty";
 
 describe('CombatDataService', () => {
-  let service: CombatDataService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CombatDataService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
 
   it('should calculate XP for combat', () => {
     //given
@@ -31,10 +19,10 @@ describe('CombatDataService', () => {
     let actors = [actor1, actor2, actor3, actor4];
 
     //when
-    let easyXpThreshold = service.getActorsDifficultyThreshold(Difficulty.EASY, actors);
-    let mediumXpThreshold = service.getActorsDifficultyThreshold(Difficulty.MEDIUM, actors);
-    let hardXpThreshold = service.getActorsDifficultyThreshold(Difficulty.HARD, actors);
-    let deadlyXpThreshold = service.getActorsDifficultyThreshold(Difficulty.DEADLY, actors);
+    let easyXpThreshold = CombatDataService.getActorsDifficultyThreshold(Difficulty.EASY, actors);
+    let mediumXpThreshold = CombatDataService.getActorsDifficultyThreshold(Difficulty.MEDIUM, actors);
+    let hardXpThreshold = CombatDataService.getActorsDifficultyThreshold(Difficulty.HARD, actors);
+    let deadlyXpThreshold = CombatDataService.getActorsDifficultyThreshold(Difficulty.DEADLY, actors);
 
     //then
     expect(easyXpThreshold).toEqual(1_950);
@@ -45,12 +33,12 @@ describe('CombatDataService', () => {
 
   it('should return standard combat multiplier', () => {
     //when
-    let firstMultiplier = service.getCombatMultiplierValue(4, 1);
-    let secondMultiplier = service.getCombatMultiplierValue(4, 2);
-    let thirdMultiplier = service.getCombatMultiplierValue(4, 5);
-    let fourthMultiplier = service.getCombatMultiplierValue(4, 9);
-    let fifthMultiplier = service.getCombatMultiplierValue(4, 14);
-    let sixthMultiplier = service.getCombatMultiplierValue(4, 16);
+    let firstMultiplier = CombatDataService.getCombatMultiplierValue(4, 1);
+    let secondMultiplier = CombatDataService.getCombatMultiplierValue(4, 2);
+    let thirdMultiplier = CombatDataService.getCombatMultiplierValue(4, 5);
+    let fourthMultiplier = CombatDataService.getCombatMultiplierValue(4, 9);
+    let fifthMultiplier = CombatDataService.getCombatMultiplierValue(4, 14);
+    let sixthMultiplier = CombatDataService.getCombatMultiplierValue(4, 16);
 
     //then
     expect(firstMultiplier).toEqual(1);
@@ -63,12 +51,12 @@ describe('CombatDataService', () => {
 
   it('should return proper multiplier for party smaller than 3', () => {
     //when
-    let firstMultiplier = service.getCombatMultiplierValue(2, 1);
-    let secondMultiplier = service.getCombatMultiplierValue(2, 2);
-    let thirdMultiplier = service.getCombatMultiplierValue(2, 5);
-    let fourthMultiplier = service.getCombatMultiplierValue(2, 9);
-    let fifthMultiplier = service.getCombatMultiplierValue(2, 14);
-    let sixthMultiplier = service.getCombatMultiplierValue(2, 16);
+    let firstMultiplier = CombatDataService.getCombatMultiplierValue(2, 1);
+    let secondMultiplier = CombatDataService.getCombatMultiplierValue(2, 2);
+    let thirdMultiplier = CombatDataService.getCombatMultiplierValue(2, 5);
+    let fourthMultiplier = CombatDataService.getCombatMultiplierValue(2, 9);
+    let fifthMultiplier = CombatDataService.getCombatMultiplierValue(2, 14);
+    let sixthMultiplier = CombatDataService.getCombatMultiplierValue(2, 16);
 
     //then
     expect(firstMultiplier).toEqual(1.5);
@@ -81,12 +69,12 @@ describe('CombatDataService', () => {
 
   it('should return proper multiplier for party bigger than 5', () => {
     //when
-    let firstMultiplier = service.getCombatMultiplierValue(6, 1);
-    let secondMultiplier = service.getCombatMultiplierValue(6, 2);
-    let thirdMultiplier = service.getCombatMultiplierValue(6, 5);
-    let fourthMultiplier = service.getCombatMultiplierValue(6, 9);
-    let fifthMultiplier = service.getCombatMultiplierValue(6, 14);
-    let sixthMultiplier = service.getCombatMultiplierValue(6, 16);
+    let firstMultiplier = CombatDataService.getCombatMultiplierValue(6, 1);
+    let secondMultiplier = CombatDataService.getCombatMultiplierValue(6, 2);
+    let thirdMultiplier = CombatDataService.getCombatMultiplierValue(6, 5);
+    let fourthMultiplier = CombatDataService.getCombatMultiplierValue(6, 9);
+    let fifthMultiplier = CombatDataService.getCombatMultiplierValue(6, 14);
+    let sixthMultiplier = CombatDataService.getCombatMultiplierValue(6, 16);
 
     //then
     expect(firstMultiplier).toEqual(.5);
@@ -111,12 +99,12 @@ describe('CombatDataService', () => {
     let actors = [actor1, actor2, actor3];
 
     // expect
-    expect(service.getDifficulty(actors, 1000, 1)).toEqual(Difficulty.EASY);
-    expect(service.getDifficulty(actors, 700, 2)).toEqual(Difficulty.EASY);
-    expect(service.getDifficulty(actors, 500, 4)).toEqual(Difficulty.EASY);
-    expect(service.getDifficulty(actors, 400, 8)).toEqual(Difficulty.EASY);
-    expect(service.getDifficulty(actors, 350, 12)).toEqual(Difficulty.EASY);
-    expect(service.getDifficulty(actors, 250, 15)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 1000, 1)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 700, 2)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 500, 4)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 400, 8)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 350, 12)).toEqual(Difficulty.EASY);
+    expect(CombatDataService.getDifficulty(actors, 250, 15)).toEqual(Difficulty.EASY);
   });
 
   it('should return proper difficulty', () => {
@@ -141,10 +129,10 @@ describe('CombatDataService', () => {
     let monsterXpDeadly = 700; // 1400, monster XP - 1400
 
     //when
-    let expectedEasy = service.getDifficulty(actors, monsterXpEasy, numberOfMonsters);
-    let expectedMedium = service.getDifficulty(actors, monsterXpMedium, numberOfMonsters);
-    let expectedHard = service.getDifficulty(actors, monsterXpHard, numberOfMonsters);
-    let expectedDeadly = service.getDifficulty(actors, monsterXpDeadly, numberOfMonsters);
+    let expectedEasy = CombatDataService.getDifficulty(actors, monsterXpEasy, numberOfMonsters);
+    let expectedMedium = CombatDataService.getDifficulty(actors, monsterXpMedium, numberOfMonsters);
+    let expectedHard = CombatDataService.getDifficulty(actors, monsterXpHard, numberOfMonsters);
+    let expectedDeadly = CombatDataService.getDifficulty(actors, monsterXpDeadly, numberOfMonsters);
 
     //then
     expect(expectedEasy).toEqual(Difficulty.EASY);

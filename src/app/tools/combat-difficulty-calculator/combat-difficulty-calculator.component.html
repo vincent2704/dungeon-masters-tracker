@@ -1,41 +1,55 @@
 <h2>
-  Combat difficulty calculator
+  Combat calculator
 </h2>
-<table class="table table-hover table-dark">
-  <thead>
-  <tr>
-    <th scope="col">Select participating actors</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let actor of protagonists">
-    <td>
-      <div class="row">
-        <div class="col">{{actor.name}}</div>
-        <div class="col">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="{{actor.name}}checkbox" [checked]="isSelected(actor)"
-                   (change)="onSelectActor(actor)">
-            <label class="form-check-label" for="{{actor.name}}checkbox">
-              Select
-            </label>
-          </div>
-        </div>
-      </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<h4>Monsters</h4>
 <div class="row">
-  <div class="col-sm-3">
-    <input type="number" id="monsterXpInput" placeholder="Enter total monster XP" [(ngModel)]="monsterXp">
+  <div class="col-sm-8">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                role="tab" aria-controls="home" aria-selected="true">Select from list
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+                role="tab" aria-controls="profile" aria-selected="false">Manually
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <app-monster-list-selector [participatingActors]="participatingActors"></app-monster-list-selector>
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <app-manual-calculator [participatingActors]="participatingActors"></app-manual-calculator>
+      </div>
+    </div>
   </div>
-  <div class="col-sm-3">
-    <input type="number" id="monsterCountInput" placeholder="Enter monster count" [(ngModel)]="monsterCount">
-  </div>
-  <div class="col-sm-9">
-    <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+  <div class="col-sm-4">
+    <table class="table table-hover table-dark">
+      <thead>
+      <tr>
+        <th scope="col">Select participating actors</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let actor of protagonists">
+        <td>
+          <div class="row">
+            <div class="col">{{actor.name}}</div>
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="{{actor.name}}checkbox"
+                       [checked]="isSelected(actor)"
+                       (change)="onSelectActor(actor)">
+                <label class="form-check-label" for="{{actor.name}}checkbox">
+                  Select
+                </label>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-<h3>{{difficultyDescription}}</h3>

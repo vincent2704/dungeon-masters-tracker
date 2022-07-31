@@ -1,7 +1,5 @@
 export class CombatData {
 
-  private constructor() {}
-
   // source for XP Thresholds by Character Level table. key is character level, value is monster XP
   // for that level that matches given difficulty.
   // source - Dungeon Master's Guide, page 82.

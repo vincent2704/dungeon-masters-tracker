@@ -45,12 +45,33 @@ export class MonsterChallenge {
   static TWENTY_NINE = new MonsterChallenge(29, 135_000);
   static THIRTY = new MonsterChallenge(40, 155_000);
 
+  getChallengeFormatted(): string {
+    return `${this.getChallengeLevelFormatted()} (${this.getExperiencePoints()} XP)`
+  }
+
   getChallengeLevel(): number {
     return this.challengeLevel;
   }
 
   getExperiencePoints(): number {
     return this.experiencePoints;
+  }
+
+  private getChallengeLevelFormatted(): string {
+    switch (this.challengeLevel) {
+      case 1/8: {
+        return '1/8';
+      }
+      case 1/4: {
+        return  '1/4';
+      }
+      case 1/2: {
+        return  '1/2';
+      }
+      default: {
+        return `${this.challengeLevel}`;
+      }
+    }
   }
 
 }

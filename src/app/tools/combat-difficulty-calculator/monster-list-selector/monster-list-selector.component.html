@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-sm-4">
+    <div>
+      Difficulty: {{getDifficulty()}}
+    </div>
+    <div class="div">
+      Protagonist count: {{participatingActors.length}}
+    </div>
+    <div class="div">
+      Monster count: {{getTotalMonstersSelected()}}
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="list-group" *ngFor="let monster of monsterService.getMonsters()">
+      <div class="list-group-item list-group-item-action list-group-item-dark">
+        <div class="row">
+          <div class="col-sm-4">{{monster.getName()}}</div>
+          <div class="col-sm-4">{{getChallenge(monster)}}</div>
+          <div class="col-sm-3">
+            <button class="btn btn-primary" (click)="addMonster(monster)">+</button>
+            <button class="btn btn-primary" (click)="subtractMonster(monster)"
+            [disabled]="getMonsterCount(monster) === 0">-</button>
+          </div>
+          <div class="col-sm-1">
+            <div *ngIf="getMonsterCount(monster) > 0">({{getMonsterCount(monster)}})</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
