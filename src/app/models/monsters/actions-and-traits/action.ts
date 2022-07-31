@@ -103,6 +103,14 @@ export class Action {
     "Melee Weapon Attack: +3 to hit, reach 5 ft., one " +
     "target. Hit: 5 (1d8 + 1) slashing damage. ")
 
+  private static readonly RUG_OF_SMOTHERING_SMOTHER = new Action('Smother',
+    "Melee Weapon Attack: +5 to hit, reach 5 ft., one " +
+    "Medium or smaller creature. Hit: The creature is grappled " +
+    "(escape DC 13). Until this grapple ends, the target is restrained, " +
+    "blinded, and at risk of suffocating, and the rug can't smother " +
+    "another target. In addition, at the start of each of the target's " +
+    "turns, the target takes 10 (2d6 + 3) bludgeoning damage.")
+
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
     "Hit: 2 (1d6- 1) piercing damage. ")
@@ -180,6 +188,7 @@ export class Action {
 
   static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
   static FLYING_SWORD_ACTIONS = [this.FLYING_SWORD_LONGSWORD];
+  static RUG_OF_SMOTHERING_ACTIONS = [this.RUG_OF_SMOTHERING_SMOTHER];
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 

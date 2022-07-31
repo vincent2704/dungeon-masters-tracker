@@ -93,6 +93,21 @@ export class SpecialTrait {
     "While the sword remains motionless and " +
     "isn't flying, it is indistinguishable from a normal sword. ")
 
+  private static readonly RUG_OF_SMOTHERING_ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
+    "The rug is incapacitated while in " +
+    "the area of an antimagic field. If targeted by dispel magic, the " +
+    "rug must succeed on a Constitution saving throw against the " +
+    "caster's spell save DC or fall unconscious for 1 minute. ")
+
+  private static readonly RUG_OF_SMOTHERING_DAMAGE_TRANSFER = new SpecialTrait('Damage Transfer',
+    "While it is grappling a creature, the rug takes " +
+    "only half the damage dealt to it, and the creature grappled by " +
+    "the rug takes the other half.")
+
+  private static readonly RUG_OF_SMOTHERING_FALSE_APPEARANCE = new SpecialTrait('False Appearance',
+    "While the rug remains motionless, it is " +
+    "indistinguishable from a normal rug.")
+
   private static readonly SOLAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
     "The solar's weapon attacks are magical. " +
     "When the solar hits with any weapon, the weapon deals an " +
@@ -125,5 +140,7 @@ export class SpecialTrait {
 
   static readonly ANIMATED_ARMOR_SPECIAL_TRAITS = [this.ANIMATED_ARMOR_ANTIMAGIC_SUSCEPTIBILITY, this.ANIMATED_ARMOR_FALSE_APPEARANCE]
   static readonly FLYING_SWORD_SPECIAL_TRAITS = [this.FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY, this.FLYING_SWORD_FALSE_APPEARANCE]
+  static readonly RUG_OF_SMOTHERING_SPECIAL_TRAITS = [this.RUG_OF_SMOTHERING_ANTIMAGIC_SUSCEPTIBILITY, this.RUG_OF_SMOTHERING_DAMAGE_TRANSFER,
+    this.RUG_OF_SMOTHERING_FALSE_APPEARANCE]
 
 }

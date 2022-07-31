@@ -102,7 +102,7 @@ export class MonsterManualMonsters {
     new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(33, 6, 8, 6),
     new MonsterSpeed(25), new AbilitySet(14, 11, 13, 1, 3, 1),
     MonsterChallenge.ONE,
-    [], [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+    undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
     [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
       Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
     new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
@@ -120,11 +120,21 @@ export class MonsterManualMonsters {
     SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS, Action.FLYING_SWORD_ACTIONS
   )
 
+  static RUG_OF_SMOTHERING = new Monster(MonsterId.RUG_OF_SMOTHERING_ID,
+  'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
+    new MonsterArmor(12), new MonsterHitPoints(33, 6, 10), new MonsterSpeed(10),
+    new AbilitySet(17, 14, 10, 1, 3, 1),
+    MonsterChallenge.TWO, undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
+    SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
+    )
+
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(39, 6, 8, 12), new MonsterSpeed(0, 30),
     new AbilitySet(8, 14, 14, 13, 14, 11),
-    MonsterChallenge.THREE, [], [new MonsterSkill(Skill.PERCEPTION, 6)],
+    MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, undefined, [Condition.PRONE],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 16)]),
     new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), [],
@@ -142,7 +152,8 @@ export class MonsterManualMonsters {
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD, this.SPECTATOR, this.GOBLIN
+    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
+    this.RUG_OF_SMOTHERING, this.SPECTATOR, this.GOBLIN
   ]
 
 }
