@@ -42,7 +42,7 @@ export class ManualCalculatorComponent implements OnInit {
       return;
     }
     let difficulty = CombatDataService.getDifficulty(selectedActors, monsterXp, monsterCount);
-    this.difficultyDescription = `Predicted difficulty: ${difficulty.getDescription()}`;
+    this.difficultyDescription = `Predicted difficulty: ${difficulty}`;
   }
 
 }
