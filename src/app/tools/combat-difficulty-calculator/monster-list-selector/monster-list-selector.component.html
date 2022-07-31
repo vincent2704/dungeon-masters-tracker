@@ -4,7 +4,14 @@
       Difficulty: {{getDifficulty().getDescription()}}
     </div>
     <div class="div">
+      Protagonist count: {{participatingActors.length}}
+    </div>
+    <div class="div">
       Monster count: {{selectedMonsters.length}}
+    </div>
+    <div>
+      Selected monsters:
+      <div *ngFor="let monster of selectedMonsters">{{monster.getName()}}</div>
     </div>
   </div>
   <div class="col-sm-8">
