@@ -1,6 +1,9 @@
 <div class="container">
-  <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted" (battleStartedEmitter)="startBattle()"></app-prepare-battle>
-  <app-tracker *ngIf="isBattleStarted" (battleEnded)="endBattle()" [actors]="actors"></app-tracker>
+  <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted else appTracker"
+                      (battleStartedEmitter)="startBattle()"></app-prepare-battle>
+  <ng-template #appTracker>
+    <app-tracker (battleEnded)="endBattle()" [actors]="actors"></app-tracker>
+  </ng-template>
 </div>
 
 <ng-template #initiativeConflictModal>

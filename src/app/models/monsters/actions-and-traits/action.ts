@@ -92,6 +92,35 @@ export class Action {
     "The target magically regains 30 (6d8 + 3) hit points and is freed " +
     "from any curse, disease, poison, blindness, or deafness.")
 
+  private static readonly SOLAR_MULTIATTACK = new Action('Multiattack',
+    "The solar makes two greatsword attacks.")
+
+  private static readonly SOLAR_GREATSWORD = new Action('Greatsword',
+    "Melee Weapon Attack: +15 to hit, reach 5 ft., " +
+    "one target. Hit: 22 (4d6 + 8) slashing damage plus 27 (6d8) " +
+    "radiant damage.")
+
+  private static readonly SOLAR_SLAYING_LONGBOW = new Action('Slaying Longbow',
+    "Ranged Weapon Attack: +13 to hit, range " +
+    "120/600 ft., one target. Hit: 15 (2d8 + 6) piercing damage plus " +
+    "27 (6d8) radiant damage. If the target is a creature that has 190 " +
+    "hit points or fewer, it must succeed on a DC 15 Constitution " +
+    "saving throw or die.")
+
+  private static readonly SOLAR_FLYING_SWORD = new Action('Flying Sword',
+    "The solar releases its greatsword to hover " +
+    "magically in an unoccupied space within 5 feet of it. If the solar " +
+    "can see the sword, the solar can mentally command it as a " +
+    "bonus action to fly up to 50 feet and either make one attack " +
+    "against a target or return to the solar's hands. If the hovering " +
+    "sword is targeted by any effect, the solar is considered to be " +
+    "holding it. The hovering sword falls if the solar dies.")
+
+  private static readonly SOLAR_HEALING_TOUCH = new Action('Healing Touch (4/Day)',
+    "The solar touches another creature. " +
+    "The target magically regains 40 (8d8 + 4) hit points and is freed " +
+    "from any curse, disease, poison, blindness, or deafness.")
+
   private static readonly ANIMATED_ARMOR_MULTIATTACK = new Action('Multiattack',
     "The armor makes two melee attacks.")
 
@@ -110,6 +139,28 @@ export class Action {
     "blinded, and at risk of suffocating, and the rug can't smother " +
     "another target. In addition, at the start of each of the target's " +
     "turns, the target takes 10 (2d6 + 3) bludgeoning damage.")
+
+  private static readonly BANSHEE_CORRUPTING_TOUCH = new Action('Corrupting Touch',
+    "Melee Spell Attack: +4 to hit, reach 5 ft., one " +
+    "target. Hit: 12 (3d6 + 2) necrotic damage.")
+
+  private static readonly BANSHEE_HORRIFYING_VISAGE = new Action('Horrifying Visage',
+    "Each non-undead creature within 60 feet of " +
+    "the banshee that can see her must succeed on a DC 13 Wisdom " +
+    "saving throw or be frightened for 1 minute. A frightened target " +
+    "can repeat the saving throw at the end of each of its turns, " +
+    "with disadvantage if the banshee is within line of sight, ending " +
+    "the effect on itself on a success. If a target's saving throw is " +
+    "successful or the effect ends for it, the target is immune to the " +
+    "banshee's Horrifying Visage for the next 24 hours. ")
+
+  private static readonly BANSHEE_WAIL = new Action('Wail (1/Day)',
+  "The banshee releases a mournful wail, provided " +
+    "that she isn't in sunlight. This wail has no effect on constructs " +
+    "and undead. All other creatures within 30 feet of her that can " +
+    "hear her must make a DC 13 Constitution saving throw. On " +
+    "a failure, a creature drops to 0 hit points. On a success, a " +
+    "creature takes 10 (3d6) psychic damage.")
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
@@ -150,35 +201,6 @@ export class Action {
     "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
     "Hit: 5 (1d6 + 2) piercing damage.")
 
-  private static readonly SOLAR_MULTIATTACK = new Action('Multiattack',
-    "The solar makes two greatsword attacks.")
-
-  private static readonly SOLAR_GREATSWORD = new Action('Greatsword',
-    "Melee Weapon Attack: +15 to hit, reach 5 ft., " +
-    "one target. Hit: 22 (4d6 + 8) slashing damage plus 27 (6d8) " +
-    "radiant damage.")
-
-  private static readonly SOLAR_SLAYING_LONGBOW = new Action('Slaying Longbow',
-    "Ranged Weapon Attack: +13 to hit, range " +
-    "120/600 ft., one target. Hit: 15 (2d8 + 6) piercing damage plus " +
-    "27 (6d8) radiant damage. If the target is a creature that has 190 " +
-    "hit points or fewer, it must succeed on a DC 15 Constitution " +
-    "saving throw or die.")
-
-  private static readonly SOLAR_FLYING_SWORD = new Action('Flying Sword',
-    "The solar releases its greatsword to hover " +
-    "magically in an unoccupied space within 5 feet of it. If the solar " +
-    "can see the sword, the solar can mentally command it as a " +
-    "bonus action to fly up to 50 feet and either make one attack " +
-    "against a target or return to the solar's hands. If the hovering " +
-    "sword is targeted by any effect, the solar is considered to be " +
-    "holding it. The hovering sword falls if the solar dies.")
-
-  private static readonly SOLAR_HEALING_TOUCH = new Action('Healing Touch (4/Day)',
-    "The solar touches another creature. " +
-    "The target magically regains 40 (8d8 + 4) hit points and is freed " +
-    "from any curse, disease, poison, blindness, or deafness.")
-
   private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
     "target. Hit: 11 (2d8 + 2) piercing damage.")
@@ -198,6 +220,8 @@ export class Action {
   static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
   static FLYING_SWORD_ACTIONS = [this.FLYING_SWORD_LONGSWORD];
   static RUG_OF_SMOTHERING_ACTIONS = [this.RUG_OF_SMOTHERING_SMOTHER];
+
+  static BANSHEE_ACTIONS = [this.BANSHEE_CORRUPTING_TOUCH, this.BANSHEE_HORRIFYING_VISAGE, this.BANSHEE_WAIL];
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 

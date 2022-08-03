@@ -5,4 +5,5 @@ export enum Language {
   UNDERCOMMON = 'Undercommon',
   COMMON = 'Common',
   GOBLIN = 'Goblin',
+  ELVISH = 'Elvish',
 }

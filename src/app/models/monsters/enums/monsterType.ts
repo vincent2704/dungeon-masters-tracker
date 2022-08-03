@@ -3,7 +3,8 @@ export enum MonsterType {
   HUMANOID = 'humanoid',
   ABERRATION = 'aberration',
   CELESTIAL = 'celestial',
-  CONSTRUCT = 'construct'
+  CONSTRUCT = 'construct',
+  UNDEAD = 'undead',
 
 }
 
