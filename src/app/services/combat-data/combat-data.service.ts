@@ -10,7 +10,7 @@ export class CombatDataService {
 
   static getDifficulty(actors: Actor[], monstersXp: number, monsterCount: number): Difficulty {
     if( actors.length == 0 || monstersXp == 0 || monsterCount == 0 ) {
-      return Difficulty.EASY
+      return Difficulty.NOT_APPLICABLE
     }
     /* Steps as written in Dungeon Master's Guide, page 82.
       1. Determine XP Thresholds
