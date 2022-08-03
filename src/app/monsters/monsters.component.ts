@@ -12,6 +12,7 @@ export class MonstersComponent implements OnInit {
 
   monsters: Monster[] = [];
   monsterDetailsShowMap: Map<Monster, boolean> = new Map<Monster, boolean>();
+  monsterNamePart: string = '';
 
   constructor(private monsterService: MonsterService) {
   }
@@ -83,6 +84,12 @@ export class MonstersComponent implements OnInit {
 
   showMonsterDetails(monster: Monster): boolean {
     return this.monsterDetailsShowMap.get(monster)!;
+  }
+
+  getMonstersFiltered(): Monster[] {
+    return this.monsters.filter(monster => {
+      return monster.getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
+    })
   }
 
 }

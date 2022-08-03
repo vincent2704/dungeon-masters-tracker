@@ -62,4 +62,19 @@ describe('MonstersComponent', () => {
     expect(component.getSpeed(monster)).toEqual('Speed: 30 ft.');
   });
 
+  it('should filter monsters by name case insensitive', () => {
+    // given
+    component.monsters = [MonsterManualMonsters.AARAKOCRA, MonsterManualMonsters.ABOLETH, MonsterManualMonsters.DEVA,
+      MonsterManualMonsters.RUG_OF_SMOTHERING, MonsterManualMonsters.GOBLIN];
+    component.monsterNamePart = 'a';
+
+
+    // when
+    let filteredMonsters = component.getMonstersFiltered();
+
+    // then
+    expect(filteredMonsters).toEqual([MonsterManualMonsters.AARAKOCRA, MonsterManualMonsters.ABOLETH,
+    MonsterManualMonsters.DEVA]);
+  });
+
 });
