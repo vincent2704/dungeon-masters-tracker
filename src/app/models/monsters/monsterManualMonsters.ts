@@ -40,7 +40,7 @@ export class MonsterManualMonsters {
     [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
     [new MonsterSkill(Skill.PERCEPTION, 5)],
     undefined, undefined, undefined,
-    new MonsterSenses([], [new MonsterSkill(Skill.PERCEPTION, 15)]),
+    new MonsterSenses([], 15),
     new MonsterLanguages([Language.AURAN]),
     SpecialTrait.AARAKOCRA_SPECIAL_TRAITS, Action.AARAKOCRA_ACTIONS
   )
@@ -54,7 +54,7 @@ export class MonsterManualMonsters {
       new SavingThrow(Ability.WISDOM, 6)],
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
     undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 20)]),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 20),
     new MonsterLanguages([Language.DEEP_SPEECH], 120),
     SpecialTrait.ABOLETH_SPECIAL_TRAITS,
     Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
@@ -70,7 +70,7 @@ export class MonsterManualMonsters {
     new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
       DamageType.SLASHING]), undefined,
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 19)]),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 19),
     new MonsterLanguages([Language.ALL], 120),
     SpecialTrait.DEVA_SPECIAL_TRAITS, Action.DEVA_ACTIONS
   )
@@ -83,7 +83,7 @@ export class MonsterManualMonsters {
     [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
     [new MonsterSkill(Skill.PERCEPTION, 11)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
     undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
-    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], [new MonsterSkill(Skill.PERCEPTION, 21)]),
+    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
     new MonsterLanguages([Language.ALL], 120), SpecialTrait.PLANETAR_SPECIAL_TRAITS,
     Action.PLANETAR_ACTIONS
   );
@@ -94,7 +94,7 @@ export class MonsterManualMonsters {
     MonsterChallenge.TWENTY_ONE, [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
     [new MonsterSkill(Skill.PERCEPTION, 14)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
     new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], [new MonsterSkill(Skill.PERCEPTION, 24)]), new MonsterLanguages([Language.ALL], 120),
+    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), new MonsterLanguages([Language.ALL], 120),
     SpecialTrait.SOLAR_SPECIAL_TRAITS, Action.SOLAR_ACTIONS, [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
   )
 
@@ -107,7 +107,7 @@ export class MonsterManualMonsters {
     [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
       Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
     new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
-      [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
+      6), undefined,
     SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS, Action.ANIMATED_ARMOR_ACTIONS
   )
 
@@ -117,7 +117,7 @@ export class MonsterManualMonsters {
     new MonsterSpeed(0, 50), new AbilitySet(12, 15, 11, 1, 5, 1),
     MonsterChallenge.ONE_FOURTH, [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
     [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], [new MonsterSkill(Skill.PERCEPTION, 7)]), undefined,
+    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 7), undefined,
     SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS, Action.FLYING_SWORD_ACTIONS
   )
 
@@ -127,7 +127,7 @@ export class MonsterManualMonsters {
     new AbilitySet(17, 14, 10, 1, 3, 1),
     MonsterChallenge.TWO, undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
     [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], [new MonsterSkill(Skill.PERCEPTION, 6)]), undefined,
+    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6), undefined,
     SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
     )
 
@@ -137,7 +137,7 @@ export class MonsterManualMonsters {
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, undefined, [Condition.PRONE],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], [new MonsterSkill(Skill.PERCEPTION, 16)]),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
     new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), [],
     Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
   )
@@ -147,7 +147,7 @@ export class MonsterManualMonsters {
     new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD]), new MonsterHitPoints(7, 2, DieType.D6),
     new MonsterSpeed(30), new AbilitySet(8, 14, 10, 10, 8, 8),
     MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], [new MonsterSkill(Skill.PERCEPTION, 9)]),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
     new MonsterLanguages([Language.COMMON, Language.GOBLIN]), [SpecialTrait.NIMBLE_ESCAPE],
     Action.GOBLIN_ACTIONS
   )

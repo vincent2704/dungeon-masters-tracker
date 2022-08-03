@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MonstersComponent } from './monsters.component';
 import {MonsterManualMonsters} from "../models/monsters/monsterManualMonsters";
 import {Settings} from "../services/settings/settings";
+import {FormsModule} from "@angular/forms";
 
 describe('MonstersComponent', () => {
   let component: MonstersComponent;
@@ -10,6 +11,7 @@ describe('MonstersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ MonstersComponent ]
     })
     .compileComponents();
@@ -67,7 +69,6 @@ describe('MonstersComponent', () => {
     component.monsters = [MonsterManualMonsters.AARAKOCRA, MonsterManualMonsters.ABOLETH, MonsterManualMonsters.DEVA,
       MonsterManualMonsters.RUG_OF_SMOTHERING, MonsterManualMonsters.GOBLIN];
     component.monsterNamePart = 'a';
-
 
     // when
     let filteredMonsters = component.getMonstersFiltered();

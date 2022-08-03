@@ -64,18 +64,12 @@ export class MonsterDetailsComponent implements OnInit {
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
     }).join(', ');
 
-    let passiveSkills = this.monster.getSenses().getPassiveSkills();
-    if (passiveSkills.length > 0) {
-      let passives = passiveSkills.map(passiveSkill => {
-        let skill = passiveSkill.getSkill();
-        let score = passiveSkill.getScore();
-        return `${skill} ${score}`
-      }).join(', ');
-
+    let passivePerception = this.monster.getSenses().getPassivePerception();
+    if (passivePerception > 0) {
       if (senses.length > 0) {
-        return `${senses}, passive ${passives}`;
+        return `${senses}, passive Perception ${passivePerception}`;
       }
-      return `passive ${passives}`;
+      return `passive Perception ${passivePerception}`;
     }
     return senses;
   }
