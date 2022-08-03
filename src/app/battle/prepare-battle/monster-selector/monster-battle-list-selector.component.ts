@@ -90,4 +90,43 @@ export class MonsterBattleListSelectorComponent implements OnInit {
     return totalXp;
   }
 
+  getDifficultyBarClass(): string {
+    switch (this.getDifficulty()) {
+      case Difficulty.EASY: {
+        return 'progress-bar progress-bar-striped bg-info';
+      }
+      case Difficulty.MEDIUM: {
+        return 'progress-bar progress-bar-striped bg-success';
+      }
+      case Difficulty.HARD: {
+        return 'progress-bar progress-bar-striped bg-warning';
+      }
+      case Difficulty.DEADLY: {
+        return 'progress-bar progress-bar-striped bg-danger';
+      }
+      default: {
+        return 'progress-bar progress-bar-striped bg-dark';
+      }
+    }
+  }
+
+  getDifficultyBarWidth(): string {
+    switch (this.getDifficulty()) {
+      case Difficulty.EASY: {
+        return '25%';
+      }
+      case Difficulty.MEDIUM: {
+        return '50%';
+      }
+      case Difficulty.HARD: {
+        return '75%';
+      }
+      case Difficulty.DEADLY: {
+        return '100%';
+      }
+      default: {
+        return '100%';
+      }
+    }
+  }
 }
