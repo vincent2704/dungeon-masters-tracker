@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Actor } from "../../models/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Settings} from "../../services/settings/settings";
+import {Monster} from "../../models/monsters/monster";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -12,6 +13,8 @@ export class PrepareBattleComponent implements OnInit {
 
   @Output()
   actorsToEmit = new EventEmitter<Actor[]>();
+  @Output()
+  battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
 
   actors: Actor[];
 
@@ -33,5 +36,9 @@ export class PrepareBattleComponent implements OnInit {
 
   addActor(actor: Actor) {
     this.actors.push(actor);
+  }
+
+  startBattle() {
+    this.battleStartedEmitter.emit();
   }
 }

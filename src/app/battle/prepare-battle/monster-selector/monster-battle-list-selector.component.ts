@@ -1,20 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
-import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 
 @Component({
-  selector: 'app-monster-list-selector',
-  templateUrl: './monster-list-selector.component.html',
-  styleUrls: ['./monster-list-selector.component.css']
+  selector: 'app-monster-battle-list-selector',
+  templateUrl: './monster-battle-list-selector.component.html',
+  styleUrls: ['./monster-battle-list-selector.component.css']
 })
-export class MonsterListSelectorComponent implements OnInit {
+export class MonsterBattleListSelectorComponent implements OnInit {
 
   @Input()
   participatingActors!: Actor[];
   monsterService: MonsterService;
+
+  @Output()
+  battleStartEmitter = new EventEmitter<void>();
 
   selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
 
@@ -25,16 +28,13 @@ export class MonsterListSelectorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  startBattle(): void {
+    this.battleStartEmitter.emit();
+  }
+
   getDifficulty(): Difficulty {
     return CombatDataService.getDifficulty(
       this.participatingActors, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
-  }
-
-  getTotalMonstersSelected(): number {
-    return Array.from(this.selectedMonstersCount.values())
-      .reduce((previousValue, currentValue) => {
-        return previousValue + currentValue
-      }, 0);
   }
 
   getChallenge(monster: Monster): string {
@@ -43,7 +43,7 @@ export class MonsterListSelectorComponent implements OnInit {
 
   addMonster(monster: Monster): void {
     let monsterCount = this.getMonsterCount(monster);
-    this.selectedMonstersCount.set(monster, ++monsterCount)
+    this.selectedMonstersCount.set(monster, ++monsterCount);
   }
 
   subtractMonster(monster: Monster): void {
@@ -62,6 +62,13 @@ export class MonsterListSelectorComponent implements OnInit {
       return 0;
     }
     return monsterCount;
+  }
+
+  getTotalMonstersSelected(): number {
+    return Array.from(this.selectedMonstersCount.values())
+      .reduce((previousValue, currentValue) => {
+        return previousValue + currentValue
+      }, 0);
   }
 
   private getMonsterExperiencePointsSum(): number {
