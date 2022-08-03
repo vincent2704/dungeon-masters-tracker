@@ -7,6 +7,9 @@ import {AddActorComponent} from "./add-actor/add-actor.component";
 import {Actor} from "../models/actor";
 import {By} from "@angular/platform-browser";
 import {DebugElement} from "@angular/core";
+import {
+  MonsterBattleListSelectorComponent
+} from "./prepare-battle/monster-selector/monster-battle-list-selector.component";
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -15,7 +18,7 @@ describe('BattleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent]
+      declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent]
     })
       .compileComponents();
   });

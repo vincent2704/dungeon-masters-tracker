@@ -7,6 +7,7 @@ import {ActorService} from "../../services/actor/actor.service";
 import {Actor} from "../../models/actor";
 import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
+import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -23,7 +24,7 @@ describe('PrepareBattleComponent', () => {
     const actorService = jasmine.createSpyObj('ActorService', ['getActors']);
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ PrepareBattleComponent, AddActorComponent ],
+      declarations: [ PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent ],
       providers: [
         { provide: ActorService, useValue: actorService }
       ]
