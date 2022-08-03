@@ -12,7 +12,7 @@ import {Monster} from "../../models/monsters/monster";
 export class PrepareBattleComponent implements OnInit {
 
   @Output()
-  actorsToEmit = new EventEmitter<Actor[]>();
+  actorsEmitter = new EventEmitter<Actor[]>();
   @Output()
   battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
 
@@ -30,7 +30,7 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   removeActor(actor: Actor) {
-    this.actorsToEmit.emit(this.actors)
+    this.actorsEmitter.emit(this.actors)
     this.actors.splice(this.actors.indexOf(actor), 1);
   }
 
