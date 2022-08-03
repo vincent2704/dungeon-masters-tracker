@@ -122,14 +122,14 @@ export class MonsterManualMonsters {
   )
 
   static RUG_OF_SMOTHERING = new Monster(MonsterId.RUG_OF_SMOTHERING_ID,
-  'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
+    'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
     new MonsterArmor(12), new MonsterHitPoints(33, 6, DieType.D10), new MonsterSpeed(10),
     new AbilitySet(17, 14, 10, 1, 3, 1),
     MonsterChallenge.TWO, undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
     [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
     new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6), undefined,
     SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
-    )
+  )
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
@@ -138,8 +138,18 @@ export class MonsterManualMonsters {
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, undefined, [Condition.PRONE],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
-    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), [],
+    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), undefined,
     Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
+  )
+
+  static BUGBEAR = new Monster(MonsterId.BUGBEAR_ID,
+    'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.GOBLINOID], Alignment.CHAOTIC_EVIL,
+    new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD]), new MonsterHitPoints(27, 5, DieType.D8, 5),
+    new MonsterSpeed(30), new AbilitySet(15, 14, 13, 8, 11, 9),
+    MonsterChallenge.ONE, undefined, [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
+    undefined, undefined, undefined, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+    new MonsterLanguages([Language.COMMON, Language.GOBLIN]), SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
+    Action.BUGBEAR_ACTIONS
   )
 
   static GOBLIN = new Monster(MonsterId.GOBLIN_ID,
@@ -148,13 +158,13 @@ export class MonsterManualMonsters {
     new MonsterSpeed(30), new AbilitySet(8, 14, 10, 10, 8, 8),
     MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
-    new MonsterLanguages([Language.COMMON, Language.GOBLIN]), [SpecialTrait.NIMBLE_ESCAPE],
+    new MonsterLanguages([Language.COMMON, Language.GOBLIN]), SpecialTrait.GOBLIN_SPECIAL_TRAITS,
     Action.GOBLIN_ACTIONS
   )
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.SPECTATOR, this.GOBLIN
+    this.RUG_OF_SMOTHERING, this.SPECTATOR, this.BUGBEAR, this.GOBLIN
   ]
 
 }
