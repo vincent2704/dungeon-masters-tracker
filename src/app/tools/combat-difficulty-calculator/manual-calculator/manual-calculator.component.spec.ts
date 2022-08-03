@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ManualCalculatorComponent } from './manual-calculator.component';
 import {FormsModule} from "@angular/forms";
 import {Actor} from "../../../models/actor";
+import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 
 describe('ManualCalculatorComponent', () => {
   let component: ManualCalculatorComponent;
@@ -11,7 +13,7 @@ describe('ManualCalculatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ ManualCalculatorComponent ]
+      declarations: [ ManualCalculatorComponent, DifficultyBarComponent ]
     })
     .compileComponents();
   });
@@ -43,10 +45,10 @@ describe('ManualCalculatorComponent', () => {
     component.monsterCount = '4'
 
     // when
-    component.onSubmit();
+    component.getDifficulty();
 
     // then
-    expect(component.difficultyDescription).toEqual('Predicted difficulty: Hard');
+    expect(component.difficulty).toEqual(Difficulty.HARD);
   });
 
 });

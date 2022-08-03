@@ -10,9 +10,10 @@
                [(ngModel)]="monsterCount">
       </div>
       <div class="col">
-        <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+        <button class="btn btn-primary" (click)="getDifficulty()">Submit</button>
       </div>
-      <h3>{{difficultyDescription}}</h3>
+        <h4>Difficulty: {{difficulty}}</h4>
+        <app-difficulty-bar [difficulty]="difficulty"></app-difficulty-bar>
     </div>
   </div>
 </div>

@@ -1,41 +1,48 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MonsterListSelectorComponent } from './monster-list-selector.component';
-import {MonsterService} from "../../../services/monster/monster.service";
-import {MonsterManualMonsters} from "../../../models/monsters/monsterManualMonsters";
-import {Monster} from "../../../models/monsters/monster";
+import { MonsterBattleListSelectorComponent } from './monster-battle-list-selector.component';
 import {Actor} from "../../../models/actor";
+import {Monster} from "../../../models/monsters/monster";
+import {MonsterManualMonsters} from "../../../models/monsters/monsterManualMonsters";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
-import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
+import {
+  DifficultyBarComponent
+} from "../../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
 
-describe('MonsterListSelectorComponent', () => {
-  let component: MonsterListSelectorComponent;
-  let fixture: ComponentFixture<MonsterListSelectorComponent>;
-  let monsterServiceSpy: jasmine.SpyObj<MonsterService>
+describe('MonsterSelectorComponent', () => {
+  let component: MonsterBattleListSelectorComponent;
+  let fixture: ComponentFixture<MonsterBattleListSelectorComponent>;
 
   beforeEach(async () => {
-    const monsterService = jasmine.createSpyObj('MonsterService', ['getMonsters'])
-
     await TestBed.configureTestingModule({
-      declarations: [ MonsterListSelectorComponent, DifficultyBarComponent ],
-      providers: [
-        {provide: MonsterService, useValue: monsterService}
-      ]
+      declarations: [ MonsterBattleListSelectorComponent, DifficultyBarComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MonsterListSelectorComponent);
+    fixture = TestBed.createComponent(MonsterBattleListSelectorComponent);
     component = fixture.componentInstance;
     component.participatingActors = [];
-
-    monsterServiceSpy = TestBed.inject(MonsterService) as jasmine.SpyObj<MonsterService>;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should clear selected monsters after adding them to battle', () => {
+    // given
+    component.selectedMonstersCount = new Map<Monster, number>([
+      [MonsterManualMonsters.ANIMATED_ARMOR, 2], // 400 XP
+      [MonsterManualMonsters.GOBLIN, 2] // 100 XP
+    ]);
+
+    // when
+    component.addMonstersToBattle()
+
+    // then
+    expect(component.selectedMonstersCount.size).toEqual(0);
   });
 
   it('should get difficulty', () => {
@@ -115,6 +122,5 @@ describe('MonsterListSelectorComponent', () => {
     expect(component.getMonsterCount(MonsterManualMonsters.AARAKOCRA)).toEqual(5);
     expect(component.getMonsterCount(MonsterManualMonsters.DEVA)).toEqual(3);
   });
-
 
 });

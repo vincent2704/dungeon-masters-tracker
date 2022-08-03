@@ -69,6 +69,26 @@ export class SpecialTrait {
     "The planetar has advantage on saving " +
     "throws against spells and other magical effects.")
 
+  private static readonly SOLAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
+    "The solar's weapon attacks are magical. " +
+    "When the solar hits with any weapon, the weapon deals an " +
+    "extra 6d8 radiant damage (included in the attack).")
+
+  private static readonly SOLAR_DIVINE_AWARENESS = new SpecialTrait('Divine Awareness',
+    "The solar knows if it hears a lie.")
+
+  private static readonly SOLAR_INNATE_SPELLCASTING = new SpecialTrait('Innate Spellcasting',
+    "The solar's spell casting ability is Charisma " +
+    "(spell save DC 25). It can innately cast the following spells, " +
+    "requiring no material components: " +
+    "At will: detect evil and good, invisibility (self only) " +
+    "3/day each: blade barrier, dispel evil and good, resurrection " +
+    "1/day each: commune, control weather")
+
+  private static readonly SOLAR_MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
+    "The solar has advantage on saving throws " +
+    "against spells and other magical effects.")
+
   private static readonly ANIMATED_ARMOR_ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
     "The armor is incapacitated while in " +
     "the area of an antimagic field. If targeted by dispel magic, the " +
@@ -104,25 +124,15 @@ export class SpecialTrait {
     "While the rug remains motionless, it is " +
     "indistinguishable from a normal rug.")
 
-  private static readonly SOLAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
-    "The solar's weapon attacks are magical. " +
-    "When the solar hits with any weapon, the weapon deals an " +
-    "extra 6d8 radiant damage (included in the attack).")
+  private static readonly BANSHEE_DETECT_LIFE = new SpecialTrait('Detect Life',
+    "The banshee can magically sense the presence " +
+    "of living creatures up to 5 miles away. She knows the general " +
+    "direction they're in but not their exact locations.")
 
-  private static readonly SOLAR_DIVINE_AWARENESS = new SpecialTrait('Divine Awareness',
-    "The solar knows if it hears a lie.")
-
-  private static readonly SOLAR_INNATE_SPELLCASTING = new SpecialTrait('Innate Spellcasting',
-    "The solar's spell casting ability is Charisma " +
-    "(spell save DC 25). It can innately cast the following spells, " +
-    "requiring no material components: " +
-    "At will: detect evil and good, invisibility (self only) " +
-    "3/day each: blade barrier, dispel evil and good, resurrection " +
-    "1/day each: commune, control weather")
-
-  private static readonly SOLAR_MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
-    "The solar has advantage on saving throws " +
-    "against spells and other magical effects.")
+  private static readonly BANSHEE_INCORPOREAL_MOVEMENT = new SpecialTrait('Incorporeal Movement',
+    "The banshee can move through other " +
+    "creatures and objects as if they were difficult terrain. She takes " +
+    "5 (1d10) force damage if she ends her turn inside an object. ")
 
   private static readonly BUGBEAR_BRUTE = new SpecialTrait('Brute',
     "A melee weapon deals one extra die of its damage when the " +
@@ -151,6 +161,8 @@ export class SpecialTrait {
   static readonly FLYING_SWORD_SPECIAL_TRAITS = [this.FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY, this.FLYING_SWORD_FALSE_APPEARANCE]
   static readonly RUG_OF_SMOTHERING_SPECIAL_TRAITS = [this.RUG_OF_SMOTHERING_ANTIMAGIC_SUSCEPTIBILITY, this.RUG_OF_SMOTHERING_DAMAGE_TRANSFER,
     this.RUG_OF_SMOTHERING_FALSE_APPEARANCE]
+
+  static readonly BANSHEE_SPECIAL_TRAITS = [this.BANSHEE_DETECT_LIFE, this.BANSHEE_INCORPOREAL_MOVEMENT]
 
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
 

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
+import {Difficulty} from "../../../models/combat-data/Difficulty";
 
 @Component({
   selector: 'app-manual-calculator',
@@ -15,6 +16,7 @@ export class ManualCalculatorComponent implements OnInit {
   monsterXp: string = '';
   monsterCount: string = '';
   difficultyDescription: string = '';
+  difficulty: Difficulty = Difficulty.NOT_APPLICABLE;
 
   constructor() {
   }
@@ -22,21 +24,8 @@ export class ManualCalculatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    if(!this.monsterXp || !this.monsterCount) {
-      this.difficultyDescription = 'Invalid input';
-      return;
-    }
-
-    let monsterXp = parseInt(this.monsterXp);
-    let monsterCount = parseInt(this.monsterCount);
-
-    if(monsterXp < 1 || monsterCount < 1) {
-      this.difficultyDescription = 'Invalid input';
-      return;
-    }
-    let difficulty = CombatDataService.getDifficulty(this.participatingActors, monsterXp, monsterCount);
-    this.difficultyDescription = `Predicted difficulty: ${difficulty}`;
+  getDifficulty(): void {
+    this.difficulty = CombatDataService.getDifficulty(
+      this.participatingActors, parseInt(this.monsterXp), parseInt(this.monsterCount));
   }
-
 }

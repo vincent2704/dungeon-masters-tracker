@@ -1,16 +1,24 @@
-<div class="row">
+<div class="row gx-5">
   <div class="col-sm-4">
     <div>
-      <h4>
-        Difficulty: {{getDifficulty()}}
-      </h4>
+      <h3>
+        Monsters list difficulty:
+      </h3>
+      <h2>
+        {{getDifficulty()}}
+      </h2>
       <app-difficulty-bar [difficulty]="getDifficulty()"></app-difficulty-bar>
     </div>
-    <div class="div">
-      Protagonist count: {{participatingActors.length}}
+    <div>
+      <button i18n="confirm monsters button|Button used to add selected monsters to battle before it starts"
+              class="btn btn-primary" (click)="addMonstersToBattle()">Confirm monsters
+      </button>
     </div>
-    <div class="div">
-      Monster count: {{getTotalMonstersSelected()}}
+    <hr>
+    <div>
+      <button i18n="start battle button|Button used to start combat"
+              class="col btn btn-primary" (click)="startBattle()">Start battle!
+      </button>
     </div>
   </div>
   <div class="col-sm-8">
@@ -22,7 +30,8 @@
           <div class="col-sm-3">
             <button class="btn btn-primary" (click)="addMonster(monster)">+</button>
             <button class="btn btn-primary" (click)="subtractMonster(monster)"
-            [disabled]="getMonsterCount(monster) === 0">-</button>
+                    [disabled]="getMonsterCount(monster) === 0">-
+            </button>
           </div>
           <div class="col-sm-1">
             <div *ngIf="getMonsterCount(monster) > 0">({{getMonsterCount(monster)}})</div>

@@ -7,6 +7,10 @@ import {ActorService} from "../../services/actor/actor.service";
 import {Actor} from "../../models/actor";
 import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
+import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
+import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
+import {Monster} from "../../models/monsters/monster";
+import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -23,7 +27,7 @@ describe('PrepareBattleComponent', () => {
     const actorService = jasmine.createSpyObj('ActorService', ['getActors']);
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ PrepareBattleComponent, AddActorComponent ],
+      declarations: [ PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent ],
       providers: [
         { provide: ActorService, useValue: actorService }
       ]
@@ -51,5 +55,26 @@ describe('PrepareBattleComponent', () => {
     let tableRows = fixture.debugElement.queryAll(By.css('tr'));
     expect(tableRows.length).toEqual(4);
   });
+
+  it('should add monsters from monster list selector to participating actors', () => {
+    // given
+    component.actors = [];
+    let monstersFromList = new Map<Monster, number>([
+      [MonsterManualMonsters.ANIMATED_ARMOR, 2], // 400 XP
+      [MonsterManualMonsters.GOBLIN, 2] // 100 XP
+    ]);
+
+    // when
+    component.addMonstersToBattle(monstersFromList);
+
+    // then
+    expect(component.actors).toEqual([
+      new Actor('Animated Armor1', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+    ])
+  });
+
 
 });

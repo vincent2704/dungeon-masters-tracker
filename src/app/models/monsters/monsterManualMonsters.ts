@@ -131,6 +131,18 @@ export class MonsterManualMonsters {
     SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
   )
 
+  static BANSHEE = new Monster(MonsterId.BANSHEE_ID,
+    'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, [], Alignment.CHAOTIC_EVIL, new MonsterArmor(12),
+    new MonsterHitPoints(58, 13, DieType.D8), new MonsterSpeed(0, 40),
+    new AbilitySet(1, 14, 10, 12, 11, 17),
+    MonsterChallenge.FOUR, [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
+    undefined, new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
+      [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
+    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10), new MonsterLanguages([Language.COMMON, Language.ELVISH]),
+    SpecialTrait.BANSHEE_SPECIAL_TRAITS, Action.BANSHEE_ACTIONS
+  )
+
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterHitPoints(39, 6, DieType.D8, 12), new MonsterSpeed(0, 30),
@@ -164,7 +176,7 @@ export class MonsterManualMonsters {
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.SPECTATOR, this.BUGBEAR, this.GOBLIN
+    this.RUG_OF_SMOTHERING, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN
   ]
 
 }
