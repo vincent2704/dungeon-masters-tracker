@@ -28,5 +28,6 @@
 </div>
 <div class="container-fluid">
   <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
-  <app-monster-battle-list-selector (battleStartEmitter)="startBattle()" [participatingActors]="actors"></app-monster-battle-list-selector>
+  <app-monster-battle-list-selector (battleStartEmitter)="startBattle()" (monstersEmitter)="addMonstersToBattle($event)"
+                                    [participatingActors]="actors"></app-monster-battle-list-selector>
 </div>

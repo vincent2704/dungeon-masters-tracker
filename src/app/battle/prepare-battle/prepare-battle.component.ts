@@ -41,4 +41,15 @@ export class PrepareBattleComponent implements OnInit {
   startBattle() {
     this.battleStartedEmitter.emit();
   }
+
+  addMonstersToBattle(monsters: Map<Monster, number>) {
+    monsters.forEach((monsterCount, monster) => {
+      for(let i = 1; i <= monsterCount; i++) {
+        this.actors.push(
+          new Actor(`${monster.getName()}${i}`, monster.getHitPoints().getHitPoints())
+        )
+      }
+    })
+  }
+
 }

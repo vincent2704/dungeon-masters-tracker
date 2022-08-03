@@ -1,13 +1,14 @@
 <div class="row">
   <div class="col-sm-4">
-    <div>
-      <button i18n="start battle button|Button used to start combat"
-              class="btn btn-primary" (click)="startBattle()">Start battle!
-      </button>
-    </div>
+    <button i18n="start battle button|Button used to start combat"
+            class="col btn btn-primary" (click)="startBattle()">Start battle!
+    </button>
     <div>
       Difficulty: {{getDifficulty()}}
     </div>
+    <button i18n="add monsters button|Button used to add selected monsters to battle before it starts"
+            class="btn btn-primary" (click)="addMonstersToBattle()">Add monsters
+    </button>
   </div>
   <div class="col-sm-8">
     <div class="list-group" *ngFor="let monster of monsterService.getMonsters()">

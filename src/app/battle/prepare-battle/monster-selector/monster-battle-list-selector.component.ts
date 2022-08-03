@@ -18,6 +18,8 @@ export class MonsterBattleListSelectorComponent implements OnInit {
 
   @Output()
   battleStartEmitter = new EventEmitter<void>();
+  @Output()
+  monstersEmitter = new EventEmitter<Map<Monster, number>>();
 
   selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
 
@@ -30,6 +32,11 @@ export class MonsterBattleListSelectorComponent implements OnInit {
 
   startBattle(): void {
     this.battleStartEmitter.emit();
+  }
+
+  addMonstersToBattle() {
+    this.monstersEmitter.emit(this.selectedMonstersCount);
+    this.selectedMonstersCount.clear();
   }
 
   getDifficulty(): Difficulty {
