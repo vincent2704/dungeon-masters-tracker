@@ -4,6 +4,7 @@ import { CombatDifficultyCalculatorComponent } from './combat-difficulty-calcula
 import {FormsModule} from "@angular/forms";
 import {ManualCalculatorComponent} from "./manual-calculator/manual-calculator.component";
 import {MonsterListSelectorComponent} from "./monster-list-selector/monster-list-selector.component";
+import {DifficultyBarComponent} from "./difficulty-bar/difficulty-bar.component";
 
 describe('CombatDifficultyCalculatorComponent', () => {
   let component: CombatDifficultyCalculatorComponent;
@@ -12,7 +13,7 @@ describe('CombatDifficultyCalculatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [ CombatDifficultyCalculatorComponent, ManualCalculatorComponent, MonsterListSelectorComponent ]
+      declarations: [ CombatDifficultyCalculatorComponent, ManualCalculatorComponent, MonsterListSelectorComponent, DifficultyBarComponent ]
     })
     .compileComponents();
   });

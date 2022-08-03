@@ -5,6 +5,9 @@ import {Actor} from "../../../models/actor";
 import {Monster} from "../../../models/monsters/monster";
 import {MonsterManualMonsters} from "../../../models/monsters/monsterManualMonsters";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {
+  DifficultyBarComponent
+} from "../../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
 
 describe('MonsterSelectorComponent', () => {
   let component: MonsterBattleListSelectorComponent;
@@ -12,7 +15,7 @@ describe('MonsterSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MonsterBattleListSelectorComponent ]
+      declarations: [ MonsterBattleListSelectorComponent, DifficultyBarComponent ]
     })
     .compileComponents();
   });

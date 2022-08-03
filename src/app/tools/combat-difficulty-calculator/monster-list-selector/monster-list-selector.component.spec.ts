@@ -6,6 +6,7 @@ import {MonsterManualMonsters} from "../../../models/monsters/monsterManualMonst
 import {Monster} from "../../../models/monsters/monster";
 import {Actor} from "../../../models/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 
 describe('MonsterListSelectorComponent', () => {
   let component: MonsterListSelectorComponent;
@@ -16,7 +17,7 @@ describe('MonsterListSelectorComponent', () => {
     const monsterService = jasmine.createSpyObj('MonsterService', ['getMonsters'])
 
     await TestBed.configureTestingModule({
-      declarations: [ MonsterListSelectorComponent ],
+      declarations: [ MonsterListSelectorComponent, DifficultyBarComponent ],
       providers: [
         {provide: MonsterService, useValue: monsterService}
       ]
