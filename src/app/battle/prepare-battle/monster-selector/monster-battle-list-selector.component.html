@@ -7,9 +7,7 @@
       <h2>
         {{getDifficulty()}}
       </h2>
-      <div class="progress">
-        <div [ngClass]="getDifficultyBarClass()" role="progressbar" [ngStyle]="{width: getDifficultyBarWidth()}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
+      <app-difficulty-bar [difficulty]="getDifficulty()"></app-difficulty-bar>
     </div>
     <div>
       <button i18n="add monsters button|Button used to add selected monsters to battle before it starts"
