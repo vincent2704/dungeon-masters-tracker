@@ -179,6 +179,15 @@ export class Action {
     "The target magically regains 40 (8d8 + 4) hit points and is freed " +
     "from any curse, disease, poison, blindness, or deafness.")
 
+  private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
+    "target. Hit: 11 (2d8 + 2) piercing damage.")
+
+  private static readonly BUGBEAR_JAVELIN = new Action('Javelin',
+    "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
+    "range 30/120 ft., one target. Hit: 9 (2d6 + 2) piercing damage " +
+    "in melee or 5 (1d6 + 2) piercing damage at range.")
+
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
   static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, this.ABOLETH_TENTACLE, this.ABOLETH_TAIL, this.ABOLETH_ENSLAVE];
   static DEVA_ACTIONS = [this.DEVA_MULTIATTACK, this.DEVA_MACE, this.DEVA_HEALING_TOUCH, this.DEVA_CHANGE_SHAPE];
@@ -191,6 +200,8 @@ export class Action {
   static RUG_OF_SMOTHERING_ACTIONS = [this.RUG_OF_SMOTHERING_SMOTHER];
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
+
+  static BUGBEAR_ACTIONS = [this.BUGBEAR_MORNINGSTAR, this.BUGBEAR_JAVELIN];
 
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
 

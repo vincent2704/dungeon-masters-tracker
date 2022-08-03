@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MonstersComponent } from './monsters.component';
 import {MonsterManualMonsters} from "../models/monsters/monsterManualMonsters";
 import {Settings} from "../services/settings/settings";
+import {FormsModule} from "@angular/forms";
 
 describe('MonstersComponent', () => {
   let component: MonstersComponent;
@@ -10,6 +11,7 @@ describe('MonstersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ MonstersComponent ]
     })
     .compileComponents();
@@ -28,12 +30,12 @@ describe('MonstersComponent', () => {
   it('should show monster details', () => {
     let monster = MonsterManualMonsters.ABOLETH;
 
-    expect(component.showMonster(monster)).toBeFalse();
+    expect(component.showMonsterDetails(monster)).toBeFalse();
 
     component.toggleDetails(monster);
-    expect(component.showMonster(monster)).toBeTrue();
+    expect(component.showMonsterDetails(monster)).toBeTrue();
     component.toggleDetails(monster);
-    expect(component.showMonster(monster)).toBeFalse();
+    expect(component.showMonsterDetails(monster)).toBeFalse();
   });
 
   it('should process basic monster info', () => {
@@ -60,6 +62,20 @@ describe('MonstersComponent', () => {
 
     Settings.setSISystem(false);
     expect(component.getSpeed(monster)).toEqual('Speed: 30 ft.');
+  });
+
+  it('should filter monsters by name case insensitive', () => {
+    // given
+    component.monsters = [MonsterManualMonsters.AARAKOCRA, MonsterManualMonsters.ABOLETH, MonsterManualMonsters.DEVA,
+      MonsterManualMonsters.RUG_OF_SMOTHERING, MonsterManualMonsters.GOBLIN];
+    component.monsterNamePart = 'a';
+
+    // when
+    let filteredMonsters = component.getMonstersFiltered();
+
+    // then
+    expect(filteredMonsters).toEqual([MonsterManualMonsters.AARAKOCRA, MonsterManualMonsters.ABOLETH,
+    MonsterManualMonsters.DEVA]);
   });
 
 });

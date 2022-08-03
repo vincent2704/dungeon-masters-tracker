@@ -11,7 +11,8 @@ import {MeasurementSystem} from "../services/measurement-system/measurement.syst
 export class MonstersComponent implements OnInit {
 
   monsters: Monster[] = [];
-  monsterShowMap: Map<Monster, boolean> = new Map<Monster, boolean>();
+  monsterDetailsShowMap: Map<Monster, boolean> = new Map<Monster, boolean>();
+  monsterNamePart: string = '';
 
   constructor(private monsterService: MonsterService) {
   }
@@ -19,7 +20,7 @@ export class MonstersComponent implements OnInit {
   ngOnInit(): void {
     this.monsters = this.monsterService.getMonsters();
     this.monsters.forEach(monster => {
-      this.monsterShowMap.set(monster, false);
+      this.monsterDetailsShowMap.set(monster, false);
     })
   }
 
@@ -77,13 +78,18 @@ export class MonstersComponent implements OnInit {
   }
 
   toggleDetails(monster: Monster) {
-    let currentShowStatus = this.monsterShowMap.get(monster);
-    this.monsterShowMap.set(monster, !currentShowStatus);
+    let currentShowStatus = this.monsterDetailsShowMap.get(monster);
+    this.monsterDetailsShowMap.set(monster, !currentShowStatus);
   }
 
-  showMonster(monster: Monster): boolean {
-    return this.monsterShowMap.get(monster)!;
+  showMonsterDetails(monster: Monster): boolean {
+    return this.monsterDetailsShowMap.get(monster)!;
   }
 
+  getMonstersFiltered(): Monster[] {
+    return this.monsters.filter(monster => {
+      return monster.getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
+    })
+  }
 
 }

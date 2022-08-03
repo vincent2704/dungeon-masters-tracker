@@ -55,6 +55,8 @@ export class MonsterId {
   static readonly GOBLIN_ID = new MonsterId(158, MonsterSource.MONSTER_MANUAL);
   static readonly CLAY_GOLEM_ID = new MonsterId(160, MonsterSource.MONSTER_MANUAL);
 
+  static readonly WEREWOLF_ID = new MonsterId(203, MonsterSource.MONSTER_MANUAL);
+
   getId(): number {
     return this.id
   }

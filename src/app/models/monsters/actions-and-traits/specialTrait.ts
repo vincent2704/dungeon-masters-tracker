@@ -69,10 +69,6 @@ export class SpecialTrait {
     "The planetar has advantage on saving " +
     "throws against spells and other magical effects.")
 
-  static readonly NIMBLE_ESCAPE = new SpecialTrait('Nimble Escape',
-    "The goblin can take the Disengage or Hide " +
-    "action as a bonus action on each of its turns")
-
   private static readonly ANIMATED_ARMOR_ANTIMAGIC_SUSCEPTIBILITY = new SpecialTrait('Antimagic Susceptibility',
     "The armor is incapacitated while in " +
     "the area of an antimagic field. If targeted by dispel magic, the " +
@@ -128,6 +124,19 @@ export class SpecialTrait {
     "The solar has advantage on saving throws " +
     "against spells and other magical effects.")
 
+  private static readonly BUGBEAR_BRUTE = new SpecialTrait('Brute',
+    "A melee weapon deals one extra die of its damage when the " +
+    "bugbear hits with it (included in the attack).")
+
+  private static readonly BUGBEAR_SURPRISE_ATTACK = new SpecialTrait('Surprise Attack',
+    "If the bugbear surprises a creature and hits it " +
+    "with an attack during the first round of combat, the target takes " +
+    "an extra 7 (2d6) damage from the attack.")
+
+  private static readonly GOBLIN_NIMBLE_ESCAPE = new SpecialTrait('Nimble Escape',
+    "The goblin can take the Disengage or Hide " +
+    "action as a bonus action on each of its turns")
+
   static readonly AARAKOCRA_SPECIAL_TRAITS = [this.AARAKOCRA_DIVE_ATTACK]
 
   static readonly ABOLETH_SPECIAL_TRAITS = [this.ABOLETH_AMPHIBIOUS, this.ABOLETH_MUCOUS_CLOUD, this.ABOLETH_PROBING_TELEPATHY];
@@ -142,5 +151,9 @@ export class SpecialTrait {
   static readonly FLYING_SWORD_SPECIAL_TRAITS = [this.FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY, this.FLYING_SWORD_FALSE_APPEARANCE]
   static readonly RUG_OF_SMOTHERING_SPECIAL_TRAITS = [this.RUG_OF_SMOTHERING_ANTIMAGIC_SUSCEPTIBILITY, this.RUG_OF_SMOTHERING_DAMAGE_TRANSFER,
     this.RUG_OF_SMOTHERING_FALSE_APPEARANCE]
+
+  static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
+
+  static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
 
 }
