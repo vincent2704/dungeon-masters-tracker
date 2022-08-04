@@ -140,6 +140,12 @@ export class Action {
     "another target. In addition, at the start of each of the target's " +
     "turns, the target takes 10 (2d6 + 3) bludgeoning damage.")
 
+  private static readonly AZER_WARHAMMER = new Action('Warhammer',
+    "Melee Weapon Attack: +5 to hit, reach 5 ft., one " +
+    "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
+    "bludgeoning damage if used with two hands to make a melee " +
+    "attack, plus 3 (1d6) fire damage.")
+
   private static readonly BANSHEE_CORRUPTING_TOUCH = new Action('Corrupting Touch',
     "Melee Spell Attack: +4 to hit, reach 5 ft., one " +
     "target. Hit: 12 (3d6 + 2) necrotic damage.")
@@ -220,6 +226,8 @@ export class Action {
   static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
   static FLYING_SWORD_ACTIONS = [this.FLYING_SWORD_LONGSWORD];
   static RUG_OF_SMOTHERING_ACTIONS = [this.RUG_OF_SMOTHERING_SMOTHER];
+
+  static AZER_ACTIONS = [this.AZER_WARHAMMER];
 
   static BANSHEE_ACTIONS = [this.BANSHEE_CORRUPTING_TOUCH, this.BANSHEE_HORRIFYING_VISAGE, this.BANSHEE_WAIL];
 
