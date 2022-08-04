@@ -1,21 +1,21 @@
-import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
+import {Speed} from "./speed";
 
 export class MonsterSpeed {
 
-  constructor(private landSpeedInFeet: number, private flyingSpeedInFeet = 0,
-              private swimmingSpeedInFeet = 0) {
+  constructor(private landSpeed: Speed, private flyingSpeed: Speed = new Speed(0),
+              private swimmingSpeed: Speed = new Speed(0)) {
   }
 
-  getLandSpeed(): number {
-    return MeasurementSystem.getFeetDistance(this.landSpeedInFeet);
+  getLandSpeed(): Speed {
+    return this.landSpeed;
   }
 
-  getFlyingSpeed(): number {
-    return MeasurementSystem.getFeetDistance(this.flyingSpeedInFeet);
+  getFlyingSpeed(): Speed {
+    return this.flyingSpeed;
   }
 
-  getSwimmingSpeed(): number {
-    return MeasurementSystem.getFeetDistance(this.swimmingSpeedInFeet);
+  getSwimmingSpeed(): Speed {
+    return this.swimmingSpeed;
   }
 
 }

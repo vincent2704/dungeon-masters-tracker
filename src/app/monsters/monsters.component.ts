@@ -35,17 +35,17 @@ export class MonstersComponent implements OnInit {
   getArmorClass(monster: Monster): string {
     let armorClassInfo = 'Armor Class: '
     let monsterArmorClass = monster.getArmorClass();
-    for(let armor of monsterArmorClass) {
+    for (let armor of monsterArmorClass) {
       let armorClass = `${armor.getArmorClassValue()}`;
       let equipment = armor.getEquipment();
       let equipmentDescription = armor.getDescription();
       if (armor.getEquipment().length > 0) {
         armorClass += ` (${equipment.join(', ')})`;
       }
-      if(equipmentDescription) {
+      if (equipmentDescription) {
         armorClass += ` ${equipmentDescription}`
       }
-      if(monsterArmorClass.length > 1 && monsterArmorClass.indexOf(armor) < monsterArmorClass.length-1) {
+      if (monsterArmorClass.length > 1 && monsterArmorClass.indexOf(armor) < monsterArmorClass.length - 1) {
         armorClass += ', ';
       }
       armorClassInfo += armorClass;
@@ -67,21 +67,37 @@ export class MonstersComponent implements OnInit {
   }
 
   getSpeed(monster: Monster): string {
-    let speed = monster.getSpeed();
+    let monsterSpeed = monster.getSpeed();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
-    let landSpeed = speed.getLandSpeed();
-    let flyingSpeed = speed.getFlyingSpeed();
-    let swimmingSpeed = speed.getSwimmingSpeed();
+    let landSpeed = monsterSpeed.getLandSpeed();
+    let flyingSpeed = monsterSpeed.getFlyingSpeed();
+    let swimmingSpeed = monsterSpeed.getSwimmingSpeed();
 
-    let monsterSpeed = `Speed: ${landSpeed} ${measurementUnit}`;
-    if (flyingSpeed > 0) {
-      monsterSpeed += `, fly ${flyingSpeed} ${measurementUnit}`;
-    }
-    if (swimmingSpeed > 0) {
-      monsterSpeed += `, swim ${swimmingSpeed} ${measurementUnit}`;
+    let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}`;
+    let monsterLandSpeedDescription = landSpeed.getDescription();
+    if (monsterLandSpeedDescription) {
+      speed += ` (${monsterLandSpeedDescription})`;
     }
 
-    return monsterSpeed;
+    let flyingSpeedValue = flyingSpeed.getSpeed();
+    if (flyingSpeedValue > 0) {
+      speed += `, fly ${flyingSpeedValue} ${measurementUnit}`;
+      let monsterFlyingSpeedDescription = flyingSpeed.getDescription();
+      if(monsterFlyingSpeedDescription) {
+        speed += ` (${monsterFlyingSpeedDescription})`
+      }
+    }
+
+    let swimmingSpeedValue = swimmingSpeed.getSpeed();
+    if(swimmingSpeedValue > 0) {
+      speed += `, swim ${swimmingSpeedValue} ${measurementUnit}`;
+      let monsterSwimmingSpeedDescription = swimmingSpeed.getDescription();
+      if(monsterSwimmingSpeedDescription) {
+        speed += ` (${monsterSwimmingSpeedDescription})`;
+      }
+    }
+
+    return speed;
   }
 
   getChallenge(monster: Monster): string {
