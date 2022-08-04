@@ -8,6 +8,7 @@ import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {
   DifficultyBarComponent
 } from "../../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
+import { FormsModule } from "@angular/forms";
 
 describe('MonsterSelectorComponent', () => {
   let component: MonsterBattleListSelectorComponent;
@@ -15,6 +16,7 @@ describe('MonsterSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ MonsterBattleListSelectorComponent, DifficultyBarComponent ]
     })
     .compileComponents();

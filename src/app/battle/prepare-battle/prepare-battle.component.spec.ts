@@ -9,7 +9,6 @@ import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
-import {Monster} from "../../models/monsters/monster";
 import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
 
 describe('PrepareBattleComponent', () => {
@@ -59,10 +58,12 @@ describe('PrepareBattleComponent', () => {
   it('should add monsters from monster list selector to participating actors', () => {
     // given
     component.actors = [];
-    let monstersFromList = new Map<Monster, number>([
-      [MonsterManualMonsters.ANIMATED_ARMOR, 2], // 400 XP
-      [MonsterManualMonsters.GOBLIN, 2] // 100 XP
-    ]);
+    let monstersFromList = [
+      new Actor('Animated Armor1', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+    ]
 
     // when
     component.addMonstersToBattle(monstersFromList);
