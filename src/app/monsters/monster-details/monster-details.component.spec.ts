@@ -35,6 +35,11 @@ describe('MonsterDetailsComponent', () => {
   it('should display immunities', () => {
     component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
     expect(component.getDamageImmunities()).toEqual('poison, psychic');
+
+    component.monster = MonsterManualMonsters.WEREWOLF;
+    expect(component.getDamageImmunities()).toEqual('bludgeoning, piercing, slashing damage from ' +
+      'nonmagical weapons that aren\'t silvered');
+    expect(component.getLanguages()).toEqual('Common (can\'t speak in wolf form)');
   });
 
   it('should display ability score info', () => {

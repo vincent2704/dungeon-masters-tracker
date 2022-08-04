@@ -69,6 +69,7 @@ describe('MonstersComponent', () => {
     monster = MonsterManualMonsters.WEREWOLF
     expect(component.getArmorClass(monster)).toEqual('Armor Class: ' +
       '11 in humanoid form, 12 (natural armor) in wolf or hybrid form');
+    expect(component.getSpeed(monster)).toEqual('Speed: 30ft. (40ft. in wolf form)')
   });
 
   it('should filter monsters by name case insensitive', () => {
