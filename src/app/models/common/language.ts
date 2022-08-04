@@ -6,4 +6,5 @@ export enum Language {
   COMMON = 'Common',
   GOBLIN = 'Goblin',
   ELVISH = 'Elvish',
+  IGNAN = 'Ignan'
 }

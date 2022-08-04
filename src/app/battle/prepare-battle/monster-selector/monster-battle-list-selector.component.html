@@ -10,9 +10,18 @@
       <app-difficulty-bar [difficulty]="getDifficulty()"></app-difficulty-bar>
     </div>
     <div>
-      <button i18n="confirm monsters button|Button used to add selected monsters to battle before it starts"
-              class="btn btn-primary" (click)="addMonstersToBattle()">Confirm monsters
-      </button>
+      <div class="row gx-2">
+        <div class="col">
+          <button i18n="confirm monsters button|Button used to add selected monsters to battle before it starts"
+                  class="btn btn-primary" (click)="addMonstersToBattle()">Confirm monsters
+          </button>
+        </div>
+        <div class="col">
+          <label for="randomizeMonstersHP" class="form-check-label" >Randomize HP</label>
+          <input type="checkbox" class="form-check-input" value="" id="randomizeMonstersHP"
+                 [(ngModel)]="randomizeMonstersHPCheckboxChecked">
+        </div>
+      </div>
     </div>
     <hr>
     <div>

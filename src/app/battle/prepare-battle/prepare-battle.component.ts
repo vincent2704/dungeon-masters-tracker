@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { Actor } from "../../models/actor";
+import {Actor} from "../../models/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Settings} from "../../services/settings/settings";
 import {Monster} from "../../models/monsters/monster";
@@ -19,7 +19,7 @@ export class PrepareBattleComponent implements OnInit {
   actors: Actor[];
 
   constructor(private actorService: ActorService) {
-    if(Settings.isAutoLoadProtagonists()) {
+    if (Settings.isAutoLoadProtagonists()) {
       this.actors = actorService.getActors().slice();
     } else {
       this.actors = [];
@@ -42,14 +42,9 @@ export class PrepareBattleComponent implements OnInit {
     this.battleStartedEmitter.emit();
   }
 
-  addMonstersToBattle(monsters: Map<Monster, number>) {
-    monsters.forEach((monsterCount, monster) => {
-      for(let i = 1; i <= monsterCount; i++) {
-        this.actors.push(
-          new Actor(`${monster.getName()}${i}`, monster.getHitPoints().getHitPoints())
-        )
-      }
-    })
+  addMonstersToBattle(monstersToAdd: Actor[]) {
+    for (let monster of monstersToAdd) {
+      this.actors.push(monster);
+    }
   }
-
 }

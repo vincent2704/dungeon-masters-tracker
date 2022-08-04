@@ -30,6 +30,10 @@ import {DamageImmunities} from "./damageImmunities";
 import {MonsterSenseNote} from "./enums/monsterSenseNote";
 import {DieType} from "../common/dieType";
 
+/*
+  This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
+  its aim is to reduce load on backend server as well as reduce app's response time retrieving most popular monsters.
+ */
 export class MonsterManualMonsters {
 
   static AARAKOCRA = new Monster(MonsterId.AARAKOCRA_ID,
@@ -131,6 +135,17 @@ export class MonsterManualMonsters {
     SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
   )
 
+  static AZER = new Monster(MonsterId.AZER_ID,
+    'Azer', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, [], Alignment.LAWFUL_NEUTRAL,
+    new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR, MonsterEquipment.SHIELD]),
+    new MonsterHitPoints(39, 6, DieType.D8, 12), new MonsterSpeed(30),
+    new AbilitySet(17, 12, 15, 12, 13, 10),
+    MonsterChallenge.TWO, [new SavingThrow(Ability.CONSTITUTION, 4)], undefined, undefined,
+    new DamageImmunities([DamageType.FIRE, DamageType.POISON]), [Condition.POISONED],
+    new MonsterSenses([], 11), new MonsterLanguages([Language.IGNAN]),
+    SpecialTrait.AZER_SPECIAL_TRAITS, Action.AZER_ACTIONS,
+  )
+
   static BANSHEE = new Monster(MonsterId.BANSHEE_ID,
     'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, [], Alignment.CHAOTIC_EVIL, new MonsterArmor(12),
     new MonsterHitPoints(58, 13, DieType.D8), new MonsterSpeed(0, 40),
@@ -176,7 +191,7 @@ export class MonsterManualMonsters {
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN
+    this.RUG_OF_SMOTHERING, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN
   ]
 
 }

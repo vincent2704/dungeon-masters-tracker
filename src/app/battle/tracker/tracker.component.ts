@@ -16,7 +16,7 @@ export class TrackerComponent implements OnInit {
   progressedActors: Actor[] = [];
 
   @Output()
-  battleEnded = new EventEmitter<void>();
+  battleEndedEmitter = new EventEmitter<void>();
 
   constructor(private temporalService: TemporalService) { }
 
@@ -71,7 +71,7 @@ export class TrackerComponent implements OnInit {
       this.temporalService.addSeconds((this.round - 1) * 6);
     }
     this.round = 1;
-    this.battleEnded.emit();
+    this.battleEndedEmitter.emit();
   }
 
 }

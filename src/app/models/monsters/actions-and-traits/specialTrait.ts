@@ -124,6 +124,20 @@ export class SpecialTrait {
     "While the rug remains motionless, it is " +
     "indistinguishable from a normal rug.")
 
+  private static readonly AZER_HEATED_BODY = new SpecialTrait('Heated Body',
+    "A creature that touches the azer or hits it with a " +
+    "melee attack while within 5 feet of it takes 5 (1d10) fire damage.")
+
+  private static readonly AZER_HEATED_WEAPONS = new SpecialTrait('Heated Weapons',
+    "When the azer hits with a metal melee " +
+    "weapon, it deals an extra 3 (1d6) fire damage (included in " +
+    "the attack).")
+
+  private static readonly AZER_ILLUMINATION = new SpecialTrait('Illumination',
+    "The azer sheds bright light in a 10-foot radius and " +
+    "dim light for an additional 10 feet.")
+
+
   private static readonly BANSHEE_DETECT_LIFE = new SpecialTrait('Detect Life',
     "The banshee can magically sense the presence " +
     "of living creatures up to 5 miles away. She knows the general " +
@@ -161,6 +175,8 @@ export class SpecialTrait {
   static readonly FLYING_SWORD_SPECIAL_TRAITS = [this.FLYING_SWORD_ANTIMAGIC_SUSCEPTIBILITY, this.FLYING_SWORD_FALSE_APPEARANCE]
   static readonly RUG_OF_SMOTHERING_SPECIAL_TRAITS = [this.RUG_OF_SMOTHERING_ANTIMAGIC_SUSCEPTIBILITY, this.RUG_OF_SMOTHERING_DAMAGE_TRANSFER,
     this.RUG_OF_SMOTHERING_FALSE_APPEARANCE]
+
+  static readonly AZER_SPECIAL_TRAITS = [this.AZER_HEATED_BODY, this.AZER_HEATED_WEAPONS, this.AZER_ILLUMINATION];
 
   static readonly BANSHEE_SPECIAL_TRAITS = [this.BANSHEE_DETECT_LIFE, this.BANSHEE_INCORPOREAL_MOVEMENT]
 
