@@ -161,6 +161,17 @@ export class SpecialTrait {
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
 
+  private static readonly WEREWOLF_SHAPECHANGER = new SpecialTrait('Shapechanger',
+    "The werewolf can use its action to polymorph " +
+    "into a wolf-humanoid hybrid or into a wolf, or back into its true " +
+    "form, which is humanoid. Its statistics, other than its AC, are " +
+    "the same in each form. ArcJy equipment it, is wearing or carrying " +
+    "isn't transformed. It reverts to its true form if it dies.")
+
+  private static readonly WEREWOLF_KEEN_HEARING_AND_SMELL = new SpecialTrait('Keen Hearing and Smell',
+    "The werewolf has advantage on " +
+    "Wisdom (Perception) checks that rely on hearing or smell.")
+
   static readonly AARAKOCRA_SPECIAL_TRAITS = [this.AARAKOCRA_DIVE_ATTACK]
 
   static readonly ABOLETH_SPECIAL_TRAITS = [this.ABOLETH_AMPHIBIOUS, this.ABOLETH_MUCOUS_CLOUD, this.ABOLETH_PROBING_TELEPATHY];
@@ -183,5 +194,7 @@ export class SpecialTrait {
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
 
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
+
+  static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
 
 }

@@ -199,14 +199,6 @@ export class Action {
     "The spectator magically creates " +
     "enough food and water to sustain itself for 24 hours. ")
 
-  private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
-    "target. Hit: 5 (1d6 + 2) slashing damage.")
-
-  private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
-    "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
-    "Hit: 5 (1d6 + 2) piercing damage.")
-
   private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
     "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
     "target. Hit: 11 (2d8 + 2) piercing damage.")
@@ -215,6 +207,36 @@ export class Action {
     "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
     "range 30/120 ft., one target. Hit: 9 (2d6 + 2) piercing damage " +
     "in melee or 5 (1d6 + 2) piercing damage at range.")
+
+  private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
+    "target. Hit: 5 (1d6 + 2) slashing damage.")
+
+  private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
+    "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
+    "Hit: 5 (1d6 + 2) piercing damage.")
+
+  private static readonly WEREWOLF_MULTIATTACK = new Action('Multiattack (Humanoid or Hybrid Form Only)',
+    "The werewolf " +
+    "makes two attacks: one with its bite and one with its " +
+    "claws or spear.")
+
+  private static readonly WEREWOLF_BITE = new Action('Bite (Wolf or Hybrid Form Only)',
+    "Melee Weapon Attack: " +
+    "+4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) piercing " +
+    "damage. If the target is a humanoid, it must succeed on a " +
+    "DC 12 Constitution saving throw or be cursed with werewolf " +
+    "lycanthropy. ")
+
+  private static readonly WEREWOLF_CLAWS = new Action('Claws (Hybrid Form Only)',
+    "Melee Weapon Attack: +4 to hit, " +
+    "reach 5 ft., one creature. Hit: 7 (2d4 + 2) slashing damage.")
+
+  private static readonly WEREWOLF_SPEAR = new Action('Spear (Humanoid Form Only)',
+    "Melee or Ranged Weapon Attack: " +
+    "+4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
+    "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
+    "with two hands to make a melee attack.")
 
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
   static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, this.ABOLETH_TENTACLE, this.ABOLETH_TAIL, this.ABOLETH_ENSLAVE];
@@ -236,5 +258,7 @@ export class Action {
   static BUGBEAR_ACTIONS = [this.BUGBEAR_MORNINGSTAR, this.BUGBEAR_JAVELIN];
 
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
+
+  static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
 
 }

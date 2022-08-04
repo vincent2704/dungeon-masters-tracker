@@ -39,6 +39,7 @@ describe('MonstersComponent', () => {
   });
 
   it('should process basic monster info', () => {
+    // 1st case
     let monster = MonsterManualMonsters.ABOLETH;
     expect(component.getOverview(monster)).toEqual('Large aberration, lawful evil');
     expect(component.getArmorClass(monster)).toEqual('Armor Class: 17 (natural armor)');
@@ -51,6 +52,7 @@ describe('MonstersComponent', () => {
     Settings.setSISystem(false);
     expect(component.getSpeed(monster)).toEqual('Speed: 10 ft., swim 40 ft.');
 
+    // 2nd case
     monster = MonsterManualMonsters.GOBLIN;
     expect(component.getOverview(monster)).toEqual('Small humanoid (goblinoid), neutral evil');
     expect(component.getArmorClass(monster)).toEqual('Armor Class: 15 (leather armor, shield)');
@@ -62,6 +64,11 @@ describe('MonstersComponent', () => {
 
     Settings.setSISystem(false);
     expect(component.getSpeed(monster)).toEqual('Speed: 30 ft.');
+
+    // 3rd case
+    monster = MonsterManualMonsters.WEREWOLF
+    expect(component.getArmorClass(monster)).toEqual('Armor Class: ' +
+      '11 in humanoid form, 12 (natural armor) in wolf or hybrid form');
   });
 
   it('should filter monsters by name case insensitive', () => {

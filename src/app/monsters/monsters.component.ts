@@ -33,13 +33,24 @@ export class MonstersComponent implements OnInit {
   }
 
   getArmorClass(monster: Monster): string {
-    let armor = monster.getArmorClass();
-    let armorClass = `${armor.getArmorClassValue()}`
-    let equipment = armor.getEquipment();
-    if (armor.getEquipment().length > 0) {
-      armorClass += ` (${equipment.join(', ')})`;
+    let armorClassInfo = 'Armor Class: '
+    let monsterArmorClass = monster.getArmorClass();
+    for(let armor of monsterArmorClass) {
+      let armorClass = `${armor.getArmorClassValue()}`;
+      let equipment = armor.getEquipment();
+      let equipmentDescription = armor.getDescription();
+      if (armor.getEquipment().length > 0) {
+        armorClass += ` (${equipment.join(', ')})`;
+      }
+      if(equipmentDescription) {
+        armorClass += ` ${equipmentDescription}`
+      }
+      if(monsterArmorClass.length > 1 && monsterArmorClass.indexOf(armor) < monsterArmorClass.length-1) {
+        armorClass += ', ';
+      }
+      armorClassInfo += armorClass;
     }
-    return `Armor Class: ${armorClass}`;
+    return armorClassInfo;
   }
 
   getHitPoints(monster: Monster): string {

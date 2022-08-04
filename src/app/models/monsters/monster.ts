@@ -27,7 +27,7 @@ export class Monster {
     private readonly id: MonsterId, private readonly name: string, private readonly size: MonsterSize,
     private readonly type: MonsterType, private readonly tags: MonsterTag[], private readonly alignment: Alignment,
     // second part
-    private readonly armorClass: MonsterArmor,
+    private readonly armorClass: MonsterArmor[],
     private readonly hitPoints: MonsterHitPoints,
     private readonly speed: MonsterSpeed,
     // third part
@@ -69,7 +69,7 @@ export class Monster {
     return this.alignment;
   }
 
-  getArmorClass(): MonsterArmor {
+  getArmorClass(): MonsterArmor[] {
     return this.armorClass;
   }
 
