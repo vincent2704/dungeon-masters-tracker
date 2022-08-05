@@ -161,6 +161,25 @@ export class SpecialTrait {
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
 
+  private static readonly WEREWOLF_SHAPECHANGER = new SpecialTrait('Shapechanger',
+    "The werewolf can use its action to polymorph " +
+    "into a wolf-humanoid hybrid or into a wolf, or back into its true " +
+    "form, which is humanoid. Its statistics, other than its AC, are " +
+    "the same in each form. ArcJy equipment it, is wearing or carrying " +
+    "isn't transformed. It reverts to its true form if it dies.")
+
+  private static readonly WEREWOLF_KEEN_HEARING_AND_SMELL = new SpecialTrait('Keen Hearing and Smell',
+    "The werewolf has advantage on " +
+    "Wisdom (Perception) checks that rely on hearing or smell.")
+
+  private static readonly NIGHTMARE_CONFER_FIRE_RESISTANCE = new SpecialTrait('Confer Fire Resistance',
+    "The nightmare can grant resistance to " +
+    "fire damage to anyone riding it.");
+
+  private static readonly NIGHTMARE_ILLUMINATION = new SpecialTrait('Illumination',
+    "The nightmare sheds bright light in a 10-foot " +
+    "radius and dim light for an additional 10 feet.")
+
   static readonly AARAKOCRA_SPECIAL_TRAITS = [this.AARAKOCRA_DIVE_ATTACK]
 
   static readonly ABOLETH_SPECIAL_TRAITS = [this.ABOLETH_AMPHIBIOUS, this.ABOLETH_MUCOUS_CLOUD, this.ABOLETH_PROBING_TELEPATHY];
@@ -177,11 +196,10 @@ export class SpecialTrait {
     this.RUG_OF_SMOTHERING_FALSE_APPEARANCE]
 
   static readonly AZER_SPECIAL_TRAITS = [this.AZER_HEATED_BODY, this.AZER_HEATED_WEAPONS, this.AZER_ILLUMINATION];
-
   static readonly BANSHEE_SPECIAL_TRAITS = [this.BANSHEE_DETECT_LIFE, this.BANSHEE_INCORPOREAL_MOVEMENT]
-
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
-
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
+  static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
+  static readonly NIGHTMARE_SPECIAL_TRAITS = [this.NIGHTMARE_CONFER_FIRE_RESISTANCE, this.NIGHTMARE_ILLUMINATION];
 
 }

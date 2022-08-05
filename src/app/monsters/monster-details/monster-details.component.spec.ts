@@ -35,6 +35,10 @@ describe('MonsterDetailsComponent', () => {
   it('should display immunities', () => {
     component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
     expect(component.getDamageImmunities()).toEqual('poison, psychic');
+
+    component.monster = MonsterManualMonsters.WEREWOLF;
+    expect(component.getDamageImmunities()).toEqual('bludgeoning, piercing, slashing damage from ' +
+      'nonmagical weapons that aren\'t silvered');
   });
 
   it('should display ability score info', () => {
@@ -68,6 +72,13 @@ describe('MonsterDetailsComponent', () => {
 
     component.monster = MonsterManualMonsters.GOBLIN;
     expect(component.getLanguages()).toEqual('Common, Goblin');
+
+    component.monster = MonsterManualMonsters.WEREWOLF;
+    expect(component.getLanguages()).toEqual('Common (can\'t speak in wolf form)');
+
+    component.monster = MonsterManualMonsters.NIGHTMARE;
+    expect(component.getLanguages()).toEqual('understands Abyssal, Common, Infernal but ' +
+      'can\'t speak');
   });
 
 });

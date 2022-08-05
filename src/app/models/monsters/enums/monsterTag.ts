@@ -1,4 +1,6 @@
 export enum MonsterTag {
   AARAKOCRA = 'aarakocra',
-  GOBLINOID = 'goblinoid'
+  GOBLINOID = 'goblinoid',
+  HUMAN = 'human',
+  SHAPECHANGER = 'shapechanger'
 }

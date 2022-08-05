@@ -7,6 +7,7 @@ export enum MonsterType {
   UNDEAD = 'undead',
   MONSTROSITY = 'monstrosity',
   ELEMENTAL = 'elemental',
+  FIEND = 'fiend',
 
 }
 

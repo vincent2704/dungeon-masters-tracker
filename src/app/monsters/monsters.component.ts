@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
 import {MeasurementSystem} from "../services/measurement-system/measurement.system";
+import {MonsterSpeedDetails} from "../models/monsters/monster-speed/monsterSpeedDetails";
 
 @Component({
   selector: 'app-monsters',
@@ -33,13 +34,24 @@ export class MonstersComponent implements OnInit {
   }
 
   getArmorClass(monster: Monster): string {
-    let armor = monster.getArmorClass();
-    let armorClass = `${armor.getArmorClassValue()}`
-    let equipment = armor.getEquipment();
-    if (armor.getEquipment().length > 0) {
-      armorClass += ` (${equipment.join(', ')})`;
+    let armorClassInfo = 'Armor Class: '
+    let monsterArmorClass = monster.getArmorClass();
+    for (let armor of monsterArmorClass) {
+      let armorClass = `${armor.getArmorClassValue()}`;
+      let equipment = armor.getEquipment();
+      let equipmentDescription = armor.getDescription();
+      if (armor.getEquipment().length > 0) {
+        armorClass += ` (${equipment.join(', ')})`;
+      }
+      if (equipmentDescription) {
+        armorClass += ` ${equipmentDescription}`
+      }
+      if (monsterArmorClass.length > 1 && monsterArmorClass.indexOf(armor) < monsterArmorClass.length - 1) {
+        armorClass += ', ';
+      }
+      armorClassInfo += armorClass;
     }
-    return `Armor Class: ${armorClass}`;
+    return armorClassInfo;
   }
 
   getHitPoints(monster: Monster): string {
@@ -56,21 +68,31 @@ export class MonstersComponent implements OnInit {
   }
 
   getSpeed(monster: Monster): string {
-    let speed = monster.getSpeed();
+    let monsterSpeed = monster.getSpeed();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
-    let landSpeed = speed.getLandSpeed();
-    let flyingSpeed = speed.getFlyingSpeed();
-    let swimmingSpeed = speed.getSwimmingSpeed();
+    let landSpeed = monsterSpeed.getLandSpeed();
+    let flyingSpeed = monsterSpeed.getFlyingSpeed();
+    let swimmingSpeed = monsterSpeed.getSwimmingSpeed();
+    let burrowSpeed = monsterSpeed.getBurrowSpeed();
 
-    let monsterSpeed = `Speed: ${landSpeed} ${measurementUnit}`;
-    if (flyingSpeed > 0) {
-      monsterSpeed += `, fly ${flyingSpeed} ${measurementUnit}`;
-    }
-    if (swimmingSpeed > 0) {
-      monsterSpeed += `, swim ${swimmingSpeed} ${measurementUnit}`;
+    let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(landSpeed.getDetails())}`;
+
+    let flyingSpeedValue = flyingSpeed.getSpeed();
+    if (flyingSpeedValue > 0) {
+      speed += `, fly ${flyingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(flyingSpeed.getDetails())}`;
     }
 
-    return monsterSpeed;
+    let swimmingSpeedValue = swimmingSpeed.getSpeed();
+    if(swimmingSpeedValue > 0) {
+      speed += `, swim ${swimmingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(swimmingSpeed.getDetails())}`;
+    }
+
+    let burrowSpeedValue = burrowSpeed.getSpeed();
+    if(burrowSpeedValue > 0) {
+      speed += `, burrow ${burrowSpeedValue} ${measurementUnit}${this.buildDetailsDescription(burrowSpeed.getDetails())}`;
+    }
+
+    return speed;
   }
 
   getChallenge(monster: Monster): string {
@@ -90,6 +112,18 @@ export class MonstersComponent implements OnInit {
     return this.monsters.filter(monster => {
       return monster.getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
     })
+  }
+
+  private buildDetailsDescription(monsterSpeedDetails: MonsterSpeedDetails): string {
+    if (monsterSpeedDetails) {
+      let descriptionDistance = monsterSpeedDetails.getDistance();
+      if(descriptionDistance) {
+        return ` (${descriptionDistance} ${MeasurementSystem.getMeasurementUnit()} ${monsterSpeedDetails.getNote()})`
+      } else {
+        return ` (${monsterSpeedDetails.getNote()})`;
+      }
+    }
+    return '';
   }
 
 }

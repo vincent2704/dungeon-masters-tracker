@@ -3,6 +3,8 @@ import {Monster} from "../../models/monsters/monster";
 import {AbilityScore} from "../../models/common/ability/abilityScore";
 import {Ability} from "../../models/common/ability/ability";
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
+import {SingleMonsterLanguage} from "../../models/monsters/monster-languages/singleMonsterLanguage";
+import {MonsterLanguageNote} from "../../models/monsters/monster-languages/monsterLanguageNote";
 
 @Component({
   selector: 'app-monster-details',
@@ -14,7 +16,8 @@ export class MonsterDetailsComponent implements OnInit {
   @Input()
   monster!: Monster;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -32,7 +35,7 @@ export class MonsterDetailsComponent implements OnInit {
     let resistances = this.monster.getDamageResistances().getResistances();
     let nonMagicalResistances = this.monster.getDamageResistances().getNonMagicalResistances();
 
-    if(nonMagicalResistances.length == 0) {
+    if (nonMagicalResistances.length == 0) {
       return resistances.join(', ');
     }
     return `${resistances.join(', ')}; ${nonMagicalResistances.join(', ')} from nonmagical weapons`;
@@ -40,12 +43,17 @@ export class MonsterDetailsComponent implements OnInit {
 
   getDamageImmunities(): string {
     let immunities = this.monster.getDamageImmunities().getImmunities();
-    let nonMagicalImmunities = this.monster.getDamageImmunities().getNonMagicalImmunities();
+    let additionalImmunities = this.monster.getDamageImmunities().getAdditionalImmunities();
 
-    if(nonMagicalImmunities.length == 0) {
+    if (!additionalImmunities) {
       return immunities.join(', ');
     }
-    return `${immunities.join(', ')}; ${nonMagicalImmunities.join(', ')} form nonmagical weapons`;
+
+    if (immunities.length > 0) {
+      return `; ${additionalImmunities.getDamageTypes().join(', ')} ${additionalImmunities.getDamageNote()}`;
+    }
+
+    return `${additionalImmunities.getDamageTypes().join(', ')} ${additionalImmunities.getDamageNote()}`;
   }
 
   getConditionImmunities(): string {
@@ -58,7 +66,7 @@ export class MonsterDetailsComponent implements OnInit {
       let radius = monsterSense.getRadius();
       let note = monsterSense.getNote();
 
-      if(note) {
+      if (note) {
         return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()} (${note})`;
       }
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
@@ -79,12 +87,26 @@ export class MonsterDetailsComponent implements OnInit {
     if (!monsterLanguages) {
       return '—'
     }
-    let languages = monsterLanguages.getLanguages().join(', ');
+    let monsterLanguagesList: SingleMonsterLanguage[] = monsterLanguages.getLanguages();
+
+    let languagesInfo: string[] = monsterLanguagesList.map(singleLanguage => {
+      let languageNote: MonsterLanguageNote = singleLanguage.getNote();
+      if (languageNote) {
+        return `${singleLanguage.getLanguage()} (${languageNote})`;
+      } else {
+        return `${singleLanguage.getLanguage()}`;
+      }
+    })
+
+    if(!monsterLanguages.canSpeak()) {
+      return `understands ${languagesInfo.join(', ')} but can't speak`;
+    }
+
     let telepathyRadius = monsterLanguages.getTelepathyRadius();
     if (telepathyRadius) {
-      return `${languages}, telepathy ${telepathyRadius} ${MeasurementSystem.getMeasurementUnit()}`
+      return `${languagesInfo.join(', ')}, telepathy ${telepathyRadius} ${MeasurementSystem.getMeasurementUnit()}`;
     }
-    return languages;
+    return languagesInfo.join(', ');
   }
 
 }

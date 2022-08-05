@@ -1,6 +1,6 @@
 export class MonsterSize {
 
-  private constructor(private name: string, private space: string) {
+  private constructor(private readonly name: string, private readonly space: string) {
   }
 
   public getName(): string {
