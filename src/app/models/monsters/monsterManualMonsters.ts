@@ -31,11 +31,12 @@ import {MonsterSenseNote} from "./enums/monsterSenseNote";
 import {DieType} from "../common/dieType";
 import {MonsterArmorDescription} from "./enums/monsterArmorDescription";
 import {MonsterSpeed} from "./monsterSpeed";
-import {MonsterSpeedNote} from "./enums/monsterSpeedNote";
+import {MonsterSpeedDetails} from "./enums/monsterSpeedDetails";
 import {AdditionalImmunities} from "./additionalImmunities";
 import {AdditionalDamageNote} from "./enums/additionalDamageNote";
 import {SingleMonsterLanguage} from "./monster-languages/singleMonsterLanguage";
 import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
+import {MonsterSpeedNote} from "./enums/monsterSpeedNote";
 
 /*
   This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
@@ -156,7 +157,7 @@ export class MonsterManualMonsters {
 
   static BANSHEE = new Monster(MonsterId.BANSHEE_ID,
     'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, [], Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
-    new MonsterHitPoints(58, 13, DieType.D8), new MonsterSpeeds(new MonsterSpeed(0), new MonsterSpeed(40, MonsterSpeedNote.HOVER)),
+    new MonsterHitPoints(58, 13, DieType.D8), new MonsterSpeeds(new MonsterSpeed(0), new MonsterSpeed(40, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))),
     new AbilitySet(1, 14, 10, 12, 11, 17),
     MonsterChallenge.FOUR, [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
     undefined, new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
@@ -170,7 +171,7 @@ export class MonsterManualMonsters {
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
-    new MonsterSpeeds(new MonsterSpeed(0), new MonsterSpeed(30, MonsterSpeedNote.HOVER)),
+    new MonsterSpeeds(new MonsterSpeed(0), new MonsterSpeed(30, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))),
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, undefined, [Condition.PRONE],
@@ -204,7 +205,7 @@ export class MonsterManualMonsters {
     [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
       new MonsterArmor(12, [MonsterEquipment.NATURAL_ARMOR], MonsterArmorDescription.IN_WOLF_OR_HYBRID_FORM)],
     new MonsterHitPoints(58, 9, DieType.D8, 18),
-    new MonsterSpeeds(new MonsterSpeed(30, MonsterSpeedNote.FORTY_FEET_IN_WOLF_FORM)),
+    new MonsterSpeeds(new MonsterSpeed(30, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))),
     new AbilitySet(15, 13, 14, 10, 11, 10),
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
     undefined, new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],

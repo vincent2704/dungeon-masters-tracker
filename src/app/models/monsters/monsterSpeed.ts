@@ -1,8 +1,8 @@
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
-import {MonsterSpeedNote} from "./enums/monsterSpeedNote";
+import {MonsterSpeedDetails} from "./enums/monsterSpeedDetails";
 
 export class MonsterSpeed {
-  constructor(private readonly speedInFeet: number, private readonly description?: MonsterSpeedNote) {
+  constructor(private readonly speedInFeet: number, private readonly description?: MonsterSpeedDetails) {
 
   }
 
@@ -10,7 +10,7 @@ export class MonsterSpeed {
     return MeasurementSystem.getFeetDistance(this.speedInFeet);
   }
 
-  getDescription(): string {
+  getDescription(): MonsterSpeedDetails {
     return this.description!;
   }
 }
