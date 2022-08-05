@@ -3,6 +3,7 @@ import {Monster} from "../../models/monsters/monster";
 import {AbilityScore} from "../../models/common/ability/abilityScore";
 import {Ability} from "../../models/common/ability/ability";
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
+import {SingleMonsterLanguage} from "../../models/monsters/monster-languages/singleMonsterLanguage";
 
 @Component({
   selector: 'app-monster-details',
@@ -14,7 +15,8 @@ export class MonsterDetailsComponent implements OnInit {
   @Input()
   monster!: Monster;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -32,7 +34,7 @@ export class MonsterDetailsComponent implements OnInit {
     let resistances = this.monster.getDamageResistances().getResistances();
     let nonMagicalResistances = this.monster.getDamageResistances().getNonMagicalResistances();
 
-    if(nonMagicalResistances.length == 0) {
+    if (nonMagicalResistances.length == 0) {
       return resistances.join(', ');
     }
     return `${resistances.join(', ')}; ${nonMagicalResistances.join(', ')} from nonmagical weapons`;
@@ -42,11 +44,11 @@ export class MonsterDetailsComponent implements OnInit {
     let immunities = this.monster.getDamageImmunities().getImmunities();
     let additionalImmunities = this.monster.getDamageImmunities().getAdditionalImmunities();
 
-    if(!additionalImmunities) {
+    if (!additionalImmunities) {
       return immunities.join(', ');
     }
 
-    if(immunities.length > 0) {
+    if (immunities.length > 0) {
       return `; ${additionalImmunities.getDamageTypes().join(', ')} ${additionalImmunities.getDamageNote()}`;
     }
 
@@ -63,7 +65,7 @@ export class MonsterDetailsComponent implements OnInit {
       let radius = monsterSense.getRadius();
       let note = monsterSense.getNote();
 
-      if(note) {
+      if (note) {
         return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()} (${note})`;
       }
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
@@ -84,12 +86,22 @@ export class MonsterDetailsComponent implements OnInit {
     if (!monsterLanguages) {
       return '—'
     }
-    let languages = monsterLanguages.getLanguages().join(', ');
+    let monsterLanguagesList: SingleMonsterLanguage[] = monsterLanguages.getLanguages();
+
+    let languagesInfo: string[] = monsterLanguagesList.map(singleLanguage => {
+      let languageNote = singleLanguage.getNote();
+      if (languageNote) {
+        return `${singleLanguage.getLanguage()} (${languageNote})`;
+      } else {
+        return `${singleLanguage.getLanguage()}`;
+      }
+    })
+
     let telepathyRadius = monsterLanguages.getTelepathyRadius();
     if (telepathyRadius) {
-      return `${languages}, telepathy ${telepathyRadius} ${MeasurementSystem.getMeasurementUnit()}`
+      return `${languagesInfo.join(', ')}, telepathy ${telepathyRadius} ${MeasurementSystem.getMeasurementUnit()}`;
     }
-    return languages;
+    return languagesInfo.join(', ');
   }
 
 }

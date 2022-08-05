@@ -16,7 +16,7 @@ import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
 import {MonsterSense} from "./monsterSense";
 import {Sense} from "../common/sense";
-import {MonsterLanguages} from "./monsterLanguages";
+import {MonsterLanguages} from "./monster-languages/monsterLanguages";
 import {Language} from "../common/language";
 import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
@@ -34,6 +34,8 @@ import {MonsterSpeed} from "./monsterSpeed";
 import {MonsterSpeedNote} from "./enums/monsterSpeedNote";
 import {AdditionalImmunities} from "./additionalImmunities";
 import {AdditionalDamageNote} from "./enums/additionalDamageNote";
+import {SingleMonsterLanguage} from "./monster-languages/singleMonsterLanguage";
+import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
 
 /*
   This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
@@ -50,7 +52,7 @@ export class MonsterManualMonsters {
     [new MonsterSkill(Skill.PERCEPTION, 5)],
     undefined, undefined, undefined,
     new MonsterSenses([], 15),
-    new MonsterLanguages([Language.AURAN]),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.AURAN)]),
     SpecialTrait.AARAKOCRA_SPECIAL_TRAITS, Action.AARAKOCRA_ACTIONS
   )
 
@@ -65,7 +67,7 @@ export class MonsterManualMonsters {
     [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
     undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 20),
-    new MonsterLanguages([Language.DEEP_SPEECH], 120),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH)], 120),
     SpecialTrait.ABOLETH_SPECIAL_TRAITS,
     Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
   )
@@ -81,7 +83,7 @@ export class MonsterManualMonsters {
       DamageType.SLASHING]), undefined,
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 19),
-    new MonsterLanguages([Language.ALL], 120),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
     SpecialTrait.DEVA_SPECIAL_TRAITS, Action.DEVA_ACTIONS
   )
 
@@ -94,7 +96,7 @@ export class MonsterManualMonsters {
     [new MonsterSkill(Skill.PERCEPTION, 11)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
     undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
-    new MonsterLanguages([Language.ALL], 120), SpecialTrait.PLANETAR_SPECIAL_TRAITS,
+    new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120), SpecialTrait.PLANETAR_SPECIAL_TRAITS,
     Action.PLANETAR_ACTIONS
   );
 
@@ -104,7 +106,7 @@ export class MonsterManualMonsters {
     MonsterChallenge.TWENTY_ONE, [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
     [new MonsterSkill(Skill.PERCEPTION, 14)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
     new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), new MonsterLanguages([Language.ALL], 120),
+    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
     SpecialTrait.SOLAR_SPECIAL_TRAITS, Action.SOLAR_ACTIONS, [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
   )
 
@@ -148,7 +150,7 @@ export class MonsterManualMonsters {
     new AbilitySet(17, 12, 15, 12, 13, 10),
     MonsterChallenge.TWO, [new SavingThrow(Ability.CONSTITUTION, 4)], undefined, undefined,
     new DamageImmunities([DamageType.FIRE, DamageType.POISON]), [Condition.POISONED],
-    new MonsterSenses([], 11), new MonsterLanguages([Language.IGNAN]),
+    new MonsterSenses([], 11), new MonsterLanguages([new SingleMonsterLanguage(Language.IGNAN)]),
     SpecialTrait.AZER_SPECIAL_TRAITS, Action.AZER_ACTIONS,
   )
 
@@ -160,7 +162,8 @@ export class MonsterManualMonsters {
     undefined, new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
       [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
     [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10), new MonsterLanguages([Language.COMMON, Language.ELVISH]),
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
     SpecialTrait.BANSHEE_SPECIAL_TRAITS, Action.BANSHEE_ACTIONS
   )
 
@@ -172,7 +175,7 @@ export class MonsterManualMonsters {
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
     undefined, undefined, [Condition.PRONE],
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
-    new MonsterLanguages([Language.DEEP_SPEECH, Language.UNDERCOMMON], 120), undefined,
+    new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120), undefined,
     Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
   )
 
@@ -182,7 +185,7 @@ export class MonsterManualMonsters {
     new MonsterSpeeds(new MonsterSpeed(30)), new AbilitySet(15, 14, 13, 8, 11, 9),
     MonsterChallenge.ONE, undefined, [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
     undefined, undefined, undefined, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
-    new MonsterLanguages([Language.COMMON, Language.GOBLIN]), SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
+    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]), SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
     Action.BUGBEAR_ACTIONS
   )
 
@@ -192,7 +195,7 @@ export class MonsterManualMonsters {
     new MonsterSpeeds(new MonsterSpeed(30)), new AbilitySet(8, 14, 10, 10, 8, 8),
     MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined, undefined,
     new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
-    new MonsterLanguages([Language.COMMON, Language.GOBLIN]), SpecialTrait.GOBLIN_SPECIAL_TRAITS,
+    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]), SpecialTrait.GOBLIN_SPECIAL_TRAITS,
     Action.GOBLIN_ACTIONS
   )
 
@@ -206,7 +209,8 @@ export class MonsterManualMonsters {
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
     undefined, new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
       AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS)),
-    undefined, new MonsterSenses([], 14), new MonsterLanguages([Language.COMMON]), // TODO: this one as well
+    undefined, new MonsterSenses([], 14),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]), // TODO: this one as well
     SpecialTrait.WEREWOLF_SPECIAL_TRAITS, Action.WEREWOLF_ACTIONS
   )
 
@@ -218,7 +222,8 @@ export class MonsterManualMonsters {
     new AbilitySet(18, 15, 16, 10, 13, 15),
     MonsterChallenge.THREE, undefined, undefined, undefined,
     new DamageImmunities([DamageType.FIRE]), undefined, new MonsterSenses([], 11),
-    new MonsterLanguages([Language.ABYSSAL, Language.COMMON, Language.INFERNAL]),
+    new MonsterLanguages(
+      [new SingleMonsterLanguage(Language.ABYSSAL), new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.INFERNAL)]),
     SpecialTrait.NIGHTMARE_SPECIAL_TRAITS, Action.NIGHTMARE_ACTIONS
   )
 

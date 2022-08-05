@@ -10,7 +10,7 @@ import {MonsterSkill} from "./monsterSkill";
 import {DamageResistances} from "./damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
-import {MonsterLanguages} from "./monsterLanguages";
+import {MonsterLanguages} from "./monster-languages/monsterLanguages";
 import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
@@ -109,8 +109,8 @@ export class Monster {
     return this.senses!;
   }
 
-  getLanguages() {
-    return this.languages;
+  getLanguages(): MonsterLanguages {
+    return this.languages!;
   }
 
   getChallenge(): MonsterChallenge {
