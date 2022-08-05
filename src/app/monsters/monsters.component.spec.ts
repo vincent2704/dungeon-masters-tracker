@@ -72,6 +72,13 @@ describe('MonstersComponent', () => {
     Settings.setSISystem(false);
     expect(component.getSpeed(monster)).toEqual('Speed: 10 ft., swim 40 ft.');
 
+    monster = MonsterManualMonsters.ANKHEG;
+    Settings.setSISystem(true);
+    expect(component.getSpeed(monster)).toEqual('Speed: 9 m, burrow 3 m');
+    Settings.setSISystem(false);
+    expect(component.getSpeed(monster)).toEqual('Speed: 30 ft., burrow 10 ft.');
+
+
     monster = MonsterManualMonsters.WEREWOLF
     Settings.setSISystem(true);
     expect(component.getSpeed(monster)).toEqual('Speed: 9 m (12 m in wolf form)')

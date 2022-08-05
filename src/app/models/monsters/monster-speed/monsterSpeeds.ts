@@ -2,8 +2,10 @@ import {MonsterSpeed} from "./monsterSpeed";
 
 export class MonsterSpeeds {
 
-  constructor(private readonly landSpeed: MonsterSpeed, private readonly flyingSpeed: MonsterSpeed = new MonsterSpeed(0),
-              private readonly swimmingSpeed: MonsterSpeed = new MonsterSpeed(0)) {
+  constructor(private readonly landSpeed: MonsterSpeed,
+              private readonly flyingSpeed: MonsterSpeed = new MonsterSpeed(0),
+              private readonly swimmingSpeed: MonsterSpeed = new MonsterSpeed(0),
+              private readonly burrowSpeed: MonsterSpeed = new MonsterSpeed(0)) {
   }
 
   getLandSpeed(): MonsterSpeed {
@@ -16,6 +18,10 @@ export class MonsterSpeeds {
 
   getSwimmingSpeed(): MonsterSpeed {
     return this.swimmingSpeed;
+  }
+
+  getBurrowSpeed(): MonsterSpeed {
+    return this.burrowSpeed;
   }
 
 }

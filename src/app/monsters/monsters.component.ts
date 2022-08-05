@@ -73,6 +73,7 @@ export class MonstersComponent implements OnInit {
     let landSpeed = monsterSpeed.getLandSpeed();
     let flyingSpeed = monsterSpeed.getFlyingSpeed();
     let swimmingSpeed = monsterSpeed.getSwimmingSpeed();
+    let burrowSpeed = monsterSpeed.getBurrowSpeed();
 
     let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(landSpeed.getDetails())}`;
 
@@ -85,6 +86,12 @@ export class MonstersComponent implements OnInit {
     if(swimmingSpeedValue > 0) {
       speed += `, swim ${swimmingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(swimmingSpeed.getDetails())}`;
     }
+
+    let burrowSpeedValue = burrowSpeed.getSpeed();
+    if(burrowSpeedValue > 0) {
+      speed += `, burrow ${burrowSpeedValue} ${measurementUnit}${this.buildDetailsDescription(burrowSpeed.getDetails())}`;
+    }
+
     return speed;
   }
 

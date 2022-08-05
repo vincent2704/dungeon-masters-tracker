@@ -144,6 +144,17 @@ export class MonsterManualMonsters {
     SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
   )
 
+  static ANKHEG = new Monster(MonsterId.ANKHEG_ID,
+    'Ankheg', MonsterSize.LARGE, MonsterType.MONSTROSITY, [], Alignment.UNALIGNED,
+    [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterArmor(11, [], MonsterArmorDescription.WHILE_PRONE)],
+    new MonsterHitPoints(39, 6, DieType.D10, 6),
+    new MonsterSpeeds(new MonsterSpeed(30), new MonsterSpeed(0), new MonsterSpeed(0), new MonsterSpeed(10)),
+    new AbilitySet(17, 11, 13, 1, 13, 6),
+    MonsterChallenge.TWO, undefined, undefined, undefined, undefined, undefined,
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60), new MonsterSense(Sense.TREMORSENSE, 60)], 11),
+    undefined, undefined, Action.ANKHEG_ACTIONS
+  )
+
   static AZER = new Monster(MonsterId.AZER_ID,
     'Azer', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, [], Alignment.LAWFUL_NEUTRAL,
     [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR, MonsterEquipment.SHIELD])],
@@ -230,8 +241,8 @@ export class MonsterManualMonsters {
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN, this.WEREWOLF,
-    this.NIGHTMARE
+    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN,
+    this.WEREWOLF, this.NIGHTMARE
   ]
 
 }

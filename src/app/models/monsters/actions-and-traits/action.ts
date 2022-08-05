@@ -140,6 +140,20 @@ export class Action {
     "another target. In addition, at the start of each of the target's " +
     "turns, the target takes 10 (2d6 + 3) bludgeoning damage.")
 
+  private static readonly ANKHEG_BITE = new Action('Bite',
+    "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. " +
+    "Hit: 9 (2d6 + 3) slashing damage plus 3 (1d6) acid damage. If " +
+    "the target is a Large or smaller creature, it is grappled (escape " +
+    "DC 13). Until this grapple ends, the ankheg can bite only the " +
+    "grappled creature and has advantage on attack rolls to do so.")
+
+  private static readonly ANKHEG_ACID_SPRAY = new Action('Acid Spray (Recharge 6)',
+    " The ankheg spits acid in a line that is " +
+    "30 feet long and 5 feet wide, provided that it has no creature " +
+    "grappled. Each creature in that line must make a DC 13 " +
+    "Dexterity saving throw, taking 10 (3d6) acid damage on a failed " +
+    "save, or half as much damage on a successful one.")
+
   private static readonly AZER_WARHAMMER = new Action('Warhammer',
     "Melee Weapon Attack: +5 to hit, reach 5 ft., one " +
     "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
@@ -258,7 +272,7 @@ export class Action {
   static ANIMATED_ARMOR_ACTIONS = [this.ANIMATED_ARMOR_MULTIATTACK, this.ANIMATED_ARMOR_SLAM];
   static FLYING_SWORD_ACTIONS = [this.FLYING_SWORD_LONGSWORD];
   static RUG_OF_SMOTHERING_ACTIONS = [this.RUG_OF_SMOTHERING_SMOTHER];
-
+  static ANKHEG_ACTIONS = [this.ANKHEG_BITE, this.ANKHEG_ACID_SPRAY];
   static AZER_ACTIONS = [this.AZER_WARHAMMER];
 
   static BANSHEE_ACTIONS = [this.BANSHEE_CORRUPTING_TOUCH, this.BANSHEE_HORRIFYING_VISAGE, this.BANSHEE_WAIL];
