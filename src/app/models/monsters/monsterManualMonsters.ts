@@ -223,7 +223,7 @@ export class MonsterManualMonsters {
     MonsterChallenge.THREE, undefined, undefined, undefined,
     new DamageImmunities([DamageType.FIRE]), undefined, new MonsterSenses([], 11),
     new MonsterLanguages(
-      [new SingleMonsterLanguage(Language.ABYSSAL), new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.INFERNAL)]),
+      [new SingleMonsterLanguage(Language.ABYSSAL), new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.INFERNAL)], 0, false),
     SpecialTrait.NIGHTMARE_SPECIAL_TRAITS, Action.NIGHTMARE_ACTIONS
   )
 

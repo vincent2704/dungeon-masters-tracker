@@ -3,7 +3,8 @@ import {SingleMonsterLanguage} from "./singleMonsterLanguage";
 
 export class MonsterLanguages {
 
-  constructor(private readonly languages: SingleMonsterLanguage[], private readonly telepathyRadiusInFeet: number = 0) {
+  constructor(private readonly languages: SingleMonsterLanguage[], private readonly telepathyRadiusInFeet: number = 0,
+              private readonly speaks: boolean = true) {
   }
 
   getLanguages(): SingleMonsterLanguage[] {
@@ -12,6 +13,10 @@ export class MonsterLanguages {
 
   getTelepathyRadius(): number {
     return MeasurementSystem.getFeetDistance(this.telepathyRadiusInFeet);
+  }
+
+  canSpeak(): boolean {
+    return this.speaks;
   }
 
 }

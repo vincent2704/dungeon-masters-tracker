@@ -4,6 +4,7 @@ import {AbilityScore} from "../../models/common/ability/abilityScore";
 import {Ability} from "../../models/common/ability/ability";
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
 import {SingleMonsterLanguage} from "../../models/monsters/monster-languages/singleMonsterLanguage";
+import {MonsterLanguageNote} from "../../models/monsters/monster-languages/monsterLanguageNote";
 
 @Component({
   selector: 'app-monster-details',
@@ -89,13 +90,17 @@ export class MonsterDetailsComponent implements OnInit {
     let monsterLanguagesList: SingleMonsterLanguage[] = monsterLanguages.getLanguages();
 
     let languagesInfo: string[] = monsterLanguagesList.map(singleLanguage => {
-      let languageNote = singleLanguage.getNote();
+      let languageNote: MonsterLanguageNote = singleLanguage.getNote();
       if (languageNote) {
         return `${singleLanguage.getLanguage()} (${languageNote})`;
       } else {
         return `${singleLanguage.getLanguage()}`;
       }
     })
+
+    if(!monsterLanguages.canSpeak()) {
+      return `understands ${languagesInfo.join(', ')} but can't speak`;
+    }
 
     let telepathyRadius = monsterLanguages.getTelepathyRadius();
     if (telepathyRadius) {

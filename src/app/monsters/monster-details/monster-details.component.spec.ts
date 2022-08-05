@@ -77,7 +77,7 @@ describe('MonsterDetailsComponent', () => {
     expect(component.getLanguages()).toEqual('Common (can\'t speak in wolf form)');
 
     component.monster = MonsterManualMonsters.NIGHTMARE;
-    expect(component.getLanguages()).toEqual('understands Abyssal, Common, and Infernal but ' +
+    expect(component.getLanguages()).toEqual('understands Abyssal, Common, Infernal but ' +
       'can\'t speak');
   });
 
