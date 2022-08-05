@@ -1,17 +1,19 @@
 import {DamageType} from "./enums/damageType";
+import {AdditionalImmunities} from "./additionalImmunities";
 
 // this class is basically the same as DamageResistances,
 // but they are separate due to easier error avoidance during monster creation and readability
 export class DamageImmunities {
-  constructor(private immunities: DamageType[], private nonMagicalImmunities: DamageType[] = []) {
+  constructor(private immunities: DamageType[],
+              private additionalImmunities?: AdditionalImmunities) {
   }
 
-  getImmunities() {
+  getImmunities(): DamageType[] {
     return this.immunities
   }
 
-  getNonMagicalImmunities() {
-    return this.nonMagicalImmunities;
+  getAdditionalImmunities(): AdditionalImmunities {
+    return this.additionalImmunities!;
   }
 
 }

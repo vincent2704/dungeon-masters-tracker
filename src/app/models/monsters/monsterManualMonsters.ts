@@ -32,6 +32,8 @@ import {DieType} from "../common/dieType";
 import {MonsterArmorDescription} from "./enums/monsterArmorDescription";
 import {Speed} from "./speed";
 import {SpeedDescription} from "./speedDescription";
+import {AdditionalImmunities} from "./additionalImmunities";
+import {AdditionalDamageNote} from "./enums/additionalDamageNote";
 
 /*
   This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
@@ -202,7 +204,7 @@ export class MonsterManualMonsters {
     new MonsterSpeed(new Speed(30, SpeedDescription.FOURTY_FEET_IN_WOLF_FORM)),
     new AbilitySet(15, 13, 14, 10, 11, 10),
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
-    undefined, new DamageImmunities([], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), // TODO: this one as well
+    undefined, new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS)),
     undefined, new MonsterSenses([], 14), new MonsterLanguages([Language.COMMON]), // TODO: this one as well
     SpecialTrait.WEREWOLF_SPECIAL_TRAITS, Action.WEREWOLF_ACTIONS
   )

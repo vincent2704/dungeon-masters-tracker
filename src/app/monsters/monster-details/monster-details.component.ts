@@ -40,12 +40,17 @@ export class MonsterDetailsComponent implements OnInit {
 
   getDamageImmunities(): string {
     let immunities = this.monster.getDamageImmunities().getImmunities();
-    let nonMagicalImmunities = this.monster.getDamageImmunities().getNonMagicalImmunities();
+    let additionalImmunities = this.monster.getDamageImmunities().getAdditionalImmunities();
 
-    if(nonMagicalImmunities.length == 0) {
+    if(!additionalImmunities) {
       return immunities.join(', ');
     }
-    return `${immunities.join(', ')}; ${nonMagicalImmunities.join(', ')} form nonmagical weapons`;
+
+    if(immunities.length > 0) {
+      return `; ${additionalImmunities.getDamageTypes().join(', ')} ${additionalImmunities.getDamageNote()}`;
+    }
+
+    return `${additionalImmunities.getDamageTypes().join(', ')} ${additionalImmunities.getDamageNote()}`;
   }
 
   getConditionImmunities(): string {
