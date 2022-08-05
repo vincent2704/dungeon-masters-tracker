@@ -2,7 +2,7 @@ import {MeasurementSystem} from "../../../services/measurement-system/measuremen
 import {MonsterSpeedDetails} from "./monsterSpeedDetails";
 
 export class MonsterSpeed {
-  constructor(private readonly speedInFeet: number, private readonly description?: MonsterSpeedDetails) {
+  constructor(private readonly speedInFeet: number, private readonly details?: MonsterSpeedDetails) {
 
   }
 
@@ -10,7 +10,7 @@ export class MonsterSpeed {
     return MeasurementSystem.getFeetDistance(this.speedInFeet);
   }
 
-  getDescription(): MonsterSpeedDetails {
-    return this.description!;
+  getDetails(): MonsterSpeedDetails {
+    return this.details!;
   }
 }

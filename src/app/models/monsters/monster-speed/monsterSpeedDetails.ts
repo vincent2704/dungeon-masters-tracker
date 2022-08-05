@@ -6,11 +6,12 @@ export class MonsterSpeedDetails {
   constructor(private readonly note: MonsterSpeedNote, private readonly distanceInFeet?: number) {
   }
 
-  getDetails(): string {
-    if(this.distanceInFeet) {
-      return `${MeasurementSystem.getFeetDistance(this.distanceInFeet)} ${MeasurementSystem.getMeasurementUnit()} ${this.note}`;
-    }
+  getNote(): MonsterSpeedNote {
     return this.note;
+  }
+
+  getDistance(): number {
+    return MeasurementSystem.getFeetDistance(this.distanceInFeet!);
   }
 
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
 import {MeasurementSystem} from "../services/measurement-system/measurement.system";
+import {MonsterSpeedDetails} from "../models/monsters/monster-speed/monsterSpeedDetails";
 
 @Component({
   selector: 'app-monsters',
@@ -73,30 +74,17 @@ export class MonstersComponent implements OnInit {
     let flyingSpeed = monsterSpeed.getFlyingSpeed();
     let swimmingSpeed = monsterSpeed.getSwimmingSpeed();
 
-    let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}`;
-    let monsterLandSpeedDescription = landSpeed.getDescription();
-    if (monsterLandSpeedDescription) {
-      speed += ` (${monsterLandSpeedDescription.getDetails()})`;
-    }
+    let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(landSpeed.getDetails())}`;
 
     let flyingSpeedValue = flyingSpeed.getSpeed();
     if (flyingSpeedValue > 0) {
-      speed += `, fly ${flyingSpeedValue} ${measurementUnit}`;
-      let monsterFlyingSpeedDescription = flyingSpeed.getDescription();
-      if(monsterFlyingSpeedDescription) {
-        speed += ` (${monsterFlyingSpeedDescription.getDetails()})`
-      }
+      speed += `, fly ${flyingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(flyingSpeed.getDetails())}`;
     }
 
     let swimmingSpeedValue = swimmingSpeed.getSpeed();
     if(swimmingSpeedValue > 0) {
-      speed += `, swim ${swimmingSpeedValue} ${measurementUnit}`;
-      let monsterSwimmingSpeedDescription = swimmingSpeed.getDescription();
-      if(monsterSwimmingSpeedDescription) {
-        speed += ` (${monsterSwimmingSpeedDescription.getDetails()})`;
-      }
+      speed += `, swim ${swimmingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(swimmingSpeed.getDetails())}`;
     }
-
     return speed;
   }
 
@@ -117,6 +105,18 @@ export class MonstersComponent implements OnInit {
     return this.monsters.filter(monster => {
       return monster.getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
     })
+  }
+
+  private buildDetailsDescription(monsterSpeedDetails: MonsterSpeedDetails): string {
+    if (monsterSpeedDetails) {
+      let descriptionDistance = monsterSpeedDetails.getDistance();
+      if(descriptionDistance) {
+        return ` (${descriptionDistance} ${MeasurementSystem.getMeasurementUnit()} ${monsterSpeedDetails.getNote()})`
+      } else {
+        return ` (${monsterSpeedDetails.getNote()})`;
+      }
+    }
+    return '';
   }
 
 }

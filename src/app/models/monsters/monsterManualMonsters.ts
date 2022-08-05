@@ -32,7 +32,7 @@ import {DieType} from "../common/dieType";
 import {MonsterArmorDescription} from "./enums/monsterArmorDescription";
 import {MonsterSpeed} from "./monster-speed/monsterSpeed";
 import {MonsterSpeedDetails} from "./monster-speed/monsterSpeedDetails";
-import {AdditionalImmunities} from "./additionalImmunities";
+import {AdditionalImmunities} from "./monster-damage-data/additionalImmunities";
 import {AdditionalDamageNote} from "./monster-damage-data/additionalDamageNote";
 import {SingleMonsterLanguage} from "./monster-languages/singleMonsterLanguage";
 import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
