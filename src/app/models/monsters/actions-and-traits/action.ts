@@ -238,6 +238,16 @@ export class Action {
     "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
     "with two hands to make a melee attack.")
 
+  private static readonly NIGHTMARE_HOOVES = new Action('Hooves',
+    "Melee Weapon Attack: +6 to hit, reach 5 ft., one " +
+    "target. Hit: 13 (2d8 + 4) bludgeoning damage plus 7 (2d6) " +
+    "fire damage.")
+
+  private static readonly NIGHTMARE_ETHEREAL_STRIDE = new Action('Ethereal Stride',
+    "The nightmare and up to three willing creatures " +
+    "within 5 feet of it magically enter the Ethereal Plane from the " +
+    "Material Plane, or vice versa.")
+
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
   static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, this.ABOLETH_TENTACLE, this.ABOLETH_TAIL, this.ABOLETH_ENSLAVE];
   static DEVA_ACTIONS = [this.DEVA_MULTIATTACK, this.DEVA_MACE, this.DEVA_HEALING_TOUCH, this.DEVA_CHANGE_SHAPE];
@@ -260,5 +270,6 @@ export class Action {
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
+  static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];
 
 }

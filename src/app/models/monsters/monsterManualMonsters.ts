@@ -166,7 +166,7 @@ export class MonsterManualMonsters {
 
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
-   [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
+    [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
     new MonsterSpeeds(new MonsterSpeed(0), new MonsterSpeed(30, MonsterSpeedNote.HOVER)),
     new AbilitySet(8, 14, 14, 13, 14, 11),
     MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
@@ -210,9 +210,22 @@ export class MonsterManualMonsters {
     SpecialTrait.WEREWOLF_SPECIAL_TRAITS, Action.WEREWOLF_ACTIONS
   )
 
+  static NIGHTMARE = new Monster(MonsterId.NIGHTMARE_ID,
+    'Nightmare', MonsterSize.LARGE, MonsterType.FIEND, [], Alignment.NEUTRAL_EVIL,
+    [new MonsterArmor(13, [MonsterEquipment.NATURAL_ARMOR])],
+    new MonsterHitPoints(68, 8, DieType.D10, 24),
+    new MonsterSpeeds(new MonsterSpeed(60), new MonsterSpeed(90)),
+    new AbilitySet(18, 15, 16, 10, 13, 15),
+    MonsterChallenge.THREE, undefined, undefined, undefined,
+    new DamageImmunities([DamageType.FIRE]), undefined, new MonsterSenses([], 11),
+    new MonsterLanguages([Language.ABYSSAL, Language.COMMON, Language.INFERNAL]),
+    SpecialTrait.NIGHTMARE_SPECIAL_TRAITS, Action.NIGHTMARE_ACTIONS
+  )
+
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN, this.WEREWOLF
+    this.RUG_OF_SMOTHERING, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN, this.WEREWOLF,
+    this.NIGHTMARE
   ]
 
 }

@@ -57,6 +57,12 @@ export class MonsterId {
 
   static readonly WEREWOLF_ID = new MonsterId(203, MonsterSource.MONSTER_MANUAL);
 
+  static readonly MUD_MEPHIT_ID = new MonsterId(210, MonsterSource.MONSTER_MANUAL);
+  static readonly TRIDRONE_ID = new MonsterId(220, MonsterSource.MONSTER_MANUAL);
+  static readonly SPIRIT_NAGA_ID = new MonsterId(230, MonsterSource.MONSTER_MANUAL);
+  static readonly NIGHTMARE_ID = new MonsterId(232, MonsterSource.MONSTER_MANUAL);
+
+
   getId(): number {
     return this.id
   }

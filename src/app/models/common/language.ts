@@ -1,10 +1,12 @@
 export enum Language {
   ALL = 'all',
+  ABYSSAL = 'Abyssal',
   AURAN = 'Auran',
-  DEEP_SPEECH = 'Deep Speech',
-  UNDERCOMMON = 'Undercommon',
   COMMON = 'Common',
-  GOBLIN = 'Goblin',
+  DEEP_SPEECH = 'Deep Speech',
   ELVISH = 'Elvish',
-  IGNAN = 'Ignan'
+  GOBLIN = 'Goblin',
+  IGNAN = 'Ignan',
+  INFERNAL = 'Infernal',
+  UNDERCOMMON = 'Undercommon',
 }
