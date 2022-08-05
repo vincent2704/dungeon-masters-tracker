@@ -10,8 +10,8 @@ import {SavingThrow} from "./savingThrow";
 import {Ability} from "../common/ability/ability";
 import {MonsterSkill} from "./monsterSkill";
 import {Skill} from "../common/skill";
-import {DamageType} from "./enums/damageType";
-import {DamageResistances} from "./damageResistances";
+import {DamageType} from "./monster-damage-data/damageType";
+import {DamageResistances} from "./monster-damage-data/damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
 import {MonsterSense} from "./monsterSense";
@@ -22,21 +22,21 @@ import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
-import {MonsterSpeeds} from "./monsterSpeeds";
+import {MonsterSpeeds} from "./monster-speed/monsterSpeeds";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
 import {MonsterEquipment} from "./enums/monsterEquipment";
-import {DamageImmunities} from "./damageImmunities";
+import {DamageImmunities} from "./monster-damage-data/damageImmunities";
 import {MonsterSenseNote} from "./enums/monsterSenseNote";
 import {DieType} from "../common/dieType";
 import {MonsterArmorDescription} from "./enums/monsterArmorDescription";
-import {MonsterSpeed} from "./monsterSpeed";
-import {MonsterSpeedDetails} from "./enums/monsterSpeedDetails";
+import {MonsterSpeed} from "./monster-speed/monsterSpeed";
+import {MonsterSpeedDetails} from "./monster-speed/monsterSpeedDetails";
 import {AdditionalImmunities} from "./additionalImmunities";
-import {AdditionalDamageNote} from "./enums/additionalDamageNote";
+import {AdditionalDamageNote} from "./monster-damage-data/additionalDamageNote";
 import {SingleMonsterLanguage} from "./monster-languages/singleMonsterLanguage";
 import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
-import {MonsterSpeedNote} from "./enums/monsterSpeedNote";
+import {MonsterSpeedNote} from "./monster-speed/monsterSpeedNote";
 
 /*
   This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but

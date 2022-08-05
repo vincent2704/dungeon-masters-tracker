@@ -1,5 +1,5 @@
-import {AdditionalDamageNote} from "./enums/additionalDamageNote";
-import {DamageType} from "./enums/damageType";
+import {AdditionalDamageNote} from "./monster-damage-data/additionalDamageNote";
+import {DamageType} from "./monster-damage-data/damageType";
 
 export class AdditionalImmunities {
   constructor(private readonly damageTypes: DamageType[], private readonly damageNote: AdditionalDamageNote) {

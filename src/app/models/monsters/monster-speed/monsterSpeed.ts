@@ -1,5 +1,5 @@
-import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
-import {MonsterSpeedDetails} from "./enums/monsterSpeedDetails";
+import {MeasurementSystem} from "../../../services/measurement-system/measurement.system";
+import {MonsterSpeedDetails} from "./monsterSpeedDetails";
 
 export class MonsterSpeed {
   constructor(private readonly speedInFeet: number, private readonly description?: MonsterSpeedDetails) {

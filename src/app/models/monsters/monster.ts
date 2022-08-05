@@ -7,7 +7,7 @@ import {MonsterTag} from "./enums/monsterTag";
 import {MonsterChallenge} from "./monsterChallenge";
 import {SavingThrow} from "./savingThrow";
 import {MonsterSkill} from "./monsterSkill";
-import {DamageResistances} from "./damageResistances";
+import {DamageResistances} from "./monster-damage-data/damageResistances";
 import {Condition} from "../Condition";
 import {MonsterSenses} from "./monsterSenses";
 import {MonsterLanguages} from "./monster-languages/monsterLanguages";
@@ -15,10 +15,10 @@ import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
-import {MonsterSpeeds} from "./monsterSpeeds";
+import {MonsterSpeeds} from "./monster-speed/monsterSpeeds";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
-import {DamageImmunities} from "./damageImmunities";
+import {DamageImmunities} from "./monster-damage-data/damageImmunities";
 
 export class Monster {
 

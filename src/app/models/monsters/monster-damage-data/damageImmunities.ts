@@ -1,5 +1,5 @@
-import {DamageType} from "./enums/damageType";
-import {AdditionalImmunities} from "./additionalImmunities";
+import {DamageType} from "./damageType";
+import {AdditionalImmunities} from "../additionalImmunities";
 
 // this class is basically the same as DamageResistances,
 // but they are separate due to easier error avoidance during monster creation and readability
