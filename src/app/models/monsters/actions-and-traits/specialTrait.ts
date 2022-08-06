@@ -1,3 +1,5 @@
+import {StringUtils} from "../../../utilities/string/stringUtils";
+
 export class SpecialTrait {
 
   private constructor(private readonly name: string, private readonly description: string) {
@@ -8,11 +10,11 @@ export class SpecialTrait {
   }
 
   getDescription() {
-    return this.description;
+    return StringUtils.formatDescription(this.description);
   }
 
   private static readonly AARAKOCRA_DIVE_ATTACK = new SpecialTrait('Dive Attack',
-    "If the aarakocra is flying and dives at least 30 feet " +
+    "If the aarakocra is flying and dives at least {30} {feet} " +
     "straight toward a target and then hits it with a melee weapon " +
     "attack, the attack deals an extra 3 (1d6) damage to the target.");
 
@@ -22,7 +24,7 @@ export class SpecialTrait {
   private static readonly ABOLETH_MUCOUS_CLOUD = new SpecialTrait('Mucous Cloud',
     "While underwater, the aboleth is surrounded " +
     "by transformative mucus. A creature that touches the aboleth " +
-    "or that hits it with a melee attack while within 5 feet of it must " +
+    "or that hits it with a melee attack while within {5} {feet} of it must " +
     "make a DC 14 Constitution savin g throw. On a failure, the " +
     "creature is diseased for 1d4 hours. The diseased creature can " +
     "breathe only underwater.")
@@ -33,7 +35,7 @@ export class SpecialTrait {
     "desires if the aboleth can see the creature.")
 
   private static readonly DEVA_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
-    " The deva's weapon attacks are magical. " +
+    "The deva's weapon attacks are magical. " +
     "When the deva hits with any weapon, the weapon deals an " +
     "extra 4d8 radiant damage (included in the attack).")
 
@@ -49,7 +51,7 @@ export class SpecialTrait {
     "against spells and other magical effects.")
 
   private static readonly PLANETAR_ANGELIC_WEAPONS = new SpecialTrait('Angelic Weapons',
-    " The planetar's weapon attacks are magical. " +
+    "The planetar's weapon attacks are magical. " +
     "When the planetar hits with any weapon, the weapon deals an " +
     "extra 5d8 radiant damage (included in the attack).")
 
@@ -62,8 +64,7 @@ export class SpecialTrait {
     "following spells, requiring no material components: " +
     "At will: detect evil and good, invisibility (self only) " +
     "3/day each: blade barrier, dispel evil and good, flame strike, " +
-    "raise dead " +
-    "1/day each: commune, control weather, insect plague")
+    "raise dead 1/day each: commune, control weather, insect plague")
 
   private static readonly PLANETAR_MAGIC_RESISTANCE = new SpecialTrait('Magic Resistance',
     "The planetar has advantage on saving " +
@@ -126,7 +127,7 @@ export class SpecialTrait {
 
   private static readonly AZER_HEATED_BODY = new SpecialTrait('Heated Body',
     "A creature that touches the azer or hits it with a " +
-    "melee attack while within 5 feet of it takes 5 (1d10) fire damage.")
+    "melee attack while within {5} {feet} of it takes 5 (1d10) fire damage.")
 
   private static readonly AZER_HEATED_WEAPONS = new SpecialTrait('Heated Weapons',
     "When the azer hits with a metal melee " +
@@ -134,14 +135,15 @@ export class SpecialTrait {
     "the attack).")
 
   private static readonly AZER_ILLUMINATION = new SpecialTrait('Illumination',
-    "The azer sheds bright light in a 10-foot radius and " +
-    "dim light for an additional 10 feet.")
+    "The azer sheds bright light in a {10}-{foot} radius and " +
+    "dim light for an additional {10} {feet}.")
 
 
   private static readonly BANSHEE_DETECT_LIFE = new SpecialTrait('Detect Life',
     "The banshee can magically sense the presence " +
-    "of living creatures up to 5 miles away. She knows the general " +
-    "direction they're in but not their exact locations.")
+    "of living creatures up to {5} {miles} away. She knows the general " +
+    "direction they're in but not their exact locations."
+  )
 
   private static readonly BANSHEE_INCORPOREAL_MOVEMENT = new SpecialTrait('Incorporeal Movement',
     "The banshee can move through other " +
@@ -165,7 +167,7 @@ export class SpecialTrait {
     "The werewolf can use its action to polymorph " +
     "into a wolf-humanoid hybrid or into a wolf, or back into its true " +
     "form, which is humanoid. Its statistics, other than its AC, are " +
-    "the same in each form. ArcJy equipment it, is wearing or carrying " +
+    "the same in each form. Any equipment it is wearing or carrying " +
     "isn't transformed. It reverts to its true form if it dies.")
 
   private static readonly WEREWOLF_KEEN_HEARING_AND_SMELL = new SpecialTrait('Keen Hearing and Smell',
@@ -177,8 +179,8 @@ export class SpecialTrait {
     "fire damage to anyone riding it.");
 
   private static readonly NIGHTMARE_ILLUMINATION = new SpecialTrait('Illumination',
-    "The nightmare sheds bright light in a 10-foot " +
-    "radius and dim light for an additional 10 feet.")
+    "The nightmare sheds bright light in a {10}-{foot} " +
+    "radius and dim light for an additional {10} {feet}.")
 
   static readonly AARAKOCRA_SPECIAL_TRAITS = [this.AARAKOCRA_DIVE_ATTACK]
 

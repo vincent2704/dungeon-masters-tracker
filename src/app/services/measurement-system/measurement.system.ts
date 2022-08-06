@@ -16,4 +16,20 @@ export class MeasurementSystem {
   static getMeasurementUnit(): string {
     return Settings.isUsingSISystem() ? 'm' : 'ft.'
   }
+
+  static getMeasurementUnitLong() {
+    return Settings.isUsingSISystem() ? 'meters' : 'feet'
+  }
+
+  static getMeasurementUnitLongSingular() {
+    return Settings.isUsingSISystem() ? 'meter' : 'foot'
+  }
+
+  static getMilesMeasurementUnitLong() {
+    return Settings.isUsingSISystem() ? 'kilometers' : 'miles'
+  }
+
+  static getMilesMeasurementUnitLongSingular() {
+    return Settings.isUsingSISystem() ? 'kilometer' : 'mile'
+  }
 }

@@ -1,3 +1,5 @@
+import {StringUtils} from "../../../utilities/string/stringUtils";
+
 export class Action {
 
   private constructor(private readonly name: string, private readonly description: string) {
@@ -8,22 +10,22 @@ export class Action {
   }
 
   getDescription() {
-    return this.description;
+    return StringUtils.formatDescription(this.description);
   }
 
   private static readonly AARAKOCRA_TALON = new Action('Talon',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
-    "Hit: 4 (ld4 + 2) slashing damage .")
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one target. " +
+    "Hit: 4 (ld4 + 2) slashing damage.")
 
   private static readonly AARAKOCRA_JAVELIN = new Action('Javelin',
-    "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
-    "range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage.")
+    "Melee or Ranged Weapon Attack: +4 to hit, reach {5} {ft.} or " +
+    "range 30/120 {ft.}, one target. Hit: 5 (1d6 + 2) piercing damage.")
 
   private static readonly ABOLETH_MULTIATTACK = new Action('Multiattack',
     "The aboleth makes three tentacle attacks")
 
   private static readonly ABOLETH_TENTACLE = new Action('Tentacle',
-    " Melee Weapon Attack: +9 to hit, reach 10ft., one " +
+    "Melee Weapon Attack: +9 to hit, reach {10} {ft.}, one " +
     "target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a " +
     "creature, it must succeed on a DC 14 Constitution saving throw " +
     "or become diseased. The disease has no effect for 1 minute and " +
@@ -36,12 +38,12 @@ export class Action {
     "moisture is applied to the skin before 10 minutes have passed")
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
-    "Melee Weapon Attack: +9 to hit, reach 10ft. one target. " +
+    "Melee Weapon Attack: +9 to hit, reach {10} {ft.} one target. " +
     "Hit: 15 (3d6 + 5) bludgeoning damage.")
 
   private static readonly ABOLETH_ENSLAVE = new Action('Enslave (3/Day)',
     "The aboleth targets one creature it can see " +
-    "within 30 feet of it. The target must succeed on a DC 14 " +
+    "within {30} {feet} of it. The target must succeed on a DC 14 " +
     "Wisdom saving throw or be magically charmed by the aboleth " +
     "until the aboleth dies or until it is on a different plane of " +
     "existence from the target. The charmed target is under the " +
@@ -57,9 +59,9 @@ export class Action {
     "The deva makes two melee attacks.")
 
   private static readonly DEVA_MACE = new Action('Mace',
-    "Melee Weapon Attack: +8 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +8 to hit, reach {5} {ft.}, one " +
     "target. Hit: 7 (1d6 + 4) bludgeoning damage plus 18 (4d8) " +
-    "radiant damage. ")
+    "radiant damage.")
 
   private static readonly DEVA_HEALING_TOUCH = new Action('Healing Touch (3/Day)',
     "The deva touches another creature. " +
@@ -74,7 +76,7 @@ export class Action {
     "absorbed or borne by the new form (the deva's choice). " +
     "In a new form, the deva retains its game statistics and ability " +
     "to speak, but its AC, movement modes, Strength, Dexterity, " +
-    "and special senses are repl aced by those of the new form, and " +
+    "and special senses are replaced by those of the new form, and " +
     "it gains any statistics and capabilities (except class features, " +
     "legendary actions, and lair actions) that the new form has but " +
     "that it lacks.")
@@ -83,7 +85,7 @@ export class Action {
     "The planetar makes two melee attacks.")
 
   private static readonly PLANETAR_GREATSWORD = new Action('Greatsword',
-    "Melee Weapon Attack: +12 to hit, reach 5 ft., " +
+    "Melee Weapon Attack: +12 to hit, reach {5} {ft.}, " +
     "one target. Hit: 21 (4d6 + 7) slashing damage plus 22 (5d8) " +
     "radiant damage.")
 
@@ -96,22 +98,22 @@ export class Action {
     "The solar makes two greatsword attacks.")
 
   private static readonly SOLAR_GREATSWORD = new Action('Greatsword',
-    "Melee Weapon Attack: +15 to hit, reach 5 ft., " +
+    "Melee Weapon Attack: +15 to hit, reach {5} {ft.}, " +
     "one target. Hit: 22 (4d6 + 8) slashing damage plus 27 (6d8) " +
     "radiant damage.")
 
   private static readonly SOLAR_SLAYING_LONGBOW = new Action('Slaying Longbow',
     "Ranged Weapon Attack: +13 to hit, range " +
-    "120/600 ft., one target. Hit: 15 (2d8 + 6) piercing damage plus " +
-    "27 (6d8) radiant damage. If the target is a creature that has 190 " +
+    "{120}/{600} {ft.}, one target. Hit: 15 (2d8 + 6) piercing damage plus " +
+    "27 (6d8) radiant damage. If the target is a creature that has 100 " +
     "hit points or fewer, it must succeed on a DC 15 Constitution " +
     "saving throw or die.")
 
   private static readonly SOLAR_FLYING_SWORD = new Action('Flying Sword',
     "The solar releases its greatsword to hover " +
-    "magically in an unoccupied space within 5 feet of it. If the solar " +
+    "magically in an unoccupied space within {5} {feet} of it. If the solar " +
     "can see the sword, the solar can mentally command it as a " +
-    "bonus action to fly up to 50 feet and either make one attack " +
+    "bonus action to fly up to {50} {feet} and either make one attack " +
     "against a target or return to the solar's hands. If the hovering " +
     "sword is targeted by any effect, the solar is considered to be " +
     "holding it. The hovering sword falls if the solar dies.")
@@ -125,15 +127,15 @@ export class Action {
     "The armor makes two melee attacks.")
 
   private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one target. " +
     "Hit: 5 (1d6 + 2) bludgeoning damage.")
 
   private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
-    "Melee Weapon Attack: +3 to hit, reach 5 ft., one " +
-    "target. Hit: 5 (1d8 + 1) slashing damage. ")
+    "Melee Weapon Attack: +3 to hit, reach {5} {ft.}, one " +
+    "target. Hit: 5 (1d8 + 1) slashing damage.")
 
   private static readonly RUG_OF_SMOTHERING_SMOTHER = new Action('Smother',
-    "Melee Weapon Attack: +5 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +5 to hit, reach {5} {ft.}, one " +
     "Medium or smaller creature. Hit: The creature is grappled " +
     "(escape DC 13). Until this grapple ends, the target is restrained, " +
     "blinded, and at risk of suffocating, and the rug can't smother " +
@@ -141,7 +143,7 @@ export class Action {
     "turns, the target takes 10 (2d6 + 3) bludgeoning damage.")
 
   private static readonly ANKHEG_BITE = new Action('Bite',
-    "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. " +
+    "Melee Weapon Attack: +5 to hit, reach {5} {ft.}, one target. " +
     "Hit: 9 (2d6 + 3) slashing damage plus 3 (1d6) acid damage. If " +
     "the target is a Large or smaller creature, it is grappled (escape " +
     "DC 13). Until this grapple ends, the ankheg can bite only the " +
@@ -149,47 +151,47 @@ export class Action {
 
   private static readonly ANKHEG_ACID_SPRAY = new Action('Acid Spray (Recharge 6)',
     " The ankheg spits acid in a line that is " +
-    "30 feet long and 5 feet wide, provided that it has no creature " +
+    "{30} {feet} long and {5} {feet} wide, provided that it has no creature " +
     "grappled. Each creature in that line must make a DC 13 " +
     "Dexterity saving throw, taking 10 (3d6) acid damage on a failed " +
     "save, or half as much damage on a successful one.")
 
   private static readonly AZER_WARHAMMER = new Action('Warhammer',
-    "Melee Weapon Attack: +5 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +5 to hit, reach {5} {ft.}, one " +
     "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
     "bludgeoning damage if used with two hands to make a melee " +
     "attack, plus 3 (1d6) fire damage.")
 
   private static readonly BANSHEE_CORRUPTING_TOUCH = new Action('Corrupting Touch',
-    "Melee Spell Attack: +4 to hit, reach 5 ft., one " +
+    "Melee Spell Attack: +4 to hit, reach {5} {ft.}, one " +
     "target. Hit: 12 (3d6 + 2) necrotic damage.")
 
   private static readonly BANSHEE_HORRIFYING_VISAGE = new Action('Horrifying Visage',
-    "Each non-undead creature within 60 feet of " +
+    "Each non-undead creature within {60} {feet} of " +
     "the banshee that can see her must succeed on a DC 13 Wisdom " +
     "saving throw or be frightened for 1 minute. A frightened target " +
     "can repeat the saving throw at the end of each of its turns, " +
     "with disadvantage if the banshee is within line of sight, ending " +
     "the effect on itself on a success. If a target's saving throw is " +
     "successful or the effect ends for it, the target is immune to the " +
-    "banshee's Horrifying Visage for the next 24 hours. ")
+    "banshee's Horrifying Visage for the next 24 hours.")
 
   private static readonly BANSHEE_WAIL = new Action('Wail (1/Day)',
   "The banshee releases a mournful wail, provided " +
     "that she isn't in sunlight. This wail has no effect on constructs " +
-    "and undead. All other creatures within 30 feet of her that can " +
+    "and undead. All other creatures within {30} {feet} of her that can " +
     "hear her must make a DC 13 Constitution saving throw. On " +
     "a failure, a creature drops to 0 hit points. On a success, a " +
     "creature takes 10 (3d6) psychic damage.")
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
-    "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. " +
-    "Hit: 2 (1d6- 1) piercing damage. ")
+    "Melee Weapon Attack: +1 to hit, reach {5} {ft.}, one target. " +
+    "Hit: 2 (1d6- 1) piercing damage.")
 
   private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
     "The spectator shoots up to two of the following " +
-    "magical eye rays at one or two creatures it can see within 90 " +
-    "feet of it. It can use each ray only once on a turn. " +
+    "magical eye rays at one or two creatures it can see within {90} " +
+    "{feet} of it. It can use each ray only once on a turn. " +
     "7. Confusion Ray. The target must succeed on a DC 13 " +
     "Wisdom saving throw, or it can't take reactions until the end " +
     "of its next turn. On its turn, the target can't move, and it uses " +
@@ -211,23 +213,23 @@ export class Action {
 
   private static readonly SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
     "The spectator magically creates " +
-    "enough food and water to sustain itself for 24 hours. ")
+    "enough food and water to sustain itself for 24 hours.")
 
   private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one " +
     "target. Hit: 11 (2d8 + 2) piercing damage.")
 
   private static readonly BUGBEAR_JAVELIN = new Action('Javelin',
-    "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
-    "range 30/120 ft., one target. Hit: 9 (2d6 + 2) piercing damage " +
+    "Melee or Ranged Weapon Attack: +4 to hit, reach {5} {ft.} or " +
+    "range {30}/{120} {ft.}, one target. Hit: 9 (2d6 + 2) piercing damage " +
     "in melee or 5 (1d6 + 2) piercing damage at range.")
 
   private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one " +
     "target. Hit: 5 (1d6 + 2) slashing damage.")
 
   private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
-    "Ranged Weapon Attack: +4 to hit, range 80/320 ft., " +
+    "Ranged Weapon Attack: +4 to hit, range {80}/{320} {ft.}, " +
     "Hit: 5 (1d6 + 2) piercing damage.")
 
   private static readonly WEREWOLF_MULTIATTACK = new Action('Multiattack (Humanoid or Hybrid Form Only)',
@@ -237,29 +239,29 @@ export class Action {
 
   private static readonly WEREWOLF_BITE = new Action('Bite (Wolf or Hybrid Form Only)',
     "Melee Weapon Attack: " +
-    "+4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) piercing " +
+    "+4 to hit, reach {5} {ft.}, one target. Hit: 6 (1d8 + 2) piercing " +
     "damage. If the target is a humanoid, it must succeed on a " +
     "DC 12 Constitution saving throw or be cursed with werewolf " +
-    "lycanthropy. ")
+    "lycanthropy.")
 
   private static readonly WEREWOLF_CLAWS = new Action('Claws (Hybrid Form Only)',
     "Melee Weapon Attack: +4 to hit, " +
-    "reach 5 ft., one creature. Hit: 7 (2d4 + 2) slashing damage.")
+    "reach {5} {ft.}, one creature. Hit: 7 (2d4 + 2) slashing damage.")
 
   private static readonly WEREWOLF_SPEAR = new Action('Spear (Humanoid Form Only)',
     "Melee or Ranged Weapon Attack: " +
-    "+4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
+    "+4 to hit, reach {5} {ft.} or range {20}/{60} {ft.}, one creature. Hit: 5 (1d6 " +
     "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
     "with two hands to make a melee attack.")
 
   private static readonly NIGHTMARE_HOOVES = new Action('Hooves',
-    "Melee Weapon Attack: +6 to hit, reach 5 ft., one " +
+    "Melee Weapon Attack: +6 to hit, reach {5} {ft.}, one " +
     "target. Hit: 13 (2d8 + 4) bludgeoning damage plus 7 (2d6) " +
     "fire damage.")
 
   private static readonly NIGHTMARE_ETHEREAL_STRIDE = new Action('Ethereal Stride',
     "The nightmare and up to three willing creatures " +
-    "within 5 feet of it magically enter the Ethereal Plane from the " +
+    "within {5} {feet} of it magically enter the Ethereal Plane from the " +
     "Material Plane, or vice versa.")
 
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
