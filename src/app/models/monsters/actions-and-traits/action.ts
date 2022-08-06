@@ -184,6 +184,10 @@ export class Action {
     "a failure, a creature drops to 0 hit points. On a success, a " +
     "creature takes 10 (3d6) psychic damage.")
 
+  private static readonly BASILISK_BITE = new Action('Bite',
+    "Melee Weapon Attack: +5 to hit, reach {5} {ft.}, one target. " +
+    "Hit: 10 (2d6 + 3) piercing damage plus 7 (2d6) poison damage.")
+
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach {5} {ft.}, one target. " +
     "Hit: 2 (1d6- 1) piercing damage.")
@@ -278,6 +282,7 @@ export class Action {
   static AZER_ACTIONS = [this.AZER_WARHAMMER];
 
   static BANSHEE_ACTIONS = [this.BANSHEE_CORRUPTING_TOUCH, this.BANSHEE_HORRIFYING_VISAGE, this.BANSHEE_WAIL];
+  static BASILISK_ACTIONS = [this.BASILISK_BITE];
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 

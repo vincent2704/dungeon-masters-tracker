@@ -179,6 +179,15 @@ export class MonsterManualMonsters {
     SpecialTrait.BANSHEE_SPECIAL_TRAITS, Action.BANSHEE_ACTIONS
   )
 
+  static BASILISK = new Monster(MonsterId.BASILISK_ID,
+    'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, [], Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
+    new MonsterHitPoints(52, 8, DieType.D8, 16), new MonsterSpeeds(new MonsterSpeed(20)),
+    new AbilitySet(16, 8, 15, 2, 8, 7),
+    MonsterChallenge.THREE, undefined, undefined, undefined, undefined, undefined,
+    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), undefined,
+    SpecialTrait.BASILISK_SPECIAL_TRAITS, Action.BASILISK_ACTIONS
+  )
+
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
@@ -222,7 +231,7 @@ export class MonsterManualMonsters {
     undefined, new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
       AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS)),
     undefined, new MonsterSenses([], 14),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]), // TODO: this one as well
+    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
     SpecialTrait.WEREWOLF_SPECIAL_TRAITS, Action.WEREWOLF_ACTIONS
   )
 
@@ -241,8 +250,8 @@ export class MonsterManualMonsters {
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.SPECTATOR, this.BUGBEAR, this.GOBLIN,
-    this.WEREWOLF, this.NIGHTMARE
+    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.BASILISK, this.SPECTATOR, this.BUGBEAR,
+    this.GOBLIN, this.WEREWOLF, this.NIGHTMARE
   ]
 
 }
