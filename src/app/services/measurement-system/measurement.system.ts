@@ -24,4 +24,12 @@ export class MeasurementSystem {
   static getMeasurementUnitLongSingular() {
     return Settings.isUsingSISystem() ? 'meter' : 'foot'
   }
+
+  static getMilesMeasurementUnitLong() {
+    return Settings.isUsingSISystem() ? 'kilometers' : 'miles'
+  }
+
+  static getMilesMeasurementUnitLongSingular() {
+    return Settings.isUsingSISystem() ? 'kilometer' : 'mile'
+  }
 }

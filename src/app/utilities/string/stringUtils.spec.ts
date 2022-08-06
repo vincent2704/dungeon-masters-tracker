@@ -39,8 +39,8 @@ describe('StringUtils', () => {
     )
 
     // solar legendary action
-    Settings.setSISystem(false);
     let legendaryAction = MonsterManualMonsters.SOLAR.getLegendaryActions()[1];
+    Settings.setSISystem(false);
     expect(legendaryAction.getDescription()).toEqual(
       "The solar emits magical, divine " +
       "energy. Each creature of its choice in a 10-foot radius must " +
@@ -56,6 +56,20 @@ describe('StringUtils', () => {
       "damage plus 14 (4d6) radiant damage on a failed save, or half " +
       "as much damage on a successful one."
     );
+
+    let specialTrait = MonsterManualMonsters.BANSHEE.getSpecialTraits()[0];
+    Settings.setSISystem(false);
+    expect(specialTrait.getDescription()).toEqual(
+      "The banshee can magically sense the presence " +
+      "of living creatures up to 5 miles away. She knows the general " +
+      "direction they're in but not their exact locations."
+    )
+    Settings.setSISystem(true);
+    expect(specialTrait.getDescription()).toEqual(
+      "The banshee can magically sense the presence " +
+      "of living creatures up to 7.5 kilometers away. She knows the general " +
+      "direction they're in but not their exact locations."
+    )
   });
 
 });

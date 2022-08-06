@@ -141,8 +141,9 @@ export class SpecialTrait {
 
   private static readonly BANSHEE_DETECT_LIFE = new SpecialTrait('Detect Life',
     "The banshee can magically sense the presence " +
-    "of living creatures up to {5} {miles} away. She knows the general " + // TODO: miles!!!
-    "direction they're in but not their exact locations.")
+    "of living creatures up to {5} {miles} away. She knows the general " +
+    "direction they're in but not their exact locations."
+  )
 
   private static readonly BANSHEE_INCORPOREAL_MOVEMENT = new SpecialTrait('Incorporeal Movement',
     "The banshee can move through other " +
