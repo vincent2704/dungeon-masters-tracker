@@ -1,3 +1,5 @@
+import {MeasurementSystem} from "../../../services/measurement-system/measurement.system";
+
 export class Action {
 
   private constructor(private readonly name: string, private readonly description: string) {
@@ -285,5 +287,16 @@ export class Action {
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];
+
+  static formatDescription(description: string, ...speedInFeet: number[]): string {
+    for(let speed of speedInFeet) {
+      let distance = MeasurementSystem.getFeetDistance(speed);
+      description = description.replace('{feet}', distance.toString());
+    }
+    let measurementUnit = MeasurementSystem.getMeasurementUnit();
+    description = description.replaceAll('{unit}', measurementUnit);
+
+    return description;
+  }
 
 }
