@@ -1,4 +1,4 @@
-import {MeasurementSystem} from "../../../services/measurement-system/measurement.system";
+import {StringUtils} from "../../../utilities/string/stringUtils";
 
 export class Action {
 
@@ -10,7 +10,7 @@ export class Action {
   }
 
   getDescription() {
-    return this.formatDescription(this.description);
+    return StringUtils.formatDescription(this.description);
   }
 
   private static readonly AARAKOCRA_TALON = new Action('Talon',
@@ -287,23 +287,5 @@ export class Action {
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];
-
-  formatDescription(description: string): string {
-    description = description.replaceAll("{ft.}", MeasurementSystem.getMeasurementUnit())
-    description = description.replaceAll("{feet}", MeasurementSystem.getMeasurementUnitLong())
-
-    let speedValues = description.match(/{[\w\d]+}/g);
-    if(speedValues) {
-      speedValues = speedValues.map(value => {
-        return value.substring(1, value.length-1);
-      })
-
-      for(let speedValue of speedValues) {
-        description = description.replace(`{${speedValue}}`,
-          MeasurementSystem.getFeetDistance(parseInt(speedValue)).toString());
-      }
-    }
-    return description;
-  }
 
 }
