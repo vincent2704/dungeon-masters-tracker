@@ -16,4 +16,8 @@ export class MeasurementSystem {
   static getMeasurementUnit(): string {
     return Settings.isUsingSISystem() ? 'm' : 'ft.'
   }
+
+  static getMeasurementUnitLong() {
+    return Settings.isUsingSISystem() ? 'meters' : 'feet'
+  }
 }

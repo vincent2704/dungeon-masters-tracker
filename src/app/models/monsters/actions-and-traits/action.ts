@@ -10,12 +10,12 @@ export class Action {
   }
 
   getDescription() {
-    return this.description;
+    return this.formatDescription(this.description);
   }
 
   private static readonly AARAKOCRA_TALON = new Action('Talon',
-    "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. " +
-    "Hit: 4 (ld4 + 2) slashing damage .")
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one target. " +
+    "Hit: 4 (ld4 + 2) slashing damage.")
 
   private static readonly AARAKOCRA_JAVELIN = new Action('Javelin',
     "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or " +
@@ -250,7 +250,7 @@ export class Action {
 
   private static readonly WEREWOLF_SPEAR = new Action('Spear (Humanoid Form Only)',
     "Melee or Ranged Weapon Attack: " +
-    "+4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
+    "+4 to hit, reach {5} {ft.} or range {20}/{60} {ft.}, one creature. Hit: 5 (1d6 " +
     "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
     "with two hands to make a melee attack.")
 
@@ -261,7 +261,7 @@ export class Action {
 
   private static readonly NIGHTMARE_ETHEREAL_STRIDE = new Action('Ethereal Stride',
     "The nightmare and up to three willing creatures " +
-    "within 5 feet of it magically enter the Ethereal Plane from the " +
+    "within {5} {feet} of it magically enter the Ethereal Plane from the " +
     "Material Plane, or vice versa.")
 
   static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
@@ -288,14 +288,21 @@ export class Action {
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];
 
-  static formatDescription(description: string, ...speedInFeet: number[]): string {
-    for(let speed of speedInFeet) {
-      let distance = MeasurementSystem.getFeetDistance(speed);
-      description = description.replace('{feet}', distance.toString());
-    }
-    let measurementUnit = MeasurementSystem.getMeasurementUnit();
-    description = description.replaceAll('{unit}', measurementUnit);
+  formatDescription(description: string): string {
+    description = description.replaceAll("{ft.}", MeasurementSystem.getMeasurementUnit())
+    description = description.replaceAll("{feet}", MeasurementSystem.getMeasurementUnitLong())
 
+    let speedValues = description.match(/{[\w\d]+}/g);
+    if(speedValues) {
+      speedValues = speedValues.map(value => {
+        return value.substring(1, value.length-1);
+      })
+
+      for(let speedValue of speedValues) {
+        description = description.replace(`{${speedValue}}`,
+          MeasurementSystem.getFeetDistance(parseInt(speedValue)).toString());
+      }
+    }
     return description;
   }
 
