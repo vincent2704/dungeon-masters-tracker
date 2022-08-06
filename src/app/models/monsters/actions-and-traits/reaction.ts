@@ -1,3 +1,5 @@
+import {StringUtils} from "../../../utilities/string/stringUtils";
+
 export class Reaction {
 
   private constructor(private name: string, private description: string) {
@@ -8,7 +10,7 @@ export class Reaction {
   }
 
   getDescription() {
-    return this.description;
+    return StringUtils.formatDescription(this.description);
   }
 
   static readonly SPECTATOR_SPELL_REFLECTION = new Reaction('Spell Reflection',

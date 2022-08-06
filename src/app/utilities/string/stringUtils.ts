@@ -5,6 +5,7 @@ export class StringUtils {
   static formatDescription(description: string): string {
     description = description.replaceAll("{ft.}", MeasurementSystem.getMeasurementUnit())
     description = description.replaceAll("{feet}", MeasurementSystem.getMeasurementUnitLong())
+    description = description.replaceAll("{foot}", MeasurementSystem.getMeasurementUnitLongSingular())
 
     let speedValues = description.match(/{[\w\d]+}/g);
     if (speedValues) {

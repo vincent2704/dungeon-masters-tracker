@@ -7,7 +7,6 @@ describe('StringUtils', () => {
     // werewolf
     let action = MonsterManualMonsters.WEREWOLF.getActions()[3];
 
-    // when
     Settings.setSISystem(false);
     expect(action.getDescription()).toEqual(
       "Melee or Ranged Weapon Attack: " +
@@ -15,8 +14,6 @@ describe('StringUtils', () => {
       "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack."
     )
-
-    // and when
     Settings.setSISystem(true);
     expect(action.getDescription()).toEqual(
       "Melee or Ranged Weapon Attack: " +
@@ -28,21 +25,37 @@ describe('StringUtils', () => {
     // nightmare
     action = MonsterManualMonsters.NIGHTMARE.getActions()[1];
 
-    // when
     Settings.setSISystem(false);
     expect(action.getDescription()).toEqual(
       "The nightmare and up to three willing creatures " +
       "within 5 feet of it magically enter the Ethereal Plane from the " +
       "Material Plane, or vice versa."
     )
-
-    // and when
     Settings.setSISystem(true);
     expect(action.getDescription()).toEqual(
       "The nightmare and up to three willing creatures " +
       "within 1.5 meters of it magically enter the Ethereal Plane from the " +
       "Material Plane, or vice versa."
     )
+
+    // solar legendary action
+    Settings.setSISystem(false);
+    let legendaryAction = MonsterManualMonsters.SOLAR.getLegendaryActions()[1];
+    expect(legendaryAction.getDescription()).toEqual(
+      "The solar emits magical, divine " +
+      "energy. Each creature of its choice in a 10-foot radius must " +
+      "make a DC 23 Dexterity saving throw, taking 14 (4d6) fire " +
+      "damage plus 14 (4d6) radiant damage on a failed save, or half " +
+      "as much damage on a successful one."
+    );
+    Settings.setSISystem(true);
+    expect(legendaryAction.getDescription()).toEqual(
+      "The solar emits magical, divine " +
+      "energy. Each creature of its choice in a 3-meter radius must " +
+      "make a DC 23 Dexterity saving throw, taking 14 (4d6) fire " +
+      "damage plus 14 (4d6) radiant damage on a failed save, or half " +
+      "as much damage on a successful one."
+    );
   });
 
 });

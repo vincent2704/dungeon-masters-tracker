@@ -20,4 +20,8 @@ export class MeasurementSystem {
   static getMeasurementUnitLong() {
     return Settings.isUsingSISystem() ? 'meters' : 'feet'
   }
+
+  static getMeasurementUnitLongSingular() {
+    return Settings.isUsingSISystem() ? 'meter' : 'foot'
+  }
 }
