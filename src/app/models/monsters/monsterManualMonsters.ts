@@ -188,6 +188,16 @@ export class MonsterManualMonsters {
     SpecialTrait.BASILISK_SPECIAL_TRAITS, Action.BASILISK_ACTIONS
   )
 
+  static BEHIR = new Monster(MonsterId.BEHIR_ID,
+    'Behir', MonsterSize.HUGE, MonsterType.MONSTROSITY, [], Alignment.NEUTRAL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
+    new MonsterHitPoints(168, 16, DieType.D12, 64), new MonsterSpeeds(new MonsterSpeed(50), new MonsterSpeed(0), new MonsterSpeed(0), new MonsterSpeed(0), new MonsterSpeed(40)),
+    new AbilitySet(23, 16, 18, 7, 14, 12), MonsterChallenge.ELEVEN,
+    undefined, [new MonsterSkill(Skill.PERCEPTION, 6), new MonsterSkill(Skill.STEALTH, 7)], undefined,
+    new DamageImmunities([DamageType.LIGHTNING]), undefined, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 90)], 16),
+    new MonsterLanguages([new SingleMonsterLanguage(Language.DRACONIC)]),
+    undefined, Action.BEHIR_ACTIONS
+  )
+
   static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
     'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
     [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
@@ -250,7 +260,7 @@ export class MonsterManualMonsters {
 
   static MONSTERS: Monster[] = [
     this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.BASILISK, this.SPECTATOR, this.BUGBEAR,
+    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.BASILISK, this.BEHIR, this.SPECTATOR, this.BUGBEAR,
     this.GOBLIN, this.WEREWOLF, this.NIGHTMARE
   ]
 

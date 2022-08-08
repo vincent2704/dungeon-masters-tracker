@@ -5,7 +5,8 @@ export class MonsterSpeeds {
   constructor(private readonly landSpeed: MonsterSpeed,
               private readonly flyingSpeed: MonsterSpeed = new MonsterSpeed(0),
               private readonly swimmingSpeed: MonsterSpeed = new MonsterSpeed(0),
-              private readonly burrowSpeed: MonsterSpeed = new MonsterSpeed(0)) {
+              private readonly burrowSpeed: MonsterSpeed = new MonsterSpeed(0),
+              private readonly climbSpeed: MonsterSpeed = new MonsterSpeed(0)) {
   }
 
   getLandSpeed(): MonsterSpeed {
@@ -22,6 +23,10 @@ export class MonsterSpeeds {
 
   getBurrowSpeed(): MonsterSpeed {
     return this.burrowSpeed;
+  }
+
+  getClimbSpeed(): MonsterSpeed {
+    return this.climbSpeed;
   }
 
 }

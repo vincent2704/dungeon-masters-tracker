@@ -177,7 +177,7 @@ export class Action {
     "banshee's Horrifying Visage for the next 24 hours.")
 
   private static readonly BANSHEE_WAIL = new Action('Wail (1/Day)',
-  "The banshee releases a mournful wail, provided " +
+    "The banshee releases a mournful wail, provided " +
     "that she isn't in sunlight. This wail has no effect on constructs " +
     "and undead. All other creatures within {30} {feet} of her that can " +
     "hear her must make a DC 13 Constitution saving throw. On " +
@@ -187,6 +187,44 @@ export class Action {
   private static readonly BASILISK_BITE = new Action('Bite',
     "Melee Weapon Attack: +5 to hit, reach {5} {ft.}, one target. " +
     "Hit: 10 (2d6 + 3) piercing damage plus 7 (2d6) poison damage.")
+
+  private static readonly BEHIR_MULTIATTACK = new Action('Multiattack',
+    "The behir makes two attacks: one with its bite and " +
+    "one to constrict.")
+
+  private static readonly BEHIR_BITE = new Action('Bite',
+    "Melee Weapon Attack: +10 to hit, reach {10} {ft.}, one target. " +
+    "Hit: 22 (3d10 + 6) piercing damage.")
+
+  private static readonly BEHIR_CONSTRICT = new Action('Constrict',
+    "Melee Weapon Attack: + 10 to hit, reach {5} {ft}., one " +
+    "Large or smaller creature. Hit: 17 (2d10 + 6) bludgeoning " +
+    "damage plus 17 (2d10 + 6) slashing damage. The target is " +
+    "grappled (escape DC 16) if the behir isn't already constricting a " +
+    "creature, and the target is restrained until this grapple ends.")
+
+  private static readonly BEHIR_LIGHTNING_BREATH = new Action('Lightning Breath (Recharge 5-6)',
+    "The behir exhales a line of " +
+    "lightning that is {20} {feet} long and {5} {feet} wide. Each creature " +
+    "in that line must make a DC 16 Dexterity saving throw, taking " +
+    "66 (12d10) lightning damage on a failed save, or half as much " +
+    "damage on a successful one.")
+
+  private static readonly BEHIR_SWALLOW = new Action('Swallow',
+    "The behir makes one bite attack against a Medium or " +
+    "smaller target it is grappling. If the attack hits, the target is also " +
+    "swallowed, and the grapple ends. While swallowed, the target " +
+    "is blinded and restrained, it has total cover against attacks " +
+    "and other effects outside the behir, and it takes 21 (6d6) acid " +
+    "damage at the start of each of the behir's turns. A behir can " +
+    "have only one creature swallowed at a time. " +
+    "If the behir takes 30 damage or more on a single turn from " +
+    "the swallowed creature, the behir must succeed on a DC 14 " +
+    "Constitution saving throw at the end of that turn or regurgitate " +
+    "the creature, which falls prone in a space within {10} {feet} of " +
+    "the behir. If the behir dies, a swallowed creature is no longer " +
+    "restrained by it and can escape from the corpse by using {15} {feet} " +
+    "of movement, exiting prone.")
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach {5} {ft.}, one target. " +
@@ -283,6 +321,8 @@ export class Action {
 
   static BANSHEE_ACTIONS = [this.BANSHEE_CORRUPTING_TOUCH, this.BANSHEE_HORRIFYING_VISAGE, this.BANSHEE_WAIL];
   static BASILISK_ACTIONS = [this.BASILISK_BITE];
+  static BEHIR_ACTIONS = [this.BEHIR_MULTIATTACK, this.BEHIR_BITE, this.BEHIR_CONSTRICT, this.BEHIR_LIGHTNING_BREATH,
+    this.BEHIR_SWALLOW]
 
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
