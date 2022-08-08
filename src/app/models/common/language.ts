@@ -9,4 +9,5 @@ export enum Language {
   IGNAN = 'Ignan',
   INFERNAL = 'Infernal',
   UNDERCOMMON = 'Undercommon',
+  DRACONIC = 'Draconic'
 }

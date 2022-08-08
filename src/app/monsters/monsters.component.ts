@@ -3,6 +3,7 @@ import {MonsterService} from "../services/monster/monster.service";
 import {Monster} from "../models/monsters/monster";
 import {MeasurementSystem} from "../services/measurement-system/measurement.system";
 import {MonsterSpeedDetails} from "../models/monsters/monster-speed/monsterSpeedDetails";
+import {MovementType} from "../models/monsters/monster-speed/movementType";
 
 @Component({
   selector: 'app-monsters',
@@ -68,31 +69,21 @@ export class MonstersComponent implements OnInit {
   }
 
   getSpeed(monster: Monster): string {
-    let monsterSpeed = monster.getSpeed();
+    let monsterSpeeds = monster.getSpeed().getMonsterSpeeds();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
-    let landSpeed = monsterSpeed.getLandSpeed();
-    let flyingSpeed = monsterSpeed.getFlyingSpeed();
-    let swimmingSpeed = monsterSpeed.getSwimmingSpeed();
-    let burrowSpeed = monsterSpeed.getBurrowSpeed();
 
-    let speed = `Speed: ${landSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(landSpeed.getDetails())}`;
+    let speeds = "Speed: "
 
-    let flyingSpeedValue = flyingSpeed.getSpeed();
-    if (flyingSpeedValue > 0) {
-      speed += `, fly ${flyingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(flyingSpeed.getDetails())}`;
+    for (let monsterSpeed of monsterSpeeds) {
+      let movementType = monsterSpeed.getMovementType();
+      if (movementType === MovementType.LAND) {
+        speeds += `${monsterSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(monsterSpeed.getDetails())}`
+      } else {
+        speeds += `, ${movementType} ${monsterSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(monsterSpeed.getDetails())}`
+      }
     }
 
-    let swimmingSpeedValue = swimmingSpeed.getSpeed();
-    if(swimmingSpeedValue > 0) {
-      speed += `, swim ${swimmingSpeedValue} ${measurementUnit}${this.buildDetailsDescription(swimmingSpeed.getDetails())}`;
-    }
-
-    let burrowSpeedValue = burrowSpeed.getSpeed();
-    if(burrowSpeedValue > 0) {
-      speed += `, burrow ${burrowSpeedValue} ${measurementUnit}${this.buildDetailsDescription(burrowSpeed.getDetails())}`;
-    }
-
-    return speed;
+    return speeds;
   }
 
   getChallenge(monster: Monster): string {
@@ -117,7 +108,7 @@ export class MonstersComponent implements OnInit {
   private buildDetailsDescription(monsterSpeedDetails: MonsterSpeedDetails): string {
     if (monsterSpeedDetails) {
       let descriptionDistance = monsterSpeedDetails.getDistance();
-      if(descriptionDistance) {
+      if (descriptionDistance) {
         return ` (${descriptionDistance} ${MeasurementSystem.getMeasurementUnit()} ${monsterSpeedDetails.getNote()})`
       } else {
         return ` (${monsterSpeedDetails.getNote()})`;
