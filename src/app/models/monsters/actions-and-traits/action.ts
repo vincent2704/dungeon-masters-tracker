@@ -197,7 +197,7 @@ export class Action {
     "Hit: 22 (3d10 + 6) piercing damage.")
 
   private static readonly BEHIR_CONSTRICT = new Action('Constrict',
-    "Melee Weapon Attack: + 10 to hit, reach {5} {ft}., one " +
+    "Melee Weapon Attack: + 10 to hit, reach {5} {ft.}, one " +
     "Large or smaller creature. Hit: 17 (2d10 + 6) bludgeoning " +
     "damage plus 17 (2d10 + 6) slashing damage. The target is " +
     "grappled (escape DC 16) if the behir isn't already constricting a " +
