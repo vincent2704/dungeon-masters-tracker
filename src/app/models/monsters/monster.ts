@@ -15,10 +15,10 @@ import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
-import {MonsterSpeeds} from "./monster-speed/monsterSpeeds";
 import {MonsterHitPoints} from "./monsterHitPoints";
 import {MonsterArmor} from "./monsterArmor";
 import {DamageImmunities} from "./monster-damage-data/damageImmunities";
+import {MonsterSpeed} from "./monster-speed/monsterSpeed";
 
 export class Monster {
 
@@ -29,7 +29,7 @@ export class Monster {
     // second part
     private readonly armorClass: MonsterArmor[],
     private readonly hitPoints: MonsterHitPoints,
-    private readonly speed: MonsterSpeeds,
+    private readonly speeds: MonsterSpeed[],
     // third part
     private readonly abilitySet: AbilitySet,
     // fourth part
@@ -77,8 +77,8 @@ export class Monster {
     return this.hitPoints;
   }
 
-  getSpeed(): MonsterSpeeds {
-    return this.speed;
+  getSpeeds(): MonsterSpeed[] {
+    return this.speeds;
   }
 
   getAbilitySet(): AbilitySet {

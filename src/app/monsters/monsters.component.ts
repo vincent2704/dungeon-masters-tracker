@@ -69,20 +69,21 @@ export class MonstersComponent implements OnInit {
   }
 
   getSpeed(monster: Monster): string {
-    let monsterSpeeds = monster.getSpeed().getMonsterSpeeds();
+    let monsterSpeeds = monster.getSpeeds();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
 
-    let speeds = "Speed: "
+    let speeds = "Speed:"
 
     for (let monsterSpeed of monsterSpeeds) {
       let movementType = monsterSpeed.getMovementType();
+      let speedInformation =
+        `${movementType} ${monsterSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(monsterSpeed.getDetails())}`;
       if (movementType === MovementType.LAND) {
-        speeds += `${monsterSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(monsterSpeed.getDetails())}`
+        speeds += speedInformation
       } else {
-        speeds += `, ${movementType} ${monsterSpeed.getSpeed()} ${measurementUnit}${this.buildDetailsDescription(monsterSpeed.getDetails())}`
+        speeds += `, ${speedInformation}`
       }
     }
-
     return speeds;
   }
 
