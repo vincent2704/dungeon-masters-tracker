@@ -56,8 +56,8 @@ describe('MonsterDetailsComponent', () => {
     Settings.setSISystem(true);
     expect(component.getSenses()).toEqual('Darkvision 36 m, passive Perception 20');
 
-    component.monster = MonsterList.AARAKOCRA;
-    expect(component.getSenses()).toEqual('passive Perception 15');
+    component.monster = MonsterList.WEREWOLF;
+    expect(component.getSenses()).toEqual('passive Perception 14');
 
     component.monster = MonsterList.ANIMATED_ARMOR;
     expect(component.getSenses()).toEqual('Blindsight 18 m (blind beyond this radius), passive Perception 6');

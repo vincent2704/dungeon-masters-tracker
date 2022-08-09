@@ -94,7 +94,7 @@ describe('MonstersComponent', () => {
 
   it('should filter monsters by name case insensitive', () => {
     // given
-    component.monsters = [MonsterList.AARAKOCRA, MonsterList.ABOLETH, MonsterList.DEVA,
+    component.monsters = [MonsterList.WEREWOLF, MonsterList.ABOLETH, MonsterList.DEVA,
       MonsterList.RUG_OF_SMOTHERING, MonsterList.GOBLIN];
     component.monsterNamePart = 'a';
 
@@ -102,8 +102,7 @@ describe('MonstersComponent', () => {
     let filteredMonsters = component.getMonstersFiltered();
 
     // then
-    expect(filteredMonsters).toEqual([MonsterList.AARAKOCRA, MonsterList.ABOLETH,
-    MonsterList.DEVA]);
+    expect(filteredMonsters).toEqual([MonsterList.ABOLETH, MonsterList.DEVA]);
   });
 
 });
