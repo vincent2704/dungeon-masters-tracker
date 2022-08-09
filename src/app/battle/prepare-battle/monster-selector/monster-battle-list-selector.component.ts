@@ -40,11 +40,11 @@ export class MonsterBattleListSelectorComponent implements OnInit {
 
     this.selectedMonstersCount.forEach((monsterCount, monster) => {
       for (let i = 1; i <= monsterCount; i++) {
-        let monsterHitPoints = monster.getHitPoints();
+        let monsterHitPoints = monster.getDetails().getHitPoints();
         let monsterHP = this.randomizeMonstersHPCheckboxChecked
           ? this.randomizeMonstersHP(monster)
           : monsterHitPoints.getHitPoints();
-        let battleParticipant = new Actor(`${monster.getName()}${i}`, monsterHP);
+        let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
         battleParticipant.setDeathSavingThrowsEligibility(false);
         monsterActors.push(battleParticipant)
       }
@@ -60,7 +60,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
   }
 
   getChallenge(monster: Monster): string {
-    return monster.getChallenge().getChallengeFormatted();
+    return monster.getBasicInfo().getChallengeRating().getChallengeFormatted();
   }
 
   addMonster(monster: Monster): void {
@@ -95,7 +95,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
 
   private randomizeMonstersHP(monster: Monster): number {
     let hp = 0;
-    let monsterHitPoints = monster.getHitPoints();
+    let monsterHitPoints = monster.getDetails().getHitPoints();
     // "throws" dice based on monster's Hit Points dice
     for (let diceThrow = 1; diceThrow <= monsterHitPoints.getDiceThrows(); diceThrow++) {
       let maxDieValueThrown = monsterHitPoints.getDieType().getSides();
@@ -115,7 +115,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
     }
     let totalXp = 0;
     this.selectedMonstersCount.forEach((count, monster) => {
-      let totalXpFromMonster = monster.getChallenge().getExperiencePoints() * count;
+      let totalXpFromMonster = monster.getBasicInfo().getChallengeRating().getExperiencePoints() * count;
       totalXp += totalXpFromMonster;
     });
     return totalXp;

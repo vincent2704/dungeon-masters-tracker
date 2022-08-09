@@ -1,10 +1,10 @@
-import {MonsterManualMonsters} from "../monsterManualMonsters";
+import {MonsterList} from "../monsterList";
 import {StringUtils} from "../../../utilities/string/stringUtils";
 
 describe('LegendaryAction', () => {
 
   it("should get proper description", () => {
-    let action = MonsterManualMonsters.SOLAR.getLegendaryActions()[1];
+    let action = MonsterList.SOLAR.getDetails().getLegendaryActions()[1];
     expect(action.getDescription()).toEqual(StringUtils.formatDescription(
       "The solar emits magical, divine " +
       "energy. Each creature of its choice in a {10}-{foot} radius must " +

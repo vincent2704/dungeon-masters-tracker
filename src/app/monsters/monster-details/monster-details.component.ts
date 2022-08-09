@@ -32,8 +32,8 @@ export class MonsterDetailsComponent implements OnInit {
   }
 
   getDamageResistances(): string {
-    let resistances = this.monster.getDamageResistances().getResistances();
-    let nonMagicalResistances = this.monster.getDamageResistances().getNonMagicalResistances();
+    let resistances = this.monster.getDetails().getDamageResistances().getResistances();
+    let nonMagicalResistances = this.monster.getDetails().getDamageResistances().getNonMagicalResistances();
 
     if (nonMagicalResistances.length == 0) {
       return resistances.join(', ');
@@ -42,8 +42,8 @@ export class MonsterDetailsComponent implements OnInit {
   }
 
   getDamageImmunities(): string {
-    let immunities = this.monster.getDamageImmunities().getImmunities();
-    let additionalImmunities = this.monster.getDamageImmunities().getAdditionalImmunities();
+    let immunities = this.monster.getDetails().getDamageImmunities().getImmunities();
+    let additionalImmunities = this.monster.getDetails().getDamageImmunities().getAdditionalImmunities();
 
     if (!additionalImmunities) {
       return immunities.join(', ');
@@ -57,11 +57,11 @@ export class MonsterDetailsComponent implements OnInit {
   }
 
   getConditionImmunities(): string {
-    return this.monster.getConditionImmunities().map(condition => condition.getName()).join(', ');
+    return this.monster.getDetails().getConditionImmunities().map(condition => condition.getName()).join(', ');
   }
 
   getSenses(): string {
-    let senses = this.monster.getSenses().getMonsterSenses().map(monsterSense => {
+    let senses = this.monster.getDetails().getSenses().getMonsterSenses().map(monsterSense => {
       let sense = monsterSense.getSense().getName();
       let radius = monsterSense.getRadius();
       let note = monsterSense.getNote();
@@ -72,7 +72,7 @@ export class MonsterDetailsComponent implements OnInit {
       return `${sense} ${radius} ${MeasurementSystem.getMeasurementUnit()}`;
     }).join(', ');
 
-    let passivePerception = this.monster.getSenses().getPassivePerception();
+    let passivePerception = this.monster.getDetails().getSenses().getPassivePerception();
     if (passivePerception > 0) {
       if (senses.length > 0) {
         return `${senses}, passive Perception ${passivePerception}`;
@@ -83,8 +83,8 @@ export class MonsterDetailsComponent implements OnInit {
   }
 
   getLanguages(): string {
-    let monsterLanguages = this.monster.getLanguages();
-    if (!monsterLanguages) {
+    let monsterLanguages = this.monster.getDetails().getLanguages();
+    if (monsterLanguages.getLanguages().length === 0) {
       return '—'
     }
     let monsterLanguagesList: SingleMonsterLanguage[] = monsterLanguages.getLanguages();

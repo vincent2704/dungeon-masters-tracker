@@ -13,14 +13,6 @@ export class Action {
     return StringUtils.formatDescription(this.description);
   }
 
-  private static readonly AARAKOCRA_TALON = new Action('Talon',
-    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one target. " +
-    "Hit: 4 (ld4 + 2) slashing damage.")
-
-  private static readonly AARAKOCRA_JAVELIN = new Action('Javelin',
-    "Melee or Ranged Weapon Attack: +4 to hit, reach {5} {ft.} or " +
-    "range 30/120 {ft.}, one target. Hit: 5 (1d6 + 2) piercing damage.")
-
   private static readonly ABOLETH_MULTIATTACK = new Action('Multiattack',
     "The aboleth makes three tentacle attacks")
 
@@ -226,6 +218,14 @@ export class Action {
     "restrained by it and can escape from the corpse by using {15} {feet} " +
     "of movement, exiting prone.")
 
+  private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
+    "Melee Weapon Attack: +4 to hit, reach {5} {ft.}, one" +
+    "target. Hit: 5 (1d6 + 2) piercing damage.")
+
+  private static readonly SKELETON_SHORTBOW = new Action('Shortbow',
+    "Ranged Weapon Attack: +4 to hit, range {80}/{320} {ft.}," +
+    "one target. Hit: 5 (1d6 + 2) piercing damage.")
+
   private static readonly SPECTATOR_BITE = new Action('Bite',
     "Melee Weapon Attack: +1 to hit, reach {5} {ft.}, one target. " +
     "Hit: 2 (1d6- 1) piercing damage.")
@@ -306,7 +306,6 @@ export class Action {
     "within {5} {feet} of it magically enter the Ethereal Plane from the " +
     "Material Plane, or vice versa.")
 
-  static AARAKOCRA_ACTIONS = [this.AARAKOCRA_TALON, this.AARAKOCRA_JAVELIN];
   static ABOLETH_ACTIONS = [this.ABOLETH_MULTIATTACK, this.ABOLETH_TENTACLE, this.ABOLETH_TAIL, this.ABOLETH_ENSLAVE];
   static DEVA_ACTIONS = [this.DEVA_MULTIATTACK, this.DEVA_MACE, this.DEVA_HEALING_TOUCH, this.DEVA_CHANGE_SHAPE];
   static PLANETAR_ACTIONS = [this.PLANETAR_MULTIATTACK, this.PLANETAR_GREATSWORD, this.PLANETAR_HEALING_TOUCH];
@@ -324,6 +323,7 @@ export class Action {
   static BEHIR_ACTIONS = [this.BEHIR_MULTIATTACK, this.BEHIR_BITE, this.BEHIR_CONSTRICT, this.BEHIR_LIGHTNING_BREATH,
     this.BEHIR_SWALLOW]
 
+  static SKELETON_ACTIONS = [this.SKELETON_SHORTSWORD, this.SKELETON_SHORTBOW];
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
   static BUGBEAR_ACTIONS = [this.BUGBEAR_MORNINGSTAR, this.BUGBEAR_JAVELIN];

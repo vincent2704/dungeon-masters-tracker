@@ -38,7 +38,7 @@ export class MonsterListSelectorComponent implements OnInit {
   }
 
   getChallenge(monster: Monster): string {
-    return monster.getChallenge().getChallengeFormatted();
+    return monster.getBasicInfo().getChallengeRating().getChallengeFormatted();
   }
 
   addMonster(monster: Monster): void {
@@ -70,7 +70,7 @@ export class MonsterListSelectorComponent implements OnInit {
     }
     let totalXp = 0;
     this.selectedMonstersCount.forEach((count, monster) => {
-      let totalXpFromMonster = monster.getChallenge().getExperiencePoints() * count;
+      let totalXpFromMonster = monster.getBasicInfo().getChallengeRating().getExperiencePoints() * count;
       totalXp += totalXpFromMonster;
     });
     return totalXp;
