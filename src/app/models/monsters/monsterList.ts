@@ -132,6 +132,42 @@ export class MonsterList {
     )
   )
 
+  static SPECTATOR = new Monster(
+    new MonsterBasicInfo(MonsterId.SPECTATOR_ID,
+      'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, MonsterChallenge.THREE
+    ),
+    new MonsterDetails(
+      Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(39, 6, DieType.D8, 12),
+      [new MonsterSpeed(0), new MonsterSpeed(30, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new AbilitySet(8, 14, 14, 13, 14, 11),
+      Action.SPECTATOR_ACTIONS, [],
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
+      [], [], [new MonsterSkill(Skill.PERCEPTION, 6)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120),
+      undefined, undefined, [Condition.PRONE],
+      [Reaction.SPECTATOR_SPELL_REFLECTION]
+    )
+  )
+
+  static WEREWOLF = new Monster(
+    new MonsterBasicInfo(MonsterId.WEREWOLF_ID,
+      'Werewolf', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.THREE),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
+        new MonsterArmor(12, [MonsterEquipment.NATURAL_ARMOR], MonsterArmorDescription.IN_WOLF_OR_HYBRID_FORM)],
+      new MonsterHitPoints(58, 9, DieType.D8, 18),
+      [new MonsterSpeed(30, MovementType.LAND, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))],
+      new AbilitySet(15, 13, 14, 10, 11, 10),
+      Action.WEREWOLF_ACTIONS, SpecialTrait.WEREWOLF_SPECIAL_TRAITS,
+      new MonsterSenses([], 14), [MonsterTag.HUMAN, MonsterTag.SHAPECHANGER],
+      [], [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
+      undefined,
+      new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
+        AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS))
+    )
+  )
+
   static ABOLETH = new Monster(
     new MonsterBasicInfo(MonsterId.ABOLETH_ID,
       'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, MonsterChallenge.TEN),
@@ -254,42 +290,6 @@ export class MonsterList {
       [], [new MonsterSkill(Skill.PERCEPTION, 6), new MonsterSkill(Skill.STEALTH, 7)],
       new MonsterLanguages([new SingleMonsterLanguage(Language.DRACONIC)]),
       undefined, new DamageImmunities([DamageType.LIGHTNING])
-    )
-  )
-
-  static SPECTATOR = new Monster(
-    new MonsterBasicInfo(MonsterId.SPECTATOR_ID,
-      'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, MonsterChallenge.THREE
-    ),
-    new MonsterDetails(
-      Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(39, 6, DieType.D8, 12),
-      [new MonsterSpeed(0), new MonsterSpeed(30, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
-      new AbilitySet(8, 14, 14, 13, 14, 11),
-      Action.SPECTATOR_ACTIONS, [],
-      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
-      [], [], [new MonsterSkill(Skill.PERCEPTION, 6)],
-      new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120),
-      undefined, undefined, [Condition.PRONE],
-      [Reaction.SPECTATOR_SPELL_REFLECTION]
-    )
-  )
-
-  static WEREWOLF = new Monster(
-    new MonsterBasicInfo(MonsterId.WEREWOLF_ID,
-      'Werewolf', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.THREE),
-    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
-        new MonsterArmor(12, [MonsterEquipment.NATURAL_ARMOR], MonsterArmorDescription.IN_WOLF_OR_HYBRID_FORM)],
-      new MonsterHitPoints(58, 9, DieType.D8, 18),
-      [new MonsterSpeed(30, MovementType.LAND, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))],
-      new AbilitySet(15, 13, 14, 10, 11, 10),
-      Action.WEREWOLF_ACTIONS, SpecialTrait.WEREWOLF_SPECIAL_TRAITS,
-      new MonsterSenses([], 14), [MonsterTag.HUMAN, MonsterTag.SHAPECHANGER],
-      [], [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
-      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
-      undefined,
-      new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
-        AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS))
     )
   )
 

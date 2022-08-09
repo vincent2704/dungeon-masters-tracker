@@ -45,6 +45,44 @@ export class MonsterId {
   static readonly HARPY_ID = new MonsterId(83, MonsterSource.BASIC_RULES);
   static readonly HELL_HOUND_ID = new MonsterId(85, MonsterSource.BASIC_RULES);
 
+  static readonly HYDRA_ID = new MonsterId(90, MonsterSource.BASIC_RULES);
+
+  static readonly MASTIFF_ID = new MonsterId(100);
+  static readonly OGRE_ID = new MonsterId(109);
+
+  static readonly ORC_ID = new MonsterId(110)
+
+  static readonly PTERANODON_ID = new MonsterId(120);
+
+  static readonly SEA_HORSE_ID = new MonsterId(130);
+  static readonly SKELETON_ID = new MonsterId(131);
+  static readonly SPECTATOR_ID = new MonsterId(132, MonsterSource.BASIC_RULES,
+    'https://www.dndbeyond.com/monsters/17094-spectator');
+
+  static readonly SWARM_OF_RATS_ID = new MonsterId(140);
+  static readonly TROLL_ID = new MonsterId(144);
+
+  static readonly WEASEL_ID = new MonsterId(150);
+  static readonly WEREWOLF_ID = new MonsterId(151, MonsterSource.BASIC_RULES,
+    'https://www.dndbeyond.com/monsters/17057-werewolf');
+  static readonly WIGHT_ID = new MonsterId(152);
+  static readonly WOLF_ID = new MonsterId(154);
+  static readonly ZOMBIE_ID = new MonsterId(159);
+
+  // Basic Rules NPC list
+  static readonly ACOLYTE_ID = new MonsterId(160)
+  static readonly BANDIT_ID = new MonsterId(161)
+  static readonly BERSERKER_ID = new MonsterId(162)
+  static readonly COMMONER_ID = new MonsterId(163)
+  static readonly CULTIST_ID = new MonsterId(164)
+  static readonly GUARD_ID = new MonsterId(165)
+  static readonly KNIGHT_ID = new MonsterId(166)
+  static readonly MAGE_ID = new MonsterId(167)
+  static readonly PRIEST_ID = new MonsterId(168)
+  static readonly THUG_ID = new MonsterId(169)
+
+  // Monster Manual
+
   static readonly AARAKOCRA_ID = new MonsterId(1, MonsterSource.MONSTER_MANUAL);
   static readonly ABOLETH_ID = new MonsterId(2, MonsterSource.MONSTER_MANUAL,
     'https://www.dndbeyond.com/monsters/16762-aboleth');
@@ -65,8 +103,6 @@ export class MonsterId {
     'https://www.dndbeyond.com/monsters/16804-behir');
   static readonly BEHOLDER_ID = new MonsterId(14, MonsterSource.MONSTER_MANUAL);
   static readonly DEATH_TYRANT_ID = new MonsterId(15, MonsterSource.MONSTER_MANUAL);
-  static readonly SPECTATOR_ID = new MonsterId(16, MonsterSource.MONSTER_MANUAL,
-    'https://www.dndbeyond.com/monsters/17094-spectator');
   static readonly NEEDLE_BLIGHT_ID = new MonsterId(17, MonsterSource.MONSTER_MANUAL);
   static readonly TWIG_BLIGHT_ID = new MonsterId(18, MonsterSource.MONSTER_MANUAL);
   static readonly VINE_BLIGHT_ID = new MonsterId(19, MonsterSource.MONSTER_MANUAL);
@@ -96,9 +132,6 @@ export class MonsterId {
   static readonly GITHYANKI_ID = new MonsterId(150, MonsterSource.MONSTER_MANUAL);
   static readonly CLAY_GOLEM_ID = new MonsterId(160, MonsterSource.MONSTER_MANUAL);
 
-  static readonly WEREWOLF_ID = new MonsterId(203, MonsterSource.MONSTER_MANUAL,
-    'https://www.dndbeyond.com/monsters/17057-werewolf');
-
   static readonly MUD_MEPHIT_ID = new MonsterId(210, MonsterSource.MONSTER_MANUAL);
   static readonly TRIDRONE_ID = new MonsterId(220, MonsterSource.MONSTER_MANUAL);
   static readonly SPIRIT_NAGA_ID = new MonsterId(230, MonsterSource.MONSTER_MANUAL);
@@ -114,7 +147,7 @@ export class MonsterId {
     return this.source;
   }
 
-  getSourceLinkg(): string {
+  getSourceLink(): string {
     return this.sourceLink;
   }
 
