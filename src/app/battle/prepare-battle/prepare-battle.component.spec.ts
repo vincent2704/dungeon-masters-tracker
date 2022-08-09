@@ -9,7 +9,7 @@ import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
-import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
+import {MonsterList} from "../../models/monsters/monsterList";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -59,10 +59,10 @@ describe('PrepareBattleComponent', () => {
     // given
     component.actors = [];
     let monstersFromList = [
-      new Actor('Animated Armor1', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
     ]
 
     // when
@@ -70,10 +70,10 @@ describe('PrepareBattleComponent', () => {
 
     // then
     expect(component.actors).toEqual([
-      new Actor('Animated Armor1', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterManualMonsters.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterManualMonsters.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
     ])
   });
 

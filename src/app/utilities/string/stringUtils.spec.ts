@@ -1,11 +1,11 @@
-import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
+import {MonsterList} from "../../models/monsters/monsterList";
 import {Settings} from "../../services/settings/settings";
 
 describe('StringUtils', () => {
 
   it("should get proper description", () => {
     // werewolf
-    let action = MonsterManualMonsters.WEREWOLF.getActions()[3];
+    let action = MonsterList.WEREWOLF.getActions()[3];
 
     Settings.setSISystem(false);
     expect(action.getDescription()).toEqual(
@@ -23,7 +23,7 @@ describe('StringUtils', () => {
     )
 
     // nightmare
-    action = MonsterManualMonsters.NIGHTMARE.getActions()[1];
+    action = MonsterList.NIGHTMARE.getActions()[1];
 
     Settings.setSISystem(false);
     expect(action.getDescription()).toEqual(
@@ -39,7 +39,7 @@ describe('StringUtils', () => {
     )
 
     // solar legendary action
-    let legendaryAction = MonsterManualMonsters.SOLAR.getLegendaryActions()[1];
+    let legendaryAction = MonsterList.SOLAR.getLegendaryActions()[1];
     Settings.setSISystem(false);
     expect(legendaryAction.getDescription()).toEqual(
       "The solar emits magical, divine " +
@@ -57,7 +57,7 @@ describe('StringUtils', () => {
       "as much damage on a successful one."
     );
 
-    let specialTrait = MonsterManualMonsters.BANSHEE.getSpecialTraits()[0];
+    let specialTrait = MonsterList.BANSHEE.getSpecialTraits()[0];
     Settings.setSISystem(false);
     expect(specialTrait.getDescription()).toEqual(
       "The banshee can magically sense the presence " +

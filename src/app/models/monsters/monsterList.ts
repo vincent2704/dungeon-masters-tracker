@@ -37,40 +37,45 @@ import {MovementType} from "./monster-speed/movementType";
 import {AdditionalDamageNote} from "./monster-damage-data/additionalDamageNote";
 import {AdditionalImmunities} from "./monster-damage-data/additionalImmunities";
 import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
+import {MonsterBasicInfo} from "./monsterBasicInfo";
+import {MonsterDetails} from "./monsterDetails";
 
 /*
   This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
   its aim is to reduce load on backend server as well as reduce app's response time retrieving most popular monsters.
  */
-export class MonsterManualMonsters {
+export class MonsterList {
 
-  static AARAKOCRA = new Monster(MonsterId.AARAKOCRA_ID,
-    'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.AARAKOCRA], Alignment.NEUTRAL_GOOD,
-    [new MonsterArmor(12)], new MonsterHitPoints(13, 3, DieType.D8), [new MonsterSpeed(20), new MonsterSpeed(50, MovementType.FLY)],
-    new AbilitySet(10, 14, 10, 11, 12, 11),
-    MonsterChallenge.ONE_FOURTH,
-    [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
-    [new MonsterSkill(Skill.PERCEPTION, 5)],
-    undefined, undefined, undefined,
-    new MonsterSenses([], 15),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.AURAN)]),
-    SpecialTrait.AARAKOCRA_SPECIAL_TRAITS, Action.AARAKOCRA_ACTIONS
+  static AARAKOCRA = new Monster(
+    new MonsterBasicInfo(
+      MonsterId.AARAKOCRA_ID,
+      'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH
+    ),
+    new MonsterDetails(
+      Alignment.NEUTRAL_GOOD, [new MonsterArmor(12)],
+      new MonsterHitPoints(13, 3, DieType.D8), [new MonsterSpeed(20), new MonsterSpeed(50, MovementType.FLY)],
+      new AbilitySet(10, 14, 10, 11, 12, 11),
+      new MonsterSenses([], 15), [MonsterTag.AARAKOCRA],
+      [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
+      [new MonsterSkill(Skill.PERCEPTION, 5)], new MonsterLanguages([new SingleMonsterLanguage(Language.AURAN)]),
+      Action.AARAKOCRA_ACTIONS, SpecialTrait.AARAKOCRA_SPECIAL_TRAITS
+    )
   )
 
-  static ABOLETH = new Monster(MonsterId.ABOLETH_ID,
-    'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, [], Alignment.LAWFUL_EVIL,
-    [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(135, 18, DieType.D10, 36),
-    [new MonsterSpeed(10), new MonsterSpeed( 40, MovementType.SWIM)],
-    new AbilitySet(21, 9, 15, 18, 15, 18),
-    MonsterChallenge.TEN,
-    [new SavingThrow(Ability.CONSTITUTION, 6), new SavingThrow(Ability.INTELLIGENCE, 8),
-      new SavingThrow(Ability.WISDOM, 6)],
-    [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
-    undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 20),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH)], 120),
-    SpecialTrait.ABOLETH_SPECIAL_TRAITS,
-    Action.ABOLETH_ACTIONS, [], LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
+  static ABOLETH = new Monster(
+    new MonsterBasicInfo(MonsterId.ABOLETH_ID,
+      'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, MonsterChallenge.TEN),
+    new MonsterDetails(
+      Alignment.LAWFUL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(135, 18, DieType.D10, 36),
+      [new MonsterSpeed(10), new MonsterSpeed(40, MovementType.SWIM)],
+      new AbilitySet(21, 9, 15, 18, 15, 18),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 20),
+      [], [new SavingThrow(Ability.CONSTITUTION, 6), new SavingThrow(Ability.INTELLIGENCE, 8),
+        new SavingThrow(Ability.WISDOM, 6)], [new MonsterSkill(Skill.HISTORY, 12), new MonsterSkill(Skill.PERCEPTION, 10)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH)], 120),
+      Action.ABOLETH_ACTIONS, SpecialTrait.ABOLETH_SPECIAL_TRAITS, undefined, undefined, undefined, undefined,
+      LegendaryAction.ABOLETH_LEGENDARY_ACTIONS
+    )
   )
 
   static DEVA = new Monster(MonsterId.DEVA_ID,

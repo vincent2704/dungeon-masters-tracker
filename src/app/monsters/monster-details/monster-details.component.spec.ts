@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonsterDetailsComponent } from './monster-details.component';
-import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
+import {MonsterList} from "../../models/monsters/monsterList";
 import {Settings} from "../../services/settings/settings";
 
 describe('MonsterDetailsComponent', () => {
@@ -18,7 +18,7 @@ describe('MonsterDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MonsterDetailsComponent);
     component = fixture.componentInstance;
-    component.monster = MonsterManualMonsters.ABOLETH;
+    component.monster = MonsterList.ABOLETH;
     fixture.detectChanges();
   });
 
@@ -27,16 +27,16 @@ describe('MonsterDetailsComponent', () => {
   });
 
   it('should display resistances', () => {
-    component.monster = MonsterManualMonsters.DEVA;
+    component.monster = MonsterList.DEVA;
     expect(component.getDamageResistances()).toEqual('radiant; bludgeoning, piercing, ' +
       'slashing from nonmagical weapons');
   });
 
   it('should display immunities', () => {
-    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    component.monster = MonsterList.ANIMATED_ARMOR;
     expect(component.getDamageImmunities()).toEqual('poison, psychic');
 
-    component.monster = MonsterManualMonsters.WEREWOLF;
+    component.monster = MonsterList.WEREWOLF;
     expect(component.getDamageImmunities()).toEqual('bludgeoning, piercing, slashing damage from ' +
       'nonmagical weapons that aren\'t silvered');
   });
@@ -56,10 +56,10 @@ describe('MonsterDetailsComponent', () => {
     Settings.setSISystem(true);
     expect(component.getSenses()).toEqual('Darkvision 36 m, passive Perception 20');
 
-    component.monster = MonsterManualMonsters.AARAKOCRA;
+    component.monster = MonsterList.AARAKOCRA;
     expect(component.getSenses()).toEqual('passive Perception 15');
 
-    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    component.monster = MonsterList.ANIMATED_ARMOR;
     expect(component.getSenses()).toEqual('Blindsight 18 m (blind beyond this radius), passive Perception 6');
   });
 
@@ -67,16 +67,16 @@ describe('MonsterDetailsComponent', () => {
     Settings.setSISystem(true);
     expect(component.getLanguages()).toEqual('Deep Speech, telepathy 36 m');
 
-    component.monster = MonsterManualMonsters.ANIMATED_ARMOR;
+    component.monster = MonsterList.ANIMATED_ARMOR;
     expect(component.getLanguages()).toEqual('—');
 
-    component.monster = MonsterManualMonsters.GOBLIN;
+    component.monster = MonsterList.GOBLIN;
     expect(component.getLanguages()).toEqual('Common, Goblin');
 
-    component.monster = MonsterManualMonsters.WEREWOLF;
+    component.monster = MonsterList.WEREWOLF;
     expect(component.getLanguages()).toEqual('Common (can\'t speak in wolf form)');
 
-    component.monster = MonsterManualMonsters.NIGHTMARE;
+    component.monster = MonsterList.NIGHTMARE;
     expect(component.getLanguages()).toEqual('understands Abyssal, Common, Infernal but ' +
       'can\'t speak');
   });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Monster} from "../../models/monsters/monster";
-import {MonsterManualMonsters} from "../../models/monsters/monsterManualMonsters";
+import {MonsterList} from "../../models/monsters/monsterList";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,6 @@ export class MonsterService {
   constructor() { }
 
   getMonsters(): Monster[] {
-    return MonsterManualMonsters.MONSTERS;
+    return MonsterList.MONSTERS;
   }
 }
