@@ -42,7 +42,7 @@ describe('MonsterDetailsComponent', () => {
   });
 
   it('should display ability score info', () => {
-    let abilityScores = component.monster.getAbilitySet().getAbilityScores();
+    let abilityScores = component.monster.getDetails().getAbilitySet().getAbilityScores();
 
     expect(component.getAbilityScoreInfo(abilityScores[0])).toEqual('21 (+5)');
     expect(component.getAbilityScoreInfo(abilityScores[1])).toEqual('9 (-1)');

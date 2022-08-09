@@ -23,13 +23,13 @@ export class MonsterDetails {
     private readonly hitPoints: MonsterHitPoints,
     private readonly speeds: MonsterSpeed[],
     private readonly abilitySet: AbilitySet,
+    private readonly actions: Action[] = [],
+    private readonly specialTraits: SpecialTrait[] = [],
     private readonly senses: MonsterSenses = new MonsterSenses([], 0),
     private readonly tags: MonsterTag[] = [],
     private readonly savingThrows: SavingThrow[] = [],
     private readonly skills: MonsterSkill[] = [],
     private readonly languages: MonsterLanguages = new MonsterLanguages([]),
-    private readonly actions: Action[] = [],
-    private readonly specialTraits: SpecialTrait[] = [],
     private readonly damageResistances?: DamageResistances,
     private readonly damageImmunities?: DamageImmunities,
     private readonly conditionImmunities: Condition[] = [],
@@ -89,7 +89,7 @@ export class MonsterDetails {
   }
 
   getLanguages(): MonsterLanguages {
-    return this.languages!;
+    return this.languages;
   }
 
   getSpecialTraits(): SpecialTrait[] {

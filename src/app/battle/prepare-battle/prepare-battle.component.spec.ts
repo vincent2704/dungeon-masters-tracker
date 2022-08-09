@@ -59,10 +59,10 @@ describe('PrepareBattleComponent', () => {
     // given
     component.actors = [];
     let monstersFromList = [
-      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
     ]
 
     // when
@@ -70,10 +70,10 @@ describe('PrepareBattleComponent', () => {
 
     // then
     expect(component.actors).toEqual([
-      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterList.GOBLIN.getHitPoints().getHitPoints()),
+      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Goblin1', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
+      new Actor('Goblin2', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
     ])
   });
 

@@ -84,7 +84,7 @@ export class MonsterDetailsComponent implements OnInit {
 
   getLanguages(): string {
     let monsterLanguages = this.monster.getDetails().getLanguages();
-    if (!monsterLanguages) {
+    if (monsterLanguages.getLanguages().length === 0) {
       return '—'
     }
     let monsterLanguagesList: SingleMonsterLanguage[] = monsterLanguages.getLanguages();
