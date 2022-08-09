@@ -27,16 +27,18 @@ export class MonstersComponent implements OnInit {
   }
 
   getOverview(monster: Monster): string {
-    if (monster.getTags().length == 0) {
-      return `${monster.getSize().getName()} ${monster.getType()}, ${monster.getAlignment()}`;
+    let basicInfo = monster.getBasicInfo();
+    let details = monster.getDetails();
+    if (details.getTags().length == 0) {
+      return `${basicInfo.getSize().getName()} ${basicInfo.getType()}, ${details.getAlignment()}`;
     }
-    let tags = monster.getTags().join(', ');
-    return `${monster.getSize().getName()} ${monster.getType()} (${tags}), ${monster.getAlignment()}`;
+    let tags = details.getTags().join(', ');
+    return `${basicInfo.getSize().getName()} ${basicInfo.getType()} (${tags}), ${details.getAlignment()}`;
   }
 
   getArmorClass(monster: Monster): string {
     let armorClassInfo = 'Armor Class: '
-    let monsterArmorClass = monster.getArmorClass();
+    let monsterArmorClass = monster.getDetails().getArmorClass();
     for (let armor of monsterArmorClass) {
       let armorClass = `${armor.getArmorClassValue()}`;
       let equipment = armor.getEquipment();
@@ -56,7 +58,7 @@ export class MonstersComponent implements OnInit {
   }
 
   getHitPoints(monster: Monster): string {
-    let monsterHitPoints = monster.getHitPoints();
+    let monsterHitPoints = monster.getDetails().getHitPoints();
     let diceThrows = monsterHitPoints.getDiceThrows();
     let dieType = monsterHitPoints.getDieType();
     let staticHP = monsterHitPoints.getStaticAdditionalHP();
@@ -69,7 +71,7 @@ export class MonstersComponent implements OnInit {
   }
 
   getSpeed(monster: Monster): string {
-    let monsterSpeeds = monster.getSpeeds();
+    let monsterSpeeds = monster.getDetails().getSpeeds();
     let measurementUnit = MeasurementSystem.getMeasurementUnit();
 
     let speeds = "Speed:"
@@ -88,7 +90,7 @@ export class MonstersComponent implements OnInit {
   }
 
   getChallenge(monster: Monster): string {
-    return `Challenge: ${monster.getChallenge().getChallengeFormatted()}`
+    return `Challenge: ${monster.getBasicInfo().getChallengeRating().getChallengeFormatted()}`
   }
 
   toggleDetails(monster: Monster) {
@@ -102,7 +104,7 @@ export class MonstersComponent implements OnInit {
 
   getMonstersFiltered(): Monster[] {
     return this.monsters.filter(monster => {
-      return monster.getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
+      return monster.getBasicInfo().getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
     })
   }
 

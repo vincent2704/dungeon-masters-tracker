@@ -4,7 +4,7 @@
 </div>
 <div class="row">
   <div *ngFor="let monster of getMonstersFiltered()" class="list-group-item col-4 card bg-gradient">
-    <h5 class="card-title">{{monster.getName()}}</h5>
+    <h5 class="card-title">{{monster.getBasicInfo().getName()}}</h5>
     <h6 class="card-subtitle">{{getOverview(monster)}}</h6>
     <hr/>
     <div class="row">

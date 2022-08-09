@@ -2,44 +2,44 @@
 <table class="table table-sm">
   <thead>
   <tr>
-    <th scope="col" *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
+    <th scope="col" *ngFor="let abilityScore of monster.getDetails().getAbilitySet().getAbilityScores()">
       {{abilityScore.getAbility().getNameShort()}}</th>
   </tr>
   </thead>
   <tbody>
   <tr>
-    <td *ngFor="let abilityScore of monster.getAbilitySet().getAbilityScores()">
+    <td *ngFor="let abilityScore of monster.getDetails().getAbilitySet().getAbilityScores()">
       {{getAbilityScoreInfo(abilityScore)}}
     </td>
   </tr>
   </tbody>
 </table>
-<div class="row" *ngIf="monster.getSavingThrows().length > 0">
+<div class="row" *ngIf="monster.getDetails().getSavingThrows().length > 0">
   <div class="col-4 fw-bold">Saving throws</div>
   <div class="col-4"
-       *ngFor="let savingThrow of monster.getSavingThrows()">{{savingThrow.getAbility().getName()}} {{savingThrow.getModifier()}}</div>
+       *ngFor="let savingThrow of monster.getDetails().getSavingThrows()">{{savingThrow.getAbility().getName()}} {{savingThrow.getModifier()}}</div>
 </div>
 <div class="row">
   <hr>
-  <div class="col-4 fw-bold" *ngIf="monster.getSkills().length > 0">Skills</div>
-  <div class="col-4" *ngFor="let skill of monster.getSkills()">{{skill.getSkill()}} {{skill.getScore()}}</div>
+  <div class="col-4 fw-bold" *ngIf="monster.getDetails().getSkills().length > 0">Skills</div>
+  <div class="col-4" *ngFor="let skill of monster.getDetails().getSkills()">{{skill.getSkill()}} {{skill.getScore()}}</div>
 </div>
-<div class="row" *ngIf="monster.getDamageResistances()">
+<div class="row" *ngIf="monster.getDetails().getDamageResistances()">
   <hr>
   <div class="col-4 fw-bold">Damage Resistances</div>
   <div class="col">{{getDamageResistances()}}</div>
 </div>
-<div class="row" *ngIf="monster.getDamageImmunities()">
+<div class="row" *ngIf="monster.getDetails().getDamageImmunities()">
   <hr>
   <div class="col-4 fw-bold">Damage Immunities</div>
   <div class="col">{{getDamageImmunities()}}</div>
 </div>
-<div class="row" *ngIf="monster.getConditionImmunities().length > 0">
+<div class="row" *ngIf="monster.getDetails().getConditionImmunities().length > 0">
   <hr>
   <div class="col-4 fw-bold">Condition Immunities</div>
   <div class="col">{{getConditionImmunities()}}</div>
 </div>
-<div class="row" *ngIf="monster.getSenses()">
+<div class="row" *ngIf="monster.getDetails().getSenses()">
   <hr>
   <div class="col-4 fw-bold">Senses</div>
   <div class="col">{{getSenses()}}</div>
@@ -49,7 +49,7 @@
   <div class="col-4 fw-bold">Languages</div>
   <div class="col">{{getLanguages()}}</div>
 </div>
-<div class="row" *ngFor="let trait of monster.getSpecialTraits()">
+<div class="row" *ngFor="let trait of monster.getDetails().getSpecialTraits()">
   <hr>
   <div class="col-4 fw-bold">{{trait.getName()}}</div>
   <div class="col-8">
@@ -58,26 +58,26 @@
 </div>
 <div class="row">Actions</div>
   <hr>
-<div class="row" *ngFor="let action of monster.getActions()">
+<div class="row" *ngFor="let action of monster.getDetails().getActions()">
   <div class="col-4 fw-bold">{{action.getName()}}</div>
   <div class="col-8">
     {{action.getDescription()}}
   </div>
 </div>
-<div *ngIf="monster.getReactions().length > 0">
+<div *ngIf="monster.getDetails().getReactions().length > 0">
   <hr>
   <div class="row">Reactions</div>
-  <div class="row" *ngFor="let reaction of monster.getReactions()">
+  <div class="row" *ngFor="let reaction of monster.getDetails().getReactions()">
     <div class="col-4 fw-bold">{{reaction.getName()}}</div>
     <div class="col-8">
       {{reaction.getDescription()}}
     </div>
   </div>
 </div>
-<div *ngIf="monster.getLegendaryActions().length > 0">
+<div *ngIf="monster.getDetails().getLegendaryActions().length > 0">
   <hr>
   <div class="row">Legendary Actions</div>
-  <div class="row" *ngFor="let action of monster.getLegendaryActions()">
+  <div class="row" *ngFor="let action of monster.getDetails().getLegendaryActions()">
     <div class="col-4 fw-bold">{{action.getName()}}</div>
     <div class="col-8">
       {{action.getDescription()}}

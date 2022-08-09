@@ -40,6 +40,10 @@ export class MonsterDetails {
   ) {
   }
 
+  getAlignment(): Alignment {
+    return this.alignment;
+  }
+
   getArmorClass(): MonsterArmor[] {
     return this.armorClass;
   }
