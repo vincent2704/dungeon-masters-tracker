@@ -2,7 +2,8 @@ import {MonsterSource} from "./enums/monsterSource";
 
 export class MonsterId {
 
-  constructor(private readonly id: number, private readonly source: MonsterSource) {
+  constructor(private readonly id: number, private readonly source: MonsterSource = MonsterSource.BASIC_RULES,
+              private readonly sourceLink: string = '') {
   }
 
   static readonly ADULT_RED_DRAGON_ID = new MonsterId(1, MonsterSource.BASIC_RULES);
@@ -45,18 +46,27 @@ export class MonsterId {
   static readonly HELL_HOUND_ID = new MonsterId(85, MonsterSource.BASIC_RULES);
 
   static readonly AARAKOCRA_ID = new MonsterId(1, MonsterSource.MONSTER_MANUAL);
-  static readonly ABOLETH_ID = new MonsterId(2, MonsterSource.MONSTER_MANUAL);
-  static readonly DEVA_ID = new MonsterId(3, MonsterSource.MONSTER_MANUAL);
-  static readonly PLANETAR_ID = new MonsterId(4, MonsterSource.MONSTER_MANUAL);
-  static readonly SOLAR_ID = new MonsterId(5, MonsterSource.MONSTER_MANUAL);
+  static readonly ABOLETH_ID = new MonsterId(2, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16762-aboleth');
+  static readonly DEVA_ID = new MonsterId(3, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16840-deva');
+  static readonly PLANETAR_ID = new MonsterId(4, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16980-planetar');
+  static readonly SOLAR_ID = new MonsterId(5, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/17016-solar');
 
-  static readonly RUG_OF_SMOTHERING_ID = new MonsterId(8, MonsterSource.MONSTER_MANUAL);
-  static readonly ANKHEG_ID = new MonsterId(9, MonsterSource.MONSTER_MANUAL);
-  static readonly AZER_ID = new MonsterId(10, MonsterSource.MONSTER_MANUAL);
-  static readonly BEHIR_ID = new MonsterId(13, MonsterSource.MONSTER_MANUAL);
+  static readonly RUG_OF_SMOTHERING_ID = new MonsterId(8, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/17000-rug-of-smothering');
+  static readonly ANKHEG_ID = new MonsterId(9, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16787-ankheg');
+  static readonly AZER_ID = new MonsterId(10, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16794-azer');
+  static readonly BEHIR_ID = new MonsterId(13, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16804-behir');
   static readonly BEHOLDER_ID = new MonsterId(14, MonsterSource.MONSTER_MANUAL);
   static readonly DEATH_TYRANT_ID = new MonsterId(15, MonsterSource.MONSTER_MANUAL);
-  static readonly SPECTATOR_ID = new MonsterId(16, MonsterSource.MONSTER_MANUAL);
+  static readonly SPECTATOR_ID = new MonsterId(16, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/17094-spectator');
   static readonly NEEDLE_BLIGHT_ID = new MonsterId(17, MonsterSource.MONSTER_MANUAL);
   static readonly TWIG_BLIGHT_ID = new MonsterId(18, MonsterSource.MONSTER_MANUAL);
   static readonly VINE_BLIGHT_ID = new MonsterId(19, MonsterSource.MONSTER_MANUAL);
@@ -86,12 +96,14 @@ export class MonsterId {
   static readonly GITHYANKI_ID = new MonsterId(150, MonsterSource.MONSTER_MANUAL);
   static readonly CLAY_GOLEM_ID = new MonsterId(160, MonsterSource.MONSTER_MANUAL);
 
-  static readonly WEREWOLF_ID = new MonsterId(203, MonsterSource.MONSTER_MANUAL);
+  static readonly WEREWOLF_ID = new MonsterId(203, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/17057-werewolf');
 
   static readonly MUD_MEPHIT_ID = new MonsterId(210, MonsterSource.MONSTER_MANUAL);
   static readonly TRIDRONE_ID = new MonsterId(220, MonsterSource.MONSTER_MANUAL);
   static readonly SPIRIT_NAGA_ID = new MonsterId(230, MonsterSource.MONSTER_MANUAL);
-  static readonly NIGHTMARE_ID = new MonsterId(232, MonsterSource.MONSTER_MANUAL);
+  static readonly NIGHTMARE_ID = new MonsterId(232, MonsterSource.MONSTER_MANUAL,
+    'https://www.dndbeyond.com/monsters/16964-nightmare');
 
 
   getId(): number {
@@ -100,6 +112,10 @@ export class MonsterId {
 
   getSource(): string {
     return this.source;
+  }
+
+  getSourceLinkg(): string {
+    return this.sourceLink;
   }
 
 }

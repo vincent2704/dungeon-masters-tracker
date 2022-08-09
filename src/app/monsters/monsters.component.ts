@@ -29,6 +29,7 @@ export class MonstersComponent implements OnInit {
   getOverview(monster: Monster): string {
     let basicInfo = monster.getBasicInfo();
     let details = monster.getDetails();
+
     if (details.getTags().length == 0) {
       return `${basicInfo.getSize().getName()} ${basicInfo.getType()}, ${details.getAlignment()}`;
     }

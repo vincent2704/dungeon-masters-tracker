@@ -41,24 +41,94 @@ import {MonsterBasicInfo} from "./monsterBasicInfo";
 import {MonsterDetails} from "./monsterDetails";
 
 /*
-  This is hardcoded Monster list from the D&D official source. The frontend app size is increased significantly, but
-  its aim is to reduce load on backend server as well as reduce app's response time retrieving most popular monsters.
+  This is hardcoded Monster list from the D&D official source - Basic Rules and those that have their data
+  available for free under https://www.dndbeyond.com/encounter-builder.
+  The frontend app size is increased significantly, but its aim is to reduce load on backend server as well as
+  reduce app's response time retrieving most popular monsters.
  */
 export class MonsterList {
 
-  static AARAKOCRA = new Monster(
-    new MonsterBasicInfo(
-      MonsterId.AARAKOCRA_ID,
-      'Aarakocra', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH
+  static ANIMATED_ARMOR = new Monster(
+    new MonsterBasicInfo(MonsterId.ANIMATED_ARMOR_ID,
+      'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, MonsterChallenge.ONE),
+    new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(33, 6, DieType.D8, 6),
+      [new MonsterSpeed(25)], new AbilitySet(14, 11, 13, 1, 3, 1),
+      Action.ANIMATED_ARMOR_ACTIONS, SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
+      [], [], [], undefined, undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
+        Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    )
+  )
+
+  static BANSHEE = new Monster(
+    new MonsterBasicInfo(MonsterId.BANSHEE_ID,
+      'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.FOUR
+    ),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
+      new MonsterHitPoints(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new AbilitySet(1, 14, 10, 12, 11, 17),
+      Action.BANSHEE_ACTIONS, SpecialTrait.BANSHEE_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [], [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
+      [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
+      new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
+        [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
+      [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
+    ),
+  )
+
+  static BASILISK = new Monster(
+    new MonsterBasicInfo(MonsterId.BASILISK_ID,
+      'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, MonsterChallenge.THREE),
+    new MonsterDetails(
+      Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
+      new AbilitySet(16, 8, 15, 2, 8, 7),
+      Action.BASILISK_ACTIONS, SpecialTrait.BASILISK_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9)
+    )
+  )
+
+  static BUGBEAR = new Monster(
+    new MonsterBasicInfo(MonsterId.BUGBEAR_ID,
+      'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL,
+      [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(27, 5, DieType.D8, 5),
+      [new MonsterSpeed(30)], new AbilitySet(15, 14, 13, 8, 11, 9),
+      Action.BUGBEAR_ACTIONS, SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [MonsterTag.GOBLINOID], [], [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)])
+    )
+  )
+
+  static FLYING_SWORD = new Monster(
+    new MonsterBasicInfo(MonsterId.FLYING_SWORD_ID,
+      'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, MonsterChallenge.ONE_FOURTH
     ),
     new MonsterDetails(
-      Alignment.NEUTRAL_GOOD, [new MonsterArmor(12)],
-      new MonsterHitPoints(13, 3, DieType.D8), [new MonsterSpeed(20), new MonsterSpeed(50, MovementType.FLY)],
-      new AbilitySet(10, 14, 10, 11, 12, 11),
-      Action.AARAKOCRA_ACTIONS, SpecialTrait.AARAKOCRA_SPECIAL_TRAITS,
-      new MonsterSenses([], 15), [MonsterTag.AARAKOCRA],
-      [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
-      [new MonsterSkill(Skill.PERCEPTION, 5)], new MonsterLanguages([new SingleMonsterLanguage(Language.AURAN)]),
+      Alignment.UNALIGNED, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(17, 5, DieType.D6),
+      [new MonsterSpeed(0), new MonsterSpeed(50, MovementType.FLY)],
+      new AbilitySet(12, 15, 11, 1, 5, 1),
+      Action.FLYING_SWORD_ACTIONS, SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 7),
+      [], [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined,
+      undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED]
+    )
+  )
+
+  static GOBLIN = new Monster(
+    new MonsterBasicInfo(MonsterId.GOBLIN_ID,
+      'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH),
+    new MonsterDetails(Alignment.NEUTRAL_EVIL,
+      [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(7, 2, DieType.D6),
+      [new MonsterSpeed(30)], new AbilitySet(8, 14, 10, 10, 8, 8),
+      Action.GOBLIN_ACTIONS, SpecialTrait.GOBLIN_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), [MonsterTag.GOBLINOID],
+      [], [new MonsterSkill(Skill.STEALTH, 6)], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]),
     )
   )
 
@@ -98,7 +168,6 @@ export class MonsterList {
     )
   )
 
-
   static PLANETAR = new Monster(
     new MonsterBasicInfo(MonsterId.PLANETAR_ID,
       'Planetar', MonsterSize.LARGE, MonsterType.CELESTIAL, MonsterChallenge.SIXTEEN),
@@ -111,7 +180,7 @@ export class MonsterList {
       new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
       [], [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
       [new MonsterSkill(Skill.PERCEPTION, 11)], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-            new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+      new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
       undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     )
   );
@@ -130,36 +199,6 @@ export class MonsterList {
       new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
       new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
       [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
-    )
-  )
-
-  static ANIMATED_ARMOR = new Monster(
-    new MonsterBasicInfo(MonsterId.ANIMATED_ARMOR_ID,
-      'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, MonsterChallenge.ONE),
-    new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(33, 6, DieType.D8, 6),
-      [new MonsterSpeed(25)], new AbilitySet(14, 11, 13, 1, 3, 1),
-      Action.ANIMATED_ARMOR_ACTIONS, SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
-      [], [], [], undefined, undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
-      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
-        Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    )
-  )
-
-  static FLYING_SWORD = new Monster(
-    new MonsterBasicInfo(MonsterId.FLYING_SWORD_ID,
-      'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, MonsterChallenge.ONE_FOURTH
-    ),
-    new MonsterDetails(
-      Alignment.UNALIGNED, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(17, 5, DieType.D6),
-      [new MonsterSpeed(0), new MonsterSpeed(50, MovementType.FLY)],
-      new AbilitySet(12, 15, 11, 1, 5, 1),
-      Action.FLYING_SWORD_ACTIONS, SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 7),
-      [], [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined,
-      undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
-      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED]
     )
   )
 
@@ -203,35 +242,6 @@ export class MonsterList {
     )
   )
 
-  static BANSHEE = new Monster(
-    new MonsterBasicInfo(MonsterId.BANSHEE_ID,
-      'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.FOUR
-    ),
-    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
-      new MonsterHitPoints(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
-      new AbilitySet(1, 14, 10, 12, 11, 17),
-      Action.BANSHEE_ACTIONS, SpecialTrait.BANSHEE_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
-      [], [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
-      [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
-      new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
-        [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
-      [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
-    ),
-  )
-
-  static BASILISK = new Monster(
-    new MonsterBasicInfo(MonsterId.BASILISK_ID,
-      'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, MonsterChallenge.THREE),
-    new MonsterDetails(
-      Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
-      new AbilitySet(16, 8, 15, 2, 8, 7),
-      Action.BASILISK_ACTIONS, SpecialTrait.BASILISK_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9)
-    )
-  )
-
   static BEHIR = new Monster(
     new MonsterBasicInfo(MonsterId.BEHIR_ID,
       'Behir', MonsterSize.HUGE, MonsterType.MONSTROSITY, MonsterChallenge.ELEVEN),
@@ -262,31 +272,6 @@ export class MonsterList {
       new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120),
       undefined, undefined, [Condition.PRONE],
       [Reaction.SPECTATOR_SPELL_REFLECTION]
-    )
-  )
-
-  static BUGBEAR = new Monster(
-    new MonsterBasicInfo(MonsterId.BUGBEAR_ID,
-      'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE),
-    new MonsterDetails(Alignment.CHAOTIC_EVIL,
-      [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(27, 5, DieType.D8, 5),
-      [new MonsterSpeed(30)], new AbilitySet(15, 14, 13, 8, 11, 9),
-      Action.BUGBEAR_ACTIONS, SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
-      [MonsterTag.GOBLINOID], [], [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
-      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)])
-    )
-  )
-
-  static GOBLIN = new Monster(
-    new MonsterBasicInfo(MonsterId.GOBLIN_ID,
-      'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH),
-    new MonsterDetails(Alignment.NEUTRAL_EVIL,
-      [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(7, 2, DieType.D6),
-      [new MonsterSpeed(30)], new AbilitySet(8, 14, 10, 10, 8, 8),
-      Action.GOBLIN_ACTIONS, SpecialTrait.GOBLIN_SPECIAL_TRAITS,
-      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), [MonsterTag.GOBLINOID],
-      [], [new MonsterSkill(Skill.STEALTH, 6)], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]),
     )
   )
 
@@ -326,9 +311,9 @@ export class MonsterList {
   )
 
   static MONSTERS: Monster[] = [
-    this.AARAKOCRA, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.ANIMATED_ARMOR, this.FLYING_SWORD,
-    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BANSHEE, this.BASILISK, this.BEHIR, this.SPECTATOR, this.BUGBEAR,
-    this.GOBLIN, this.WEREWOLF, this.NIGHTMARE
+    this.ANIMATED_ARMOR, this.BANSHEE,this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.ABOLETH,
+    this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.SPECTATOR,
+    this.WEREWOLF, this.NIGHTMARE
   ]
 
 }
