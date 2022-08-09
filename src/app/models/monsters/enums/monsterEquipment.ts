@@ -3,4 +3,5 @@ export enum MonsterEquipment {
   SHIELD = 'shield',
   NATURAL_ARMOR = 'natural armor',
   HIDE_ARMOR = 'hide armor',
+  ARMOR_SCRAPS = 'armor scraps'
 }

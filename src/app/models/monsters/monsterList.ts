@@ -132,6 +132,20 @@ export class MonsterList {
     )
   )
 
+  static SKELETON = new Monster(
+    new MonsterBasicInfo(MonsterId.SKELETON_ID,
+      'Skeleton', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
+    new MonsterDetails(
+      Alignment.LAWFUL_EVIL, [new MonsterArmor(13, [MonsterEquipment.ARMOR_SCRAPS])],
+      new MonsterHitPoints(13, 2, DieType.D8, 4), [new MonsterSpeed(30)],
+      new AbilitySet(10, 14, 15, 6, 8, 5),
+      Action.SKELETON_ACTIONS, [],
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
+      [], [], [],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.ALL_IN_LIFE)], 0, false)
+    )
+  )
+
   static SPECTATOR = new Monster(
     new MonsterBasicInfo(MonsterId.SPECTATOR_ID,
       'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, MonsterChallenge.THREE
@@ -311,9 +325,9 @@ export class MonsterList {
   )
 
   static MONSTERS: Monster[] = [
-    this.ANIMATED_ARMOR, this.BANSHEE,this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.ABOLETH,
-    this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.SPECTATOR,
-    this.WEREWOLF, this.NIGHTMARE
+    this.ANIMATED_ARMOR, this.BANSHEE,this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.SKELETON,
+    this.SPECTATOR, this.WEREWOLF, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING,
+    this.ANKHEG, this.AZER, this.BEHIR,  this.NIGHTMARE
   ]
 
 }
