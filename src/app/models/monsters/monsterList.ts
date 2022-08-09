@@ -78,191 +78,243 @@ export class MonsterList {
     )
   )
 
-  static DEVA = new Monster(MonsterId.DEVA_ID,
-    'Deva', MonsterSize.MEDIUM, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
-    [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(136, 16, DieType.D8, 64),
-    [new MonsterSpeed(30), new MonsterSpeed(90, MovementType.FLY)],
-    new AbilitySet(18, 18, 18, 17, 20, 20),
-    MonsterChallenge.TEN, [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
-    [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
-    new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
-      DamageType.SLASHING]), undefined,
-    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 19),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-    SpecialTrait.DEVA_SPECIAL_TRAITS, Action.DEVA_ACTIONS
+  static DEVA = new Monster(
+    new MonsterBasicInfo(MonsterId.DEVA_ID,
+      'Deva', MonsterSize.MEDIUM, MonsterType.CELESTIAL, MonsterChallenge.TEN),
+    new MonsterDetails(
+      Alignment.LAWFUL_GOOD, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(136, 16, DieType.D8, 64),
+      [new MonsterSpeed(30), new MonsterSpeed(90, MovementType.FLY)],
+      new AbilitySet(18, 18, 18, 17, 20, 20),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 19),
+      [], [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
+      [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
+      Action.DEVA_ACTIONS, SpecialTrait.DEVA_SPECIAL_TRAITS, new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
+        DamageType.SLASHING]), undefined,
+      [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
+    )
   )
 
-  static PLANETAR = new Monster(MonsterId.PLANETAR_ID,
-    'Planetar', MonsterSize.LARGE, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
-    [new MonsterArmor(19, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(200, 16, DieType.D10, 112),
-    [new MonsterSpeed(40), new MonsterSpeed(120, MovementType.FLY)],
-    new AbilitySet(24, 20, 24, 19, 22, 25),
-    MonsterChallenge.SIXTEEN,
-    [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
-    [new MonsterSkill(Skill.PERCEPTION, 11)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
-    undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
-    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120), SpecialTrait.PLANETAR_SPECIAL_TRAITS,
-    Action.PLANETAR_ACTIONS
+
+  static PLANETAR = new Monster(
+    new MonsterBasicInfo(MonsterId.PLANETAR_ID,
+      'Planetar', MonsterSize.LARGE, MonsterType.CELESTIAL, MonsterChallenge.SIXTEEN),
+    new MonsterDetails(
+      Alignment.LAWFUL_GOOD, [new MonsterArmor(19, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(200, 16, DieType.D10, 112),
+      [new MonsterSpeed(40), new MonsterSpeed(120, MovementType.FLY)],
+      new AbilitySet(24, 20, 24, 19, 22, 25),
+      new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
+      [], [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
+      [new MonsterSkill(Skill.PERCEPTION, 11)],  new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
+      Action.PLANETAR_ACTIONS, SpecialTrait.PLANETAR_SPECIAL_TRAITS,
+      new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+      undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
+    )
   );
 
-  static SOLAR = new Monster(MonsterId.SOLAR_ID, 'Solar', MonsterSize.LARGE, MonsterType.CELESTIAL, [], Alignment.LAWFUL_GOOD,
-    [new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(243, 18, DieType.D10, 144),
-    [new MonsterSpeed(50), new MonsterSpeed(150, MovementType.FLY)],
-    new AbilitySet(26, 22, 26, 25, 25, 30),
-    MonsterChallenge.TWENTY_ONE, [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
-    [new MonsterSkill(Skill.PERCEPTION, 14)], new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
-    new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-    SpecialTrait.SOLAR_SPECIAL_TRAITS, Action.SOLAR_ACTIONS, [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
+  static SOLAR = new Monster(
+    new MonsterBasicInfo(MonsterId.SOLAR_ID,
+      'Solar', MonsterSize.LARGE, MonsterType.CELESTIAL, MonsterChallenge.TWENTY_ONE),
+    new MonsterDetails(Alignment.LAWFUL_GOOD,
+      [new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(243, 18, DieType.D10, 144),
+      [new MonsterSpeed(50), new MonsterSpeed(150, MovementType.FLY)],
+      new AbilitySet(26, 22, 26, 25, 25, 30),
+      new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), [],
+      [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
+      [new MonsterSkill(Skill.PERCEPTION, 14)], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
+      Action.SOLAR_ACTIONS, SpecialTrait.SOLAR_SPECIAL_TRAITS, new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+      new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
+      [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
+      )
   )
 
-  static ANIMATED_ARMOR = new Monster(MonsterId.ANIMATED_ARMOR_ID,
-    'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
-    [new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(33, 6, DieType.D8, 6),
-    [new MonsterSpeed(25)], new AbilitySet(14, 11, 13, 1, 3, 1),
-    MonsterChallenge.ONE,
-    undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
-    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
-      Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)],
-      6), undefined,
-    SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS, Action.ANIMATED_ARMOR_ACTIONS
+  static ANIMATED_ARMOR = new Monster(
+    new MonsterBasicInfo(MonsterId.ANIMATED_ARMOR_ID,
+      'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, MonsterChallenge.ONE),
+    new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(33, 6, DieType.D8, 6),
+      [new MonsterSpeed(25)], new AbilitySet(14, 11, 13, 1, 3, 1),
+      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
+      [], [], [], undefined, Action.ANIMATED_ARMOR_ACTIONS, SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS,
+      undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.EXHAUSTION, Condition.FRIGHTENED,
+        Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    )
   )
 
-  static FLYING_SWORD = new Monster(MonsterId.FLYING_SWORD_ID,
-    'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
-    [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(17, 5, DieType.D6),
-    [new MonsterSpeed(0), new MonsterSpeed(50, MovementType.FLY)], new AbilitySet(12, 15, 11, 1, 5, 1),
-    MonsterChallenge.ONE_FOURTH, [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
-    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 7), undefined,
-    SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS, Action.FLYING_SWORD_ACTIONS
+  static FLYING_SWORD = new Monster(
+    new MonsterBasicInfo(MonsterId.FLYING_SWORD_ID,
+      'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, MonsterChallenge.ONE_FOURTH
+    ),
+    new MonsterDetails(
+      Alignment.UNALIGNED, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(17, 5, DieType.D6),
+      [new MonsterSpeed(0), new MonsterSpeed(50, MovementType.FLY)],
+      new AbilitySet(12, 15, 11, 1, 5, 1),
+      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 7),
+      [], [new SavingThrow(Ability.DEXTERITY, 4)], [], undefined, Action.FLYING_SWORD_ACTIONS,
+      SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS, undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED]
+    )
   )
 
-  static RUG_OF_SMOTHERING = new Monster(MonsterId.RUG_OF_SMOTHERING_ID,
-    'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, [], Alignment.UNALIGNED,
-    [new MonsterArmor(12)], new MonsterHitPoints(33, 6, DieType.D10), [new MonsterSpeed(10)],
-    new AbilitySet(17, 14, 10, 1, 3, 1),
-    MonsterChallenge.TWO, undefined, [], undefined, new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
-    [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
-    new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6), undefined,
-    SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS, Action.RUG_OF_SMOTHERING_ACTIONS
+  static RUG_OF_SMOTHERING = new Monster(
+    new MonsterBasicInfo(MonsterId.RUG_OF_SMOTHERING_ID,
+      'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, MonsterChallenge.TWO),
+    new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(12)],
+      new MonsterHitPoints(33, 6, DieType.D10), [new MonsterSpeed(10)],
+      new AbilitySet(17, 14, 10, 1, 3, 1),
+      new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
+      [], [], [], undefined, Action.RUG_OF_SMOTHERING_ACTIONS, SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS,
+      undefined,  new DamageImmunities([DamageType.POISON, DamageType.PSYCHIC]),
+      [Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED],
+    )
   )
 
-  static ANKHEG = new Monster(MonsterId.ANKHEG_ID,
-    'Ankheg', MonsterSize.LARGE, MonsterType.MONSTROSITY, [], Alignment.UNALIGNED,
-    [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterArmor(11, [], MonsterArmorDescription.WHILE_PRONE)],
-    new MonsterHitPoints(39, 6, DieType.D10, 6),
-    [new MonsterSpeed(30), new MonsterSpeed(10, MovementType.BURROW)],
-    new AbilitySet(17, 11, 13, 1, 13, 6),
-    MonsterChallenge.TWO, undefined, undefined, undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60), new MonsterSense(Sense.TREMORSENSE, 60)], 11),
-    undefined, undefined, Action.ANKHEG_ACTIONS
+  static ANKHEG = new Monster(
+    new MonsterBasicInfo(MonsterId.ANKHEG_ID,
+      'Ankheg', MonsterSize.LARGE, MonsterType.MONSTROSITY, MonsterChallenge.TWO
+      ),
+    new MonsterDetails(
+      Alignment.UNALIGNED, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterArmor(11, [], MonsterArmorDescription.WHILE_PRONE)],
+      new MonsterHitPoints(39, 6, DieType.D10, 6),
+      [new MonsterSpeed(30), new MonsterSpeed(10, MovementType.BURROW)],
+      new AbilitySet(17, 11, 13, 1, 13, 6),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60), new MonsterSense(Sense.TREMORSENSE, 60)], 11),
+      [], [], [], undefined, Action.ANKHEG_ACTIONS
+    )
   )
 
-  static AZER = new Monster(MonsterId.AZER_ID,
-    'Azer', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, [], Alignment.LAWFUL_NEUTRAL,
-    [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR, MonsterEquipment.SHIELD])],
-    new MonsterHitPoints(39, 6, DieType.D8, 12), [new MonsterSpeed(30)],
-    new AbilitySet(17, 12, 15, 12, 13, 10),
-    MonsterChallenge.TWO, [new SavingThrow(Ability.CONSTITUTION, 4)], undefined, undefined,
-    new DamageImmunities([DamageType.FIRE, DamageType.POISON]), [Condition.POISONED],
-    new MonsterSenses([], 11), new MonsterLanguages([new SingleMonsterLanguage(Language.IGNAN)]),
-    SpecialTrait.AZER_SPECIAL_TRAITS, Action.AZER_ACTIONS,
+  static AZER = new Monster(
+    new MonsterBasicInfo(MonsterId.AZER_ID,
+      'Azer', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, MonsterChallenge.TWO),
+    new MonsterDetails(Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR, MonsterEquipment.SHIELD])],
+      new MonsterHitPoints(39, 6, DieType.D8, 12), [new MonsterSpeed(30)],
+      new AbilitySet(17, 12, 15, 12, 13, 10),
+      new MonsterSenses([], 11), [], [new SavingThrow(Ability.CONSTITUTION, 4)],
+      [], new MonsterLanguages([new SingleMonsterLanguage(Language.IGNAN)]),
+      Action.AZER_ACTIONS,SpecialTrait.AZER_SPECIAL_TRAITS, undefined,
+      new DamageImmunities([DamageType.FIRE, DamageType.POISON]), [Condition.POISONED],
+    )
   )
 
-  static BANSHEE = new Monster(MonsterId.BANSHEE_ID,
-    'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, [], Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
-    new MonsterHitPoints(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
-    new AbilitySet(1, 14, 10, 12, 11, 17),
-    MonsterChallenge.FOUR, [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
-    undefined, new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
-      [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
-    [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
-    SpecialTrait.BANSHEE_SPECIAL_TRAITS, Action.BANSHEE_ACTIONS
+  static BANSHEE = new Monster(
+    new MonsterBasicInfo(MonsterId.BANSHEE_ID,
+      'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD,MonsterChallenge.FOUR
+      ),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
+      new MonsterHitPoints(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new AbilitySet(1, 14, 10, 12, 11, 17),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [], [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
+      [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
+      Action.BANSHEE_ACTIONS, SpecialTrait.BANSHEE_SPECIAL_TRAITS, new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
+        [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
+      [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
+    ),
   )
 
-  static BASILISK = new Monster(MonsterId.BASILISK_ID,
-    'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, [], Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
-    new MonsterHitPoints(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
-    new AbilitySet(16, 8, 15, 2, 8, 7),
-    MonsterChallenge.THREE, undefined, undefined, undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), undefined,
-    SpecialTrait.BASILISK_SPECIAL_TRAITS, Action.BASILISK_ACTIONS
+  static BASILISK = new Monster(
+    new MonsterBasicInfo(MonsterId.BASILISK_ID,
+      'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, MonsterChallenge.THREE),
+    new MonsterDetails(
+      Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
+      new AbilitySet(16, 8, 15, 2, 8, 7),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
+      [], [], [], undefined, Action.BASILISK_ACTIONS, SpecialTrait.BASILISK_SPECIAL_TRAITS
+    )
   )
 
-  static BEHIR = new Monster(MonsterId.BEHIR_ID,
-    'Behir', MonsterSize.HUGE, MonsterType.MONSTROSITY, [], Alignment.NEUTRAL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
-    new MonsterHitPoints(168, 16, DieType.D12, 64), [new MonsterSpeed(50), new MonsterSpeed(40, MovementType.CLIMB)],
-    new AbilitySet(23, 16, 18, 7, 14, 12), MonsterChallenge.ELEVEN,
-    undefined, [new MonsterSkill(Skill.PERCEPTION, 6), new MonsterSkill(Skill.STEALTH, 7)], undefined,
-    new DamageImmunities([DamageType.LIGHTNING]), undefined, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 90)], 16),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.DRACONIC)]),
-    undefined, Action.BEHIR_ACTIONS
+  static BEHIR = new Monster(
+    new MonsterBasicInfo(MonsterId.BEHIR_ID,
+      'Behir', MonsterSize.HUGE, MonsterType.MONSTROSITY, MonsterChallenge.ELEVEN),
+    new MonsterDetails(
+      Alignment.NEUTRAL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(168, 16, DieType.D12, 64), [new MonsterSpeed(50), new MonsterSpeed(40, MovementType.CLIMB)],
+      new AbilitySet(23, 16, 18, 7, 14, 12),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 90)], 16), [],
+      [], [new MonsterSkill(Skill.PERCEPTION, 6), new MonsterSkill(Skill.STEALTH, 7)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.DRACONIC)]), Action.BEHIR_ACTIONS,
+      [], undefined, new DamageImmunities([DamageType.LIGHTNING])
+    )
   )
 
-  static SPECTATOR = new Monster(MonsterId.SPECTATOR_ID,
-    'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, [], Alignment.LAWFUL_NEUTRAL,
-    [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(39, 6, DieType.D8, 12),
-    [new MonsterSpeed(0), new MonsterSpeed(30, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
-    new AbilitySet(8, 14, 14, 13, 14, 11),
-    MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 6)],
-    undefined, undefined, [Condition.PRONE],
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120), undefined,
-    Action.SPECTATOR_ACTIONS, [Reaction.SPECTATOR_SPELL_REFLECTION]
+  static SPECTATOR = new Monster(
+    new MonsterBasicInfo(MonsterId.SPECTATOR_ID,
+      'Spectator', MonsterSize.MEDIUM, MonsterType.ABERRATION, MonsterChallenge.THREE
+      ),
+    new MonsterDetails(
+      Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(39, 6, DieType.D8, 12),
+      [new MonsterSpeed(0), new MonsterSpeed(30, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new AbilitySet(8, 14, 14, 13, 14, 11),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 120)], 16),
+      [], [], [new MonsterSkill(Skill.PERCEPTION, 6)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.DEEP_SPEECH), new SingleMonsterLanguage(Language.UNDERCOMMON)], 120),
+      Action.SPECTATOR_ACTIONS, [], undefined, undefined, [Condition.PRONE],
+      [Reaction.SPECTATOR_SPELL_REFLECTION]
+    )
   )
 
-  static BUGBEAR = new Monster(MonsterId.BUGBEAR_ID,
-    'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.GOBLINOID], Alignment.CHAOTIC_EVIL,
-    [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(27, 5, DieType.D8, 5),
-    [new MonsterSpeed(30)], new AbilitySet(15, 14, 13, 8, 11, 9),
-    MonsterChallenge.ONE, undefined, [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
-    undefined, undefined, undefined, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]), SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
-    Action.BUGBEAR_ACTIONS
+  static BUGBEAR = new Monster(
+    new MonsterBasicInfo(MonsterId.BUGBEAR_ID,
+      'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL,
+      [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(27, 5, DieType.D8, 5),
+      [new MonsterSpeed(30)], new AbilitySet(15, 14, 13, 8, 11, 9),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [MonsterTag.GOBLINOID], [], [new MonsterSkill(Skill.STEALTH, 6), new MonsterSkill(Skill.SURVIVAL, 2)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]),
+      Action.BUGBEAR_ACTIONS, SpecialTrait.BUGBEAR_SPECIAL_TRAITS
+    )
   )
 
-  static GOBLIN = new Monster(MonsterId.GOBLIN_ID,
-    'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, [MonsterTag.GOBLINOID], Alignment.NEUTRAL_EVIL,
-    [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(7, 2, DieType.D6),
-    [new MonsterSpeed(30)], new AbilitySet(8, 14, 10, 10, 8, 8),
-    MonsterChallenge.ONE_FOURTH, undefined, [new MonsterSkill(Skill.STEALTH, 6)], undefined, undefined, undefined,
-    new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]), SpecialTrait.GOBLIN_SPECIAL_TRAITS,
-    Action.GOBLIN_ACTIONS
+  static GOBLIN = new Monster(
+    new MonsterBasicInfo(MonsterId.GOBLIN_ID,
+      'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH),
+    new MonsterDetails(Alignment.NEUTRAL_EVIL,
+      [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(7, 2, DieType.D6),
+      [new MonsterSpeed(30)], new AbilitySet(8, 14, 10, 10, 8, 8),
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), [MonsterTag.GOBLINOID],
+      [], [new MonsterSkill(Skill.STEALTH, 6)], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GOBLIN)]),
+      Action.GOBLIN_ACTIONS, SpecialTrait.GOBLIN_SPECIAL_TRAITS
+    )
   )
 
-  static WEREWOLF = new Monster(MonsterId.WEREWOLF_ID,
-    'Werewolf', MonsterSize.MEDIUM, MonsterType.HUMANOID, [MonsterTag.HUMAN, MonsterTag.SHAPECHANGER], Alignment.CHAOTIC_EVIL,
-    [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
+  static WEREWOLF = new Monster(
+    new MonsterBasicInfo(MonsterId.WEREWOLF_ID,
+      'Werewolf', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.THREE),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
       new MonsterArmor(12, [MonsterEquipment.NATURAL_ARMOR], MonsterArmorDescription.IN_WOLF_OR_HYBRID_FORM)],
-    new MonsterHitPoints(58, 9, DieType.D8, 18),
-    [new MonsterSpeed(30, MovementType.LAND, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))],
-    new AbilitySet(15, 13, 14, 10, 11, 10),
-    MonsterChallenge.THREE, undefined, [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
-    undefined, new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
-      AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS)),
-    undefined, new MonsterSenses([], 14),
-    new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
-    SpecialTrait.WEREWOLF_SPECIAL_TRAITS, Action.WEREWOLF_ACTIONS
+      new MonsterHitPoints(58, 9, DieType.D8, 18),
+      [new MonsterSpeed(30, MovementType.LAND, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))],
+      new AbilitySet(15, 13, 14, 10, 11, 10),
+      new MonsterSenses([], 14), [MonsterTag.HUMAN, MonsterTag.SHAPECHANGER],
+      [], [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
+      Action.WEREWOLF_ACTIONS, SpecialTrait.WEREWOLF_SPECIAL_TRAITS, undefined,
+      new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
+        AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS))
+    )
   )
 
-  static NIGHTMARE = new Monster(MonsterId.NIGHTMARE_ID,
-    'Nightmare', MonsterSize.LARGE, MonsterType.FIEND, [], Alignment.NEUTRAL_EVIL,
-    [new MonsterArmor(13, [MonsterEquipment.NATURAL_ARMOR])],
-    new MonsterHitPoints(68, 8, DieType.D10, 24),
-    [new MonsterSpeed(60), new MonsterSpeed(90, MovementType.FLY)],
-    new AbilitySet(18, 15, 16, 10, 13, 15),
-    MonsterChallenge.THREE, undefined, undefined, undefined,
-    new DamageImmunities([DamageType.FIRE]), undefined, new MonsterSenses([], 11),
-    new MonsterLanguages(
-      [new SingleMonsterLanguage(Language.ABYSSAL), new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.INFERNAL)], 0, false),
-    SpecialTrait.NIGHTMARE_SPECIAL_TRAITS, Action.NIGHTMARE_ACTIONS
+  static NIGHTMARE = new Monster(
+    new MonsterBasicInfo(MonsterId.NIGHTMARE_ID,
+      'Nightmare', MonsterSize.LARGE, MonsterType.FIEND, MonsterChallenge.THREE),
+    new MonsterDetails(
+      Alignment.NEUTRAL_EVIL,  [new MonsterArmor(13, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(68, 8, DieType.D10, 24),
+      [new MonsterSpeed(60), new MonsterSpeed(90, MovementType.FLY)],
+      new AbilitySet(18, 15, 16, 10, 13, 15),
+      new MonsterSenses([], 11), [], [], [],
+      new MonsterLanguages(
+        [new SingleMonsterLanguage(Language.ABYSSAL), new SingleMonsterLanguage(Language.COMMON),
+          new SingleMonsterLanguage(Language.INFERNAL)], 0, false),
+      Action.NIGHTMARE_ACTIONS, SpecialTrait.NIGHTMARE_SPECIAL_TRAITS, undefined,
+      new DamageImmunities([DamageType.FIRE])
+    )
   )
 
   static MONSTERS: Monster[] = [
