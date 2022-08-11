@@ -14,6 +14,10 @@ export class ActionDescription {
     return StringUtils.formatDescription(this.description);
   }
 
+  getActionType(): string {
+    return this.actionType;
+  }
+
   getPoints(): ActionDescriptionPoint[] {
     return this.points;
   }

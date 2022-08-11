@@ -222,11 +222,11 @@ export class Action {
     "of movement, exiting prone."))
 
   private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
-    new ActionDescription("+4 to hit, reach {5} {ft.}, one" +
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
     "target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK));
 
   private static readonly SKELETON_SHORTBOW = new Action('Shortbow',
-    new ActionDescription("+4 to hit, range {80}/{320} {ft.}," +
+    new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
     "one target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
 
   private static readonly SPECTATOR_BITE = new Action('Bite',

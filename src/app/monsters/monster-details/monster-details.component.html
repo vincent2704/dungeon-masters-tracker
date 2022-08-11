@@ -59,9 +59,18 @@
 <div class="row">Actions</div>
   <hr>
 <div class="row" *ngFor="let action of monster.getDetails().getActions()">
-  <div class="col-4 fw-bold">{{action.getName()}}</div>
+  <div class="col-4 fw-bold">{{action.getName()}}.</div>
   <div class="col-8">
-    {{action.getDescription()}}
+      <div *ngIf="isActionTypeSpecified(action); else actionTypeNotSpecifiedBlock">
+        <div class="fst-italic">{{action.getDescription().getActionType()}}:</div>
+        <p class="fst-normal">{{action.getDescription().getDescription()}}</p>
+      </div>
+      <ng-template #actionTypeNotSpecifiedBlock>
+        <p class="fst-normal">{{action.getDescription().getDescription()}}</p>
+      </ng-template>
+    <div *ngFor="let actionPoint of action.getDescription().getPoints(); let i = index" [attr.data-index]="i">
+      <p class="fst-italic">{{i+1}}) {{actionPoint.getTitle()}}.</p> <p class="fst-normal">{{actionPoint.getText()}}</p>
+    </div>
   </div>
 </div>
 <div *ngIf="monster.getDetails().getReactions().length > 0">
