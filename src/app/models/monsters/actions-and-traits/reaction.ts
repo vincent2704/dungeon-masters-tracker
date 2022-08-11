@@ -17,7 +17,7 @@ export class Reaction {
     "If the spectator makes a successful saving " +
     "throw against a spell, or a spell attack misses it, the spectator " +
     "can choose another creature (including the spellcaster) it can " +
-    "see within 30 feet of it. The spell targets the chosen creature " +
+    "see within {30} {feet} of it. The spell targets the chosen creature " +
     "instead of the spectator. If the spell forced a saving throw, the " +
     "chosen creature makes its own save. If the spell was an attack, " +
     "the attack roll is rerolled against the chosen creature. ")

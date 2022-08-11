@@ -186,6 +186,13 @@ export class SpecialTrait {
     "The werewolf has advantage on " +
     "Wisdom (Perception) checks that rely on hearing or smell.")
 
+  private static readonly ZOMBIE_UNDEAD_FORTITUDE = new SpecialTrait('Undead Fortitude',
+    "If damage reduces the zombie to 0 hit " +
+    "points, it must make a Constitution saving throw with a DC " +
+    "of 5 + the damage taken, unless the damage is radiant or " +
+    "from a critical hit. On a success, the zombie drops to 1 hit " +
+    "point instead.")
+
   private static readonly NIGHTMARE_CONFER_FIRE_RESISTANCE = new SpecialTrait('Confer Fire Resistance',
     "The nightmare can grant resistance to " +
     "fire damage to anyone riding it.");
@@ -213,6 +220,7 @@ export class SpecialTrait {
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
   static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
+  static readonly ZOMBIE_SPECIAL_TRAITS = [this.ZOMBIE_UNDEAD_FORTITUDE];
   static readonly NIGHTMARE_SPECIAL_TRAITS = [this.NIGHTMARE_CONFER_FIRE_RESISTANCE, this.NIGHTMARE_ILLUMINATION];
 
 }

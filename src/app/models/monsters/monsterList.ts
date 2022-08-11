@@ -182,6 +182,18 @@ export class MonsterList {
     )
   )
 
+  static ZOMBIE = new Monster(
+    new MonsterBasicInfo(MonsterId.ZOMBIE_ID,
+      'Zombie', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
+    new MonsterDetails(
+      Alignment.NEUTRAL_EVIL, [new MonsterArmor(8)], new MonsterHitPoints(22, 3, DieType.D8, 9),
+      [new MonsterSpeed(20)], new AbilitySet(13, 6, 16, 3, 6, 5),
+      Action.ZOMBIE_ACTIONS, SpecialTrait.ZOMBIE_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
+      [], [new SavingThrow(Ability.WISDOM, 0)], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL_IN_LIFE)], 0, false),
+      undefined, new DamageImmunities([DamageType.POISON]), [Condition.POISONED]
+    )
+  )
+
   static ABOLETH = new Monster(
     new MonsterBasicInfo(MonsterId.ABOLETH_ID,
       'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, MonsterChallenge.TEN),
@@ -325,9 +337,9 @@ export class MonsterList {
   )
 
   static MONSTERS: Monster[] = [
-    this.ANIMATED_ARMOR, this.BANSHEE,this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.SKELETON,
-    this.SPECTATOR, this.WEREWOLF, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING,
-    this.ANKHEG, this.AZER, this.BEHIR,  this.NIGHTMARE
+    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.SKELETON,
+    this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING,
+    this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 
 }

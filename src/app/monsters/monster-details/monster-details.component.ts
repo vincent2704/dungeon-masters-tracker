@@ -5,6 +5,8 @@ import {Ability} from "../../models/common/ability/ability";
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
 import {SingleMonsterLanguage} from "../../models/monsters/monster-languages/singleMonsterLanguage";
 import {MonsterLanguageNote} from "../../models/monsters/monster-languages/monsterLanguageNote";
+import {Action} from "../../models/monsters/actions-and-traits/action";
+import {ActionType} from "../../models/monsters/actions-and-traits/actionType";
 
 @Component({
   selector: 'app-monster-details',
@@ -109,4 +111,7 @@ export class MonsterDetailsComponent implements OnInit {
     return languagesInfo.join(', ');
   }
 
+  isActionTypeSpecified(action: Action): boolean {
+    return action.getDescription().getActionType() != ActionType.NOT_SPECIFIED;
+  }
 }
