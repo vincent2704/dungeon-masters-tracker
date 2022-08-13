@@ -1,30 +1,43 @@
 <div class="container-fluid">
-  <h2>Set up actors before starting the battle:</h2>
-  <table class="table table-hover table-dark">
-    <thead>
-    <tr>
-      <th scope="col">Actor</th>
-      <th scope="col">HP (Max)</th>
-      <th>Initiative</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let actor of actors">
-      <td>
-        {{actor.name}}
-      </td>
-      <td>{{actor.currentHP}} ({{actor.maxHP}})</td>
-      <td>
-        <label for="initiative">Set initiative:</label>
-        <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
-      </td>
-      <td>
-        <button class="btn btn-primary" (click)="removeActor(actor)">Remove</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col">
+      <h2>Set up characters before starting the battle:</h2>
+      <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+          <th scope="col">Actor</th>
+          <th scope="col">HP (Max)</th>
+          <th>Initiative</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let actor of actors">
+          <td>
+            {{actor.name}}
+          </td>
+          <td>{{actor.currentHP}} ({{actor.maxHP}})</td>
+          <td>
+            <label for="initiative">Set initiative:</label>
+            <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
+          </td>
+          <td>
+            <button class="btn btn-primary" (click)="removeActor(actor)">Remove</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h2>Add predefined monster set:</h2>
+      <ul class="list-group" *ngFor="let encounter of encounters">
+        <li class="list-group-item list-group-item-action list-group-item-dark">
+          {{encounter.getName()}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 <div class="container-fluid">
   <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>

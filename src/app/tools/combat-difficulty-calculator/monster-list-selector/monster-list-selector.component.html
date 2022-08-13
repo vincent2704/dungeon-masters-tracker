@@ -12,6 +12,11 @@
     <div class="div">
       Monster count: {{getTotalMonstersSelected()}}
     </div>
+    <div>
+      <input class="form-control" type="text" placeholder="Encounter name" [(ngModel)]="encounterName">
+      <textarea class="form-control" rows="8" placeholder="Encounter description (optional)" [(ngModel)]="encounterDescription"></textarea>
+      <button class="btn btn-primary" (click)="onSaveEncounter()">Save encounter</button>
+    </div>
   </div>
   <div class="col-sm-8">
     <div class="list-group" *ngFor="let monster of monsterService.getMonsters()">

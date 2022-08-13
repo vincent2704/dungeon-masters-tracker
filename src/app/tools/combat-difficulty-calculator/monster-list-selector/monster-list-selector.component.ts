@@ -4,6 +4,8 @@ import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {EncounterService} from "../../../services/encounter/encounter.service";
+import {Encounter} from "../../../models/encounter";
 
 @Component({
   selector: 'app-monster-list-selector',
@@ -18,7 +20,10 @@ export class MonsterListSelectorComponent implements OnInit {
 
   selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
 
-  constructor(monsterService: MonsterService) {
+  encounterName: string = '';
+  encounterDescription: string = '';
+
+  constructor(monsterService: MonsterService, private encounterService: EncounterService) {
     this.monsterService = monsterService;
   }
 
@@ -62,6 +67,15 @@ export class MonsterListSelectorComponent implements OnInit {
       return 0;
     }
     return monsterCount;
+  }
+
+  onSaveEncounter() {
+    if(this.encounterName.length > 0 ) {
+      this.encounterService.addEncounter(
+        new Encounter(this.encounterName, this.selectedMonstersCount, this.encounterDescription));
+    }
+    this.encounterName = '';
+    this.encounterDescription = '';
   }
 
   private getMonsterExperiencePointsSum(): number {
