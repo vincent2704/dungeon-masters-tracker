@@ -1,10 +1,6 @@
-import { Injectable } from '@angular/core';
 import {Actor} from "../../models/actor";
 import {Monster} from "../../models/monsters/monster";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class CombatService {
 
   constructor() { }
