@@ -35,12 +35,18 @@ export class MonsterDetailsComponent implements OnInit {
 
   getDamageResistances(): string {
     let resistances = this.monster.getDetails().getDamageResistances().getResistances();
-    let nonMagicalResistances = this.monster.getDetails().getDamageResistances().getNonMagicalResistances();
+    let additionalResistances = this.monster.getDetails().getDamageResistances().getAdditionalResistances();
 
-    if (nonMagicalResistances.length == 0) {
-      return resistances.join(', ');
+    if(additionalResistances) {
+      if(resistances.length == 0) {
+        return `${additionalResistances.getDamageTypes().join(', ')} ${additionalResistances.getDamageNote()}`;
+      }
+      if (additionalResistances.getDamageTypes().length == 0) {
+        return resistances.join(', ');
+      }
+      return `${resistances.join(', ')}; ${additionalResistances.getDamageTypes().join(', ')} ${additionalResistances.getDamageNote()}`;
     }
-    return `${resistances.join(', ')}; ${nonMagicalResistances.join(', ')} from nonmagical weapons`;
+    return `${resistances.join(', ')}`;
   }
 
   getDamageImmunities(): string {

@@ -35,7 +35,7 @@ import {SingleMonsterLanguage} from "./monster-languages/singleMonsterLanguage";
 import {MonsterSpeedNote} from "./monster-speed/monsterSpeedNote";
 import {MovementType} from "./monster-speed/movementType";
 import {AdditionalDamageNote} from "./monster-damage-data/additionalDamageNote";
-import {AdditionalImmunities} from "./monster-damage-data/additionalImmunities";
+import {AdditionalDamageTypes} from "./monster-damage-data/additionalDamageTypes";
 import {MonsterLanguageNote} from "./monster-languages/monsterLanguageNote";
 import {MonsterBasicInfo} from "./monsterBasicInfo";
 import {MonsterDetails} from "./monsterDetails";
@@ -74,7 +74,8 @@ export class MonsterList {
       [], [new SavingThrow(Ability.WISDOM, 2), new SavingThrow(Ability.CHARISMA, 4)],
       [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ELVISH)]),
       new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
-        [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
+        new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING,
+          DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_WEAPONS)), new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
       [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED, Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED],
     ),
   )
@@ -132,6 +133,22 @@ export class MonsterList {
     )
   )
 
+  static GARGOYLE = new Monster(
+    new MonsterBasicInfo(MonsterId.GARGOYLE_ID,
+      'Gargoyle', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, MonsterChallenge.TWO),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
+      new MonsterHitPoints(52, 7, DieType.D8, 21),
+      [new MonsterSpeed(30), new MonsterSpeed(60, MovementType.FLY)],
+      new AbilitySet(15, 11, 16, 6, 11, 7),
+      Action.GARGOYLE_ACTIONS, SpecialTrait.GARGOYLE_SPECIAL_TRAITS,
+      new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.TERRAN)]),
+      new DamageResistances([], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING,
+        DamageType.SLASHING], AdditionalDamageNote.FROM_NONMAGICAL_ATTACKS_NOT_ADAMANTINE_WEAPONS)),
+      new DamageImmunities([DamageType.POISON]), [Condition.EXHAUSTION, Condition.PETRIFIED, Condition.POISONED]
+    )
+  )
+
   static SKELETON = new Monster(
     new MonsterBasicInfo(MonsterId.SKELETON_ID,
       'Skeleton', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
@@ -177,7 +194,7 @@ export class MonsterList {
       [], [new MonsterSkill(Skill.PERCEPTION, 4), new MonsterSkill(Skill.STEALTH, 3)],
       new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON, MonsterLanguageNote.CANT_SPEAK_IN_WOLF_FORM)]),
       undefined,
-      new DamageImmunities([], new AdditionalImmunities([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
+      new DamageImmunities([], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING],
         AdditionalDamageNote.FROM_NON_MAGICAL_NON_SILVERED_WEAPONS))
     )
   )
@@ -224,8 +241,8 @@ export class MonsterList {
       [], [new SavingThrow(Ability.WISDOM, 9), new SavingThrow(Ability.CHARISMA, 9)],
       [new MonsterSkill(Skill.INSIGHT, 7), new MonsterSkill(Skill.PERCEPTION, 9)],
       new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-      new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING,
-        DamageType.SLASHING]), undefined,
+      new DamageResistances([DamageType.RADIANT], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING,
+        DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_WEAPONS)), undefined,
       [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     )
   )
@@ -242,7 +259,8 @@ export class MonsterList {
       new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 21),
       [], [new SavingThrow(Ability.CONSTITUTION, 12), new SavingThrow(Ability.WISDOM, 11), new SavingThrow(Ability.CHARISMA, 12)],
       [new MonsterSkill(Skill.PERCEPTION, 11)], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-      new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+      new DamageResistances([DamageType.RADIANT], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING,
+        DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_WEAPONS)),
       undefined, [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED],
     )
   );
@@ -258,7 +276,8 @@ export class MonsterList {
       new MonsterSenses([new MonsterSense(Sense.TRUESIGHT, 120)], 24), [],
       [new SavingThrow(Ability.INTELLIGENCE, 14), new SavingThrow(Ability.WISDOM, 14), new SavingThrow(Ability.CHARISMA, 17)],
       [new MonsterSkill(Skill.PERCEPTION, 14)], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL)], 120),
-      new DamageResistances([DamageType.RADIANT], [DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING]),
+      new DamageResistances([DamageType.RADIANT], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING,
+        DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_WEAPONS)),
       new DamageImmunities([DamageType.NECROTIC, DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.POISONED],
       [], LegendaryAction.SOLAR_LEGENDARY_ACTIONS
     )
@@ -337,9 +356,9 @@ export class MonsterList {
   )
 
   static MONSTERS: Monster[] = [
-    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GOBLIN, this.SKELETON,
-    this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING,
-    this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
+    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GOBLIN,
+    this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR,
+    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 
 }
