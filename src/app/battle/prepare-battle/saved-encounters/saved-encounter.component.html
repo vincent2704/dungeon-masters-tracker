@@ -1,17 +1,27 @@
 <li class="list-group-item list-group-item-action list-group-item-dark">
   <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-10">
       {{encounter.getName()}}
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-1">
       <button class="btn btn-primary" data-bs-toggle="collapse"
               role="button" aria-expanded="false" (click)="collapse.toggle()">\/
       </button>
     </div>
+    <div class="col-sm-1">
+      <button class="btn btn-primary" (click)="addMonstersToEncounter()">+</button>
+    </div>
+  </div>
+  <div class="col">
+    <label for="randomizeHP" class="form-check-label" >Randomize HP</label>
+    <input type="checkbox" class="form-check-input" value="" id="randomizeHP"
+           [(ngModel)]="randomizeMonstersHPCheckboxChecked">
   </div>
   <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    <input type="number" class="input" placeholder="Hit Points amount">
-    <input type="number" class="input" placeholder="Duration (leave blank if permanent)">
+    <p class="fst-italic">{{encounter.getDescription()}}</p>
+    <div *ngFor="let monster of encounter.getMonsterList() | keyvalue">
+      {{monster.key.getBasicInfo().getName()}}: {{monster.value}}
+    </div>
   </div>
 </li>
 

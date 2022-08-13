@@ -4,6 +4,7 @@ import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
+import {CombatService, MonsterHitPointsRule} from "../../../services/combat/combat.service";
 
 @Component({
   selector: 'app-monster-battle-list-selector',
@@ -36,21 +37,12 @@ export class MonsterBattleListSelectorComponent implements OnInit {
   }
 
   addMonstersToBattle() {
-    let monsterActors: Actor[] = [];
+    let monsterHitPointsRule = this.randomizeMonstersHPCheckboxChecked
+      ? MonsterHitPointsRule.THROW_DICE
+      : MonsterHitPointsRule.FIXED;
 
-    this.selectedMonstersCount.forEach((monsterCount, monster) => {
-      for (let i = 1; i <= monsterCount; i++) {
-        let monsterHitPoints = monster.getDetails().getHitPoints();
-        let monsterHP = this.randomizeMonstersHPCheckboxChecked
-          ? this.randomizeMonstersHP(monster)
-          : monsterHitPoints.getHitPoints();
-        let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
-        battleParticipant.setDeathSavingThrowsEligibility(false);
-        monsterActors.push(battleParticipant)
-      }
-    })
-
-    this.monsterActorsEmitter.emit(monsterActors);
+    this.monsterActorsEmitter.emit(CombatService.getEncounterMonsters(
+      this.selectedMonstersCount, monsterHitPointsRule));
     this.selectedMonstersCount.clear();
   }
 
@@ -91,22 +83,6 @@ export class MonsterBattleListSelectorComponent implements OnInit {
       .reduce((previousValue, currentValue) => {
         return previousValue + currentValue
       }, 0);
-  }
-
-  private randomizeMonstersHP(monster: Monster): number {
-    let hp = 0;
-    let monsterHitPoints = monster.getDetails().getHitPoints();
-    // "throws" dice based on monster's Hit Points dice
-    for (let diceThrow = 1; diceThrow <= monsterHitPoints.getDiceThrows(); diceThrow++) {
-      let maxDieValueThrown = monsterHitPoints.getDieType().getSides();
-      hp += this.getRandomNumber(1, maxDieValueThrown)
-    }
-    hp += monsterHitPoints.getStaticAdditionalHP();
-    return hp;
-  }
-
-  private getRandomNumber(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   private getMonsterExperiencePointsSum(): number {

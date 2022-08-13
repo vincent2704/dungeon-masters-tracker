@@ -31,7 +31,7 @@
     <div class="col">
       <h2>Add predefined monster set:</h2>
       <ul class="list-group" *ngFor="let encounter of encounters">
-        <app-saved-encounter [encounter]="encounter"></app-saved-encounter>
+        <app-saved-encounter [encounter]="encounter" (encounterEmitter)="addMonstersToBattle($event)"></app-saved-encounter>
       </ul>
     </div>
   </div>
