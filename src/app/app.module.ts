@@ -37,6 +37,7 @@ import { ManualCalculatorComponent } from './tools/combat-difficulty-calculator/
 import { MonsterListSelectorComponent } from './tools/combat-difficulty-calculator/monster-list-selector/monster-list-selector.component';
 import { MonsterBattleListSelectorComponent } from './battle/prepare-battle/monster-selector/monster-battle-list-selector.component';
 import { DifficultyBarComponent } from './tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component';
+import { SavedEncounterComponent } from './battle/prepare-battle/saved-encounters/saved-encounter.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { DifficultyBarComponent } from './tools/combat-difficulty-calculator/dif
     MonsterListSelectorComponent,
     MonsterBattleListSelectorComponent,
     DifficultyBarComponent,
+    SavedEncounterComponent,
   ],
   imports: [
     BrowserModule,

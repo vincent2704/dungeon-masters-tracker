@@ -20,7 +20,16 @@ export class EncounterService {
         ]),
         'To się dzieje w roku 1524 pod koniec lipca jak postanowili wyjść z Walsanii i przyśniły im się dziwne' +
         'rzeczy i przy okazji wilkołaki i zombie uciekły sobie z zoo'
-        )
+        ),
+      new Encounter(
+        'Zasadzka na północ od Walsanii',
+        new Map<Monster, number>([
+          [MonsterList.ZOMBIE, 2],
+          [MonsterList.WEREWOLF, 1],
+        ]),
+        'To się dzieje w roku 1524 pod koniec lipca jak postanowili wyjść z Walsanii i przyśniły im się dziwne' +
+        'rzeczy i przy okazji wilkołaki i zombie uciekły sobie z zoo'
+      )
     ]
   }
 

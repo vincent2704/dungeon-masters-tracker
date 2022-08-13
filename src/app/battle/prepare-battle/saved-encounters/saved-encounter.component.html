@@ -1,0 +1,17 @@
+<li class="list-group-item list-group-item-action list-group-item-dark">
+  <div class="row">
+    <div class="col-sm-9">
+      {{encounter.getName()}}
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary" data-bs-toggle="collapse"
+              role="button" aria-expanded="false" (click)="collapse.toggle()">\/
+      </button>
+    </div>
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <input type="number" class="input" placeholder="Hit Points amount">
+    <input type="number" class="input" placeholder="Duration (leave blank if permanent)">
+  </div>
+</li>
+

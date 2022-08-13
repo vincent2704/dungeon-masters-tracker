@@ -3,8 +3,8 @@ import {Actor} from "../../models/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Settings} from "../../services/settings/settings";
 import {Monster} from "../../models/monsters/monster";
-import {EncounterService} from "../../services/encounter/encounter.service";
 import {Encounter} from "../../models/encounter";
+import {EncounterService} from "../../services/encounter/encounter.service";
 
 @Component({
   selector: 'app-prepare-battle',
