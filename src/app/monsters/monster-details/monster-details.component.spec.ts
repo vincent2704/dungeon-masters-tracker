@@ -30,6 +30,10 @@ describe('MonsterDetailsComponent', () => {
     component.monster = MonsterList.DEVA;
     expect(component.getDamageResistances()).toEqual('radiant; bludgeoning, piercing, ' +
       'slashing from nonmagical weapons');
+
+    component.monster = MonsterList.GARGOYLE;
+    expect(component.getDamageResistances()).toEqual('bludgeoning, piercing, ' +
+      'slashing from nonmagical attacks not made with adamantine weapons')
   });
 
   it('should display immunities', () => {

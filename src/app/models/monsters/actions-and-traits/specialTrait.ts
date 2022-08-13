@@ -175,6 +175,10 @@ export class SpecialTrait {
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
 
+  private static readonly GARGOYLE_FALSE_APPEARANCE = new SpecialTrait('False Appearance',
+    "While the gargoyle remains motionless, it " +
+    "is indistinguishable from an inanimate statue.")
+
   private static readonly WEREWOLF_SHAPECHANGER = new SpecialTrait('Shapechanger',
     "The werewolf can use its action to polymorph " +
     "into a wolf-humanoid hybrid or into a wolf, or back into its true " +
@@ -219,6 +223,7 @@ export class SpecialTrait {
   static readonly BASILISK_SPECIAL_TRAITS = [this.BASILISK_PETRIFYING_GAZE]
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
+  static readonly GARGOYLE_SPECIAL_TRAITS = [this.GARGOYLE_FALSE_APPEARANCE];
   static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
   static readonly ZOMBIE_SPECIAL_TRAITS = [this.ZOMBIE_UNDEAD_FORTITUDE];
   static readonly NIGHTMARE_SPECIAL_TRAITS = [this.NIGHTMARE_CONFER_FIRE_RESISTANCE, this.NIGHTMARE_ILLUMINATION];

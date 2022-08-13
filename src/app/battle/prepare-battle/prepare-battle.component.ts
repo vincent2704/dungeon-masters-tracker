@@ -3,6 +3,8 @@ import {Actor} from "../../models/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Settings} from "../../services/settings/settings";
 import {Monster} from "../../models/monsters/monster";
+import {Encounter} from "../../models/encounter";
+import {EncounterService} from "../../services/encounter/encounter.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -17,8 +19,9 @@ export class PrepareBattleComponent implements OnInit {
   battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
 
   actors: Actor[];
+  encounters: Encounter[] = [];
 
-  constructor(private actorService: ActorService) {
+  constructor(private actorService: ActorService, private encounterService: EncounterService) {
     if (Settings.isAutoLoadProtagonists()) {
       this.actors = actorService.getActors().slice();
     } else {
@@ -27,6 +30,7 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.encounters = this.encounterService.getEncounters();
   }
 
   removeActor(actor: Actor) {

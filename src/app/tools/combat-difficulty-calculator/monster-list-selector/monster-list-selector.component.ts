@@ -4,6 +4,8 @@ import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
+import {EncounterService} from "../../../services/encounter/encounter.service";
+import {Encounter} from "../../../models/encounter";
 
 @Component({
   selector: 'app-monster-list-selector',
@@ -16,9 +18,12 @@ export class MonsterListSelectorComponent implements OnInit {
   participatingActors!: Actor[];
   monsterService: MonsterService;
 
-  selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
+  selectedMonsters: Map<Monster, number> = new Map<Monster, number>();
 
-  constructor(monsterService: MonsterService) {
+  encounterName: string = '';
+  encounterDescription: string = '';
+
+  constructor(monsterService: MonsterService, private encounterService: EncounterService) {
     this.monsterService = monsterService;
   }
 
@@ -31,7 +36,7 @@ export class MonsterListSelectorComponent implements OnInit {
   }
 
   getTotalMonstersSelected(): number {
-    return Array.from(this.selectedMonstersCount.values())
+    return Array.from(this.selectedMonsters.values())
       .reduce((previousValue, currentValue) => {
         return previousValue + currentValue
       }, 0);
@@ -43,25 +48,35 @@ export class MonsterListSelectorComponent implements OnInit {
 
   addMonster(monster: Monster): void {
     let monsterCount = this.getMonsterCount(monster);
-    this.selectedMonstersCount.set(monster, ++monsterCount)
+    this.selectedMonsters.set(monster, ++monsterCount)
   }
 
   subtractMonster(monster: Monster): void {
     let monsterCount = this.getMonsterCount(monster);
     if (monsterCount > 0) {
-      this.selectedMonstersCount.set(monster, --monsterCount)
+      this.selectedMonsters.set(monster, --monsterCount)
     }
     if(monsterCount === 0){
-      this.selectedMonstersCount.delete(monster);
+      this.selectedMonsters.delete(monster);
     }
   }
 
   getMonsterCount(monster: Monster): number {
-    let monsterCount = this.selectedMonstersCount.get(monster);
+    let monsterCount = this.selectedMonsters.get(monster);
     if (!monsterCount) {
       return 0;
     }
     return monsterCount;
+  }
+
+  onSaveEncounter() {
+    if(this.encounterName.length > 0 && this.selectedMonsters.size > 0 ) {
+      this.encounterService.addEncounter(
+        new Encounter(this.encounterName, this.selectedMonsters, this.encounterDescription));
+    }
+    this.encounterName = '';
+    this.encounterDescription = '';
+    this.selectedMonsters.clear();
   }
 
   private getMonsterExperiencePointsSum(): number {
@@ -69,7 +84,7 @@ export class MonsterListSelectorComponent implements OnInit {
       return 0;
     }
     let totalXp = 0;
-    this.selectedMonstersCount.forEach((count, monster) => {
+    this.selectedMonsters.forEach((count, monster) => {
       let totalXpFromMonster = monster.getBasicInfo().getChallengeRating().getExperiencePoints() * count;
       totalXp += totalXpFromMonster;
     });

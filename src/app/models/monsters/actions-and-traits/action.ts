@@ -261,6 +261,18 @@ export class Action {
     new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
       "Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
 
+  private static readonly GARGOYLE_MULTIATTACK = new Action('Multiattack',
+    new ActionDescription('The gargoyle makes two attacks: one with its ' +
+      'bite and one with its claws.'))
+
+  private static readonly GARGOYLE_BITE = new Action('Bite',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one target. " +
+      "Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly GARGOYLE_CLAWS = new Action('Claws',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one target. " +
+      "Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
   private static readonly WEREWOLF_MULTIATTACK = new Action('Multiattack (Humanoid or Hybrid Form Only)',
     new ActionDescription("The werewolf " +
       "makes two attacks: one with its bite and one with its " +
@@ -318,6 +330,7 @@ export class Action {
   static BUGBEAR_ACTIONS = [this.BUGBEAR_MORNINGSTAR, this.BUGBEAR_JAVELIN];
 
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
+  static GARGOYLE_ACTIONS = [this.GARGOYLE_MULTIATTACK, this.GARGOYLE_BITE, this.GARGOYLE_CLAWS];
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static ZOMBIE_ACTIONS = [this.ZOMBIE_SLAM];
