@@ -149,6 +149,22 @@ export class MonsterList {
     )
   )
 
+  static GHOST = new Monster(
+    new MonsterBasicInfo(MonsterId.GHOST_ID,
+      'Ghost', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.FOUR),
+    new MonsterDetails(Alignment.ANY, [new MonsterArmor(11)], new MonsterHitPoints(45, 10, DieType.D8),
+      [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new AbilitySet(7, 13, 10, 10, 12, 17),
+      Action.GHOST_ACTIONS, SpecialTrait.GHOST_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 11),
+      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ANY_IN_LIFE)]),
+      new DamageResistances([DamageType.ACID, DamageType.FIRE, DamageType.LIGHTNING, DamageType.THUNDER],
+        new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_ATTACKS)),
+      new DamageImmunities([DamageType.COLD, DamageType.NECROTIC, DamageType.POISON]),
+      [Condition.CHARMED, Condition.EXHAUSTION, Condition.FRIGHTENED, Condition.GRAPPLED,
+        Condition.PARALYZED, Condition.PETRIFIED, Condition.POISONED, Condition.PRONE, Condition.RESTRAINED]
+    )
+  )
+
   static SKELETON = new Monster(
     new MonsterBasicInfo(MonsterId.SKELETON_ID,
       'Skeleton', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
@@ -356,9 +372,9 @@ export class MonsterList {
   )
 
   static MONSTERS: Monster[] = [
-    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GOBLIN,
-    this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR,
-    this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
+    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
+    this.GOBLIN, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR,
+    this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 
 }

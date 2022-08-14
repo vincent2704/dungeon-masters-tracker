@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Encounter} from "../../models/encounter";
 
 @Injectable({
@@ -9,7 +9,6 @@ export class EncounterService {
   private encounters: Encounter[] = [];
 
   constructor() {
-    this.encounters = []
   }
 
   getEncounters(): Encounter[] {
@@ -17,7 +16,19 @@ export class EncounterService {
   }
 
   addEncounter(encounter: Encounter): void {
-    this.encounters.push(encounter);
+    if (this.getEncounterNames().includes(encounter.getName())) {
+      return;
+    }
+      this.encounters.push(encounter);
   }
 
+  private getEncounterNames(): string[] {
+    return this.encounters.map(encounterToMap => {
+      return encounterToMap.getName()
+    });
+  }
+
+  deleteEncounter(encounter: Encounter) {
+    this.encounters.splice(this.encounters.indexOf(encounter), 1);
+  }
 }

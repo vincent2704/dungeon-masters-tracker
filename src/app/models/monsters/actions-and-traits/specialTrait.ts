@@ -179,6 +179,15 @@ export class SpecialTrait {
     "While the gargoyle remains motionless, it " +
     "is indistinguishable from an inanimate statue.")
 
+  private static readonly GHOST_ETHEREAL_SIGHT = new SpecialTrait('Ethereal Sight',
+    "The ghost can see {60} {feet} into the Ethereal " +
+    "Plane when it is on the Material Plane, and vice versa.")
+
+  private static readonly GHOST_INCORPOREAL_MOVEMENT = new SpecialTrait('Incorporeal Movement',
+    "The ghost can move through other " +
+    "creatures and objects as if they were difficult terrain. It takes 5 " +
+    "(1d10) force damage if it ends its turn inside an object.")
+
   private static readonly WEREWOLF_SHAPECHANGER = new SpecialTrait('Shapechanger',
     "The werewolf can use its action to polymorph " +
     "into a wolf-humanoid hybrid or into a wolf, or back into its true " +
@@ -224,6 +233,7 @@ export class SpecialTrait {
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
   static readonly GARGOYLE_SPECIAL_TRAITS = [this.GARGOYLE_FALSE_APPEARANCE];
+  static readonly GHOST_SPECIAL_TRAITS = [this.GHOST_ETHEREAL_SIGHT, this.GHOST_INCORPOREAL_MOVEMENT];
   static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
   static readonly ZOMBIE_SPECIAL_TRAITS = [this.ZOMBIE_UNDEAD_FORTITUDE];
   static readonly NIGHTMARE_SPECIAL_TRAITS = [this.NIGHTMARE_CONFER_FIRE_RESISTANCE, this.NIGHTMARE_ILLUMINATION];
