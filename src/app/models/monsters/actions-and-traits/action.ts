@@ -274,7 +274,7 @@ export class Action {
       "Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly GHOST_WITHERING_TOUCH = new Action('Withering Touch',
-    new ActionDescription("+5 to hit, reach {5} {ft}., " +
+    new ActionDescription("+5 to hit, reach {5} {ft.}, " +
       "one target. Hit: 17 (4d6 + 3) necrotic damage.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly GHOST_ETHEREALNESS = new Action('Etherealness',
