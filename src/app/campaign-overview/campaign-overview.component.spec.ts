@@ -7,6 +7,7 @@ import {TimeConfigurationComponent} from "./time-configuration/time-configuratio
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CampaignEventsComponent} from "./campaign-events/campaign-events.component";
 import {ProtagonistsManagerComponent} from "./protagonists-manager/protagonists-manager.component";
+import {ProtagonistsInfoComponent} from "./protagonists-manager/protagonists-info/protagonists-info.component";
 
 describe('CampaignOverviewComponent', () => {
   let component: CampaignOverviewComponent;
@@ -19,7 +20,7 @@ describe('CampaignOverviewComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FormsModule, NgbModule],
       declarations: [ CampaignOverviewComponent, TimeConfigurationComponent,
-        CampaignEventsComponent, ProtagonistsManagerComponent ],
+        CampaignEventsComponent, ProtagonistsManagerComponent, ProtagonistsInfoComponent ],
       providers: [
         { provide: ActorService, useValue: actorService }
       ]

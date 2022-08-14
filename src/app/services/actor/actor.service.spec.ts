@@ -2,7 +2,6 @@ import {TestBed} from '@angular/core/testing';
 
 import {ActorService} from './actor.service';
 import {Actor} from "../../models/actor";
-import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
 
 describe('actorService', () => {
   let service: ActorService;
@@ -31,21 +30,6 @@ describe('actorService', () => {
 
     // then
     expect(result).toEqual(actorToFind);
-  });
-
-  it("should reset battle actors to protagonists", () => {
-    // given
-    let actors = [
-      new Actor('Name 1', 1),
-      new Actor('Name 2', 2),
-      new Actor('Name 3', 3),
-    ];
-    service.setActors(actors);
-    expect(service.getActors()).toEqual(actors);
-
-    // when
-    service.resetActors();
-    expect(service.getActors()).toEqual(PROTAGONISTS)
   });
 
   it("should remove actor", () => {

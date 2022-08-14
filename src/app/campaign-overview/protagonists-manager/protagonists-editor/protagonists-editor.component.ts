@@ -37,7 +37,7 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   onCancelEdit(): void {
-    this.playerCharacters = this.getProtagonistsCopy();
+    this.playerCharacters = this.actorService.getActors();
     this.actorsToDelete = [];
     this.actorsToAdd = [];
     this.managingFinishedEmitter.emit()
@@ -88,8 +88,5 @@ export class ProtagonistsEditorComponent implements OnInit {
     this.actorsToDelete = [];
   }
 
-  private getProtagonistsCopy() {
-    return this.actorService.getActors().map(actor => actor.copy());
-  }
 
 }
