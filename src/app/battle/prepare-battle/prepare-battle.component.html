@@ -29,9 +29,9 @@
       </table>
     </div>
     <div class="col">
-      <h2>Add predefined monster set:</h2>
+      <h2>Add predefined encounter:</h2>
       <p *ngIf="encounters.length == 0" class="fst-italic">
-        No monster presets found.
+        No saved encounters found.
       </p>
       <ul class="list-group" *ngFor="let encounter of encounters">
         <app-saved-encounter [encounter]="encounter" (encounterEmitter)="addMonstersToBattle($event)"></app-saved-encounter>

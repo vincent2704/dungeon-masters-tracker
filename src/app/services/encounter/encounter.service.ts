@@ -8,7 +8,8 @@ export class EncounterService {
 
   private encounters: Encounter[] = [];
 
-  constructor() {}
+  constructor() {
+  }
 
   getEncounters(): Encounter[] {
     return this.encounters;
@@ -27,4 +28,7 @@ export class EncounterService {
     });
   }
 
+  deleteEncounter(encounter: Encounter) {
+    this.encounters.splice(this.encounters.indexOf(encounter), 1);
+  }
 }
