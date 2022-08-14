@@ -8,14 +8,15 @@ import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
   providedIn: 'root'
 })
 export class ActorService {
-  private actors: Actor[] = [];
+  private actors: Actor[] = PROTAGONISTS;
 
   constructor() {
-    this.resetActors();
   }
 
   getActors(): Actor[] {
-    return this.actors;
+    return this.actors.map(actor => {
+      return actor.copy();
+    });
   }
 
   findActorByName(actorName: string): Actor {
@@ -41,18 +42,6 @@ export class ActorService {
   setActors(Actors: Actor[]): void {
     this.actors = Actors;
     //TODO: backend call
-  }
-
-  resetActors(): Actor[] {
-    this.actors = [];
-
-    this.actors = this.getProtagonistsActorsCopy();
-    return this.actors;
-  }
-
-  getProtagonistsActorsCopy(): Actor[] {
-    this.actors = PROTAGONISTS.slice();
-    return this.actors;
   }
 
   addBattleCondition(actor: Actor, condition: BattleCondition): void {
