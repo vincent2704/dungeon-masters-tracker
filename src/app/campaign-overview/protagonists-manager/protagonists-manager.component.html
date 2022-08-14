@@ -1,0 +1,102 @@
+<h3 i18n="protagonists header|Header related to protagonist characters">Protagonists</h3>
+<table class="table table-hover table-dark">
+  <thead>
+  <tr>
+    <th i18n="character|Column that relates to given character's name" scope="col">Actor</th>
+    <th i18n="level|Column that relates to given character's level" scope="col">Level</th>
+    <th i18n="max HP|Column that related to given character's maximum hit  points" scope="col">Max HP</th>
+    <th i18n="current HP|Column that relates to given character's current hit points" scope="col">Current HP</th>
+    <th scope="col">
+      <button i18n="manage button|Button used to manage player characters in the campaign overview" class="btn btn-primary" (click)="onManageProtagonists()"
+              *ngIf="!managingProtagonists else submitBlock">Manage
+      </button>
+      <ng-template #submitBlock>
+        <button i18n="submit button|Button used to submit changes" class="btn btn-primary" (click)="onSubmitProtagonists()">Submit</button>
+        <button i18n="cancel button|Button used to cancel changes" class="btn btn-primary" (click)="onCancelEdit()">Cancel</button>
+      </ng-template>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let player of playerCharacters">
+    <td *ngIf="managingProtagonists else playerNameBlock">
+      <input type="text" [(ngModel)]="player.name">
+    </td>
+    <ng-template #playerNameBlock>
+      <td>{{player.name}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerLevelBlock">
+      <input type="number" [(ngModel)]="player.level">
+    </td>
+    <ng-template #playerLevelBlock>
+      <td>{{player.level}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerMaxHpBlock">
+      <input type="number" [(ngModel)]="player.maxHP">
+    </td>
+    <ng-template #playerMaxHpBlock>
+      <td>{{player.maxHP}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+      <input type="number" [(ngModel)]="player.currentHP">
+    </td>
+    <ng-template #playerCurrentHpBlock>
+      <td>{{player.currentHP}}</td>
+    </ng-template>
+    <td>
+      <button i18n="delete button|Button used to delete a character" class="btn btn-primary" (click)="onSetActorToDelete(player)" *ngIf="showDeleteButton(player)">
+        Delete
+      </button>
+      <button i18n="retain button|Button used to cancel character deletion before submitting changes" class="btn btn-primary" (click)="onSetActorToRetain(player)" *ngIf="showRetainButton(player)">
+        Retain
+      </button>
+    </td>
+  </tr>
+  <tr *ngFor="let addedActor of actorsToAdd">
+    <td *ngIf="managingProtagonists else playerNameBlock">
+      <input type="text" [(ngModel)]="addedActor.name">
+    </td>
+    <ng-template #playerNameBlock>
+      <td>{{addedActor.name}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerLevelBlock">
+      <input type="number" [(ngModel)]="addedActor.level">
+    </td>
+    <ng-template #playerLevelBlock>
+      <td>{{addedActor.level}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerMaxHpBlock">
+      <input type="number" [(ngModel)]="addedActor.maxHP">
+    </td>
+    <ng-template #playerMaxHpBlock>
+      <td>{{addedActor.maxHP}}</td>
+    </ng-template>
+    <td *ngIf="managingProtagonists else playerCurrentHpBlock">
+      <input type="number" [(ngModel)]="addedActor.currentHP">
+    </td>
+    <ng-template #playerCurrentHpBlock>
+      <td>{{addedActor.currentHP}}</td>
+    </ng-template>
+    <td>
+      <button i18n="remove button|Button used to remove new character that wasn't submitted yet" class="btn btn-primary" (click)="onDeleteNewActor(addedActor)" *ngIf="showDeleteButton(addedActor)">
+        Remove
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="managingProtagonists">
+    <td>
+      <input i18n-placeholder="new character name placeholder|Placeholder for new character name" type="text" placeholder="New actor name" [(ngModel)]="newActorName">
+    </td>
+    <td>
+      <input i18n-placeholder="new character level placeholder|Placeholder for new character level" type="number" placeholder="New actor level" [(ngModel)]="newActorLevel">
+    </td>
+    <td>
+      <input i18n-placeholder="new character max HP placeholder|Placeholder for new character max Hit Points" type="number" placeholder="New actor max hit points" [(ngModel)]="newActorMaxHp">
+    </td>
+    <td></td>
+    <td>
+      <button i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addActor()">Add</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
