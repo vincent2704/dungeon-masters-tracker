@@ -90,6 +90,12 @@ describe('MonstersComponent', () => {
     expect(component.getSpeed(monster)).toEqual('Speed: 0 m, fly 9 m (hover)')
     Settings.setSISystem(false);
     expect(component.getSpeed(monster)).toEqual('Speed: 0 ft., fly 30 ft. (hover)')
+
+    monster = MonsterList.GHOST
+    Settings.setSISystem(true);
+    expect(component.getSpeed(monster)).toEqual('Speed: 0 m, fly 12 m (hover)')
+    Settings.setSISystem(false);
+    expect(component.getSpeed(monster)).toEqual('Speed: 0 ft., fly 40 ft. (hover)')
   });
 
   it('should filter monsters by name case insensitive', () => {
