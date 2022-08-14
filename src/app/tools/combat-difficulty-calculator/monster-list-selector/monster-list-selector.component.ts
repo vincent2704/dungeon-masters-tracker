@@ -71,8 +71,9 @@ export class MonsterListSelectorComponent implements OnInit {
 
   onSaveEncounter() {
     if(this.encounterName.length > 0 && this.selectedMonsters.size > 0 ) {
+      let monsterList = new Map<Monster, number>(this.selectedMonsters);
       this.encounterService.addEncounter(
-        new Encounter(this.encounterName, this.selectedMonsters, this.encounterDescription));
+        new Encounter(this.encounterName, monsterList, this.encounterDescription));
       this.encounterName = '';
       this.encounterDescription = '';
       this.selectedMonsters.clear();

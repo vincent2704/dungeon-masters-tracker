@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MonsterListSelectorComponent } from './monster-list-selector.component';
+import {MonsterListSelectorComponent} from './monster-list-selector.component';
 import {MonsterService} from "../../../services/monster/monster.service";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {Monster} from "../../../models/monsters/monster";
@@ -23,14 +23,14 @@ describe('MonsterListSelectorComponent', () => {
     const encounterService = jasmine.createSpyObj('EncounterService', ['addEncounter'])
 
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ MonsterListSelectorComponent, DifficultyBarComponent ],
+      imports: [FormsModule],
+      declarations: [MonsterListSelectorComponent, DifficultyBarComponent],
       providers: [
         {provide: MonsterService, useValue: monsterService},
         {provide: EncounterService, useValue: encounterService}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -51,7 +51,7 @@ describe('MonsterListSelectorComponent', () => {
     // given
     let actor1 = new Actor('1', 1)
     actor1.setLevel(3)
-    let actor2 =  new Actor('2', 2)
+    let actor2 = new Actor('2', 2)
     actor2.setLevel(3)
     let actor3 = new Actor('3', 3)
     actor3.setLevel(3)
@@ -142,11 +142,21 @@ describe('MonsterListSelectorComponent', () => {
     component.onSaveEncounter()
 
     //then
-    expect(encounterServiceSpy.addEncounter).toHaveBeenCalledOnceWith(
-      new Encounter(encounterName, selectedMonsters, encounterDescription))
     expect(component.encounterName).toEqual('');
     expect(component.selectedMonsters.size).toEqual(0);
     expect(component.encounterDescription).toEqual('');
+    expect(encounterServiceSpy.addEncounter).toHaveBeenCalledOnceWith(
+      new Encounter(
+        encounterName,
+        // this map is a copy of the selectedMonsters object
+        // otherwise empty map would be passed because component monster list is cleared
+        new Map<Monster, number>([
+          [MonsterList.WEREWOLF, 5],
+          [MonsterList.DEVA, 3],
+        ]),
+        encounterDescription
+      )
+    )
   });
 
   it('should not add encounter', () => {

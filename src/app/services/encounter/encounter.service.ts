@@ -8,9 +8,7 @@ export class EncounterService {
 
   private encounters: Encounter[] = [];
 
-  constructor() {
-    this.encounters = []
-  }
+  constructor() {}
 
   getEncounters(): Encounter[] {
     return this.encounters;
