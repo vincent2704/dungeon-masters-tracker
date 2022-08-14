@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="col">
-    <label for="randomizeHP" class="form-check-label" >Randomize HP</label>
-    <input type="checkbox" class="form-check-input" value="" id="randomizeHP"
+    <label [attr.for]="encounter.getName()" class="form-check-label">Randomize HP</label>
+    <input type="checkbox" class="form-check-input" value="" [attr.id]="encounter.getName()"
            [(ngModel)]="randomizeMonstersHPCheckboxChecked">
   </div>
   <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">

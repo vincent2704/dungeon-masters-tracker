@@ -41,7 +41,7 @@ describe('SavedEncountersComponent', () => {
 
   it('should emit encounters', () => {
     // given
-    component.encounter = new Encounter('Encounter description', new Map<Monster, number>([
+    component.encounter = new Encounter('Encounter name', new Map<Monster, number>([
       [MonsterList.WEREWOLF, 2],
       [MonsterList.DEVA, 1],
     ]), 'Encounter description');
