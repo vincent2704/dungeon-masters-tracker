@@ -73,10 +73,10 @@ export class MonsterListSelectorComponent implements OnInit {
     if(this.encounterName.length > 0 && this.selectedMonsters.size > 0 ) {
       this.encounterService.addEncounter(
         new Encounter(this.encounterName, this.selectedMonsters, this.encounterDescription));
+      this.encounterName = '';
+      this.encounterDescription = '';
+      this.selectedMonsters.clear();
     }
-    this.encounterName = '';
-    this.encounterDescription = '';
-    this.selectedMonsters.clear();
   }
 
   private getMonsterExperiencePointsSum(): number {

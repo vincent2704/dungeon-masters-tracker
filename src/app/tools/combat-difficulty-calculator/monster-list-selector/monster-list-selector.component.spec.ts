@@ -8,20 +8,26 @@ import {Actor} from "../../../models/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 import {FormsModule} from "@angular/forms";
+import {EncounterService} from "../../../services/encounter/encounter.service";
+import {Encounter} from "../../../models/encounter";
 
 describe('MonsterListSelectorComponent', () => {
   let component: MonsterListSelectorComponent;
   let fixture: ComponentFixture<MonsterListSelectorComponent>;
+
   let monsterServiceSpy: jasmine.SpyObj<MonsterService>
+  let encounterServiceSpy: jasmine.SpyObj<EncounterService>
 
   beforeEach(async () => {
     const monsterService = jasmine.createSpyObj('MonsterService', ['getMonsters'])
+    const encounterService = jasmine.createSpyObj('EncounterService', ['addEncounter'])
 
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [ MonsterListSelectorComponent, DifficultyBarComponent ],
       providers: [
-        {provide: MonsterService, useValue: monsterService}
+        {provide: MonsterService, useValue: monsterService},
+        {provide: EncounterService, useValue: encounterService}
       ]
     })
     .compileComponents();
@@ -33,6 +39,7 @@ describe('MonsterListSelectorComponent', () => {
     component.participatingActors = [];
 
     monsterServiceSpy = TestBed.inject(MonsterService) as jasmine.SpyObj<MonsterService>;
+    encounterServiceSpy = TestBed.inject(EncounterService) as jasmine.SpyObj<EncounterService>;
     fixture.detectChanges();
   });
 
@@ -116,6 +123,52 @@ describe('MonsterListSelectorComponent', () => {
     ])
     expect(component.getMonsterCount(MonsterList.WEREWOLF)).toEqual(5);
     expect(component.getMonsterCount(MonsterList.DEVA)).toEqual(3);
+  });
+
+  it('should add encounter', () => {
+    // given
+    let encounterName = 'Encounter name'
+    let selectedMonsters = new Map<Monster, number>([
+      [MonsterList.WEREWOLF, 5],
+      [MonsterList.DEVA, 3],
+    ])
+    let encounterDescription = 'Encounter description'
+
+    component.encounterName = encounterName
+    component.selectedMonsters = selectedMonsters
+    component.encounterDescription = encounterDescription
+
+    // when
+    component.onSaveEncounter()
+
+    //then
+    expect(encounterServiceSpy.addEncounter).toHaveBeenCalledOnceWith(
+      new Encounter(encounterName, selectedMonsters, encounterDescription))
+    expect(component.encounterName).toEqual('');
+    expect(component.selectedMonsters.size).toEqual(0);
+    expect(component.encounterDescription).toEqual('');
+  });
+
+  it('should not add encounter', () => {
+    // given
+    let encounterName = ''
+    let selectedMonsters = new Map<Monster, number>([
+      [MonsterList.WEREWOLF, 5],
+      [MonsterList.DEVA, 3],
+    ])
+    let encounterDescription = 'Encounter description'
+
+    component.encounterName = encounterName
+    component.selectedMonsters = selectedMonsters
+    component.encounterDescription = encounterDescription
+
+    // when
+    component.onSaveEncounter()
+
+    //then
+    expect(encounterServiceSpy.addEncounter).not.toHaveBeenCalled()
+    expect(component.selectedMonsters).toEqual(selectedMonsters);
+    expect(component.encounterDescription).toEqual(encounterDescription);
   });
 
 
