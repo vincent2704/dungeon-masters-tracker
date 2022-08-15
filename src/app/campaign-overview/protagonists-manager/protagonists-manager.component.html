@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col">
+    <h3 i18n="protagonists header|Header related to protagonist characters">Protagonists</h3>
+  </div>
+  <div class="col text-end">
+    <button i18n="manage button|Button used to manage player characters in the campaign overview" class="btn btn-primary" (click)="onManageProtagonists()"
+            *ngIf="!managingProtagonists">Manage
+    </button>
+  </div>
+</div>
+<app-protagonists-info *ngIf="!managingProtagonists"></app-protagonists-info>
+<app-protagonists-editor *ngIf="managingProtagonists" (managingFinishedEmitter)="managingProtagonists = false"></app-protagonists-editor>

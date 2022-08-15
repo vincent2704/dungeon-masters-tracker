@@ -165,6 +165,18 @@ export class MonsterList {
     )
   )
 
+  static GHOUL = new Monster(
+    new MonsterBasicInfo(MonsterId.GHOUL_ID,
+      'Ghoul', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE),
+    new MonsterDetails(
+      Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)], new MonsterHitPoints(22, 5, DieType.D8),
+      [new MonsterSpeed(30)], new AbilitySet(13, 15, 10, 7, 10, 6),
+      Action.GHOUL_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON)]), undefined,
+      new DamageImmunities([DamageType.POISON]), [Condition.CHARMED, Condition.EXHAUSTION, Condition.POISONED]
+    )
+  )
+
   static SKELETON = new Monster(
     new MonsterBasicInfo(MonsterId.SKELETON_ID,
       'Skeleton', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
@@ -373,8 +385,8 @@ export class MonsterList {
 
   static MONSTERS: Monster[] = [
     this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GOBLIN, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA, this.PLANETAR,
-    this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
+    this.GHOUL, this.GOBLIN, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA,
+    this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 
 }

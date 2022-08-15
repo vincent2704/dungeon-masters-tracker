@@ -274,7 +274,7 @@ export class Action {
       "Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly GHOST_WITHERING_TOUCH = new Action('Withering Touch',
-    new ActionDescription("+5 to hit, reach {5} {ft}., " +
+    new ActionDescription("+5 to hit, reach {5} {ft.}, " +
       "one target. Hit: 17 (4d6 + 3) necrotic damage.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly GHOST_ETHEREALNESS = new Action('Etherealness',
@@ -316,6 +316,16 @@ export class Action {
       "space within {5} {feet} of the body. The target is immune to this " +
       "ghost’s Possession for 24 hours after succeeding on the " +
       "saving throw or after the possession ends."))
+
+  private static readonly GHOUL_BITE = new Action('Bite',
+    new ActionDescription("+2 to hit, reach {5} {ft.}, one creature. Hit: 9 (2d6 + 2) piercing damage.",
+      ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly GHOUL_CLAWS = new Action('Claws',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one target. Hit: 7 (2d4 + 2) slashing damage. " +
+      "If the target is a creature other than an elf or undead, it must succeed on a DC 10 Constitution saving " +
+      "throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, " +
+      "ending the effect on itself on a success.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly WEREWOLF_MULTIATTACK = new Action('Multiattack (Humanoid or Hybrid Form Only)',
     new ActionDescription("The werewolf " +
@@ -377,6 +387,7 @@ export class Action {
   static GARGOYLE_ACTIONS = [this.GARGOYLE_MULTIATTACK, this.GARGOYLE_BITE, this.GARGOYLE_CLAWS];
   static GHOST_ACTIONS = [this.GHOST_WITHERING_TOUCH, this.GHOST_ETHEREALNESS, this.GHOST_HORRIFYING_VISAGE,
     this.GHOST_POSSESSION]
+  static GHOUL_ACTIONS = [this.GHOUL_BITE, this.GHOUL_CLAWS]
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static ZOMBIE_ACTIONS = [this.ZOMBIE_SLAM];

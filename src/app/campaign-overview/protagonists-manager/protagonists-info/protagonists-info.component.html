@@ -1,0 +1,18 @@
+<table class="table table-hover table-dark">
+  <thead>
+  <tr>
+    <th i18n="character|Column that relates to given character's name" scope="col">Actor</th>
+    <th i18n="level|Column that relates to given character's level" scope="col">Level</th>
+    <th i18n="max HP|Column that related to given character's maximum hit  points" scope="col">Max HP</th>
+    <th i18n="current HP|Column that relates to given character's current hit points" scope="col">Current HP</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let player of playerCharacters">
+    <td>{{player.name}}</td>
+    <td>{{player.level}}</td>
+    <td>{{player.maxHP}}</td>
+    <td>{{player.currentHP}}</td>
+  </tr>
+  </tbody>
+</table>
