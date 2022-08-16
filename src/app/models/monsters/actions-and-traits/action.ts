@@ -221,29 +221,6 @@ export class Action {
       "restrained by it and can escape from the corpse by using {15} {feet} " +
       "of movement, exiting prone."))
 
-  private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
-    new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
-      "target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK));
-
-  private static readonly SKELETON_SHORTBOW = new Action('Shortbow',
-    new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
-      "one target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
-
-  private static readonly SPECTATOR_BITE = new Action('Bite',
-    new ActionDescription("+1 to hit, reach {5} {ft.}, one target. " +
-      "Hit: 2 (1d6- 1) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
-
-  private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
-    new ActionDescription(
-      "The spectator shoots up to two of the following " +
-      "magical eye rays at one or two creatures it can see within {90} " +
-      "{feet} of it. It can use each ray only once on a turn.", ActionType.NOT_SPECIFIED,
-      ActionDescriptionPoint.SPECTATOR_EYE_RAYS_DESCRIPTION_POINTS))
-
-  private static readonly SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
-    new ActionDescription("The spectator magically creates " +
-      "enough food and water to sustain itself for 24 hours."));
-
   private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
     new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
       "target. Hit: 11 (2d8 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
@@ -252,14 +229,6 @@ export class Action {
     new ActionDescription("+4 to hit, reach {5} {ft.} or " +
       "range {30}/{120} {ft.}, one target. Hit: 9 (2d6 + 2) piercing damage " +
       "in melee or 5 (1d6 + 2) piercing damage at range.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK))
-
-  private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
-    new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
-      "target. Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
-
-  private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
-    new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
-      "Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
 
   private static readonly GARGOYLE_MULTIATTACK = new Action('Multiattack',
     new ActionDescription('The gargoyle makes two attacks: one with its ' +
@@ -327,6 +296,46 @@ export class Action {
       "throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, " +
       "ending the effect on itself on a success.", ActionType.MELEE_WEAPON_ATTACK))
 
+  private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
+      "target. Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
+    new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
+      "Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
+
+  private static readonly OGRE_GREATCLUB = new Action('Greatclub',
+    new ActionDescription("+6 to hit, reach {5} {ft.}, one " +
+      "target. Hit: 13 (2d8 + 4) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK));
+
+  private static readonly OGRE_JAVELIN = new Action('Javelin',
+    new ActionDescription("+6 to hit, reach " +
+    "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: 11 (2d6 + 4) " +
+    "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK))
+
+  private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
+      "target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK));
+
+  private static readonly SKELETON_SHORTBOW = new Action('Shortbow',
+    new ActionDescription("+4 to hit, range {80}/{320} {ft.}, " +
+      "one target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK));
+
+  private static readonly SPECTATOR_BITE = new Action('Bite',
+    new ActionDescription("+1 to hit, reach {5} {ft.}, one target. " +
+      "Hit: 2 (1d6- 1) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
+    new ActionDescription(
+      "The spectator shoots up to two of the following " +
+      "magical eye rays at one or two creatures it can see within {90} " +
+      "{feet} of it. It can use each ray only once on a turn.", ActionType.NOT_SPECIFIED,
+      ActionDescriptionPoint.SPECTATOR_EYE_RAYS_DESCRIPTION_POINTS))
+
+  private static readonly SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
+    new ActionDescription("The spectator magically creates " +
+      "enough food and water to sustain itself for 24 hours."));
+
   private static readonly WEREWOLF_MULTIATTACK = new Action('Multiattack (Humanoid or Hybrid Form Only)',
     new ActionDescription("The werewolf " +
       "makes two attacks: one with its bite and one with its " +
@@ -378,16 +387,17 @@ export class Action {
   static BEHIR_ACTIONS = [this.BEHIR_MULTIATTACK, this.BEHIR_BITE, this.BEHIR_CONSTRICT, this.BEHIR_LIGHTNING_BREATH,
     this.BEHIR_SWALLOW];
 
-  static SKELETON_ACTIONS = [this.SKELETON_SHORTSWORD, this.SKELETON_SHORTBOW];
-  static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
-
   static BUGBEAR_ACTIONS = [this.BUGBEAR_MORNINGSTAR, this.BUGBEAR_JAVELIN];
 
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
+  static OGRE_ACTIONS = [this.OGRE_GREATCLUB, this.OGRE_JAVELIN];
   static GARGOYLE_ACTIONS = [this.GARGOYLE_MULTIATTACK, this.GARGOYLE_BITE, this.GARGOYLE_CLAWS];
   static GHOST_ACTIONS = [this.GHOST_WITHERING_TOUCH, this.GHOST_ETHEREALNESS, this.GHOST_HORRIFYING_VISAGE,
     this.GHOST_POSSESSION]
   static GHOUL_ACTIONS = [this.GHOUL_BITE, this.GHOUL_CLAWS]
+
+  static SKELETON_ACTIONS = [this.SKELETON_SHORTSWORD, this.SKELETON_SHORTBOW];
+  static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static ZOMBIE_ACTIONS = [this.ZOMBIE_SLAM];

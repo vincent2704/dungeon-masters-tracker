@@ -8,6 +8,7 @@ export enum Language {
   DEEP_SPEECH = 'Deep Speech',
   DRACONIC = 'Draconic',
   ELVISH = 'Elvish',
+  GIANT = 'Giant',
   GOBLIN = 'Goblin',
   IGNAN = 'Ignan',
   INFERNAL = 'Infernal',
