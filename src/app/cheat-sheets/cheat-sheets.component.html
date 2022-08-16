@@ -1,40 +1,20 @@
 <div class="row">
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Travelling</h5>
-        <p class="card-text">Cheat sheet for travelling paces, distance and time.</p>
-        <a class="btn btn-primary" routerLink="traveling">Show</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Cover</h5>
-        <p class="card-text">Cheat sheet displaying cover rules.</p>
-        <a class="btn btn-primary" routerLink="cover">Show</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Ability Checks</h5>
-        <p class="card-text">Abilities with their associated skills and typical difficulty classes.</p>
-        <a class="btn btn-primary" routerLink="ability-checks">Show</a>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Combat Creation</h5>
-        <p class="card-text">Tables representing data useful to create combat encounters</p>
-        <a class="btn btn-primary" routerLink="combat-encounter">Show</a>
-      </div>
-    </div>
-  </div>
+  <button class="btn btn-secondary list-group-item col-3 card" routerLink="traveling">
+    <h5 class="card-title">Traveling</h5>
+    <p class="card-text">Cheat sheet for traveling paces, distance and time.</p>
+  </button>
+  <button class="btn btn-secondary list-group-item col-3 card" routerLink="cover">
+    <h5 class="card-title">Cover</h5>
+    <p class="card-text">Cheat sheet displaying cover rules.</p>
+  </button>
+  <button class="btn btn-secondary list-group-item col-3 card" routerLink="ability-checks">
+    <h5 class="card-title">Ability Checks</h5>
+    <p class="card-text">Abilities with their associated skills and typical difficulty classes.</p>
+  </button>
+  <button class="btn btn-secondary list-group-item col-3 card" routerLink="combat-encounter">
+    <h5 class="card-title">Combat Creation</h5>
+    <p class="card-text">Tables representing data useful to create combat encounters</p>
+  </button>
 </div>
 
 <router-outlet></router-outlet>
