@@ -313,6 +313,15 @@ export class Action {
     "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: 11 (2d6 + 4) " +
     "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK))
 
+  private static readonly ORC_GREATAXE = new Action('Greataxe',
+    new ActionDescription("+5 to hit, reach {5} {ft.}, one " +
+      "target. Hit: 9 (1d12 + 3) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly ORC_JAVELIN = new Action('Javelin',
+    new ActionDescription("+5 to hit, reach " +
+      "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: 6 (1d6 + 3) " +
+      "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK))
+
   private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
     new ActionDescription("+4 to hit, reach {5} {ft.}, one " +
       "target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK));
@@ -391,6 +400,9 @@ export class Action {
 
   static GOBLIN_ACTIONS = [this.GOBLIN_SCIMITAR, this.GOBLIN_SHORTBOW];
   static OGRE_ACTIONS = [this.OGRE_GREATCLUB, this.OGRE_JAVELIN];
+  static ORC_ACTIONS = [this.ORC_GREATAXE, this.ORC_JAVELIN];
+
+
   static GARGOYLE_ACTIONS = [this.GARGOYLE_MULTIATTACK, this.GARGOYLE_BITE, this.GARGOYLE_CLAWS];
   static GHOST_ACTIONS = [this.GHOST_WITHERING_TOUCH, this.GHOST_ETHEREALNESS, this.GHOST_HORRIFYING_VISAGE,
     this.GHOST_POSSESSION]

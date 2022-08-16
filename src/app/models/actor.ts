@@ -181,6 +181,10 @@ export class Actor {
     return this.battleConditions;
   }
 
+  clearConditions(): void {
+    this.battleConditions = [];
+  }
+
   getTimeOfDeath(): Date {
     return this.timeOfDeath!;
   }
@@ -299,6 +303,21 @@ export class Actor {
     this.timeOfDeath = undefined;
   }
 
+  trueResurrection(currentDate: Date) {
+    if(!this.canBringBackFromDead()) {
+      return;
+    }
+
+    if(DateUtils.isTimePassedLongerThanYears(currentDate, this.timeOfDeath!, 200)) {
+      return;
+    }
+
+    this.clearConditions();
+    this.dead = false;
+    this.modifyHp(this.maxHP, currentDate);
+    this.timeOfDeath = undefined;
+  }
+
   private getExpiredConditions(): Condition[] {
     return this.battleConditions.filter(battleCondition => {
       return battleCondition.getDurationInTurns() == 0 && !battleCondition.isPermanent();
@@ -309,7 +328,7 @@ export class Actor {
 
   private canBringBackFromDead(): boolean {
     if (!this.isDead()) {
-      console.error(`Character ${this.name} it not dead`);
+      console.warn(`Character ${this.name} it not dead`);
       return false;
     }
 

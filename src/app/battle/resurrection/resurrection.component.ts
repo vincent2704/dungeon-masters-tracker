@@ -53,6 +53,11 @@ export class ResurrectionComponent implements OnInit {
       this.getCurrentTimeInBattle(), this.character.getTimeOfDeath(), 100);
   }
 
+  canTrueResurrection(): boolean {
+    return !DateUtils.isTimePassedLongerThanYears(
+      this.getCurrentTimeInBattle(), this.character.getTimeOfDeath(), 200);
+  }
+
   revivify(): void {
     this.character.revivify(this.getCurrentTimeInBattle());
   }
@@ -61,12 +66,16 @@ export class ResurrectionComponent implements OnInit {
     this.character.raiseDead(this.getCurrentTimeInBattle());
   }
 
-  reincarnate() {
+  reincarnate(): void {
     this.character.reincarnate(this.getCurrentTimeInBattle());
   }
 
   resurrection(): void {
     this.character.resurrection(this.getCurrentTimeInBattle());
+  }
+
+  trueResurrection(): void {
+    this.character.trueResurrection(this.getCurrentTimeInBattle());
   }
 
   private getCurrentTimeInBattle(): Date {
