@@ -31,6 +31,7 @@ describe('characters', () => {
 
     cy.contains('Tools').click();
     cy.contains('Combat difficulty calculator').click();
+    cy.contains(testActorName);
   })
 
 })
