@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
-import {ActorService} from "../services/actor/actor.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
 
@@ -25,7 +24,6 @@ export class BattleComponent implements OnInit {
   conflictResolvedActors: Actor[] = [];
 
   constructor(
-    private actorService: ActorService,
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig
   ) {

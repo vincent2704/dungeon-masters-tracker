@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
+import {ActorService} from "../../services/actor/actor.service";
 
 @Component({
   selector: 'app-tracker',
@@ -18,7 +19,7 @@ export class TrackerComponent implements OnInit {
   @Output()
   battleEndedEmitter = new EventEmitter<void>();
 
-  constructor(private temporalService: TemporalService) { }
+  constructor(private temporalService: TemporalService, private actorService: ActorService) { }
 
   ngOnInit(): void {
   }
@@ -67,6 +68,7 @@ export class TrackerComponent implements OnInit {
   }
 
   endBattle() {
+    this.actorService.setActors(this.actors);
     if (this.isTimeTracked) {
       this.temporalService.addSeconds((this.round - 1) * 6);
     }

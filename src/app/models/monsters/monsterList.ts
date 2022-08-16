@@ -133,6 +133,17 @@ export class MonsterList {
     )
   )
 
+  static OGRE = new Monster(
+    new MonsterBasicInfo(MonsterId.OGRE_ID,
+      'Ogre', MonsterSize.LARGE, MonsterType.GIANT, MonsterChallenge.TWO),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [MonsterEquipment.HIDE_ARMOR])],
+      new MonsterHitPoints(59, 7, DieType.D10, 21), [new MonsterSpeed(40)],
+      new AbilitySet(19, 8, 16, 5, 7, 7),
+      Action.OGRE_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
+      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GIANT)]),
+      )
+  )
+
   static GARGOYLE = new Monster(
     new MonsterBasicInfo(MonsterId.GARGOYLE_ID,
       'Gargoyle', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, MonsterChallenge.TWO),
@@ -385,8 +396,8 @@ export class MonsterList {
 
   static MONSTERS: Monster[] = [
     this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GHOUL, this.GOBLIN, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH, this.DEVA,
-    this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
+    this.GHOUL, this.GOBLIN, this.OGRE, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH,
+    this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 
 }
