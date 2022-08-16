@@ -6,20 +6,29 @@ import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
+import {ActorService} from "../../services/actor/actor.service";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
   let fixture: ComponentFixture<TrackerComponent>;
 
+  let actorServiceSpy: jasmine.SpyObj<ActorService>;
+
   beforeEach(async () => {
+    const actorSpy = jasmine.createSpyObj('ActorService', ['setActors']);
+
     await TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [ TrackerComponent, AddActorComponent ]
+      declarations: [ TrackerComponent, AddActorComponent ],
+      providers: [
+        { provide: ActorService, useValue: actorSpy },
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     fixture = TestBed.createComponent(TrackerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -27,6 +36,12 @@ describe('TrackerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it("should save actors after battle is concluded", () => {
+    // when
+    component.endBattle();
+    expect(actorServiceSpy.setActors).toHaveBeenCalledOnceWith(component.actors);
   });
 
   it('should progress actor', () => {
