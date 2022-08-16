@@ -24,8 +24,13 @@
       </button>
     </div>
     <div class="col">
-      <button i18n="reincarnate button|Button with a spell name, see Basic Rules pg. 103"
-              class="btn btn-primary" (click)="resurrection()" [disabled]="!canResurrection()">Reincarnate
+      <button i18n="resurrection button|Button with a spell name, see Basic Rules pg. 103"
+              class="btn btn-primary" (click)="resurrection()" [disabled]="!canResurrection()">Resurrection
+      </button>
+    </div>
+    <div class="col">
+      <button i18n="true resurrection button|Button with a spell name, see Basic Rules pg. 103"
+              class="btn btn-primary" (click)="trueResurrection()" [disabled]="!canTrueResurrection()">True Resurrection
       </button>
     </div>
   </div>
