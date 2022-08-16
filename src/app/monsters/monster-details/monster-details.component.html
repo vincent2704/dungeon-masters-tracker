@@ -23,7 +23,7 @@
   <hr>
   <div class="col-4 fw-bold" *ngIf="monster.getDetails().getSkills().length > 0">Skills</div>
   <div class="col-4" *ngFor="let skill of monster.getDetails().getSkills()">
-    {{skill.getSkill()}} {{skill.getScore()}}
+    {{skill.getSkill()}} +{{skill.getScore()}}
   </div>
 </div>
 <div class="row" *ngIf="monster.getDetails().getDamageResistances()">

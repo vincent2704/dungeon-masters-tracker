@@ -12,6 +12,7 @@ export enum Language {
   GOBLIN = 'Goblin',
   IGNAN = 'Ignan',
   INFERNAL = 'Infernal',
-  UNDERCOMMON = 'Undercommon',
+  ORC = 'Orc',
   TERRAN = 'Terran',
+  UNDERCOMMON = 'Undercommon',
 }

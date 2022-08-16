@@ -140,8 +140,20 @@ export class MonsterList {
       new MonsterHitPoints(59, 7, DieType.D10, 21), [new MonsterSpeed(40)],
       new AbilitySet(19, 8, 16, 5, 7, 7),
       Action.OGRE_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
-      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GIANT)]),
+      [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GIANT)])
       )
+  )
+
+  static ORC = new Monster(
+    new MonsterBasicInfo(MonsterId.ORC_ID,
+      'Orc', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.HALF),
+    new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(13, [MonsterEquipment.HIDE_ARMOR])],
+      new MonsterHitPoints(15, 2, DieType.D8, 6), [new MonsterSpeed(30)],
+      new AbilitySet(16, 12, 16, 7, 11, 10),
+      Action.ORC_ACTIONS, SpecialTrait.ORC_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
+      [MonsterTag.ORC], [], [new MonsterSkill(Skill.INTIMIDATION, 2)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.ORC)])
+    )
   )
 
   static GARGOYLE = new Monster(
@@ -396,7 +408,7 @@ export class MonsterList {
 
   static MONSTERS: Monster[] = [
     this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GHOUL, this.GOBLIN, this.OGRE, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH,
+    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH,
     this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
   ]
 

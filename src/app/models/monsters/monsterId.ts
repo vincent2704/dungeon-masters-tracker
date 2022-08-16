@@ -48,8 +48,8 @@ export class MonsterId {
   static readonly HYDRA_ID = new MonsterId(90, MonsterSource.BASIC_RULES);
 
   static readonly MASTIFF_ID = new MonsterId(100);
-  static readonly OGRE_ID = new MonsterId(109);
 
+  static readonly OGRE_ID = new MonsterId(109);
   static readonly ORC_ID = new MonsterId(110)
 
   static readonly PTERANODON_ID = new MonsterId(120);

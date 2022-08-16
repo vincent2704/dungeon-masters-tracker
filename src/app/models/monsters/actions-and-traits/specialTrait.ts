@@ -175,6 +175,10 @@ export class SpecialTrait {
     "The goblin can take the Disengage or Hide " +
     "action as a bonus action on each of its turns")
 
+  private static readonly ORC_AGGRESSIVE = new SpecialTrait('Aggressive',
+    "As a bonus action, the orc can move up to its " +
+    "speed toward a hostile creature that it can see.")
+
   private static readonly GARGOYLE_FALSE_APPEARANCE = new SpecialTrait('False Appearance',
     "While the gargoyle remains motionless, it " +
     "is indistinguishable from an inanimate statue.")
@@ -232,6 +236,8 @@ export class SpecialTrait {
   static readonly BASILISK_SPECIAL_TRAITS = [this.BASILISK_PETRIFYING_GAZE]
   static readonly BUGBEAR_SPECIAL_TRAITS = [this.BUGBEAR_BRUTE, this.BUGBEAR_SURPRISE_ATTACK];
   static readonly GOBLIN_SPECIAL_TRAITS = [this.GOBLIN_NIMBLE_ESCAPE];
+  static readonly ORC_SPECIAL_TRAITS = [this.ORC_AGGRESSIVE];
+
   static readonly GARGOYLE_SPECIAL_TRAITS = [this.GARGOYLE_FALSE_APPEARANCE];
   static readonly GHOST_SPECIAL_TRAITS = [this.GHOST_ETHEREAL_SIGHT, this.GHOST_INCORPOREAL_MOVEMENT];
   static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
