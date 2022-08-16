@@ -1,30 +1,16 @@
 <div class="row">
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">3D distance calculator</h5>
-        <p class="card-text">Calculate distance between actors and objects that are on a different height level, e.g. between standing players and a flying dragon.</p>
-        <button class="btn btn-primary" routerLink="3d-distance-calculator">Show</button>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Travel calculator</h5>
-        <p class="card-text">Calculate travel time for given pace and distance</p>
-        <button class="btn btn-primary" routerLink="travel-calculator">Show</button>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Combat difficulty calculator</h5>
-        <p class="card-text">Calculate combat difficulty based on actors and monsters input</p>
-        <button class="btn btn-primary" routerLink="combat-difficulty-calculator">Show</button>
-      </div>
-    </div>
-  </div>
+  <button class="btn btn-secondary list-group-item col-4 card" routerLink="3d-distance-calculator">
+    <h5 class="card-title text-white">3D distance calculator</h5>
+    <p class="card-text fst-italic">Calculate distance between actors and objects that are on a different height level, e.g. between standing players and a flying dragon.</p>
+  </button>
+  <button class="btn btn-secondary list-group-item col-4 card" routerLink="travel-calculator">
+    <h5 class="card-title text-white">Travel calculator</h5>
+    <p class="card-text fst-italic">Calculate travel time for given pace and distance</p>
+  </button>
+  <button class="btn btn-secondary list-group-item col-4 card" routerLink="combat-difficulty-calculator">
+    <h5 class="card-title text-white">Combat difficulty calculator</h5>
+    <p class="card-text fst-italic">Calculate combat difficulty based on actors and monsters input</p>
+  </button>
 </div>
+
 <router-outlet></router-outlet>

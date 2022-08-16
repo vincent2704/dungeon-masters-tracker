@@ -25,4 +25,12 @@ describe('characters', () => {
     });
   })
 
+  it('character is present in other components', () => {
+    cy.contains('Battle').click();
+    cy.contains(testActorName)
+
+    cy.contains('Tools').click();
+    cy.contains('Combat difficulty calculator').click();
+  })
+
 })
