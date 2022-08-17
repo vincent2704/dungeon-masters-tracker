@@ -10,12 +10,11 @@ export class Actor {
   currentHP: number;
   initiative: number;
   level: number;
-  private dead: boolean;
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
-  private timeOfDeath?: Date;
+  private timeOfDeath?: Date = undefined;
   private resurrectionPenalty: number = 0;
 
   constructor(
@@ -24,7 +23,6 @@ export class Actor {
     currentHP: number = maxHP,
     initiative: number = 0,
     level: number = 1,
-    dead: boolean = false,
     battleConditions: BattleCondition[] = [],
     eligibleForSavingThrows: boolean = true,
   ) {
@@ -43,7 +41,6 @@ export class Actor {
     }
     this.initiative = initiative;
     this.level = level;
-    this.dead = dead;
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = eligibleForSavingThrows;
     this.temporaryHP = new TemporaryHP(0, 0);
@@ -93,7 +90,7 @@ export class Actor {
       if (this.getCurrentHP() < 0) {
         this.currentHP = 0;
       }
-      if (this.getCurrentHP() <= 0 && !this.dead && !this.hasCondition(Condition.UNCONSCIOUS)) {
+      if (this.getCurrentHP() <= 0 && !this.isDead() && !this.hasCondition(Condition.UNCONSCIOUS)) {
         if (this.isEligibleForDeathSavingThrows()) {
           this.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
           this.stabilized = false;
@@ -136,11 +133,10 @@ export class Actor {
   }
 
   isDead(): boolean {
-    return this.dead;
+    return this.timeOfDeath != undefined;
   }
 
   kill(deathTime: Date): void {
-    this.dead = true;
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
     } else {
@@ -242,8 +238,15 @@ export class Actor {
   }
 
   copy(): Actor {
-    return new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
-      this.battleConditions, this.eligibleForDeathSavingThrows)
+    let actor = new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level,
+      this.battleConditions, this.eligibleForDeathSavingThrows);
+
+    actor.timeOfDeath = this.timeOfDeath;
+    actor.temporaryHP = this.temporaryHP;
+    actor.stabilized = this.stabilized;
+    actor.resurrectionPenalty = this.resurrectionPenalty;
+
+    return actor;
   }
 
   revivify(currentDate: Date): void {
@@ -252,7 +255,6 @@ export class Actor {
     }
 
     if (DateUtils.getDifferenceInMinutes(currentDate, this.timeOfDeath!) <= 1) {
-      this.dead = false;
       this.timeOfDeath = undefined;
       this.modifyHp(1, currentDate);
     }
@@ -267,10 +269,9 @@ export class Actor {
       return;
     }
 
-    this.dead = false;
+    this.timeOfDeath = undefined;
     this.modifyHp(1, currentDate);
     this.resurrectionPenalty = 4;
-    this.timeOfDeath = undefined;
   }
 
   reincarnate(currentDate: Date): void {
@@ -282,10 +283,9 @@ export class Actor {
       return;
     }
 
-    this.dead = false;
-    this.modifyHp(this.maxHP, currentDate);
-    this.removeConditions(Condition.MAGICAL_CONDITIONS);
     this.timeOfDeath = undefined;
+    this.modifyHp(this.maxHP*2, currentDate);
+    this.removeConditions(Condition.MAGICAL_CONDITIONS);
   }
 
   resurrection(currentDate: Date) {
@@ -297,10 +297,9 @@ export class Actor {
       return;
     }
 
-    this.dead = false;
-    this.modifyHp(this.maxHP, currentDate);
-    this.resurrectionPenalty = 4;
     this.timeOfDeath = undefined;
+    this.modifyHp(this.maxHP*2, currentDate);
+    this.resurrectionPenalty = 4;
   }
 
   trueResurrection(currentDate: Date) {
@@ -312,10 +311,9 @@ export class Actor {
       return;
     }
 
-    this.clearConditions();
-    this.dead = false;
-    this.modifyHp(this.maxHP, currentDate);
     this.timeOfDeath = undefined;
+    this.clearConditions();
+    this.modifyHp(this.maxHP, currentDate);
   }
 
   private getExpiredConditions(): Condition[] {
@@ -327,13 +325,8 @@ export class Actor {
   }
 
   private canBringBackFromDead(): boolean {
-    if (!this.isDead()) {
-      console.warn(`Character ${this.name} it not dead`);
-      return false;
-    }
-
     if (!this.timeOfDeath) {
-      console.error(`Character ${this.name} set to revive is dead but death time not found!`);
+      console.warn(`Character ${this.name} set to revive is not dead!`);
       return false;
     }
     return true;
