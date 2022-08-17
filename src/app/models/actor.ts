@@ -15,7 +15,7 @@ export class Actor {
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
-  private timeOfDeath?: Date;
+  private timeOfDeath?: Date = undefined;
   private resurrectionPenalty: number = 0;
 
   constructor(
@@ -140,7 +140,6 @@ export class Actor {
   }
 
   kill(deathTime: Date): void {
-    console.log(deathTime);
     this.dead = true;
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
@@ -148,7 +147,6 @@ export class Actor {
       this.removeConditions(Condition.ALL_CONDITIONS);
     }
     this.timeOfDeath = deathTime;
-    console.log(this.timeOfDeath)
   }
 
   isEligibleForDeathSavingThrows(): boolean {
@@ -244,8 +242,11 @@ export class Actor {
   }
 
   copy(): Actor {
-    return new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
-      this.battleConditions, this.eligibleForDeathSavingThrows)
+    let actor = new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level, this.dead,
+      this.battleConditions, this.eligibleForDeathSavingThrows);
+    actor.timeOfDeath = this.timeOfDeath;
+
+    return actor;
   }
 
   revivify(currentDate: Date): void {

@@ -76,4 +76,18 @@ describe('actorService', () => {
     expect(actor.isStabilized()).toBeFalse();
   });
 
+  it("should copy character", () => {
+    // given
+    let actor = new Actor('Actor 1', 1);
+    let date = new Date();
+    actor.modifyHp(-2, date);
+    expect(actor.isDead()).toBeTrue();
+
+    // when
+    let result = actor.copy();
+
+    // then
+    expect(result).toEqual(actor);
+  });
+
 });

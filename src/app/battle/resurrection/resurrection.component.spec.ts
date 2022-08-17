@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResurrectionComponent } from './resurrection.component';
-import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCollapse, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../models/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
@@ -20,7 +20,7 @@ describe('ResurrectionComponent', () => {
     const temporalService = jasmine.createSpyObj('TemporalService', ['getCurrentDate'])
 
     await TestBed.configureTestingModule({
-      declarations: [ ResurrectionComponent, NgbCollapse ],
+      declarations: [ ResurrectionComponent, NgbCollapse, NgbTooltip ],
       providers: [
         {provide: TemporalService, useValue: temporalService},
       ]
