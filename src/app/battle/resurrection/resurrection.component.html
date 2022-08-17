@@ -10,27 +10,32 @@
   <div class="row">
     <div class="col">
       <button i18n="revivify button|Button with a spell name, see Basic Rules pg. 104"
-              class="btn btn-primary" (click)="revivify()" [disabled]="!canRevivify()">Revivify
+              class="btn btn-primary" (click)="revivify()" [disabled]="!canRevivify()"
+              ngbTooltip="{{revivifyTooltip}}">Revivify
       </button>
     </div>
     <div class="col">
       <button i18n="raise dead button|Button with a spell name, see Basic Rules pg. 103"
-              class="btn btn-primary" (click)="raiseDead()" [disabled]="!canRaiseDead()">Raise Dead
+              class="btn btn-primary" (click)="raiseDead()" [disabled]="!canRaiseDead()"
+              ngbTooltip="{{raiseDeadTooltip}}">Raise Dead
       </button>
     </div>
     <div class="col">
       <button i18n="reincarnate button|Button with a spell name, see Basic Rules pg. 103"
-              class="btn btn-primary" (click)="reincarnate()" [disabled]="!canReincarnate()">Reincarnate
+              class="btn btn-primary" (click)="reincarnate()" [disabled]="!canReincarnate()"
+              ngbTooltip="{{reincarnateTooltip}}">Reincarnate
       </button>
     </div>
     <div class="col">
       <button i18n="resurrection button|Button with a spell name, see Basic Rules pg. 103"
-              class="btn btn-primary" (click)="resurrection()" [disabled]="!canResurrection()">Resurrection
+              class="btn btn-primary" (click)="resurrection()" [disabled]="!canResurrection()"
+              ngbTooltip="{{resurrectionTooltip}}">Resurrection
       </button>
     </div>
     <div class="col">
       <button i18n="true resurrection button|Button with a spell name, see Basic Rules pg. 103"
-              class="btn btn-primary" (click)="trueResurrection()" [disabled]="!canTrueResurrection()">True Resurrection
+              class="btn btn-primary" (click)="trueResurrection()" [disabled]="!canTrueResurrection()"
+              ngbTooltip="{{trueResurrectionTooltip}}">True Resurrection
       </button>
     </div>
   </div>

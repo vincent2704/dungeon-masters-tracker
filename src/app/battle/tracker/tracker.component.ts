@@ -63,10 +63,6 @@ export class TrackerComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
-  private allActorsProgressed(): boolean {
-    return this.actors.length === this.progressedActors.length;
-  }
-
   endBattle() {
     this.actorService.setActors(this.actors);
     if (this.isTimeTracked) {
@@ -74,6 +70,10 @@ export class TrackerComponent implements OnInit {
     }
     this.round = 1;
     this.battleEndedEmitter.emit();
+  }
+
+  private allActorsProgressed(): boolean {
+    return this.actors.length === this.progressedActors.length;
   }
 
 }

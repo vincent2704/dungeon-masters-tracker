@@ -140,6 +140,7 @@ export class Actor {
   }
 
   kill(deathTime: Date): void {
+    console.log(deathTime);
     this.dead = true;
     if (this.isEligibleForDeathSavingThrows()) {
       this.removeConditions(Condition.NON_MAGICAL_CONDITIONS);
@@ -147,6 +148,7 @@ export class Actor {
       this.removeConditions(Condition.ALL_CONDITIONS);
     }
     this.timeOfDeath = deathTime;
+    console.log(this.timeOfDeath)
   }
 
   isEligibleForDeathSavingThrows(): boolean {
