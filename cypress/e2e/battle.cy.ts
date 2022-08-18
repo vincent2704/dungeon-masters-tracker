@@ -50,6 +50,20 @@ describe('battle', () => {
 
     cy.contains(testActor1);
     cy.contains(testActor2);
+    cy.contains('End battle!').click();
+  })
+
+  it('does not remove characters from the campaign after character is removed from battle ' +
+    'and the battle is concluded', () => {
+    cy.contains(testActor1);
+    cy.contains(testActor2).parent('tr').within(() => {
+      cy.contains('Remove').click();
+    });
+    cy.contains('Start battle!').click();
+    cy.contains('End battle!').click();
+
+    cy.contains('Campaign Overview').click();
+    cy.contains(testActor2);
   })
 
 })
