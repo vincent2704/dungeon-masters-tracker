@@ -141,7 +141,7 @@ export class MonsterList {
       new AbilitySet(19, 8, 16, 5, 7, 7),
       Action.OGRE_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
       [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GIANT)])
-      )
+    )
   )
 
   static ORC = new Monster(
@@ -259,6 +259,18 @@ export class MonsterList {
       Action.ZOMBIE_ACTIONS, SpecialTrait.ZOMBIE_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
       [], [new SavingThrow(Ability.WISDOM, 0)], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL_IN_LIFE)], 0, false),
       undefined, new DamageImmunities([DamageType.POISON]), [Condition.POISONED]
+    )
+  )
+
+  static BANDIT = new Monster(
+    new MonsterBasicInfo(MonsterId.BANDIT_ID,
+      'Bandit', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE_EIGHTH
+    ),
+    new MonsterDetails(Alignment.ANY_NON_LAWFUL, [new MonsterArmor(12, [MonsterEquipment.LEATHER_ARMOR])],
+      new MonsterHitPoints(11, 2, DieType.D8, 2), [new MonsterSpeed(30)],
+      new AbilitySet(11, 12, 12, 10, 10, 10),
+      Action.BANDIT_ACTIONS, [], new MonsterSenses([], 10), [MonsterTag.ANY_RACE],
+      [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ANY_USUALLY_COMMON)])
     )
   )
 
@@ -408,8 +420,9 @@ export class MonsterList {
 
   static MONSTERS: Monster[] = [
     this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.ABOLETH,
-    this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR, this.NIGHTMARE
+    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.BANDIT,
+    this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR,
+    this.NIGHTMARE
   ]
 
 }

@@ -1,6 +1,7 @@
 export enum Alignment {
 
   ANY = 'any alignment',
+  ANY_NON_LAWFUL = 'any non-lawful alignment',
   UNALIGNED = 'unaligned',
   LAWFUL_GOOD = 'lawful good',
   NEUTRAL_GOOD = 'neutral good',

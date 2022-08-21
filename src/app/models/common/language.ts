@@ -3,6 +3,7 @@ export enum Language {
   ALL = 'all',
   ALL_IN_LIFE = 'all languages it knew in life',
   ANY_IN_LIFE = 'any languages it knew in life',
+  ANY_USUALLY_COMMON = 'any one language (usually Common)',
   AURAN = 'Auran',
   COMMON = 'Common',
   DEEP_SPEECH = 'Deep Speech',

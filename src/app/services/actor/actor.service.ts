@@ -44,6 +44,16 @@ export class ActorService {
     //TODO: backend call
   }
 
+  updateActors(actors: Actor[]): void {
+    for(let actor of actors) {
+      for(let i = 0; i < this.actors.length; i++) {
+        if(actor.name == this.actors[i].name) {
+          this.actors[i] = actor;
+        }
+      }
+    }
+  }
+
   addBattleCondition(actor: Actor, condition: BattleCondition): void {
     actor.battleConditions.push(condition);
   }
