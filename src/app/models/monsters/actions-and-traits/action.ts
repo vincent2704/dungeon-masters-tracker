@@ -369,6 +369,14 @@ export class Action {
     new ActionDescription("+3 to hit, reach {5} {ft.}, one target. " +
       "Hit: 4 (1d6 + 1) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK))
 
+  private static readonly BANDIT_SCIMITAR = new Action('Scimitar',
+    new ActionDescription("+3 to hit, reach {5} {ft.}, one " +
+      "target. Hit: 4 (1d6 + 1) slashing damage.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly BANDIT_LIGHT_CROSSBOW = new Action('Light Crossbow',
+    new ActionDescription("+3 to hit, range " +
+      "{80}/{320} {ft.}, one target. Hit: 5 (1d8 + 1) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
+
   private static readonly NIGHTMARE_HOOVES = new Action('Hooves',
     new ActionDescription("+6 to hit, reach {5} {ft.}, one " +
       "target. Hit: 13 (2d8 + 4) bludgeoning damage plus 7 (2d6) " +
@@ -413,6 +421,7 @@ export class Action {
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
   static ZOMBIE_ACTIONS = [this.ZOMBIE_SLAM];
+  static BANDIT_ACTIONS = [this.BANDIT_SCIMITAR, this.BANDIT_LIGHT_CROSSBOW];
   static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];
 
 }
