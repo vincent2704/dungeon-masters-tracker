@@ -28,7 +28,6 @@ describe('battle', () => {
 
   it('starts battle and kills character', () => {
     cy.contains('Battle').click();
-  //   cy.contains('Start battle!').click();
     cy.contains(testActor1).parent('tr').within(() => {
       cy.get('input').first().type('99');
     })
@@ -46,6 +45,12 @@ describe('battle', () => {
 
   it('ends battle and starts it again, with both characters present', () => {
     cy.contains('End battle!').click();
+    cy.contains(testActor1).parent('tr').within(() => {
+      cy.get('input').first().type('99');
+    })
+    cy.contains(testActor2).parent('tr').within(() => {
+      cy.get('input').first().type('98');
+    })
     cy.contains('Start battle!').click();
 
     cy.contains(testActor1);
@@ -53,16 +58,26 @@ describe('battle', () => {
     cy.contains('End battle!').click();
   })
 
-  it('does not remove characters from the campaign after character is removed from battle ' +
-    'and the battle is concluded', () => {
+  it('uses revivify on the dead character', () => {
+    cy.contains('Start battle!').click();
+    cy.contains(testActor1).parent('tr').within(() => {
+      cy.contains('Dead').click();
+      cy.contains('Revivify').click();
+      cy.contains('1 (20)');
+    });
+    cy.contains('End battle!').click();
+  })
+
+  it('does not remove characters from the campaign after character is removed from battle', () => {
     cy.contains(testActor1);
     cy.contains(testActor2).parent('tr').within(() => {
       cy.contains('Remove').click();
     });
     cy.contains('Start battle!').click();
+    cy.contains(testActor1).parent('tr').within(() => {
+      cy.get('input').first().type('-5').type('{enter}');
+    })
     cy.contains('End battle!').click();
-
-    cy.contains('Campaign Overview').click();
     cy.contains(testActor2);
   })
 

@@ -15,7 +15,7 @@ describe('TrackerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['setActors']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'updateActors']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -39,9 +39,18 @@ describe('TrackerComponent', () => {
   });
 
   it("should save actors after battle is concluded", () => {
+    //given
+    let actor1 = new Actor('Actor 1', 1, 1, 1)
+    let actor2 = new Actor('Actor 2', 1, 1, 2)
+    let actor3 = new Actor('Actor 3', 1, 1, 3)
+    component.actors = [actor1, actor2]
+
+    let actorsFromService = [actor1, actor2, actor3]
+    actorServiceSpy.getActors.and.returnValue(actorsFromService);
+
     // when
     component.endBattle();
-    expect(actorServiceSpy.setActors).toHaveBeenCalledOnceWith(component.actors);
+    expect(actorServiceSpy.updateActors).toHaveBeenCalledOnceWith(component.actors);
   });
 
   it('should progress actor', () => {

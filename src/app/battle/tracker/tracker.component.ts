@@ -19,7 +19,8 @@ export class TrackerComponent implements OnInit {
   @Output()
   battleEndedEmitter = new EventEmitter<void>();
 
-  constructor(private temporalService: TemporalService, private actorService: ActorService) { }
+  constructor(private temporalService: TemporalService, private actorService: ActorService) {
+  }
 
   ngOnInit(): void {
   }
@@ -52,8 +53,8 @@ export class TrackerComponent implements OnInit {
 
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
-    let timeSinceBattleStartedInMilliseconds = (this.round-1) * 6000;
-    if(this.isTimeTracked) {
+    let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
+    if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
         new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
       );
@@ -64,12 +65,16 @@ export class TrackerComponent implements OnInit {
   }
 
   endBattle() {
-    this.actorService.setActors(this.actors);
+    this.updateCharacters();
     if (this.isTimeTracked) {
       this.temporalService.addSeconds((this.round - 1) * 6);
     }
     this.round = 1;
     this.battleEndedEmitter.emit();
+  }
+
+  private updateCharacters(): void {
+    this.actorService.updateActors(this.actors);
   }
 
   private allActorsProgressed(): boolean {
