@@ -365,6 +365,32 @@ export class Action {
       "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK))
 
+  private static readonly WIGHT_MULTIATTACK = new Action('Multiattack',
+    new ActionDescription("The wight makes two longsword attacks or " +
+      "two longbow attacks. It can use its Life Drain in place of one " +
+      "longsword attack."))
+
+  private static readonly WIGHT_LIFE_DRAIN = new Action('Life Drain',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, " +
+      "one creature. Hit: 5 (1d6 + 2) necrotic damage. The target " +
+      "must succeed on a DC 13 Constitution saving throw or its " +
+      "hit point maximum is reduced by an amount equal to the " +
+      "damage taken. This reduction lasts until the target finishes " +
+      "a long rest. The target dies if this effect reduces its hit point " +
+      "maximum to 0. A humanoid slain by this attack rises 24 hours later as a " +
+      "zombie under the wight’s control, unless the humanoid is " +
+      "restored to life or its body is destroyed. The wight can have " +
+      "no more than twelve zombies under its control at one time.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly WIGHT_LONGSWORD = new Action('Longsword',
+    new ActionDescription("+4 to hit, reach {5} {ft.}, one  " +
+      "target. Hit: 6 (1d8 + 2) slashing damage, or 7 (1d10 + 2)  " +
+      "slashing damage if used with two hands.", ActionType.MELEE_WEAPON_ATTACK))
+
+  private static readonly WIGHT_LONGBOW = new Action('Longbow',
+    new ActionDescription("+4 to hit, range {150}/{600} {ft.},  " +
+      "one target. Hit: 6 (1d8 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK))
+
   private static readonly ZOMBIE_SLAM = new Action('Slam',
     new ActionDescription("+3 to hit, reach {5} {ft.}, one target. " +
       "Hit: 4 (1d6 + 1) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK))
@@ -420,6 +446,7 @@ export class Action {
   static SPECTATOR_ACTIONS = [this.SPECTATOR_BITE, this.SPECTATOR_EYE_RAYS, this.SPECTATOR_CREATE_FOOD_AND_WATER];
 
   static WEREWOLF_ACTIONS = [this.WEREWOLF_MULTIATTACK, this.WEREWOLF_BITE, this.WEREWOLF_CLAWS, this.WEREWOLF_SPEAR];
+  static WIGHT_ACTIONS = [this.WIGHT_MULTIATTACK, this.WIGHT_LIFE_DRAIN, this.WIGHT_LONGSWORD, this.WIGHT_LONGBOW]
   static ZOMBIE_ACTIONS = [this.ZOMBIE_SLAM];
   static BANDIT_ACTIONS = [this.BANDIT_SCIMITAR, this.BANDIT_LIGHT_CROSSBOW];
   static NIGHTMARE_ACTIONS = [this.NIGHTMARE_HOOVES, this.NIGHTMARE_ETHEREAL_STRIDE];

@@ -250,6 +250,20 @@ export class MonsterList {
     )
   )
 
+  static WIGHT = new Monster(
+    new MonsterBasicInfo(MonsterId.WIGHT_ID,
+      'Wight', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.THREE),
+    new MonsterDetails(Alignment.NEUTRAL_EVIL, [new MonsterArmor(14, [MonsterEquipment.STUDDED_LEATHER])],
+      new MonsterHitPoints(45, 6, DieType.D8, 18), [new MonsterSpeed(30)],
+      new AbilitySet(15, 14, 16, 10, 13, 15),
+      Action.WIGHT_ACTIONS, SpecialTrait.WIGHT_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 13),
+      [], [], [new MonsterSkill(Skill.PERCEPTION, 3), new MonsterSkill(Skill.STEALTH, 4)],
+      new MonsterLanguages([new SingleMonsterLanguage(Language.THE_LANGUAGES_IN_LIFE)]),
+      new DamageResistances([DamageType.NECROTIC], new AdditionalDamageTypes([DamageType.BLUDGEONING, DamageType.PIERCING, DamageType.SLASHING], AdditionalDamageNote.FROM_NON_MAGICAL_NOT_SILVERED_ATTACKS)),
+      new DamageImmunities([DamageType.POISON]), [Condition.EXHAUSTION, Condition.POISONED]
+      )
+  )
+
   static ZOMBIE = new Monster(
     new MonsterBasicInfo(MonsterId.ZOMBIE_ID,
       'Zombie', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
@@ -420,9 +434,9 @@ export class MonsterList {
 
   static MONSTERS: Monster[] = [
     this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.ZOMBIE, this.BANDIT,
-    this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER, this.BEHIR,
-    this.NIGHTMARE
+    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.WIGHT, this.ZOMBIE,
+    this.BANDIT, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER,
+    this.BEHIR, this.NIGHTMARE
   ]
 
 }
