@@ -203,6 +203,11 @@ export class SpecialTrait {
     "The werewolf has advantage on " +
     "Wisdom (Perception) checks that rely on hearing or smell.")
 
+  private static readonly WIGHT_SUNLIGHT_SENSITIVITY = new SpecialTrait('Sunlight Sensitivity',
+    "While in sunlight, the wight has " +
+    "disadvantage on attack rolls, as well as on Wisdom " +
+    "(Perception) checks that rely on sight.")
+
   private static readonly ZOMBIE_UNDEAD_FORTITUDE = new SpecialTrait('Undead Fortitude',
     "If damage reduces the zombie to 0 hit " +
     "points, it must make a Constitution saving throw with a DC " +
@@ -241,6 +246,7 @@ export class SpecialTrait {
   static readonly GARGOYLE_SPECIAL_TRAITS = [this.GARGOYLE_FALSE_APPEARANCE];
   static readonly GHOST_SPECIAL_TRAITS = [this.GHOST_ETHEREAL_SIGHT, this.GHOST_INCORPOREAL_MOVEMENT];
   static readonly WEREWOLF_SPECIAL_TRAITS = [this.WEREWOLF_SHAPECHANGER, this.WEREWOLF_KEEN_HEARING_AND_SMELL];
+  static readonly WIGHT_SPECIAL_TRAITS = [this.WIGHT_SUNLIGHT_SENSITIVITY];
   static readonly ZOMBIE_SPECIAL_TRAITS = [this.ZOMBIE_UNDEAD_FORTITUDE];
   static readonly NIGHTMARE_SPECIAL_TRAITS = [this.NIGHTMARE_CONFER_FIRE_RESISTANCE, this.NIGHTMARE_ILLUMINATION];
 

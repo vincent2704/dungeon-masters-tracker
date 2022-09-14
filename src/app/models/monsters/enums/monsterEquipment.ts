@@ -1,7 +1,8 @@
 export enum MonsterEquipment {
-  LEATHER_ARMOR = 'leather armor',
-  SHIELD = 'shield',
-  NATURAL_ARMOR = 'natural armor',
+  ARMOR_SCRAPS = 'armor scraps',
   HIDE_ARMOR = 'hide armor',
-  ARMOR_SCRAPS = 'armor scraps'
+  LEATHER_ARMOR = 'leather armor',
+  NATURAL_ARMOR = 'natural armor',
+  SHIELD = 'shield',
+  STUDDED_LEATHER = 'studded leather'
 }
