@@ -75,10 +75,6 @@ export class TrackerComponent implements OnInit {
     (<HTMLInputElement>event.target).value = '';
   }
 
-  showUnconsciousDamage(actor: Actor): boolean {
-    return actor.isKnockedDown() && this.unconsciousActorsReceivingDamage.get(actor) === true;
-  }
-
   endBattle() {
     this.updateCharacters();
     if (this.isTimeTracked) {
@@ -86,6 +82,10 @@ export class TrackerComponent implements OnInit {
     }
     this.round = 1;
     this.battleEndedEmitter.emit();
+  }
+
+  isActorReceivingDamage(actor: Actor): boolean {
+    return this.unconsciousActorsReceivingDamage.get(actor) === true;
   }
 
   private isDamage(hitPointModifier: number): boolean {
@@ -98,6 +98,10 @@ export class TrackerComponent implements OnInit {
 
   private allActorsProgressed(): boolean {
     return this.actors.length === this.progressedActors.length;
+  }
+
+  damageReceived(actor: Actor) {
+    this.unconsciousActorsReceivingDamage.set(actor, false);
   }
 
 }

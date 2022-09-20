@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {Condition} from "../../../models/Condition";
 import {TemporalService} from "../../../services/temporal/temporal.service";
+import {HitType} from "../../../models/combat-data/HitType";
 
 @Component({
   selector: 'app-death-saving-throws',
@@ -11,6 +12,12 @@ import {TemporalService} from "../../../services/temporal/temporal.service";
 export class DeathSavingThrowsComponent implements OnInit {
   @Input()
   actor!: Actor;
+
+  @Input()
+  actorReceivingDamage!: boolean;
+
+  @Output()
+  damageReceivedEmitter = new EventEmitter<void>();
 
   successes: number = 0;
   failures: number = 0;
@@ -46,4 +53,14 @@ export class DeathSavingThrowsComponent implements OnInit {
       this.actor.kill(this.temporalService.getCurrentDate());
     }
   }
+
+  onDamageReceived(event: HitType) {
+    if(event === HitType.CRITICAL_HIT) {
+      this.criticalFail();
+    } else {
+      this.failure();
+    }
+    this.damageReceivedEmitter.emit();
+  }
+
 }

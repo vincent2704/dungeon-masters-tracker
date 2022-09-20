@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {HitType} from "../../../../models/combat-data/HitType";
 
 @Component({
   selector: 'app-unconscious-damage',
@@ -8,7 +9,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class UnconsciousDamageComponent implements OnInit {
 
   @Output()
-  private deathSavingThrowFailureEmitter = new EventEmitter<number>();
+  private hitTypeEventEmitter = new EventEmitter<HitType>();
 
   constructor() { }
 
@@ -16,11 +17,11 @@ export class UnconsciousDamageComponent implements OnInit {
   }
 
   onHit() {
-    this.deathSavingThrowFailureEmitter.emit(1);
+    this.hitTypeEventEmitter.emit(HitType.NORMAL_HIT);
   }
 
   onCriticalHit() {
-    this.deathSavingThrowFailureEmitter.emit(2);
+    this.hitTypeEventEmitter.emit(HitType.CRITICAL_HIT);
   }
 
 }
