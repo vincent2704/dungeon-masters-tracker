@@ -19,14 +19,14 @@ export class TrackerComponent implements OnInit {
   @Output()
   battleEndedEmitter = new EventEmitter<void>();
 
-  actorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
+  unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
 
   constructor(private temporalService: TemporalService, private actorService: ActorService) {
   }
 
   ngOnInit(): void {
     for (let actor of this.actors) {
-      this.actorsReceivingDamage.set(actor, false);
+      this.unconsciousActorsReceivingDamage.set(actor, false);
     }
   }
 
@@ -59,8 +59,8 @@ export class TrackerComponent implements OnInit {
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
 
-    if (this.isDamage(hpModifier)) {
-      this.actorsReceivingDamage.set(actor, true);
+    if (actor.isKnockedDown() && this.isDamage(hpModifier)) {
+      this.unconsciousActorsReceivingDamage.set(actor, true);
     }
 
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
@@ -76,7 +76,7 @@ export class TrackerComponent implements OnInit {
   }
 
   showUnconsciousDamage(actor: Actor): boolean {
-    return actor.isKnockedDown() && this.actorsReceivingDamage.get(actor) === true;
+    return actor.isKnockedDown() && this.unconsciousActorsReceivingDamage.get(actor) === true;
   }
 
   endBattle() {

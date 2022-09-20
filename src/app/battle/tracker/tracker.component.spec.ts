@@ -31,6 +31,7 @@ describe('TrackerComponent', () => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     fixture = TestBed.createComponent(TrackerComponent);
     component = fixture.componentInstance;
+    component.actors = [];
     fixture.detectChanges();
   });
 
