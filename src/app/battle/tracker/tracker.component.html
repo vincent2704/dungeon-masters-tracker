@@ -29,6 +29,7 @@
                  (keydown.enter)="onSubmitHP(actor, $event)">
         </div>
       </div>
+      <app-unconscious-damage *ngIf="showUnconsciousDamage(actor)"></app-unconscious-damage>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
       <div *ngIf="showDeathSavingThrows(actor)">
         <app-death-saving-throws [actor]="actor"></app-death-saving-throws>

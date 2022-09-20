@@ -41,6 +41,7 @@ import { SavedEncounterComponent } from './battle/prepare-battle/saved-encounter
 import { ProtagonistsManagerComponent } from './campaign-overview/protagonists-manager/protagonists-manager.component';
 import { ProtagonistsInfoComponent } from './campaign-overview/protagonists-manager/protagonists-info/protagonists-info.component';
 import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-manager/protagonists-editor/protagonists-editor.component';
+import { UnconsciousDamageComponent } from './battle/tracker/unconscious-damage/unconscious-damage.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-ma
     ProtagonistsManagerComponent,
     ProtagonistsInfoComponent,
     ProtagonistsEditorComponent,
+    UnconsciousDamageComponent,
   ],
   imports: [
     BrowserModule,
