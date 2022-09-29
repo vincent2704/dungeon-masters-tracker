@@ -40,7 +40,7 @@ export class TrackerComponent implements OnInit {
   }
 
   showDeathSavingThrows(actor: Actor): boolean {
-    return actor.isKnockedDown() && !actor.isStabilized() && !actor.isDead();
+    return actor.isKnockedDown() && !actor.isDead();
   }
 
   progressRound(): void {

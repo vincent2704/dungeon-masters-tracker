@@ -27,6 +27,10 @@ export class DeathSavingThrowsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isStabilized(): boolean {
+    return this.actor.isStabilized();
+  }
+
   success() {
     this.successes++;
     if(this.successes == 3) {

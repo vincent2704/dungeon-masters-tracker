@@ -18,6 +18,7 @@ describe('DeathSavingThrowsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
+    component.actor = new Actor('Actor', 10, 1);
     fixture.detectChanges();
   });
 

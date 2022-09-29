@@ -68,4 +68,20 @@ describe('battle', () => {
     })
   })
 
+  it('uses revivify on the character', () => {
+    cy.contains(testActorName).parent('tr').within(() => {
+      cy.contains('Dead').click();
+      cy.contains('Revivify').click();
+      cy.contains('1 (20)');
+    })
+  })
+
+  it('displays stabilized information when character succeeded on death saving throws', () => {
+    cy.contains(testActorName).parent('tr').within(() => {
+      cy.get('input').first().type('-1').type('{enter}');
+      cy.contains('Success').click().click().click();
+      cy.contains('Stabilized');
+    })
+  })
+
 })
