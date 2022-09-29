@@ -17,7 +17,7 @@ describe('battle', () => {
     cy.contains('Submit').click();
   })
 
-  it('starts battle drops character to 0 HP', () => {
+  it('starts battle and drops character to 0 HP', () => {
     cy.contains('Battle').click();
     cy.contains(testActorName).parent('tr').within(() => {
       cy.get('input').first().type('99');
