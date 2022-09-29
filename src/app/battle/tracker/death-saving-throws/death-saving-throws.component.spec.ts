@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeathSavingThrowsComponent } from './death-saving-throws.component';
+import {DeathSavingThrowsComponent} from './death-saving-throws.component';
 import {Actor} from "../../../models/actor";
 import {Condition} from "../../../models/Condition";
+import {HitType} from "../../../models/combat-data/HitType";
 
 describe('DeathSavingThrowsComponent', () => {
   let component: DeathSavingThrowsComponent;
@@ -18,6 +19,7 @@ describe('DeathSavingThrowsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
+    component.actor = new Actor('Actor', 10, 1);
     fixture.detectChanges();
   });
 
@@ -94,6 +96,44 @@ describe('DeathSavingThrowsComponent', () => {
     expect(component.actor.isKnockedDown()).toBeFalse();
     expect(component.actor.getCurrentHP()).toEqual(1);
     expect(component.actor.hasCondition(Condition.UNCONSCIOUS)).toBeFalse();
+  });
+
+  it("should break stabilized state when unconscious character with 0 HP gets hit", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1, new Date());
+    component.actor.setStabilized(true);
+
+    //when
+    component.actor.modifyHp(-1, new Date());
+
+    //then
+    expect(component.actor.isStabilized()).toBeFalse();
+  });
+
+
+  it("should call death saving throw fail when unconscious character receives normal hit", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1, new Date());
+
+    //when
+    component.onDamageReceived(HitType.NORMAL_HIT)
+
+    //then
+    expect(component.failures).toEqual(1);
+  });
+
+  it("should call death saving throw fail when unconscious character receives critical hit", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1, new Date());
+
+    //when
+    component.onDamageReceived(HitType.CRITICAL_HIT)
+
+    //then
+    expect(component.failures).toEqual(2);
   });
 
 });

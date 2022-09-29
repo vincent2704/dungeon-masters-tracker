@@ -31,7 +31,11 @@
       </div>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
       <div *ngIf="showDeathSavingThrows(actor)">
-        <app-death-saving-throws [actor]="actor"></app-death-saving-throws>
+        <app-death-saving-throws
+          [actor]="actor" [actorReceivingDamage]="isActorReceivingDamage(actor)"
+          (damageReceivedEmitter)="damageReceived(actor)"
+        >
+        </app-death-saving-throws>
       </div>
     </td>
     <td>

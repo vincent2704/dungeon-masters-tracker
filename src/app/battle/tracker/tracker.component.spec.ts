@@ -31,6 +31,7 @@ describe('TrackerComponent', () => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     fixture = TestBed.createComponent(TrackerComponent);
     component = fixture.componentInstance;
+    component.actors = [];
     fixture.detectChanges();
   });
 
@@ -116,7 +117,29 @@ describe('TrackerComponent', () => {
     expect(actor2.getConditions()).toEqual([]);
   });
 
-  it("should not display death saving throws if actor is dead", () => {
+  it("should display death saving throws", () => {
+    // given
+    let actor = new Actor('Actor 1', 1, 1, 3);
+    let date = new Date();
+    actor.setDeathSavingThrowsEligibility(true);
+    actor.modifyHp(-1, date);
+
+    // then
+    expect(component.showDeathSavingThrows(actor)).toBeTrue();
+  });
+
+  it("should not display death saving throws if character is ineligible", () => {
+    // given
+    let actor = new Actor('Actor 1', 1, 1, 3);
+    let date = new Date();
+    actor.setDeathSavingThrowsEligibility(false);
+    actor.modifyHp(-1, date);
+
+    // then
+    expect(component.showDeathSavingThrows(actor)).toBeFalse();
+  });
+
+  it("should not display death saving throws if character is dead", () => {
     // given
     let actor = new Actor('Actor 1', 1, 1, 3);
     let date = new Date();

@@ -7,16 +7,16 @@ import { BattleComponent } from './battle/battle.component';
 import { FormsModule } from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrepareBattleComponent } from "./battle/prepare-battle/prepare-battle.component";
-import { ConditionComponent } from './battle/condition/condition.component';
+import { ConditionComponent } from './battle/tracker/condition/condition.component';
 import { AddActorComponent } from './battle/add-actor/add-actor.component';
-import { DeathSavingThrowsComponent } from './battle/condition/death-saving-throws/death-saving-throws.component';
+import { DeathSavingThrowsComponent } from './battle/tracker/death-saving-throws/death-saving-throws.component';
 import { CheatSheetsComponent } from './cheat-sheets/cheat-sheets.component';
 import { TravellingCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component';
 import { CoverCheatSheetComponent } from './cheat-sheets/cover-cheat-sheet/cover-cheat-sheet.component';
 import { AbilityChecksCheatSheetComponent } from './cheat-sheets/ability-checks-cheat-sheet/ability-checks-cheat-sheet.component';
 import { PacesAndDistancesCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/paces-and-distances-cheat-sheet/paces-and-distances-cheat-sheet.component';
 import { WildernessCheatSheetComponent } from './cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component';
-import { TemporaryHitPointsComponent } from './battle/temporary-hit-points/temporary-hit-points.component';
+import { TemporaryHitPointsComponent } from './battle/tracker/temporary-hit-points/temporary-hit-points.component';
 import { ToolsComponent } from './tools/tools.component';
 import { DistanceCalculatorComponent } from "./tools/distance-calculator/distance-calculator.component";
 import { TravelCalculatorComponent } from "./tools/travel-calculator/travel-calculator.component";
@@ -41,6 +41,7 @@ import { SavedEncounterComponent } from './battle/prepare-battle/saved-encounter
 import { ProtagonistsManagerComponent } from './campaign-overview/protagonists-manager/protagonists-manager.component';
 import { ProtagonistsInfoComponent } from './campaign-overview/protagonists-manager/protagonists-info/protagonists-info.component';
 import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-manager/protagonists-editor/protagonists-editor.component';
+import { UnconsciousDamageComponent } from './battle/tracker/death-saving-throws/unconscious-damage/unconscious-damage.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-ma
     ProtagonistsManagerComponent,
     ProtagonistsInfoComponent,
     ProtagonistsEditorComponent,
+    UnconsciousDamageComponent,
   ],
   imports: [
     BrowserModule,
