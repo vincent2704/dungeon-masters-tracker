@@ -73,4 +73,8 @@ export class DeathSavingThrowsComponent implements OnInit {
     this.failures = 0;
   }
 
+  showUnconsciousDamageComponent(): boolean {
+    return this.actorReceivingDamage && this.actor.getCurrentHP() === 0;
+  }
+
 }

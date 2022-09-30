@@ -149,4 +149,19 @@ describe('DeathSavingThrowsComponent', () => {
     expect(component.failures).toEqual(0);
   });
 
+  it("does not show unconscious damage choices after reviving character", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1, new Date());
+    component.actor.modifyHp(-component.actor.getMaxHP(), new Date());
+    expect(component.actor.isDead()).toBeTrue();
+    component.actor.revivify(new Date());
+
+    //when
+    component.actorReceivingDamage = true;
+
+    //then
+    expect(component.showUnconsciousDamageComponent()).toBeFalse();
+  });
+
 });
