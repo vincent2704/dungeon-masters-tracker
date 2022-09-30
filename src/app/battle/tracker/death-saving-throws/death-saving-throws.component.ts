@@ -34,7 +34,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   success() {
     this.successes++;
     if(this.successes == 3) {
-      this.actor.setStabilized(true);
+      this.stabilize();
     }
   }
 
@@ -65,6 +65,12 @@ export class DeathSavingThrowsComponent implements OnInit {
       this.failure();
     }
     this.damageReceivedEmitter.emit();
+  }
+
+  stabilize() {
+    this.actor.setStabilized(true);
+    this.successes = 0;
+    this.failures = 0;
   }
 
 }

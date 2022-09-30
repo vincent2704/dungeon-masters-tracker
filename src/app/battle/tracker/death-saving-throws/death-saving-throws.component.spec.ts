@@ -136,4 +136,17 @@ describe('DeathSavingThrowsComponent', () => {
     expect(component.failures).toEqual(2);
   });
 
+  it("should reset death saving throw counter when character is stabilized", () => {
+    //given
+    component.actor = new Actor('Actor', 10, 1);
+    component.actor.modifyHp(-1, new Date());
+
+    //when
+    component.stabilize();
+
+    //then
+    expect(component.successes).toEqual(0);
+    expect(component.failures).toEqual(0);
+  });
+
 });

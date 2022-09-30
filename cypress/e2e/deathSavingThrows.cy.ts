@@ -27,6 +27,7 @@ describe('battle', () => {
     cy.contains(testActorName).parent('tr').within(() => {
       cy.get('input').first().type('-20').type('{enter}');
       cy.contains('Death saving throws');
+      cy.contains('Is critical hit?').should('not.exist');
     })
   })
 
