@@ -1,22 +1,49 @@
 <div class="container">
   <h4 *ngIf="isStabilized(); else deathSavingThrows">Stabilized</h4>
   <ng-template #deathSavingThrows>
+    <div class="row">
+      <app-unconscious-damage *ngIf="showUnconsciousDamageComponent()" (hitTypeEventEmitter)="onDamageReceived($event)">
+      </app-unconscious-damage>
+    </div>
     <h4>Death saving throws</h4>
     <div class="row">
-      <app-unconscious-damage *ngIf="actorReceivingDamage" (hitTypeEventEmitter)="onDamageReceived($event)"></app-unconscious-damage>
-    </div>
-    <div class="row">
-      <div class="col-sm">
-        Successes: {{successes}} <button class="btn btn-success" (click)="success()">Success</button>
+      <div class="col">
+        <div class="row">
+          Successes: {{successes}}
+        </div>
+        <div class="row">
+          <div class="col">
+            <button id="success-button" class="btn btn-success"
+                    (click)="success()" [disabled]="showUnconsciousDamageComponent()"
+            >Success
+            </button>
+          </div>
+          <div class="col">
+            <button id="critical-success-button" class="btn btn-success"
+                    (click)="criticalSuccess()" [disabled]="showUnconsciousDamageComponent()"
+            >Rolled 20
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-sm">
-        <button class="btn btn-success" (click)="criticalSuccess()">Rolled 20</button>
-      </div>
-      <div class="col-sm">
-        Failures: {{failures}} <button class="btn btn-danger" (click)="failure()">Failure</button>
-      </div>
-      <div class="col-sm">
-        <button class="btn btn-danger" (click)="criticalFail()">Rolled 1</button>
+      <div class="col">
+        <div class="row">
+          Failures: {{failures}}
+        </div>
+        <div class="row">
+          <div class="col">
+            <button id="fail-button" class="btn btn-danger"
+                    (click)="failure()" [disabled]="showUnconsciousDamageComponent()"
+            >Failure
+            </button>
+          </div>
+          <div class="col">
+            <button id="critical-fail-button" class="btn btn-danger"
+                    (click)="criticalFail()" [disabled]="showUnconsciousDamageComponent()"
+            >Rolled 1
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </ng-template>
