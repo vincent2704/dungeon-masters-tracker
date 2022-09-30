@@ -64,7 +64,7 @@ describe('battle', () => {
 
   it('kills character with failed death saving throw', () => {
     cy.contains(testActorName).parent('tr').within(() => {
-      cy.contains('Failure').click();
+      cy.get('#fail-button').click();
       cy.contains('Dead');
     })
   })
@@ -77,10 +77,23 @@ describe('battle', () => {
     })
   })
 
+  it('should disable death saving throw buttons when character is receiving damage', () => {
+    cy.contains(testActorName).parent('tr').within(() => {
+      cy.get('input').first().type('-1').type('{enter}'); // drop to unconscious
+      cy.get('input').first().type('-1').type('{enter}'); // unconscious damage receiving
+
+      cy.get('#success-button').should('be.disabled');
+      cy.get('#critical-success-button').should('be.disabled');
+      cy.get('#fail-button').should('be.disabled');
+      cy.get('#critical-fail-button').should('be.disabled');
+
+      cy.contains('No').click(); // closing the unconscious damage component
+    })
+  })
+
   it('displays stabilized information when character succeeded on death saving throws', () => {
     cy.contains(testActorName).parent('tr').within(() => {
-      cy.get('input').first().type('-1').type('{enter}');
-      cy.contains('Success').click().click().click();
+      cy.get('#success-button').click().click().click();
       cy.contains('Stabilized');
     })
   })
