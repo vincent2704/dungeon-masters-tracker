@@ -98,4 +98,14 @@ describe('battle', () => {
     })
   })
 
+  it('does not ask hit type after damaging freshly revived character', () => {
+    cy.contains(testActorName).parent('tr').within(() => {
+      cy.get('input').first().type('-20').type('{enter}'); // kill
+      cy.get('button').contains('Dead').click();
+      cy.get('button').contains('Revivify').click();
+      cy.get('input').first().type('-1').type('{enter}'); // drop to unconscious again
+      cy.contains('Is critical hit?').should('not.exist');
+    })
+  })
+
 })
