@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Run Chrome headless test
+    name: Run tests
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 14.x
