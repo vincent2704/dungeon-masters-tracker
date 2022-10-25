@@ -65,6 +65,7 @@ export class DeathSavingThrowsComponent implements OnInit {
       this.failure();
     }
     this.damageReceivedEmitter.emit();
+    console.log(`DeathSavingThrowsComponent: emitting damage received for ${this.actor.name}`)
   }
 
   stabilize() {
@@ -74,6 +75,8 @@ export class DeathSavingThrowsComponent implements OnInit {
   }
 
   showUnconsciousDamageComponent(): boolean {
+    console.log(`${Date.now()}: ${this.actor.name} receiving damage: ${this.actorReceivingDamage}`);
+    // console.log(`${this.actor.name} current HP: ${this.actor.getCurrentHP()}`);
     return this.actorReceivingDamage && this.actor.getCurrentHP() === 0;
   }
 
