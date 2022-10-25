@@ -59,8 +59,12 @@ export class TrackerComponent implements OnInit {
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
 
-    if (actor.isKnockedDown() && this.isDamage(hpModifier)) {
-      this.unconsciousActorsReceivingDamage.set(actor, true);
+    if(this.isDamage(hpModifier)) {
+      if(actor.isKnockedDown()) {
+        this.unconsciousActorsReceivingDamage.set(actor, true);
+      } else {
+        this.unconsciousActorsReceivingDamage.set(actor, false);
+      }
     }
 
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;

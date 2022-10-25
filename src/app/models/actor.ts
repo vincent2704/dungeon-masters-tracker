@@ -154,8 +154,7 @@ export class Actor {
   }
 
   isKnockedDown(): boolean {
-    // return this.currentHP == 0;
-    return this.currentHP == 0 && !this.isDead();
+    return this.currentHP == 0;
   }
 
   isStabilized(): boolean {
