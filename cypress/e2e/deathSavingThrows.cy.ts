@@ -108,4 +108,14 @@ describe('battle', () => {
     })
   })
 
+  it('stabilizes character and then destabilizes when character is hit again', () => {
+    cy.contains(testActorName).parent('tr').within(() => {
+      cy.get('#stabilize-button').click();
+      cy.contains('Stabilized');
+      cy.get('input').first().type('-2').type('{enter}');
+      cy.get('#non-critical-hit-button').click();
+      cy.get('#death-saving-throws-label');
+    })
+  })
+
 })
