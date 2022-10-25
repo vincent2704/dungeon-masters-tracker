@@ -34,6 +34,7 @@ export class TemporaryHitPointsComponent implements OnInit {
 
   onSubmitTemporaryHitPoints(actor: Actor) {
     actor.setTemporaryHitPoints(this.temporaryHitPointsAmount, this.temporaryHitPointsDuration);
+    this.isCollapsed = true;
   }
 
   showTemporaryHitPoints(): void {

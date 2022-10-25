@@ -5,7 +5,15 @@
       <app-unconscious-damage *ngIf="showUnconsciousDamageComponent()" (hitTypeEventEmitter)="onDamageReceived($event)">
       </app-unconscious-damage>
     </div>
-    <h4>Death saving throws</h4>
+    <div class="row">
+      <div class="col">
+        <h4 id="death-saving-throws-label">Death saving throws</h4>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" (click)="stabilize()" id="stabilize-button"
+                [disabled]="showUnconsciousDamageComponent()">Stabilize</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="row">
