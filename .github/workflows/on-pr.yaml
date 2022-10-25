@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Run Chrome headless test
+    name: Run tests
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 14.x
@@ -15,18 +15,7 @@ jobs:
           node-version: 14.x
       - run: npm ci
       - run: npm run nhtest
-      - name: Cypress run
-        uses: cypress-io/github-action@v4.2.0
-        with:
-          build: npm run build
-          start: npm start
-  cypress-run-electron-headless:
-    runs-on: ubuntu-latest
-    name: Cypress headless tests
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress run
+      - name: Cypress run Electron headless tests
         uses: cypress-io/github-action@v4.2.0
         with:
           build: npm run build

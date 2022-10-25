@@ -59,8 +59,12 @@ export class TrackerComponent implements OnInit {
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
 
-    if (actor.isKnockedDown() && this.isDamage(hpModifier)) {
-      this.unconsciousActorsReceivingDamage.set(actor, true);
+    if(this.isDamage(hpModifier)) {
+      if(actor.isKnockedDown()) {
+        this.unconsciousActorsReceivingDamage.set(actor, true);
+      } else {
+        this.unconsciousActorsReceivingDamage.set(actor, false);
+      }
     }
 
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
@@ -84,8 +88,12 @@ export class TrackerComponent implements OnInit {
     this.battleEndedEmitter.emit();
   }
 
-  isActorReceivingDamage(actor: Actor): boolean {
+  isUnconsciousActorReceivingDamage(actor: Actor): boolean {
     return this.unconsciousActorsReceivingDamage.get(actor) === true;
+  }
+
+  onDamageReceived(actor: Actor) {
+    this.unconsciousActorsReceivingDamage.set(actor, false);
   }
 
   private isDamage(hitPointModifier: number): boolean {
@@ -98,10 +106,6 @@ export class TrackerComponent implements OnInit {
 
   private allActorsProgressed(): boolean {
     return this.actors.length === this.progressedActors.length;
-  }
-
-  damageReceived(actor: Actor) {
-    this.unconsciousActorsReceivingDamage.set(actor, false);
   }
 
 }
