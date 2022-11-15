@@ -3,11 +3,11 @@
   <thead>
   <tr>
     <th scope="col">
-      <select (change)="setPace($event)">
+      <select id="pace-selector" (change)="setPace($event)">
         <option>Select pace</option>
-        <option>Fast</option>
-        <option>Normal</option>
-        <option>Slow</option>
+        <option id="fast-pace-option">Fast</option>
+        <option id="normal-pace-option">Normal</option>
+        <option id="slow-pace-option">Slow</option>
       </select>
     </th>
     <th scope="col"></th>
@@ -21,21 +21,24 @@
           Calculate time
         </div>
         <div class="col">
-          <label class="form-check-label" for="progressTime">Add time to campaign progress:</label>
+          <label class="form-check-label" for="progress-campaign-time-checkbox">Add time to campaign progress:</label>
         </div>
         <div class="col">
-          <input class="form-check-input" type="checkbox" id="progressTime" [(ngModel)]="trackTime">
+          <input id="progress-campaign-time-checkbox" class="form-check-input" type="checkbox"
+                 [(ngModel)]="trackTime">
         </div>
       </div>
     </td>
     <td>
-      <input type="number" [placeholder]="getTypeDistancePlaceholder()" (keydown.enter)="onCalculateTime($event)">
+      <input id="distance-input" type="number" [placeholder]="getTypeDistancePlaceholder()"
+             (keydown.enter)="onCalculateTime($event)">
     </td>
   </tr>
   <tr>
     <td>Calculate distance</td>
     <td>
-      <input type="number" [placeholder]="getTimePlaceholder()" (keydown.enter)="onCalculateDistance($event)">
+      <input id="time-text-field" type="number" [placeholder]="getTimePlaceholder()"
+             (keydown.enter)="onCalculateDistance($event)">
     </td>
   </tr>
   </tbody>

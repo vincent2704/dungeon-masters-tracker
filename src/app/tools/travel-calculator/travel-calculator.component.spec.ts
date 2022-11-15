@@ -84,4 +84,24 @@ describe('TravelCalculatorComponent', () => {
     expect(temporalServiceSpy.addSeconds).not.toHaveBeenCalled();
   });
 
+  it('should display travel time in proper format', () => {
+    //given
+    Settings.setSISystem(true);
+    component.trackTime = false;
+    component.pace = 'Normal'
+    let testData = [
+      {"kilometers": 4.5, "hours": 1, "minutes": 0},
+      {"kilometers": 6, "hours": 1, "minutes": 20},
+      {"kilometers": 11.25, "hours": 2, "minutes": 30},
+      {"kilometers": 1.125, "hours": 0, "minutes": 15},
+    ]
+
+    component.updateTravelTime(4.5)
+
+    for(let data of testData) {
+      component.updateTravelTime(data.kilometers)
+      expect(component.travelInformation).toEqual(`Travel time: ${data.hours} hour(s) ${data.minutes} minute(s)`)
+    }
+  });
+
 });

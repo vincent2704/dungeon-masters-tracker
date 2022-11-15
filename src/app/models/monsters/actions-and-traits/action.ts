@@ -332,7 +332,7 @@ export class Action {
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
     new ActionDescription("+1 to hit, reach {5} {ft.}, one target. " +
-      "Hit: 2 (1d6- 1) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
+      "Hit: 2 (1d6 - 1) piercing damage.", ActionType.MELEE_WEAPON_ATTACK))
 
   private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
     new ActionDescription(
