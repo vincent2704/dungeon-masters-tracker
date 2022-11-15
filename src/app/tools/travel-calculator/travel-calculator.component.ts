@@ -55,18 +55,14 @@ export class TravelCalculatorComponent implements OnInit {
   }
 
   updateTravelTime(distance: number) {
-    let travelTimeDecimal: string = (distance / this.getOneHourTravelToPaceRatio()).toFixed(2);
-    let splitHoursAndMinutes: string[] = (travelTimeDecimal + "").split(".");
+    let travelTimeHours = distance / this.getOneHourTravelToPaceRatio();
+    let travelTimeInMinutes = travelTimeHours * 60;
+    let minuteRemainder = travelTimeInMinutes % 60
 
-    let hoursDecimalPart: number = parseFloat(splitHoursAndMinutes[0]);
-    let minutesAsDecimalPart: number = parseFloat(`0.${splitHoursAndMinutes[1]}`);
-
-    let minutes: number = Math.round(minutesAsDecimalPart * 60);
-
-    this.travelInformation = `Travel time: ${hoursDecimalPart} hour(s) ${minutes} minute(s)`;
+    this.travelInformation = `Travel time: ${Math.floor(travelTimeHours)} hour(s) ${Math.round(minuteRemainder)} minute(s)`;
 
     if (this.trackTime) {
-      this.temporalService.addSeconds(parseFloat(travelTimeDecimal) * 3600);
+      this.temporalService.addSeconds(travelTimeHours * 3600);
     }
   }
 

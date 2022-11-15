@@ -7,10 +7,11 @@
         </div>
         <div class="row h4 fw-bold">
           <div class="col">
-            {{currentDate.getHours()}}:{{currentDate.getMinutes()}}
+            <p id="current-hour-info">{{currentDate.getHours()}}:{{currentDate.getMinutes()}}</p>
           </div>
           <div class="col">
-            <button i18n="edit button|Button to start editing campaign time" type="button" class="btn btn-primary"
+            <button id="edit-time-button"
+                    i18n="edit button|Button to start editing campaign time" type="button" class="btn btn-primary"
                     (click)="collapse.toggle(); dp.navigateTo(getCurrentDateModel())"
                     [attr.aria-expanded]="!isCollapsed"
                     aria-controls="collapseExample">
