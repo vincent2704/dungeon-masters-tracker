@@ -15,6 +15,8 @@ export class NotesComponent implements OnInit {
   newNoteTitle: string = "";
   newNoteBody: string = "";
 
+  shownNote?: Note;
+
   constructor(private noteService: NoteService) {
     this.notes = noteService.getNotes();
   }
@@ -32,4 +34,7 @@ export class NotesComponent implements OnInit {
     this.noteService.deleteNote(note);
   }
 
+  showNote(note: Note) {
+    this.shownNote = note;
+  }
 }

@@ -3,7 +3,8 @@
 </h3>
 <div class="row">
   <div class="col">
-    <button i18n="add note button|Button used to add note that happened during campaign" type="button" class="btn btn-primary"
+    <button i18n="add note button|Button used to add note that happened during campaign" type="button"
+            class="btn btn-primary"
             (click)="collapse.toggle();"
             [attr.aria-expanded]="!isCollapsed"
             aria-controls="collapse">
@@ -13,9 +14,11 @@
       <form (ngSubmit)="onSubmit()">
         <div class="card-body">
           <div class="card-title">
-            <input i18n-placeholder="note title placeholder|New note title input placeholder" type="text" class="form-control" placeholder="Title" [(ngModel)]="newNoteTitle" name="noteTitle">
+            <input i18n-placeholder="note title placeholder|New note title input placeholder" type="text"
+                   class="form-control" placeholder="Title" [(ngModel)]="newNoteTitle" name="noteTitle">
           </div>
-          <textarea i18n-placeholder="note body|New note description input placeholder" class="form-control" placeholder="Note description" [(ngModel)]="newNoteBody" name="noteBody"></textarea>
+          <textarea i18n-placeholder="note body|New note description input placeholder" class="form-control"
+                    placeholder="Note description" [(ngModel)]="newNoteBody" name="noteBody"></textarea>
           <button i18n="confirm button|Button used to confirm" type="submit" class="btn btn-primary">Confirm</button>
         </div>
       </form>
@@ -23,14 +26,28 @@
   </div>
 </div>
 
-
-<div *ngFor="let note of notes" class="card">
-  <div class="card-body">
-    <h5 class="card-title">{{note.getTitle()}}</h5>
-    <p class="card-text">{{note.getBody()}}</p>
-    <div class="card-footer">
-      <button i18n="delete button|Button used to delete an note from campaign history" class="btn btn-primary" (click)="deleteNote(note)">Delete</button>
+<div class="row">
+  <div class="col-md-9">
+    <div class="row">
+      <div *ngFor="let note of notes" class="btn btn-secondary list-group-item col-3 card" (click)="showNote(note)">
+        <div class="card-body">
+          <h5 class="card-title">{{note.getTitle()}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div *ngIf="shownNote" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{shownNote.getTitle()}}</h5>
+        <p class="card-text">{{shownNote.getBody()}}</p>
+        <div class="card-footer">
+          <button i18n="delete button|Button used to edit a note" class="btn btn-primary">Edit</button>
+          <button i18n="delete button|Button used to delete a note" class="btn btn-primary">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 
