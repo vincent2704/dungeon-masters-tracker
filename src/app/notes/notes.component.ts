@@ -30,6 +30,10 @@ export class NotesComponent implements OnInit {
     this.notes = this.noteService.getNotes();
   }
 
+  showNote(note: Note) {
+    this.shownNote = note;
+  }
+
   onSubmit() {
     this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
     this.newNoteTitle = "";
@@ -62,7 +66,4 @@ export class NotesComponent implements OnInit {
     this.shownNote = undefined;
   }
 
-  showNote(note: Note) {
-    this.shownNote = note;
-  }
 }

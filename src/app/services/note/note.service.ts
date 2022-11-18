@@ -17,8 +17,8 @@ export class NoteService {
     return this.notes;
   }
 
-  addNote(eventTitle: string, eventDescription: string) {
-    this.notes.push(new Note(eventTitle, eventDescription));
+  addNote(noteTitle: string, noteBody: string) {
+    this.notes.push(new Note(noteTitle, noteBody));
   }
 
   deleteNote(note: Note) {
