@@ -1,0 +1,36 @@
+<h3>
+  Campaign Notes
+</h3>
+<div class="row">
+  <div class="col">
+    <button i18n="add note button|Button used to add note that happened during campaign" type="button" class="btn btn-primary"
+            (click)="collapse.toggle();"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapse">
+      Add note
+    </button>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <form (ngSubmit)="onSubmit()">
+        <div class="card-body">
+          <div class="card-title">
+            <input i18n-placeholder="note title placeholder|New note title input placeholder" type="text" class="form-control" placeholder="Title" [(ngModel)]="newNoteTitle" name="noteTitle">
+          </div>
+          <textarea i18n-placeholder="note body|New note description input placeholder" class="form-control" placeholder="Note description" [(ngModel)]="newNoteBody" name="noteBody"></textarea>
+          <button i18n="confirm button|Button used to confirm" type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let note of notes" class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{note.getTitle()}}</h5>
+    <p class="card-text">{{note.getBody()}}</p>
+    <div class="card-footer">
+      <button i18n="delete button|Button used to delete an note from campaign history" class="btn btn-primary" (click)="deleteNote(note)">Delete</button>
+    </div>
+  </div>
+</div>
+

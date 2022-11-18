@@ -42,6 +42,7 @@ import { ProtagonistsManagerComponent } from './campaign-overview/protagonists-m
 import { ProtagonistsInfoComponent } from './campaign-overview/protagonists-manager/protagonists-info/protagonists-info.component';
 import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-manager/protagonists-editor/protagonists-editor.component';
 import { UnconsciousDamageComponent } from './battle/tracker/death-saving-throws/unconscious-damage/unconscious-damage.component';
+import { NotesComponent } from './notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { UnconsciousDamageComponent } from './battle/tracker/death-saving-throws
     ProtagonistsInfoComponent,
     ProtagonistsEditorComponent,
     UnconsciousDamageComponent,
+    NotesComponent,
   ],
   imports: [
     BrowserModule,
