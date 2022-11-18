@@ -7,8 +7,16 @@ export class Note {
     return this.title;
   }
 
+  public setTitle(title: string) {
+    this.title = title;
+  }
+
   public getBody(): string {
     return this.body;
+  }
+
+  public setBody(body: string) {
+    this.body = body;
   }
 
 }

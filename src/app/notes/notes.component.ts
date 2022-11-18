@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Note} from "../models/note/note";
 import {NoteService} from "../services/note/note.service";
 
@@ -17,11 +17,17 @@ export class NotesComponent implements OnInit {
 
   shownNote?: Note;
 
+  editing: boolean = false;
+  editedNoteProperties = {
+    title: '',
+    body: '',
+  }
+
   constructor(private noteService: NoteService) {
-    this.notes = noteService.getNotes();
   }
 
   ngOnInit(): void {
+    this.notes = this.noteService.getNotes();
   }
 
   onSubmit() {
@@ -30,8 +36,30 @@ export class NotesComponent implements OnInit {
     this.newNoteBody = "";
   }
 
+  editNote() {
+    if (this.shownNote) {
+      let noteTitle = this.shownNote.getTitle();
+      let noteBody = this.shownNote.getBody();
+
+      this.editedNoteProperties = {
+        title: noteTitle,
+        body: noteBody
+      }
+
+      this.editing = true;
+    }
+  }
+
+  submitEdit() {
+    if (this.shownNote) {
+      this.noteService.updateNote(this.shownNote, this.editedNoteProperties.title, this.editedNoteProperties.body);
+      this.editing = false;
+    }
+  }
+
   deleteNote(note: Note) {
     this.noteService.deleteNote(note);
+    this.shownNote = undefined;
   }
 
   showNote(note: Note) {
