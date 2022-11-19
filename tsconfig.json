@@ -22,7 +22,7 @@
       "ES2021.String"
     ]
   },
-  "include": ["src/**/*"],
+//  "include": ["src/**/*"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

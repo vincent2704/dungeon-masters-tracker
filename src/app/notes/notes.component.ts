@@ -9,7 +9,7 @@ import {NoteService} from "../services/note/note.service";
 })
 export class NotesComponent implements OnInit {
 
-  isCollapsed: boolean = true;
+  collapsed: boolean = true;
   notes: Note[] = [];
 
   newNoteTitle: string = "";
@@ -38,6 +38,7 @@ export class NotesComponent implements OnInit {
     this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
     this.newNoteTitle = "";
     this.newNoteBody = "";
+    this.collapsed = true;
   }
 
   editNote() {
