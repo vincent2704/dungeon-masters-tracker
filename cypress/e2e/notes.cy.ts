@@ -37,4 +37,12 @@ describe('notes', () => {
     cy.get('#notes-delete-note-button').should('not.exist');
   })
 
+  it('cancels note editing', () => {
+    cy.contains('Note 2 Title').click();
+    cy.get('#notes-edit-note-button').click();
+    cy.get('#notes-edited-note-body-input').clear();
+    cy.get('#notes-cancel-edit-button').click();
+    cy.contains('Sed ut perspiciatis unde omnis iste natus');
+  })
+
 })

@@ -81,4 +81,19 @@ describe('NotesComponent', () => {
     expect(component.editing).toBeFalse();
   });
 
+  it('should cancel editing note', () => {
+    component.showNote(defaultNote);
+    component.editNote();
+
+    let newTitle = 'New Title';
+    let newBody = 'New Body';
+
+    component.editedNoteProperties.title = newTitle;
+    component.editedNoteProperties.body = newBody;
+
+    component.cancelEdit();
+    expect(noteServiceSpy.updateNote).not.toHaveBeenCalled();
+    expect(component.notes).toEqual([new Note('Title 1', 'Body 1')])
+  });
+
 });
