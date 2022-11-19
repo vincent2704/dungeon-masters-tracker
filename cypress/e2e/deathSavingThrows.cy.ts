@@ -36,7 +36,7 @@ describe('battle', () => {
       cy.get('input').first().type('-1').type('{enter}');
     })
     cy.contains('Is critical hit?');
-    cy.contains('No').click();
+    cy.get('#non-critical-hit-button').click();
     cy.contains(testActorName).parent('tr').within(() => {
       cy.contains('Failures: 1');
     })
@@ -56,7 +56,7 @@ describe('battle', () => {
       cy.get('input').first().type('-1').type('{enter}');
     })
     cy.contains('Is critical hit?');
-    cy.contains('Yes').click();
+    cy.get('#critical-hit-button').click();
     cy.contains(testActorName).parent('tr').within(() => {
       cy.contains('Failures: 2');
     })
