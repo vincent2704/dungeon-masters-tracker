@@ -67,4 +67,7 @@ export class NotesComponent implements OnInit {
     this.shownNote = undefined;
   }
 
+  cancelEdit() {
+    this.editing = false;
+  }
 }
