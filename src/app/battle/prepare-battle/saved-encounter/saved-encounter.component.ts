@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Encounter} from "../../../models/encounter";
 import {Actor} from "../../../models/actor";
-import {CombatService, MonsterHitPointsRule} from "../../../services/combat/combat.service";
+import {CombatUtils, MonsterHitPointsRule} from "../../../services/combat/combatUtils";
 
 @Component({
   selector: 'app-saved-encounter',
@@ -29,7 +29,7 @@ export class SavedEncounterComponent implements OnInit {
       ? MonsterHitPointsRule.THROW_DICE
       : MonsterHitPointsRule.FIXED;
 
-    this.encounterEmitter.emit(CombatService.getEncounterMonsters(
+    this.encounterEmitter.emit(CombatUtils.getEncounterMonsters(
       this.encounter.getMonsterList(), monsterHitPointsRule));
   }
 

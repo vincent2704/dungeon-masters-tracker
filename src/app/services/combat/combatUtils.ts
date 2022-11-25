@@ -1,7 +1,7 @@
 import {Actor} from "../../models/actor";
 import {Monster} from "../../models/monsters/monster";
 
-export class CombatService {
+export class CombatUtils {
 
   constructor() { }
 
