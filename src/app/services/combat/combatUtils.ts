@@ -1,9 +1,18 @@
 import {Actor} from "../../models/actor";
 import {Monster} from "../../models/monsters/monster";
+import {CombatData} from "../../models/combat-data/CombatData";
 
 export class CombatUtils {
 
   constructor() { }
+
+  static getDailyXpBudget(characters: Actor[]): number {
+    let dailyXpTable = CombatData.ADVENTURING_DAY_XP;
+
+    return characters.reduce((currentXp, character) => {
+      return currentXp + dailyXpTable.get(character.getLevel())!;
+    }, 0);
+  }
 
   static getEncounterMonsters(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
     let actorsToAdd: Actor[] = [];
