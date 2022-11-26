@@ -43,6 +43,7 @@ import { ProtagonistsInfoComponent } from './campaign-overview/protagonists-mana
 import { ProtagonistsEditorComponent } from './campaign-overview/protagonists-manager/protagonists-editor/protagonists-editor.component';
 import { UnconsciousDamageComponent } from './battle/tracker/death-saving-throws/unconscious-damage/unconscious-damage.component';
 import { NotesComponent } from './notes/notes.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { NotesComponent } from './notes/notes.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
