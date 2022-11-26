@@ -3,7 +3,7 @@
     Enter XP and count manually:
     <div class="row">
       <div class="col">
-        <input type="number" id="monsterXpInput" placeholder="Enter total monster XP" [(ngModel)]="monsterXp">
+        <input type="number" id="monsterXpInput" placeholder="Enter monster XP sum" [(ngModel)]="monsterXp">
       </div>
       <div class="col">
         <input type="number" id="monsterCountInput" placeholder="Enter monster count"
@@ -14,6 +14,9 @@
       </div>
         <h4>Difficulty: {{difficulty}}</h4>
         <app-difficulty-bar [difficulty]="difficulty"></app-difficulty-bar>
+    </div>
+    <div>
+      Characters total daily XP budget: {{totalDailyXpBudget}}
     </div>
   </div>
 </div>
