@@ -21,6 +21,7 @@ describe('ManualCalculatorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ManualCalculatorComponent);
     component = fixture.componentInstance;
+    component.participatingCharacters = [];
     fixture.detectChanges();
   });
 
