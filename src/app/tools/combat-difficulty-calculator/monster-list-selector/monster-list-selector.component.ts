@@ -24,14 +24,15 @@ export class MonsterListSelectorComponent implements OnInit {
   encounterName: string = '';
   encounterDescription: string = '';
 
-  dailyXpBudget: number = 0;
+  totalDailyXpBudget: number = 0;
+  selectedMonstersTotalXp = 0;
 
   constructor(monsterService: MonsterService, private encounterService: EncounterService) {
     this.monsterService = monsterService;
   }
 
   ngOnInit(): void {
-    this.dailyXpBudget = CombatUtils.getDailyXpBudget(this.participatingCharacters);
+    this.totalDailyXpBudget = CombatUtils.getDailyXpBudget(this.participatingCharacters);
   }
 
   getDifficulty(): Difficulty {
@@ -53,6 +54,7 @@ export class MonsterListSelectorComponent implements OnInit {
   addMonster(monster: Monster): void {
     let monsterCount = this.getMonsterCount(monster);
     this.selectedMonsters.set(monster, ++monsterCount)
+    this.selectedMonstersTotalXp = this.getMonsterExperiencePointsSum();
   }
 
   subtractMonster(monster: Monster): void {
@@ -63,6 +65,7 @@ export class MonsterListSelectorComponent implements OnInit {
     if(monsterCount === 0){
       this.selectedMonsters.delete(monster);
     }
+    this.selectedMonstersTotalXp = this.getMonsterExperiencePointsSum();
   }
 
   getMonsterCount(monster: Monster): number {
