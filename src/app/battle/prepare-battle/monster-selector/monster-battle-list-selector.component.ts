@@ -4,7 +4,7 @@ import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
-import {CombatService, MonsterHitPointsRule} from "../../../services/combat/combat.service";
+import {CombatUtils, MonsterHitPointsRule} from "../../../services/combat/combatUtils";
 
 @Component({
   selector: 'app-monster-battle-list-selector',
@@ -41,7 +41,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
       ? MonsterHitPointsRule.THROW_DICE
       : MonsterHitPointsRule.FIXED;
 
-    this.monsterActorsEmitter.emit(CombatService.getEncounterMonsters(
+    this.monsterActorsEmitter.emit(CombatUtils.getEncounterMonsters(
       this.selectedMonstersCount, monsterHitPointsRule));
     this.selectedMonstersCount.clear();
   }

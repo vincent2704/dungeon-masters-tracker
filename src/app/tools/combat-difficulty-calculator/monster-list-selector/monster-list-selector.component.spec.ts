@@ -36,7 +36,7 @@ describe('MonsterListSelectorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MonsterListSelectorComponent);
     component = fixture.componentInstance;
-    component.participatingActors = [];
+    component.participatingCharacters = [];
 
     monsterServiceSpy = TestBed.inject(MonsterService) as jasmine.SpyObj<MonsterService>;
     encounterServiceSpy = TestBed.inject(EncounterService) as jasmine.SpyObj<EncounterService>;
@@ -58,7 +58,7 @@ describe('MonsterListSelectorComponent', () => {
     let actor4 = new Actor('4', 4)
     actor4.setLevel(2)
     // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
-    component.participatingActors = [actor1, actor2, actor3, actor4]
+    component.participatingCharacters = [actor1, actor2, actor3, actor4]
 
     // when
     component.selectedMonsters = new Map<Monster, number>([
@@ -85,15 +85,29 @@ describe('MonsterListSelectorComponent', () => {
   it('should add monster to list', () => {
     // given
     component.selectedMonsters = new Map<Monster, number>()
-    let aarakocra = MonsterList.WEREWOLF
+    let werewolf = MonsterList.WEREWOLF
     let aboleth = MonsterList.ABOLETH;
 
     // when
-    component.addMonster(aarakocra);
+    component.addMonster(werewolf);
     component.addMonster(aboleth);
     component.addMonster(aboleth);
-    expect(component.selectedMonsters.get(aarakocra)).toEqual(1);
+    expect(component.selectedMonsters.get(werewolf)).toEqual(1);
     expect(component.selectedMonsters.get(aboleth)).toEqual(2);
+  });
+
+  it('should show monster total XP information', () => {
+    // given
+    component.selectedMonsters = new Map<Monster, number>()
+    expect(component.selectedMonstersTotalXp).toEqual(0);
+    let werewolf = MonsterList.WEREWOLF
+    let aboleth = MonsterList.ABOLETH;
+
+    // when
+    component.addMonster(werewolf);
+    component.addMonster(aboleth);
+    component.addMonster(aboleth);
+    expect(component.selectedMonstersTotalXp).toEqual(12_500);
   });
 
   it('should remove monster from list', () => {

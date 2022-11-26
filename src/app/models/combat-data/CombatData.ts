@@ -2,7 +2,7 @@ export class CombatData {
 
   // source for XP Thresholds by Character Level table. key is character level, value is monster XP
   // for that level that matches given difficulty.
-  // source - Dungeon Master's Guide, page 82.
+  // source - https://www.dndbeyond.com/sources/basic-rules/building-combat-encounters
   static readonly EASY_XP_THRESHOLDS = new Map<number, number>([
     [1, 25],
     [2, 50],
@@ -97,6 +97,29 @@ export class CombatData {
     [18, 9500],
     [19, 10_900],
     [20, 12_700],
+  ]);
+
+  static readonly ADVENTURING_DAY_XP = new Map<number, number>([
+    [1, 300],
+    [2, 600],
+    [3, 1200],
+    [4, 1700],
+    [5, 3500],
+    [6, 4000],
+    [7, 5000],
+    [8, 6000],
+    [9, 7500],
+    [10, 9000],
+    [11, 10_500],
+    [12, 11_500],
+    [13, 13_500],
+    [14, 15_000],
+    [15, 18_000],
+    [16, 20_000],
+    [17, 25_000],
+    [18, 27_000],
+    [19, 30_000],
+    [20, 40_000],
   ]);
 
 }

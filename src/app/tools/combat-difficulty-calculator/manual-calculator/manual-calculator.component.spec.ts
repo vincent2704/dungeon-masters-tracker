@@ -21,6 +21,7 @@ describe('ManualCalculatorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ManualCalculatorComponent);
     component = fixture.componentInstance;
+    component.participatingCharacters = [];
     fixture.detectChanges();
   });
 
@@ -39,7 +40,7 @@ describe('ManualCalculatorComponent', () => {
     let actor4 = new Actor('4', 4)
     actor4.setLevel(2)
     // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
-    component.participatingActors = [actor1, actor2, actor3, actor4]
+    component.participatingCharacters = [actor1, actor2, actor3, actor4]
 
     component.monsterXp = '500';
     component.monsterCount = '4'
