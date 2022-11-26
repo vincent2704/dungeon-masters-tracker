@@ -6,6 +6,7 @@ import {CombatDataService} from "../../../services/combat-data/combat-data.servi
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {EncounterService} from "../../../services/encounter/encounter.service";
 import {Encounter} from "../../../models/encounter";
+import {CombatUtils} from "../../../services/combat/combatUtils";
 
 @Component({
   selector: 'app-monster-list-selector',
@@ -15,7 +16,7 @@ import {Encounter} from "../../../models/encounter";
 export class MonsterListSelectorComponent implements OnInit {
 
   @Input()
-  participatingActors!: Actor[];
+  participatingCharacters!: Actor[];
   monsterService: MonsterService;
 
   selectedMonsters: Map<Monster, number> = new Map<Monster, number>();
@@ -23,16 +24,19 @@ export class MonsterListSelectorComponent implements OnInit {
   encounterName: string = '';
   encounterDescription: string = '';
 
+  dailyXpBudget: number = 0;
+
   constructor(monsterService: MonsterService, private encounterService: EncounterService) {
     this.monsterService = monsterService;
   }
 
   ngOnInit(): void {
+    this.dailyXpBudget = CombatUtils.getDailyXpBudget(this.participatingCharacters);
   }
 
   getDifficulty(): Difficulty {
     return CombatDataService.getDifficulty(
-      this.participatingActors, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
+      this.participatingCharacters, this.getMonsterExperiencePointsSum(), this.getTotalMonstersSelected());
   }
 
   getTotalMonstersSelected(): number {

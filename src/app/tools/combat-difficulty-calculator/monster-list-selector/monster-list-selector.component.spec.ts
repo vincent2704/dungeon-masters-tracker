@@ -36,7 +36,7 @@ describe('MonsterListSelectorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MonsterListSelectorComponent);
     component = fixture.componentInstance;
-    component.participatingActors = [];
+    component.participatingCharacters = [];
 
     monsterServiceSpy = TestBed.inject(MonsterService) as jasmine.SpyObj<MonsterService>;
     encounterServiceSpy = TestBed.inject(EncounterService) as jasmine.SpyObj<EncounterService>;
@@ -58,7 +58,7 @@ describe('MonsterListSelectorComponent', () => {
     let actor4 = new Actor('4', 4)
     actor4.setLevel(2)
     // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
-    component.participatingActors = [actor1, actor2, actor3, actor4]
+    component.participatingCharacters = [actor1, actor2, actor3, actor4]
 
     // when
     component.selectedMonsters = new Map<Monster, number>([
