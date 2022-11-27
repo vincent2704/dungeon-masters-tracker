@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Note} from "../models/note/note";
 import {NoteService} from "../services/note/note.service";
 import {NoteBackendService} from "../services/note/note-backend.service";
+import {NoteBackend} from "../models/note/note-backend";
 
 @Component({
   selector: 'app-notes',
@@ -12,7 +13,6 @@ export class NotesComponent implements OnInit {
 
   collapsed: boolean = true;
   notes: Note[] = [];
-  notesBackend: any; // experimental
 
   newNoteTitle: string = "";
   newNoteBody: string = "";
@@ -25,12 +25,30 @@ export class NotesComponent implements OnInit {
     body: '',
   }
 
+  // backend implementation WIP
+  notesBackend: NoteBackend[] = []; // experimental
+  shownBackendNote?: NoteBackend;
+
   constructor(private noteService: NoteService, private noteBackendService: NoteBackendService) {
   }
 
   ngOnInit(): void {
-    this.notes = this.noteService.getNotes();
-    this.notesBackend = this.noteBackendService.getNotes('someString')
+    this.showBackendNotes();
+  }
+
+  showBackendNotes() {
+    this.noteBackendService.getNotes('aa')
+      .subscribe(
+        (data: NoteBackend[]) => {
+          for(const note of data) {
+            this.notesBackend.push(note)
+          }
+        }
+      );
+  }
+
+  showBackendNote(note: NoteBackend) {
+    this.shownBackendNote = note;
   }
 
   showNote(note: Note) {
