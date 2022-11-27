@@ -17,13 +17,14 @@
           <div class="card-title">
             <input id="notes-new-note-title-input"
                    i18n-placeholder="note title placeholder|New note title input placeholder" type="text"
-                   class="form-control" placeholder="Title" [(ngModel)]="newNoteTitle" name="noteTitle">
+                   class="form-control" placeholder="Title" [(ngModel)]="newNote.title" name="noteTitle">
           </div>
           <textarea id="notes-new-note-body-input"
                     i18n-placeholder="note body|New note description input placeholder" class="form-control"
-                    placeholder="Note description" [(ngModel)]="newNoteBody" name="noteBody"></textarea>
+                    placeholder="Note description" [(ngModel)]="newNote.body" name="noteBody"></textarea>
           <button id="notes-confirm-new-note-button"
-            i18n="confirm button|Button used to confirm" type="submit" class="btn btn-primary">Confirm</button>
+                  i18n="confirm button|Button used to confirm" type="submit" class="btn btn-primary">Confirm
+          </button>
         </div>
       </form>
     </div>
@@ -33,7 +34,8 @@
 <div class="row">
   <div class="col-md-9">
     <div class="row">
-      <div *ngFor="let note of notesBackend" class="btn btn-secondary list-group-item col-3 card" (click)="showBackendNote(note)">
+      <div *ngFor="let note of notesBackend" class="btn btn-secondary list-group-item col-3 card"
+           (click)="showBackendNote(note)">
         <div class="card-body">
           <h5 class="card-title">{{note.title}}</h5>
         </div>
@@ -57,54 +59,55 @@
         </div>
       </div>
     </div>
+  </div>
 </div>
 
-<div class="row">
-  <div class="col-md-9">
-    <div class="row">
-      <div *ngFor="let note of notes" class="btn btn-secondary list-group-item col-3 card" (click)="showNote(note)">
-        <div class="card-body">
-          <h5 class="card-title">{{note.getTitle()}}</h5>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div *ngIf="shownNote && !editing" class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{shownNote.getTitle()}}</h5>
-        <p class="card-text">{{shownNote.getBody()}}</p>
-        <div class="card-footer">
-          <button id="notes-edit-note-button"
-            i18n="delete button|Button used to edit a note" class="btn btn-primary"
-                  (click)="editNote()">Edit
-          </button>
-          <button id="notes-delete-note-button"
-            i18n="delete button|Button used to delete a note" class="btn btn-primary"
-                  (click)="deleteNote(shownNote)">Delete
-          </button>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="shownNote && editing" class="card">
-      <div class="card-body">
-        <div class="card-title">
-          <input id="notes-edited-note-title-input"
-            i18n-placeholder="note title placeholder|New note title input placeholder" type="text"
-                 class="form-control" placeholder="Title" [(ngModel)]="editedNoteProperties.title" name="noteTitle">
-        </div>
-        <textarea id="notes-edited-note-body-input"
-          i18n-placeholder="note body|New note description input placeholder" class="form-control"
-                  placeholder="Note description" [(ngModel)]="editedNoteProperties.body" name="noteBody"></textarea>
-        <button id="notes-confirm-edit-button"
-          i18n="confirm button|Button used to confirm" class="btn btn-primary"
-                (click)="submitEdit()">Confirm
-        </button>
-        <button id="notes-cancel-edit-button"
-                i18n="confirm button|Button used to confirm" class="btn btn-primary"
-                (click)="cancelEdit()">Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="row">-->
+<!--  <div class="col-md-9">-->
+<!--    <div class="row">-->
+<!--      <div *ngFor="let note of notes" class="btn btn-secondary list-group-item col-3 card" (click)="showNote(note)">-->
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title">{{note.getTitle()}}</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col-md-3">-->
+<!--    <div *ngIf="shownNote && !editing" class="card">-->
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title">{{shownNote.getTitle()}}</h5>-->
+<!--        <p class="card-text">{{shownNote.getBody()}}</p>-->
+<!--        <div class="card-footer">-->
+<!--          <button id="notes-edit-note-button"-->
+<!--            i18n="delete button|Button used to edit a note" class="btn btn-primary"-->
+<!--                  (click)="editNote()">Edit-->
+<!--          </button>-->
+<!--          <button id="notes-delete-note-button"-->
+<!--            i18n="delete button|Button used to delete a note" class="btn btn-primary"-->
+<!--                  (click)="deleteNote(shownNote)">Delete-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="shownNote && editing" class="card">-->
+<!--      <div class="card-body">-->
+<!--        <div class="card-title">-->
+<!--          <input id="notes-edited-note-title-input"-->
+<!--            i18n-placeholder="note title placeholder|New note title input placeholder" type="text"-->
+<!--                 class="form-control" placeholder="Title" [(ngModel)]="editedNoteProperties.title" name="noteTitle">-->
+<!--        </div>-->
+<!--        <textarea id="notes-edited-note-body-input"-->
+<!--          i18n-placeholder="note body|New note description input placeholder" class="form-control"-->
+<!--                  placeholder="Note description" [(ngModel)]="editedNoteProperties.body" name="noteBody"></textarea>-->
+<!--        <button id="notes-confirm-edit-button"-->
+<!--          i18n="confirm button|Button used to confirm" class="btn btn-primary"-->
+<!--                (click)="submitEdit()">Confirm-->
+<!--        </button>-->
+<!--        <button id="notes-cancel-edit-button"-->
+<!--                i18n="confirm button|Button used to confirm" class="btn btn-primary"-->
+<!--                (click)="cancelEdit()">Cancel-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

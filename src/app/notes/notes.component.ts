@@ -28,6 +28,14 @@ export class NotesComponent implements OnInit {
   // backend implementation WIP
   notesBackend: NoteBackend[] = []; // experimental
   shownBackendNote?: NoteBackend;
+  newNote: NoteBackend = {
+    title: '',
+    body: '',
+  }
+  editedBackendNote: NoteBackend = {
+    title: '',
+    body: '',
+  }
 
   constructor(private noteService: NoteService, private noteBackendService: NoteBackendService) {
   }
@@ -36,8 +44,13 @@ export class NotesComponent implements OnInit {
     this.showBackendNotes();
   }
 
+  addNote(newNote: NoteBackend): void {
+    this.noteBackendService.addNote(newNote)
+      .subscribe(note => this.notesBackend.push(note));
+  }
+
   showBackendNotes() {
-    this.noteBackendService.getNotes('aa')
+    this.noteBackendService.getNotes()
       .subscribe(
         (data: NoteBackend[]) => {
           for(const note of data) {
@@ -55,10 +68,20 @@ export class NotesComponent implements OnInit {
     this.shownNote = note;
   }
 
+  // onSubmit() {
+  //   this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
+  //   this.newNoteTitle = "";
+  //   this.newNoteBody = "";
+  //   this.collapsed = true;
+  // }
+
   onSubmit() {
-    this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
-    this.newNoteTitle = "";
-    this.newNoteBody = "";
+    this.noteBackendService.addNote(this.newNote)
+      .subscribe(note => this.notesBackend.push(note));
+    this.newNote = {
+      title: '',
+      body: ''
+    }
     this.collapsed = true;
   }
 
