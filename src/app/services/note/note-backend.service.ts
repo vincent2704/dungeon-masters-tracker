@@ -28,4 +28,8 @@ export class NoteBackendService {
     )
   }
 
+  updateNote(note: NoteBackend): Observable<NoteBackend> {
+    return this.httpClient.put<NoteBackend>(this.notesUrl, note, this.httpOptions)
+  }
+
 }

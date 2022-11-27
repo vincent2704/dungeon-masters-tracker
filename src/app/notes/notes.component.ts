@@ -32,7 +32,7 @@ export class NotesComponent implements OnInit {
     title: '',
     body: '',
   }
-  editedBackendNote: NoteBackend = {
+  noteChanges: NoteBackend = {
     title: '',
     body: '',
   }
@@ -68,13 +68,6 @@ export class NotesComponent implements OnInit {
     this.shownNote = note;
   }
 
-  // onSubmit() {
-  //   this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
-  //   this.newNoteTitle = "";
-  //   this.newNoteBody = "";
-  //   this.collapsed = true;
-  // }
-
   onSubmit() {
     this.noteBackendService.addNote(this.newNote)
       .subscribe(note => this.notesBackend.push(note));
@@ -86,11 +79,11 @@ export class NotesComponent implements OnInit {
   }
 
   editNote() {
-    if (this.shownNote) {
-      let noteTitle = this.shownNote.getTitle();
-      let noteBody = this.shownNote.getBody();
+    if (this.shownBackendNote) {
+      let noteTitle = this.shownBackendNote.title;
+      let noteBody = this.shownBackendNote.body;
 
-      this.editedNoteProperties = {
+      this.noteChanges = {
         title: noteTitle,
         body: noteBody
       }
@@ -100,14 +93,26 @@ export class NotesComponent implements OnInit {
   }
 
   submitEdit() {
-    if (this.shownNote) {
-      this.noteService.updateNote(this.shownNote, this.editedNoteProperties.title, this.editedNoteProperties.body);
+    if (this.shownBackendNote) {
+      // this.noteService.updateNote(this.shownNote, this.editedNoteProperties.title, this.editedNoteProperties.body);
+      let noteToUpdate: NoteBackend = {
+        id: this.shownBackendNote.id,
+        title: this.noteChanges.title,
+        body: this.noteChanges.body
+      }
+      this.noteBackendService.updateNote(noteToUpdate)
+        .subscribe(updatedNote => {
+          let noteToUpdate = this.notesBackend.find(note => note.id == updatedNote.id)!;
+          let noteIndex =  this.notesBackend.indexOf(noteToUpdate);
+          this.notesBackend[noteIndex] = updatedNote;
+          this.shownBackendNote = updatedNote;
+        });
       this.editing = false;
     }
   }
 
-  deleteNote(note: Note) {
-    this.noteService.deleteNote(note);
+  deleteNote(note: NoteBackend) {
+    // this.noteService.deleteNote(note);
     this.shownNote = undefined;
   }
 
