@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Note} from "../models/note/note";
 import {NoteService} from "../services/note/note.service";
 import {NoteBackendService} from "../services/note/note-backend.service";
 import {NoteBackend} from "../models/note/note-backend";
@@ -12,21 +11,9 @@ import {NoteBackend} from "../models/note/note-backend";
 export class NotesComponent implements OnInit {
 
   collapsed: boolean = true;
-  notes: Note[] = [];
-
-  newNoteTitle: string = "";
-  newNoteBody: string = "";
-
-  shownNote?: Note;
-
   editing: boolean = false;
-  editedNoteProperties = {
-    title: '',
-    body: '',
-  }
 
-  // backend implementation WIP
-  notesBackend: NoteBackend[] = []; // experimental
+  notesBackend: NoteBackend[] = [];
   shownBackendNote?: NoteBackend;
   newNote: NoteBackend = {
     title: '',
@@ -64,10 +51,6 @@ export class NotesComponent implements OnInit {
     this.shownBackendNote = note;
   }
 
-  showNote(note: Note) {
-    this.shownNote = note;
-  }
-
   onSubmit() {
     this.noteBackendService.addNote(this.newNote)
       .subscribe(note => this.notesBackend.push(note));
@@ -94,7 +77,6 @@ export class NotesComponent implements OnInit {
 
   submitEdit() {
     if (this.shownBackendNote) {
-      // this.noteService.updateNote(this.shownNote, this.editedNoteProperties.title, this.editedNoteProperties.body);
       let noteToUpdate: NoteBackend = {
         id: this.shownBackendNote.id,
         title: this.noteChanges.title,
@@ -111,9 +93,13 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  deleteNote(note: NoteBackend) {
-    // this.noteService.deleteNote(note);
-    this.shownNote = undefined;
+  deleteNote(noteToDelete: NoteBackend) {
+    this.noteBackendService.deleteNote(noteToDelete.id!)
+      .subscribe(() => {
+        let noteToRemove = this.notesBackend.find(note => note.id == noteToDelete.id)!;
+        this.notesBackend.splice(this.notesBackend.indexOf(noteToRemove), 1);
+      });
+    this.shownBackendNote = undefined;
   }
 
   cancelEdit() {

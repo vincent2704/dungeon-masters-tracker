@@ -32,4 +32,8 @@ export class NoteBackendService {
     return this.httpClient.put<NoteBackend>(this.notesUrl, note, this.httpOptions)
   }
 
+  deleteNote(id: number): Observable<unknown> {
+    const url = `${this.notesUrl}/${id}`;
+    return this.httpClient.delete(url, this.httpOptions);
+  }
 }
