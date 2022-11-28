@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NoteService} from "../services/note/note.service";
-import {NoteBackendService} from "../services/note/note-backend.service";
-import {NoteBackend} from "../models/note/note-backend";
+import {Note} from "../models/note/note";
 
 @Component({
   selector: 'app-notes',
@@ -13,25 +12,25 @@ export class NotesComponent implements OnInit {
   collapsed: boolean = true;
   editing: boolean = false;
 
-  notesBackend: NoteBackend[] = [];
-  shownBackendNote?: NoteBackend;
-  newNote: NoteBackend = {
+  notesBackend: Note[] = [];
+  shownBackendNote?: Note;
+  newNote: Note = {
     title: '',
     body: '',
   }
-  noteChanges: NoteBackend = {
+  noteChanges: Note = {
     title: '',
     body: '',
   }
 
-  constructor(private noteService: NoteService, private noteBackendService: NoteBackendService) {
+  constructor( private noteBackendService: NoteService) {
   }
 
   ngOnInit(): void {
     this.showBackendNotes();
   }
 
-  addNote(newNote: NoteBackend): void {
+  addNote(newNote: Note): void {
     this.noteBackendService.addNote(newNote)
       .subscribe(note => this.notesBackend.push(note));
   }
@@ -39,7 +38,7 @@ export class NotesComponent implements OnInit {
   showBackendNotes() {
     this.noteBackendService.getNotes()
       .subscribe(
-        (data: NoteBackend[]) => {
+        (data: Note[]) => {
           for(const note of data) {
             this.notesBackend.push(note)
           }
@@ -47,7 +46,7 @@ export class NotesComponent implements OnInit {
       );
   }
 
-  showBackendNote(note: NoteBackend) {
+  showBackendNote(note: Note) {
     this.shownBackendNote = note;
   }
 
@@ -77,7 +76,7 @@ export class NotesComponent implements OnInit {
 
   submitEdit() {
     if (this.shownBackendNote) {
-      let noteToUpdate: NoteBackend = {
+      let noteToUpdate: Note = {
         id: this.shownBackendNote.id,
         title: this.noteChanges.title,
         body: this.noteChanges.body
@@ -93,7 +92,7 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  deleteNote(noteToDelete: NoteBackend) {
+  deleteNote(noteToDelete: Note) {
     this.noteBackendService.deleteNote(noteToDelete.id!)
       .subscribe(() => {
         let noteToRemove = this.notesBackend.find(note => note.id == noteToDelete.id)!;
