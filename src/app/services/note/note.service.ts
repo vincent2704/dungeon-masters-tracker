@@ -16,7 +16,7 @@ export class NoteService {
     params: new HttpParams().append("campaignId", this.campaignId)
   }
 
-  // field for GH Pages purpose
+  // field for GH Pages demo purpose
   private notes: Observable<Note[]> = new Observable<Note[]>();
 
   constructor(private httpClient: HttpClient) {
