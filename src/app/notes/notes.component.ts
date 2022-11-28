@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Note} from "../models/note/note";
 import {NoteService} from "../services/note/note.service";
+import {Note} from "../models/note/note";
 
 @Component({
   selector: 'app-notes',
@@ -10,43 +10,62 @@ import {NoteService} from "../services/note/note.service";
 export class NotesComponent implements OnInit {
 
   collapsed: boolean = true;
-  notes: Note[] = [];
-
-  newNoteTitle: string = "";
-  newNoteBody: string = "";
-
-  shownNote?: Note;
-
   editing: boolean = false;
-  editedNoteProperties = {
+
+  notesBackend: Note[] = [];
+  shownBackendNote?: Note;
+  newNote: Note = {
+    title: '',
+    body: '',
+  }
+  noteChanges: Note = {
     title: '',
     body: '',
   }
 
-  constructor(private noteService: NoteService) {
+  constructor( private noteBackendService: NoteService) {
   }
 
   ngOnInit(): void {
-    this.notes = this.noteService.getNotes();
+    this.showBackendNotes();
   }
 
-  showNote(note: Note) {
-    this.shownNote = note;
+  addNote(newNote: Note): void {
+    this.noteBackendService.addNote(newNote)
+      .subscribe(note => this.notesBackend.push(note));
+  }
+
+  showBackendNotes() {
+    this.noteBackendService.getNotes()
+      .subscribe(
+        (data: Note[]) => {
+          for(const note of data) {
+            this.notesBackend.push(note)
+          }
+        }
+      );
+  }
+
+  showBackendNote(note: Note) {
+    this.shownBackendNote = note;
   }
 
   onSubmit() {
-    this.noteService.addNote(this.newNoteTitle, this.newNoteBody);
-    this.newNoteTitle = "";
-    this.newNoteBody = "";
+    this.noteBackendService.addNote(this.newNote)
+      .subscribe(note => this.notesBackend.push(note));
+    this.newNote = {
+      title: '',
+      body: ''
+    }
     this.collapsed = true;
   }
 
   editNote() {
-    if (this.shownNote) {
-      let noteTitle = this.shownNote.getTitle();
-      let noteBody = this.shownNote.getBody();
+    if (this.shownBackendNote) {
+      let noteTitle = this.shownBackendNote.title;
+      let noteBody = this.shownBackendNote.body;
 
-      this.editedNoteProperties = {
+      this.noteChanges = {
         title: noteTitle,
         body: noteBody
       }
@@ -56,15 +75,30 @@ export class NotesComponent implements OnInit {
   }
 
   submitEdit() {
-    if (this.shownNote) {
-      this.noteService.updateNote(this.shownNote, this.editedNoteProperties.title, this.editedNoteProperties.body);
+    if (this.shownBackendNote) {
+      let noteToUpdate: Note = {
+        id: this.shownBackendNote.id,
+        title: this.noteChanges.title,
+        body: this.noteChanges.body
+      }
+      this.noteBackendService.updateNote(noteToUpdate)
+        .subscribe(updatedNote => {
+          let noteToUpdate = this.notesBackend.find(note => note.id == updatedNote.id)!;
+          let noteIndex =  this.notesBackend.indexOf(noteToUpdate);
+          this.notesBackend[noteIndex] = updatedNote;
+          this.shownBackendNote = updatedNote;
+        });
       this.editing = false;
     }
   }
 
-  deleteNote(note: Note) {
-    this.noteService.deleteNote(note);
-    this.shownNote = undefined;
+  deleteNote(noteToDelete: Note) {
+    this.noteBackendService.deleteNote(noteToDelete.id!)
+      .subscribe(() => {
+        let noteToRemove = this.notesBackend.find(note => note.id == noteToDelete.id)!;
+        this.notesBackend.splice(this.notesBackend.indexOf(noteToRemove), 1);
+      });
+    this.shownBackendNote = undefined;
   }
 
   cancelEdit() {

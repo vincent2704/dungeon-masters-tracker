@@ -1,42 +1,45 @@
 import { TestBed } from '@angular/core/testing';
 
 import { NoteService } from './note.service';
-import {Note} from "../../models/note/note";
+import { Note } from "../../models/note/note";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient } from "@angular/common/http";
 
-describe('NoteService', () => {
+describe('NoteBackendService', () => {
   let service: NoteService;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(NoteService);
+   TestBed.configureTestingModule({
+     imports: [ HttpClientTestingModule ]
+   });
+// https://angular.io/guide/http#testing-http-requests
+   httpClient = TestBed.inject(HttpClient);
+   httpTestingController = TestBed.inject(HttpTestingController);
+
+   service = new NoteService(httpClient);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  afterEach(() => {
+    httpTestingController.verify();
+  })
 
-  it('should add note', () => {
-    expect(service.getNotes()).toEqual([]);
+  it('should get notes', () => {
+    const expectedNotes: Note[] = [{
+      title: 'Title',
+      body: 'Body',
+      id: 1
+    }]
 
-    let noteTitle = 'Title 1';
-    let noteBody = 'Body 1';
-    service.addNote(noteTitle, noteBody);
-    expect(service.getNotes()).toEqual([new Note(noteTitle, noteBody)])
-  });
+    service.getNotes()
+      .subscribe(notes => {
+        expect(notes).toEqual(expectedNotes);
+      })
 
-  it('should edit note', () => {
-    service.addNote('Title 1', 'Body 1');
-
-    service.updateNote(service.getNotes()[0], 'New Title', 'New Body');
-
-    expect(service.getNotes()).toEqual([new Note('New Title', 'New Body')]);
-  });
-
-  it('should delete note', () => {
-    service.addNote('Title 1', 'Body 1');
-
-    service.deleteNote(service.getNotes()[0]);
-    expect(service.getNotes()).toEqual([]);
+    const req = httpTestingController.expectOne('http://localhost:8080/v1/notes?campaignId=0f29e0da-c69f-44a5-9679-76019f21c8ec');
+    expect(req.request.method).toBe("GET");
+    req.flush(expectedNotes);
   });
 
 });

@@ -14,9 +14,9 @@ jobs:
         with:
           node-version: 14.x
       - run: npm ci
-      - run: npm run nhtest
+      - run: ng test --configuration ghpages --no-watch --browsers=ChromeHeadless
       - name: Cypress run Electron headless tests
         uses: cypress-io/github-action@v4.2.0
         with:
-          build: npm run build
+          build: npm run build --configuration ghpages
           start: npm start
