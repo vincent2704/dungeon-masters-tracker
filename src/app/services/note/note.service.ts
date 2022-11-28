@@ -10,10 +10,9 @@ import {Environment} from "../../environment";
 })
 export class NoteService {
 
-  private readonly notesUrl: string = 'http://localhost:8080/v1/notes'
-  private readonly campaignId: string = '0f29e0da-c69f-44a5-9679-76019f21c8ec'
+  private readonly notesUrl: string = `${Environment.HOST_ADDRESS}/v1/notes`
   private readonly httpOptions = {
-    params: new HttpParams().append("campaignId", this.campaignId)
+    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
   }
 
   // field for GH Pages demo purpose
