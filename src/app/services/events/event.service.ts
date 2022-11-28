@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
-import {TemporalService} from "../temporal/temporal.service";
 import {Environment} from "../../environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";
@@ -18,7 +17,7 @@ export class EventService {
 
   private campaignEvents: Observable<CampaignEvent[]> = new Observable<CampaignEvent[]>();
 
-  constructor(private temporalService: TemporalService, private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
   }
 
   getCampaignEvents(): Observable<CampaignEvent[]> {
@@ -28,12 +27,8 @@ export class EventService {
     return this.httpClient.get<CampaignEvent[]>(this.eventsUrl, this.httpOptions);
   }
 
-  addCampaignEvent(newEvent: CampaignEvent,
-                   campaignDate: Date = this.temporalService.getCurrentDate()): Observable<CampaignEvent> {
-
-    newEvent.campaignDateTimeOccurredEpoch = campaignDate.getMilliseconds();
-
-    return this.httpClient.post<CampaignEvent>(this.eventsUrl, newEvent);
+  addCampaignEvent(newEvent: CampaignEvent): Observable<CampaignEvent> {
+    return this.httpClient.post<CampaignEvent>(this.eventsUrl, newEvent, this.httpOptions);
     // this.campaignEvents.push(new CampaignEvent(eventTitle, eventDescription, campaignDate, new Date(Date.now())));
   }
 
@@ -42,7 +37,7 @@ export class EventService {
       return of(eventId);
     }
 
-    return this.httpClient.delete(`${this.eventsUrl}/${eventId}`)
+    return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, this.httpOptions);
     // this.campaignEvents.splice(this.campaignEvents.indexOf(event), 1);
   }
 

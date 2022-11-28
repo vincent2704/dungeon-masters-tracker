@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
 import {EventService} from "../../services/events/event.service";
+import {TemporalService} from "../../services/temporal/temporal.service";
 
 @Component({
   selector: 'app-campaign-events',
@@ -17,11 +18,10 @@ export class CampaignEventsComponent implements OnInit {
     body: ''
   }
 
-  constructor(private eventService: EventService) {
+  constructor(private eventService: EventService, private temporalService: TemporalService) {
   }
 
   ngOnInit(): void {
-    console.log(new Date(-14057208036000));
     this.eventService.getCampaignEvents()
       .subscribe((data: CampaignEvent[]) => {
         for(const event of data) {
@@ -31,11 +31,15 @@ export class CampaignEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.eventService.addCampaignEvent(this.newEvent);
-    this.newEvent = {
-      title: '',
-      body: ''
-    }
+    this.newEvent.campaignDateTimeOccurredEpoch = this.temporalService.getCurrentDate().getTime();
+    this.eventService.addCampaignEvent(this.newEvent)
+      .subscribe((event) => {
+        this.events.push(event);
+        this.newEvent = {
+          title: '',
+          body: ''
+        }
+      });
   }
 
   deleteEvent(eventToDelete: CampaignEvent) {
