@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NoteBackend} from "../../models/note/note-backend";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
+import {Environment} from "../../environment";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,9 @@ export class NoteBackendService {
   }
 
   getNotes() {
+    if(environment.environmentName == Environment.GHPAGES) {
+      console.log('Gh pages environment!')
+    }
     return this.httpClient.get<NoteBackend[]>(
       this.notesUrl,
       this.httpOptions
