@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {NoteBackend} from "../../models/note/note-backend";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Environment} from "../../environment";
 
@@ -16,16 +16,22 @@ export class NoteBackendService {
     params: new HttpParams().append("campaignId", this.campaignId)
   }
 
+  // field for GH Pages purpose
+  private notes: Observable<NoteBackend[]> = new Observable<NoteBackend[]>();
+
   constructor(private httpClient: HttpClient) {
   }
 
   addNote(note: NoteBackend): Observable<NoteBackend> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(note);
+    }
     return this.httpClient.post<NoteBackend>(this.notesUrl, note, this.httpOptions);
   }
 
-  getNotes() {
+  getNotes(): Observable<NoteBackend[]> {
     if(environment.environmentName == Environment.GHPAGES) {
-      console.log('Gh pages environment!')
+      return this.notes;
     }
     return this.httpClient.get<NoteBackend[]>(
       this.notesUrl,
@@ -34,10 +40,17 @@ export class NoteBackendService {
   }
 
   updateNote(note: NoteBackend): Observable<NoteBackend> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(note);
+    }
     return this.httpClient.put<NoteBackend>(this.notesUrl, note, this.httpOptions)
   }
 
   deleteNote(id: number): Observable<unknown> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(id);
+    }
+
     const url = `${this.notesUrl}/${id}`;
     return this.httpClient.delete(url, this.httpOptions);
   }
