@@ -109,6 +109,16 @@
               "src/styles.css"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "ghpages": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ghpages.ts"
+                }
+              ]
+            }
           }
         }
       }
