@@ -8,5 +8,6 @@
     </button>
   </div>
 </div>
-<app-protagonists-info *ngIf="!managingProtagonists"></app-protagonists-info>
-<app-protagonists-editor *ngIf="managingProtagonists" (managingFinishedEmitter)="managingProtagonists = false"></app-protagonists-editor>
+<app-protagonists-info *ngIf="!managingProtagonists" [playerCharacters]="playerCharacters"></app-protagonists-info>
+<app-protagonists-editor *ngIf="managingProtagonists" [playerCharacters]="playerCharacters"
+                         (managingFinishedEmitter)="onProtagonistsChangesSubmitted($event)"></app-protagonists-editor>

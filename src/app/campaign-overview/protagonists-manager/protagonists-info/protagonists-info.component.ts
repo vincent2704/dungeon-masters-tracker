@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../../models/actor";
-import {ActorService} from "../../../services/actor/actor.service";
 
 @Component({
   selector: 'app-protagonists-info',
@@ -9,14 +8,11 @@ import {ActorService} from "../../../services/actor/actor.service";
 })
 export class ProtagonistsInfoComponent implements OnInit {
 
-  playerCharacters: Actor[] = [];
+  @Input()
+  playerCharacters!: Actor[];
 
-  constructor(private actorService: ActorService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters()
-      .subscribe((playerCharacters: Actor[]) => {
-        this.playerCharacters = playerCharacters;
-      })
   }
 }

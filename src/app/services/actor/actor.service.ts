@@ -33,6 +33,7 @@ export class ActorService {
     if(environment.environmentName == Environment.GHPAGES) {
       return of(PROTAGONISTS);
     }
+    console.log(this.playerCharactersUrl, this.httpOptions)
     return this.httpClient.get<Actor[]>(this.playerCharactersUrl, this.httpOptions);
   }
 
@@ -56,9 +57,22 @@ export class ActorService {
     }
   }
 
-  setActors(Actors: Actor[]): void {
-    this.actors = Actors;
+  setActors(actors: Actor[]): void {
+    this.actors = actors;
     //TODO: backend call
+  }
+
+  updatePlayerCharacters(playerCharacters: Actor[]): Observable<Actor[]> {
+    return this.httpClient.post<Actor[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
+  }
+
+  deletePlayerCharacters(playerCharacters: Actor[]): Observable<unknown> {
+    let charactersToDeleteIds = playerCharacters.map(character => character.id);
+    let options = {
+      params: this.httpOptions.params,
+      body: charactersToDeleteIds
+    }
+    return this.httpClient.delete<Actor[]>(this.playerCharactersUrl, options);
   }
 
   updateActors(actors: Actor[]): void {

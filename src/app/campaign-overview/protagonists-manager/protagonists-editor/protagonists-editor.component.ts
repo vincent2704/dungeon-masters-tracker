@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 
@@ -10,9 +10,10 @@ import {ActorService} from "../../../services/actor/actor.service";
 export class ProtagonistsEditorComponent implements OnInit {
 
   @Output()
-  managingFinishedEmitter = new EventEmitter<void>()
+  managingFinishedEmitter = new EventEmitter<Actor[]>()
 
-  playerCharacters: Actor[] = [];
+  @Input()
+  playerCharacters!: Actor[];
 
   newActorName: string = '';
   newActorLevel: string = '';
@@ -23,24 +24,24 @@ export class ProtagonistsEditorComponent implements OnInit {
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.playerCharacters = this.actorService.getActors();
   }
 
   onSubmitProtagonists(): void {
     this.deleteActors(this.actorsToDelete);
     this.addActors(this.actorsToAdd);
-    let playerCharacters = this.playerCharacters.map(playerCharacter => {
-      return playerCharacter.copy();
-    })
-    this.actorService.setActors(playerCharacters);
-    this.managingFinishedEmitter.emit()
+    console.log(this.playerCharacters)
+    this.actorService.updatePlayerCharacters(this.playerCharacters)
+      .subscribe((playerCharacters: Actor[]) => {
+        this.playerCharacters = playerCharacters;
+      })
+    this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
   onCancelEdit(): void {
     this.playerCharacters = this.actorService.getActors();
     this.actorsToDelete = [];
     this.actorsToAdd = [];
-    this.managingFinishedEmitter.emit()
+    this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
   showDeleteButton(actor: Actor): boolean {
@@ -84,12 +85,15 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   private deleteActors(actorsToDelete: Actor[]): void {
-    for(let actor of actorsToDelete) {
-      if(this.playerCharacters.indexOf(actor) > -1) {
-        this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
-      }
-    }
-    this.actorsToDelete = [];
+    this.actorService.deletePlayerCharacters(actorsToDelete)
+      .subscribe(() => {
+        for(let actor of actorsToDelete) {
+          if(this.playerCharacters.indexOf(actor) > -1) {
+            this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
+          }
+        }
+        this.actorsToDelete = [];
+      });
   }
 
 
