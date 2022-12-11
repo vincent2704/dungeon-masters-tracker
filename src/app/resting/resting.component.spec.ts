@@ -4,6 +4,7 @@ import { RestingComponent } from './resting.component';
 import {ShortRestComponent} from "./short-rest/short-rest.component";
 import {FormsModule} from "@angular/forms";
 import {LongRestComponent} from "./long-rest/long-rest.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('RestingComponent', () => {
   let component: RestingComponent;
@@ -11,7 +12,7 @@ describe('RestingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       declarations: [ RestingComponent, ShortRestComponent, LongRestComponent ]
     })
     .compileComponents();
