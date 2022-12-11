@@ -18,19 +18,22 @@ export class PrepareBattleComponent implements OnInit {
   @Output()
   battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
 
-  actors: Actor[];
+  actors: Actor[] = [];
   encounters: Encounter[] = [];
 
   constructor(private actorService: ActorService, private encounterService: EncounterService) {
-    if (Settings.isAutoLoadProtagonists()) {
-      this.actors = actorService.getActors().slice();
-    } else {
-      this.actors = [];
-    }
   }
 
   ngOnInit(): void {
     this.encounters = this.encounterService.getEncounters();
+    if (Settings.isAutoLoadProtagonists()) {
+      this.actorService.getPlayerCharacters()
+        .subscribe((playerCharacters) => {
+          this.actors = playerCharacters;
+        })
+    } else {
+      this.actors = [];
+    }
   }
 
   removeActor(actor: Actor) {

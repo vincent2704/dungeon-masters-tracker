@@ -22,7 +22,10 @@ export class CombatDifficultyCalculatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.protagonists = this.actorService.getActors();
+    this.actorService.getPlayerCharacters()
+      .subscribe((playerCharacters) => {
+        this.protagonists = playerCharacters;
+      })
     this.protagonists.forEach(actor => {
       this.actorsSelectionStatusMap.set(actor, true);
     })

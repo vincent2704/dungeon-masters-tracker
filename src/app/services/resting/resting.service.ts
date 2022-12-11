@@ -40,7 +40,7 @@ export class RestingService {
         return;
       }
       this.regainHitDice(actor);
-      actor.modifyHp(actor.maxHP, this.temporalService.getCurrentDate());
+      actor.modifyHp(actor.maxHp, this.temporalService.getCurrentDate());
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);

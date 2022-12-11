@@ -38,7 +38,6 @@ export class EventService {
     }
 
     return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, this.httpOptions);
-    // this.campaignEvents.splice(this.campaignEvents.indexOf(event), 1);
   }
 
 }

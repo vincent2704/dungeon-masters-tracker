@@ -14,7 +14,9 @@ export class ProtagonistsInfoComponent implements OnInit {
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.playerCharacters = this.actorService.getActors();
+    this.actorService.getPlayerCharacters()
+      .subscribe((playerCharacters: Actor[]) => {
+        this.playerCharacters = playerCharacters;
+      })
   }
-
 }

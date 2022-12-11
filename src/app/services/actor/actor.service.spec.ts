@@ -97,14 +97,14 @@ describe('actorService', () => {
     let actor3 = new Actor('Actor 3', 1, 1, 3)
     service.setActors([actor1.copy(), actor2.copy(), actor3.copy()])
 
-    actor1.maxHP = 20;
+    actor1.maxHp = 20;
     actor2.level = 2;
     let actorsToUpdate = [actor1, actor2]
 
     // when
     service.updateActors(actorsToUpdate)
 
-    expect(service.getActors()[0].maxHP).toEqual(20);
+    expect(service.getActors()[0].maxHp).toEqual(20);
     expect(service.getActors()[1].level).toEqual(2);
     expect(service.getActors().length).toEqual(3);
   });

@@ -5,9 +5,10 @@ import {DateUtils} from "../utilities/date/dateUtils";
 
 export class Actor {
 
+  id?: number;
   name: string;
-  maxHP: number;
-  currentHP: number;
+  maxHp: number;
+  currentHp: number;
   initiative: number;
   level: number;
   battleConditions: BattleCondition[];
@@ -29,15 +30,15 @@ export class Actor {
     this.name = name;
 
     if (maxHP < 1) {
-      this.maxHP = 1;
+      this.maxHp = 1;
     } else {
-      this.maxHP = maxHP;
+      this.maxHp = maxHP;
     }
 
     if (currentHP < 0) {
-      this.currentHP = 0;
+      this.currentHp = 0;
     } else {
-      this.currentHP = currentHP;
+      this.currentHp = currentHP;
     }
     this.initiative = initiative;
     this.level = level;
@@ -47,15 +48,15 @@ export class Actor {
   }
 
   getMaxHP(): number {
-    return this.maxHP;
+    return this.maxHp;
   }
 
   getCurrentHP(): number {
-    return this.currentHP;
+    return this.currentHp;
   }
 
   modifyHp(hitPointsModifier: number, currentDate: Date): void {
-    let hpBeforeModifying = this.currentHP;
+    let hpBeforeModifying = this.currentHp;
     let isHeal: boolean = hitPointsModifier > 0;
     let isDamage: boolean = hitPointsModifier < 0;
 
@@ -81,14 +82,14 @@ export class Actor {
         }
       }
 
-      this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
+      this.currentHp = Number(this.currentHp) + Number(hitPointsModifier);
       if (this.getCurrentHP() <= -this.getMaxHP()) {
         this.kill(currentDate);
-        this.currentHP = 0;
+        this.currentHp = 0;
         return;
       }
       if (this.getCurrentHP() < 0) {
-        this.currentHP = 0;
+        this.currentHp = 0;
       }
       if (this.getCurrentHP() <= 0 && !this.isDead() && !this.hasCondition(Condition.UNCONSCIOUS)) {
         if (this.isEligibleForDeathSavingThrows()) {
@@ -103,9 +104,9 @@ export class Actor {
 
 
     if (isHeal) {
-      this.currentHP = Number(this.currentHP) + Number(hitPointsModifier);
-      if (this.currentHP > this.maxHP) {
-        this.currentHP = this.maxHP;
+      this.currentHp = Number(this.currentHp) + Number(hitPointsModifier);
+      if (this.currentHp > this.maxHp) {
+        this.currentHp = this.maxHp;
       }
 
       if (hpBeforeModifying == 0) {
@@ -154,7 +155,7 @@ export class Actor {
   }
 
   isKnockedDown(): boolean {
-    return this.currentHP == 0;
+    return this.currentHp == 0;
   }
 
   isStabilized(): boolean {
@@ -238,7 +239,7 @@ export class Actor {
   }
 
   copy(): Actor {
-    let actor = new Actor(this.name, this.maxHP, this.currentHP, this.initiative, this.level,
+    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.initiative, this.level,
       this.battleConditions, this.eligibleForDeathSavingThrows);
 
     actor.timeOfDeath = this.timeOfDeath;
@@ -284,7 +285,7 @@ export class Actor {
     }
 
     this.timeOfDeath = undefined;
-    this.modifyHp(this.maxHP*2, currentDate);
+    this.modifyHp(this.maxHp*2, currentDate);
     this.removeConditions(Condition.MAGICAL_CONDITIONS);
   }
 
@@ -298,7 +299,7 @@ export class Actor {
     }
 
     this.timeOfDeath = undefined;
-    this.modifyHp(this.maxHP*2, currentDate);
+    this.modifyHp(this.maxHp*2, currentDate);
     this.resurrectionPenalty = 4;
   }
 
@@ -313,7 +314,7 @@ export class Actor {
 
     this.timeOfDeath = undefined;
     this.clearConditions();
-    this.modifyHp(this.maxHP, currentDate);
+    this.modifyHp(this.maxHp, currentDate);
   }
 
   private getExpiredConditions(): Condition[] {
