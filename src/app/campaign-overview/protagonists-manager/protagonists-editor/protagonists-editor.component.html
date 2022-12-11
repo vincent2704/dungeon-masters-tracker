@@ -55,13 +55,13 @@
   </tr>
   <tr>
     <td>
-      <input class="form-control" i18n-placeholder="new character name placeholder|Placeholder for new character name" type="text" placeholder="New actor name" [(ngModel)]="newActorName">
+      <input class="form-control" i18n-placeholder="new character name placeholder|Placeholder for new character name" type="text" placeholder="New actor name" [(ngModel)]="actorToAdd.name">
     </td>
     <td>
-      <input class="form-control" i18n-placeholder="new character level placeholder|Placeholder for new character level" type="number" placeholder="New actor level" [(ngModel)]="newActorLevel">
+      <input class="form-control" i18n-placeholder="new character level placeholder|Placeholder for new character level" type="number" placeholder="New actor level" [(ngModel)]="actorToAdd.level">
     </td>
     <td colspan="2">
-      <input class="form-control" i18n-placeholder="new character max HP placeholder|Placeholder for new character max Hit Points" type="number" placeholder="New actor max hit points" [(ngModel)]="newActorMaxHp">
+      <input class="form-control" i18n-placeholder="new character max HP placeholder|Placeholder for new character max Hit Points" type="number" placeholder="New actor max hit points" [(ngModel)]="actorToAdd.maxHp">
     </td>
     <td>
       <button i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addActor()">Add</button>
