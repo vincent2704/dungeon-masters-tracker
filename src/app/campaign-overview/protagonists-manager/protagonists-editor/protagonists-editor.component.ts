@@ -29,7 +29,9 @@ export class ProtagonistsEditorComponent implements OnInit {
   onSubmitProtagonists(): void {
     this.deleteActors(this.actorsToDelete);
     this.addActors(this.actorsToAdd);
-    console.log(this.playerCharacters)
+
+    this.actorService.deletePlayerCharacters(this.actorsToDelete)
+      .subscribe();
     this.actorService.updatePlayerCharacters(this.playerCharacters)
       .subscribe((playerCharacters: Actor[]) => {
         this.playerCharacters = playerCharacters;

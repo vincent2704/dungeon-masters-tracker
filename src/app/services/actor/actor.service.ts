@@ -33,7 +33,6 @@ export class ActorService {
     if(environment.environmentName == Environment.GHPAGES) {
       return of(PROTAGONISTS);
     }
-    console.log(this.playerCharactersUrl, this.httpOptions)
     return this.httpClient.get<Actor[]>(this.playerCharactersUrl, this.httpOptions);
   }
 
