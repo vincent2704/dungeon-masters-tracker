@@ -85,11 +85,10 @@ describe('ProtagonistsEditorComponent', () => {
     actor1.setLevel(1);
     let actor2 = new Actor('Actor 2', 15);
     let actor3 = new Actor('Actor 3', 14);
-    let actorsFromService = [actor1, actor2, actor3];
 
-    actorServiceSpy.getActors.and.returnValue(actorsFromService)
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;
+    component.playerCharacters = [actor1, actor2, actor3]
     fixture.detectChanges();
 
     //when
@@ -107,8 +106,9 @@ describe('ProtagonistsEditorComponent', () => {
     component.onCancelEdit();
 
     //then
-    expect(actorServiceSpy.setActors).toHaveBeenCalledTimes(0);
-    expect(actorServiceSpy.getActors).toHaveBeenCalled();
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledTimes(0);
+    expect(actorServiceSpy.deletePlayerCharacters).toHaveBeenCalledTimes(0);
+    expect(component.playerCharacters).toEqual([actor1, actor2, actor3]);
   });
 
 });
