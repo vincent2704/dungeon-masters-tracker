@@ -32,9 +32,10 @@ export class PrepareBattleComponent implements OnInit {
     if (Settings.isAutoLoadProtagonists()) {
       this.actorService.getPlayerCharacters()
         .subscribe((playerCharacters) => {
-          this.actors = playerCharacters;
           for(let pc of playerCharacters) {
-            this.actorsToInitiativeMap.set(pc, 1);
+            let character = this.actorService.fromJson(pc)
+            this.actors.push(character);
+            this.actorsToInitiativeMap.set(character, 1);
           }
         })
     }

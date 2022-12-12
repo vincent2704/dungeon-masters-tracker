@@ -37,7 +37,6 @@ export class BattleComponent implements OnInit {
     this.actorsToInitiativeMap = this.battleService.actorsToInitiativeMap;
     this.actors = Array.from(this.sortActorsByInitiative())
       .map(entry => entry[0]);
-    // this.actors = this.sortActorsByInitiative();
     this.resolveInitiativeConflicts();
     this.isBattleStarted = true;
   }
@@ -47,17 +46,11 @@ export class BattleComponent implements OnInit {
     this.conflictResolvedActors = [];
   }
 
-  // sortActorsByInitiative(): Actor[] {
-  //   this.actors.sort(
-  //     ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
-  //   return this.actors;
-  // }
-
   sortActorsByInitiative(): Map<Actor, number> {
     return new Map<Actor, number>(
       Array.from(this.actorsToInitiativeMap)
         .sort((entry1, entry2) => {
-          return entry1[1] - entry2[1];
+          return entry2[1] - entry1[1];
         })
     )
   }
@@ -116,35 +109,7 @@ export class BattleComponent implements OnInit {
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
     let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
 
-    // let occurredInitiatives: number[] = [];
-    // let duplicateInitiatives: number[] = [];
-    //
-    // let actorsToInitiativeEntryArray = Array.from(this.actorsToInitiativeMap);
-    // actorsToInitiativeEntryArray
-    //   .forEach(entry => {
-    //     if (occurredInitiatives.find(occurred => occurred == entry[1])) {
-    //       duplicateInitiatives.push(entry[1]);
-    //     } else {
-    //       if (!duplicateInitiatives.find(duplicate => duplicate == entry[1]))
-    //         occurredInitiatives.push(entry[1]);
-    //     }
-    //   });
-    //
-    // for(const duplicate of duplicateInitiatives) {
-    //   initiativeToActorsMap.set(duplicate, []);
-    // }
-    //
-    // for (const entry of actorsToInitiativeEntryArray) {
-    //   for (const duplicate of duplicateInitiatives) {
-    //     if(entry[1] == duplicate) {
-    //       initiativeToActorsMap.set()
-    //     }
-    //   }
-    // }
-
-    let actorsToInitiativeEntryArray = Array.from(this.actorsToInitiativeMap);
-
-    actorsToInitiativeEntryArray.map(entry => {
+    Array.from(this.actorsToInitiativeMap).map(entry => {
       let initiative = entry[1];
       let isInitiativePresentInMap = initiativeToActorsMap.get(initiative);
       if (!isInitiativePresentInMap) {
@@ -154,15 +119,6 @@ export class BattleComponent implements OnInit {
       }
     })
 
-  //   this.actors.map(actor => {
-  //     let key = actor.getInitiative();
-  //     let isInitiativePresentInMap = initiativeToActorsMap.get(key);
-  //     if (!isInitiativePresentInMap) {
-  //       initiativeToActorsMap.set(key, [actor]);
-  //     } else {
-  //       initiativeToActorsMap.get(key)!.push(actor);
-  //     }
-  //   });
     return initiativeToActorsMap;
   }
 

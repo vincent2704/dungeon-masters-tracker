@@ -15,7 +15,7 @@ export class Actor {
   private eligibleForDeathSavingThrows: boolean;
   private temporaryHP: TemporaryHP;
   private stabilized: boolean = false;
-  private timeOfDeath?: Date = undefined;
+  timeOfDeath?: Date = undefined;
   private resurrectionPenalty: number = 0;
 
   constructor(
@@ -188,6 +188,10 @@ export class Actor {
 
   getResurrectionPenalty(): number {
     return this.resurrectionPenalty;
+  }
+
+  setResurrectionPenalty(penalty: number): void {
+    this.resurrectionPenalty = penalty;
   }
 
   getTemporaryHitPoints(): TemporaryHP {
