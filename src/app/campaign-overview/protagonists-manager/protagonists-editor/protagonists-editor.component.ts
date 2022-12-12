@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 
@@ -10,37 +10,48 @@ import {ActorService} from "../../../services/actor/actor.service";
 export class ProtagonistsEditorComponent implements OnInit {
 
   @Output()
-  managingFinishedEmitter = new EventEmitter<void>()
+  managingFinishedEmitter = new EventEmitter<Actor[]>()
 
-  playerCharacters: Actor[] = [];
+  @Input()
+  playerCharacters!: Actor[];
 
-  newActorName: string = '';
-  newActorLevel: string = '';
-  newActorMaxHp: string = '';
+  actorToAdd = {
+    name: '',
+    level: '',
+    maxHp: ''
+  }
   actorsToDelete: Actor[] = [];
   actorsToAdd: Actor[] = [];
 
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.playerCharacters = this.actorService.getActors();
   }
 
   onSubmitProtagonists(): void {
-    this.deleteActors(this.actorsToDelete);
+    if(this.actorsToDelete.length > 0) {
+      this.actorService.deletePlayerCharacters(this.actorsToDelete)
+        .subscribe();
+      for(let actor of this.actorsToDelete) {
+        if(this.playerCharacters.indexOf(actor) > -1) {
+          this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
+        }
+      }
+      this.actorsToDelete = [];
+    }
     this.addActors(this.actorsToAdd);
-    let playerCharacters = this.playerCharacters.map(playerCharacter => {
-      return playerCharacter.copy();
-    })
-    this.actorService.setActors(playerCharacters);
-    this.managingFinishedEmitter.emit()
+
+    this.actorService.updatePlayerCharacters(this.playerCharacters)
+      .subscribe((playerCharacters: Actor[]) => {
+        this.playerCharacters = playerCharacters;
+      })
+    this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
   onCancelEdit(): void {
-    this.playerCharacters = this.actorService.getActors();
     this.actorsToDelete = [];
     this.actorsToAdd = [];
-    this.managingFinishedEmitter.emit()
+    this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
   showDeleteButton(actor: Actor): boolean {
@@ -56,12 +67,14 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   addActor(): void {
-    let newActor = new Actor(this.newActorName, parseInt(this.newActorMaxHp), parseInt(this.newActorMaxHp),
-      0, parseInt(this.newActorLevel));
+    let newActor = new Actor(this.actorToAdd.name, parseInt(this.actorToAdd.maxHp), parseInt(this.actorToAdd.maxHp),
+      0, parseInt(this.actorToAdd.level));
     this.actorsToAdd.push(newActor);
-    this.newActorName = '';
-    this.newActorLevel = '';
-    this.newActorMaxHp = '';
+    this.actorToAdd = {
+      name: '',
+      maxHp: '',
+      level: ''
+    }
   }
 
   onSetActorToDelete(actor: Actor): void {
@@ -84,12 +97,8 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   private deleteActors(actorsToDelete: Actor[]): void {
-    for(let actor of actorsToDelete) {
-      if(this.playerCharacters.indexOf(actor) > -1) {
-        this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
-      }
-    }
-    this.actorsToDelete = [];
+    this.actorService.deletePlayerCharacters(actorsToDelete)
+      .subscribe();
   }
 
 

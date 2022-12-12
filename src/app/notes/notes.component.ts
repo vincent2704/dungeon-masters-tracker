@@ -27,15 +27,6 @@ export class NotesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showBackendNotes();
-  }
-
-  addNote(newNote: Note): void {
-    this.noteBackendService.addNote(newNote)
-      .subscribe(note => this.notesBackend.push(note));
-  }
-
-  showBackendNotes() {
     this.noteBackendService.getNotes()
       .subscribe(
         (data: Note[]) => {
@@ -44,6 +35,11 @@ export class NotesComponent implements OnInit {
           }
         }
       );
+  }
+
+  addNote(newNote: Note): void {
+    this.noteBackendService.addNote(newNote)
+      .subscribe(note => this.notesBackend.push(note));
   }
 
   showBackendNote(note: Note) {

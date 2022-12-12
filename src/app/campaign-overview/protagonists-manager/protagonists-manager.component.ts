@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actor";
+import {ActorService} from "../../services/actor/actor.service";
 
 @Component({
   selector: 'app-protagonists-manager',
@@ -19,13 +20,22 @@ export class ProtagonistsManagerComponent implements OnInit {
   actorsToDelete: Actor[] = [];
   actorsToAdd: Actor[] = [];
 
-  constructor() { }
+  constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
+    this.actorService.getPlayerCharacters()
+      .subscribe((playerCharacters: Actor[]) => {
+        this.playerCharacters = playerCharacters;
+      })
   }
 
   onManageProtagonists(): void {
     this.managingProtagonists = !this.managingProtagonists;
+  }
+
+  onProtagonistsChangesSubmitted(playerCharacters: Actor[]): void {
+    this.managingProtagonists = false;
+    this.playerCharacters = playerCharacters;
   }
 
 }

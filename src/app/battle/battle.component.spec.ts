@@ -11,6 +11,7 @@ import {
   MonsterBattleListSelectorComponent
 } from "./prepare-battle/monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -18,7 +19,7 @@ describe('BattleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent]
     })
       .compileComponents();

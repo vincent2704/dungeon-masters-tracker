@@ -10,6 +10,7 @@ import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
 import {MonsterList} from "../../models/monsters/monsterList";
+import {of} from "rxjs";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -23,7 +24,7 @@ describe('PrepareBattleComponent', () => {
   ];
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getActors']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters']);
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
       declarations: [ PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent ],
@@ -36,7 +37,7 @@ describe('PrepareBattleComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getActors.and.returnValue(defaultActors);
+    actorServiceSpy.getPlayerCharacters.and.returnValue(of(defaultActors));
     Settings.setAutoLoadProtagonists(true);
 
     fixture = TestBed.createComponent(PrepareBattleComponent);

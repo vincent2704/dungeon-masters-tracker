@@ -1,31 +1,43 @@
 import { Injectable } from '@angular/core';
 import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
-import {TemporalService} from "../temporal/temporal.service";
+import {Environment} from "../../environment";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable, of} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private campaignEvents: CampaignEvent[];
-
-  constructor(private temporalService: TemporalService) {
-    // TODO: backend call
-    this.campaignEvents = []
+  private readonly eventsUrl: string = `${Environment.HOST_ADDRESS}/v1/events`
+  private readonly httpOptions = {
+    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
   }
 
-  getCampaignEvents(): CampaignEvent[] {
-    return this.campaignEvents;
+  private campaignEvents: Observable<CampaignEvent[]> = new Observable<CampaignEvent[]>();
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  addCampaignEvent(eventTitle: string, eventDescription: string,
-                   campaignDate: Date = this.temporalService.getCurrentDate()) {
-
-    //TODO: backend call
-    this.campaignEvents.push(new CampaignEvent(eventTitle, eventDescription, campaignDate, new Date(Date.now())));
+  getCampaignEvents(): Observable<CampaignEvent[]> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return this.campaignEvents;
+    }
+    return this.httpClient.get<CampaignEvent[]>(this.eventsUrl, this.httpOptions);
   }
 
-  deleteEvent(event: CampaignEvent) {
-    this.campaignEvents.splice(this.campaignEvents.indexOf(event), 1);
+  addCampaignEvent(newEvent: CampaignEvent): Observable<CampaignEvent> {
+    return this.httpClient.post<CampaignEvent>(this.eventsUrl, newEvent, this.httpOptions);
+    // this.campaignEvents.push(new CampaignEvent(eventTitle, eventDescription, campaignDate, new Date(Date.now())));
   }
+
+  deleteEvent(eventId: number): Observable<unknown> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(eventId);
+    }
+
+    return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, this.httpOptions);
+  }
+
 }

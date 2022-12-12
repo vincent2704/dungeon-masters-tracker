@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProtagonistsEditorComponent } from './protagonists-editor.component';
+import {ProtagonistsEditorComponent} from './protagonists-editor.component';
 import {Actor} from "../../../models/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 import {FormsModule} from "@angular/forms";
+import {Observable, of} from "rxjs";
 
 describe('ProtagonistsEditorComponent', () => {
   let component: ProtagonistsEditorComponent;
@@ -11,7 +12,7 @@ describe('ProtagonistsEditorComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getActors', 'deleteActor', 'setActors']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters', 'deletePlayerCharacters', 'updatePlayerCharacters']);
 
     await TestBed.configureTestingModule({
       imports: [ FormsModule ],
@@ -25,7 +26,7 @@ describe('ProtagonistsEditorComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getActors.and.returnValue([]);
+    actorServiceSpy.getPlayerCharacters.and.returnValue(of([]));
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -49,23 +50,32 @@ describe('ProtagonistsEditorComponent', () => {
     let actor1 = new Actor('Actor', 10);
     let actor2 = new Actor('Actor 2', 15);
     let actor3 = new Actor('Actor 3', 14);
-    let actorsFromService = [actor1, actor2, actor3];
-    actorServiceSpy.getActors.and.returnValue(actorsFromService)
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;
+
+    // component gets player characters from parent component during initialization
+    component.playerCharacters = [actor1, actor2, actor3];
     fixture.detectChanges();
 
-    // when
-    component.playerCharacters[0].level = 12
-    component.playerCharacters.splice(2);
-    expect(component.playerCharacters.length).toEqual(2);
 
+    component.onSetActorToDelete(actor3)
+    actorServiceSpy.deletePlayerCharacters.withArgs([actor3])
+      .and.returnValue(new Observable<unknown>());
+
+    component.actorToAdd = {
+      name: 'New Actor',
+      level: '1',
+      maxHp: '10'
+    }
+    component.addActor();
+
+    actorServiceSpy.updatePlayerCharacters.withArgs(component.playerCharacters)
+      .and.returnValue(of(component.playerCharacters))
     component.onSubmitProtagonists()
 
     // then
-    expect(actorServiceSpy.setActors).toHaveBeenCalledOnceWith([
-      new Actor('Actor', 10, 10, 0, 12),
-      new Actor('Actor 2', 15)
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
+      actor1, actor2, new Actor('New Actor', 10, 10, 0, 1)
     ])
   });
 
@@ -75,28 +85,30 @@ describe('ProtagonistsEditorComponent', () => {
     actor1.setLevel(1);
     let actor2 = new Actor('Actor 2', 15);
     let actor3 = new Actor('Actor 3', 14);
-    let actorsFromService = [actor1, actor2, actor3];
 
-    actorServiceSpy.getActors.and.returnValue(actorsFromService)
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;
+    component.playerCharacters = [actor1, actor2, actor3]
     fixture.detectChanges();
 
     //when
     component.playerCharacters[0].level = 12;
     component.onSetActorToDelete(actor2);
 
-    component.newActorName = 'Actor 4'
-    component.newActorLevel = '4';
-    component.newActorMaxHp = '5'
+    component.actorToAdd = {
+      name: 'New Actor',
+      level: '1',
+      maxHp: '10'
+    }
     component.addActor();
 
     //and
     component.onCancelEdit();
 
     //then
-    expect(actorServiceSpy.setActors).toHaveBeenCalledTimes(0);
-    expect(actorServiceSpy.getActors).toHaveBeenCalled();
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledTimes(0);
+    expect(actorServiceSpy.deletePlayerCharacters).toHaveBeenCalledTimes(0);
+    expect(component.playerCharacters).toEqual([actor1, actor2, actor3]);
   });
 
 });

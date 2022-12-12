@@ -8,6 +8,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CampaignEventsComponent} from "./campaign-events/campaign-events.component";
 import {ProtagonistsManagerComponent} from "./protagonists-manager/protagonists-manager.component";
 import {ProtagonistsInfoComponent} from "./protagonists-manager/protagonists-info/protagonists-info.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {of} from "rxjs";
 
 describe('CampaignOverviewComponent', () => {
   let component: CampaignOverviewComponent;
@@ -15,10 +17,10 @@ describe('CampaignOverviewComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getActors', 'deleteActor', 'setActors']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule, NgbModule],
+      imports: [FormsModule, NgbModule, HttpClientTestingModule],
       declarations: [ CampaignOverviewComponent, TimeConfigurationComponent,
         CampaignEventsComponent, ProtagonistsManagerComponent, ProtagonistsInfoComponent ],
       providers: [
@@ -30,7 +32,7 @@ describe('CampaignOverviewComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getActors.and.returnValue([]);
+    actorServiceSpy.getPlayerCharacters.and.returnValue(of([]));
     fixture = TestBed.createComponent(CampaignOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

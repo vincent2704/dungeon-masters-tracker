@@ -1,29 +1,9 @@
-export class CampaignEvent {
+export interface CampaignEvent {
 
-  constructor(
-    private title: string,  private description: string,
-    private campaignDate: Date,   private realWorldDate: Date) {
-  }
+  title: string;
+  body: string;
+  campaignDateTimeOccurredEpoch?: number;
+  realDateTimeCreatedEpoch?: number;
+  id?: number;
 
-  getTitle(): string {
-    return this.title;
-  }
-
-  getDescription(): string {
-    return this.description;
-  }
-
-  getCampaignDateFormatted(): string {
-    return `${this.campaignDate.getDate()}` +
-    ` ${this.campaignDate.toLocaleString('en-US', {month: 'long'})}` +
-    ` ${this.campaignDate.getFullYear()}, ${this.campaignDate.getHours()}:${this.campaignDate.getMinutes()}`;
-  }
-
-  getRealWorldDateFormatted(): string {
-    return `
-    ${this.realWorldDate.getDate()},
-    ${this.realWorldDate.toLocaleString('en-US', {month: 'long'})},
-    ${this.realWorldDate.getFullYear()},
-    ${this.realWorldDate.getHours()}:${this.realWorldDate.getMinutes()}`
-  }
 }

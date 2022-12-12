@@ -161,10 +161,10 @@ describe('RestingService', () => {
     service.performLongRest(8);
 
     //then
-    expect(actor1.currentHP).toEqual(actor1.maxHP);
-    expect(actor2.currentHP).toEqual(actor2.maxHP);
-    expect(actor3.currentHP).toEqual(actor3.maxHP);
-    expect(actor4.currentHP).toEqual(0);
+    expect(actor1.currentHp).toEqual(actor1.maxHp);
+    expect(actor2.currentHp).toEqual(actor2.maxHp);
+    expect(actor3.currentHp).toEqual(actor3.maxHp);
+    expect(actor4.currentHp).toEqual(0);
 
     expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>(
       [
