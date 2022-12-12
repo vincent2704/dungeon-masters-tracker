@@ -51,8 +51,9 @@ export class PrepareBattleComponent implements OnInit {
     this.actorsToInitiativeMap.set(actor, inputValue);
   }
 
-  addActor(actor: Actor) {
-    this.actors.push(actor);
+  addActor(actorInitiativePair: [playerCharacter: Actor, initiative: number]) {
+    this.actors.push(actorInitiativePair[0]);
+    this.actorsToInitiativeMap.set(actorInitiativePair[0], actorInitiativePair[1]);
   }
 
   startBattle() {

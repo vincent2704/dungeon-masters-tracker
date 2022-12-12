@@ -68,7 +68,7 @@ export class ProtagonistsEditorComponent implements OnInit {
 
   addActor(): void {
     let newActor = new Actor(this.actorToAdd.name, parseInt(this.actorToAdd.maxHp), parseInt(this.actorToAdd.maxHp),
-      0, parseInt(this.actorToAdd.level));
+      parseInt(this.actorToAdd.level));
     this.actorsToAdd.push(newActor);
     this.actorToAdd = {
       name: '',

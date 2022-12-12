@@ -49,7 +49,7 @@ export class ActorService {
     actor.id = id;
     actor.currentHp = currentHp;
     actor.level = level;
-    actor.timeOfDeath = timeOfDeath;
+    actor.setTimeOfDeath(timeOfDeath);
     actor.setResurrectionPenalty(resurrectionPenalty);
 
     return actor;
