@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
+import {BattleService} from "../services/battle/battle.service";
 
 @Component({
   selector: 'app-battle',
@@ -12,12 +12,10 @@ export class BattleComponent implements OnInit {
 
   isBattleStarted: boolean = false;
   actors: Actor[] = [];
+  actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
-
-  @ViewChild('prepareBattleComponent')
-  prepareBattleComponent!: PrepareBattleComponent;
 
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
@@ -25,7 +23,8 @@ export class BattleComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private modalConfig: NgbModalConfig
+    private modalConfig: NgbModalConfig,
+    private battleService: BattleService
   ) {
     modalConfig.backdrop = 'static';
     modalConfig.keyboard = false;
@@ -35,8 +34,10 @@ export class BattleComponent implements OnInit {
   }
 
   startBattle(): void {
-    this.actors = this.prepareBattleComponent.actors;
-    this.actors = this.sortActorsByInitiative();
+    this.actorsToInitiativeMap = this.battleService.actorsToInitiativeMap;
+    this.actors = Array.from(this.sortActorsByInitiative())
+      .map(entry => entry[0]);
+    // this.actors = this.sortActorsByInitiative();
     this.resolveInitiativeConflicts();
     this.isBattleStarted = true;
   }
@@ -46,10 +47,19 @@ export class BattleComponent implements OnInit {
     this.conflictResolvedActors = [];
   }
 
-  sortActorsByInitiative(): Actor[] {
-    this.actors.sort(
-      ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
-    return this.actors;
+  // sortActorsByInitiative(): Actor[] {
+  //   this.actors.sort(
+  //     ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
+  //   return this.actors;
+  // }
+
+  sortActorsByInitiative(): Map<Actor, number> {
+    return new Map<Actor, number>(
+      Array.from(this.actorsToInitiativeMap)
+        .sort((entry1, entry2) => {
+          return entry1[1] - entry2[1];
+        })
+    )
   }
 
   resolveInitiativeConflicts(): void {
@@ -70,7 +80,7 @@ export class BattleComponent implements OnInit {
   }
 
   onClickResolveConflict(): void {
-    this.actors = this.getInitiativeConflictResolvedActors();
+    this.actors = this.getInitiativeConflictResolvedActors(); //
     for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
       this.conflictResolvedActors.push(resolvedActor);
     }
@@ -105,15 +115,54 @@ export class BattleComponent implements OnInit {
 
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
     let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
-    this.actors.map(actor => {
-      let key = actor.getInitiative();
-      let isInitiativePresentInMap = initiativeToActorsMap.get(key);
+
+    // let occurredInitiatives: number[] = [];
+    // let duplicateInitiatives: number[] = [];
+    //
+    // let actorsToInitiativeEntryArray = Array.from(this.actorsToInitiativeMap);
+    // actorsToInitiativeEntryArray
+    //   .forEach(entry => {
+    //     if (occurredInitiatives.find(occurred => occurred == entry[1])) {
+    //       duplicateInitiatives.push(entry[1]);
+    //     } else {
+    //       if (!duplicateInitiatives.find(duplicate => duplicate == entry[1]))
+    //         occurredInitiatives.push(entry[1]);
+    //     }
+    //   });
+    //
+    // for(const duplicate of duplicateInitiatives) {
+    //   initiativeToActorsMap.set(duplicate, []);
+    // }
+    //
+    // for (const entry of actorsToInitiativeEntryArray) {
+    //   for (const duplicate of duplicateInitiatives) {
+    //     if(entry[1] == duplicate) {
+    //       initiativeToActorsMap.set()
+    //     }
+    //   }
+    // }
+
+    let actorsToInitiativeEntryArray = Array.from(this.actorsToInitiativeMap);
+
+    actorsToInitiativeEntryArray.map(entry => {
+      let initiative = entry[1];
+      let isInitiativePresentInMap = initiativeToActorsMap.get(initiative);
       if (!isInitiativePresentInMap) {
-        initiativeToActorsMap.set(key, [actor]);
+        initiativeToActorsMap.set(initiative, [entry[0]]);
       } else {
-        initiativeToActorsMap.get(key)!.push(actor);
+        initiativeToActorsMap.get(initiative)!.push(entry[0]);
       }
-    });
+    })
+
+  //   this.actors.map(actor => {
+  //     let key = actor.getInitiative();
+  //     let isInitiativePresentInMap = initiativeToActorsMap.get(key);
+  //     if (!isInitiativePresentInMap) {
+  //       initiativeToActorsMap.set(key, [actor]);
+  //     } else {
+  //       initiativeToActorsMap.get(key)!.push(actor);
+  //     }
+  //   });
     return initiativeToActorsMap;
   }
 
