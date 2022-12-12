@@ -19,7 +19,9 @@
           <td>{{actor.currentHp}} ({{actor.maxHp}})</td>
           <td>
             <label for="initiative">Set initiative:</label>
-            <input class="form-control form-control-sm" id="initiative" type="text" required [(ngModel)]="actor.initiative">
+            <input class="form-control form-control-sm" id="initiative" type="text" required
+                   (keyup)="setActorInitiative(actor, $event)"
+                   [value]="actorsToInitiativeMap.get(actor)">
           </td>
           <td>
             <button class="btn btn-primary" (click)="removeActor(actor)">Remove</button>

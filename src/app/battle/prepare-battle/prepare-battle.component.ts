@@ -5,6 +5,7 @@ import {Settings} from "../../services/settings/settings";
 import {Monster} from "../../models/monsters/monster";
 import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
+import {BattleService} from "../../services/battle/battle.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -20,8 +21,10 @@ export class PrepareBattleComponent implements OnInit {
 
   actors: Actor[] = [];
   encounters: Encounter[] = [];
+  actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
-  constructor(private actorService: ActorService, private encounterService: EncounterService) {
+  constructor(private actorService: ActorService, private encounterService: EncounterService,
+              private battleService: BattleService) {
   }
 
   ngOnInit(): void {
@@ -30,9 +33,10 @@ export class PrepareBattleComponent implements OnInit {
       this.actorService.getPlayerCharacters()
         .subscribe((playerCharacters) => {
           this.actors = playerCharacters;
+          for(let pc of playerCharacters) {
+            this.actorsToInitiativeMap.set(pc, 1);
+          }
         })
-    } else {
-      this.actors = [];
     }
   }
 
@@ -41,11 +45,17 @@ export class PrepareBattleComponent implements OnInit {
     this.actors.splice(this.actors.indexOf(actor), 1);
   }
 
+  setActorInitiative(actor: Actor, event: any) {
+    const inputValue = event.target.value
+    this.actorsToInitiativeMap.set(actor, inputValue);
+  }
+
   addActor(actor: Actor) {
     this.actors.push(actor);
   }
 
   startBattle() {
+    this.battleService.setActorsMap(this.actorsToInitiativeMap);
     this.battleStartedEmitter.emit();
   }
 
