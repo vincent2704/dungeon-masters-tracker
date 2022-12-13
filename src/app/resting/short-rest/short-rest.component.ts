@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {RestingService} from "../../services/resting/resting.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {ActorService} from "../../services/actor/actor.service";

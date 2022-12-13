@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ActorService} from './actor.service';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('actorService', () => {

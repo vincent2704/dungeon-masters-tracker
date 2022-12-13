@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Encounter} from "../../../models/encounter";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {CombatUtils, MonsterHitPointsRule} from "../../../services/combat/combatUtils";
 
 @Component({

@@ -1,7 +1,7 @@
 // class for testing Actor logic
 import {Actor} from "./actor";
-import {Condition} from "./Condition";
-import {BattleCondition} from "./battleCondition";
+import {Condition} from "../Condition";
+import {BattleCondition} from "../battleCondition";
 
 describe('Actor', () => {
 

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManualCalculatorComponent } from './manual-calculator.component';
 import {FormsModule} from "@angular/forms";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 

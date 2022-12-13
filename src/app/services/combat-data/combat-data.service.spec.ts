@@ -1,5 +1,5 @@
 import {CombatDataService} from './combat-data.service';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Difficulty} from "../../models/combat-data/Difficulty";
 
 describe('CombatDataService', () => {

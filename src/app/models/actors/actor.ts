@@ -1,7 +1,7 @@
-import {Condition} from "./Condition";
-import {BattleCondition} from "./battleCondition";
-import {TemporaryHP} from "./temporaryHP";
-import {DateUtils} from "../utilities/date/dateUtils";
+import {Condition} from "../Condition";
+import {BattleCondition} from "../battleCondition";
+import {TemporaryHP} from "../temporaryHP";
+import {DateUtils} from "../../utilities/date/dateUtils";
 
 export class Actor {
 

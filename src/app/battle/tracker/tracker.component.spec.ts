@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrackerComponent } from './tracker.component';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
 import {FormsModule} from "@angular/forms";

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResurrectionComponent } from './resurrection.component';
 import {NgbCollapse, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 

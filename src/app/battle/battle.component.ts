@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Actor} from "../models/actor";
+import {Actor} from "../models/actors/actor";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {BattleService} from "../services/battle/battle.service";
 import {ActorService} from "../services/actor/actor.service";

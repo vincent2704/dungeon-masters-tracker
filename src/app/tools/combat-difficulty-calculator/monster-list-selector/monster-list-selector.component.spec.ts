@@ -4,7 +4,7 @@ import {MonsterListSelectorComponent} from './monster-list-selector.component';
 import {MonsterService} from "../../../services/monster/monster.service";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {Monster} from "../../../models/monsters/monster";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 import {FormsModule} from "@angular/forms";

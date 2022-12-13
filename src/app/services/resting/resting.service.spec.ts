@@ -3,7 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {RestingService} from './resting.service';
 import {ActorService} from "../actor/actor.service";
 import {TemporalService} from "../temporal/temporal.service";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 
 describe('RestingService', () => {
