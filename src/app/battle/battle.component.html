@@ -1,5 +1,6 @@
 <div class="container">
   <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted else appTracker"
+                      [actors]="actors"
                       (battleStartedEmitter)="startBattle()"></app-prepare-battle>
   <ng-template #appTracker>
     <app-tracker (battleEndedEmitter)="endBattle()" [actors]="actors"></app-tracker>

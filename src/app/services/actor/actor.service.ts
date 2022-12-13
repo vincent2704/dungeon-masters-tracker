@@ -36,6 +36,18 @@ export class ActorService {
     return this.httpClient.get<Actor[]>(this.playerCharactersUrl, this.httpOptions);
   }
 
+  fromJson(data: any): Actor {
+    let actor = new Actor(data.name, data.maxHp);
+
+    actor.id = data.id;
+    actor.currentHp = data.currentHp;
+    actor.level = data.level;
+    actor.setTimeOfDeath(data.timeOfDeath);
+    actor.setResurrectionPenalty(data.resurrectionPenalty);
+
+    return actor;
+  }
+
   findActorByName(actorName: string): Actor {
     return this.actors.find(actor => actor.name == actorName)!;
   }

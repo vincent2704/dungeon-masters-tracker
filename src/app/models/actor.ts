@@ -9,7 +9,6 @@ export class Actor {
   name: string;
   maxHp: number;
   currentHp: number;
-  initiative: number;
   level: number;
   battleConditions: BattleCondition[];
   private eligibleForDeathSavingThrows: boolean;
@@ -22,7 +21,6 @@ export class Actor {
     name: string,
     maxHP: number,
     currentHP: number = maxHP,
-    initiative: number = 0,
     level: number = 1,
     battleConditions: BattleCondition[] = [],
     eligibleForSavingThrows: boolean = true,
@@ -40,7 +38,6 @@ export class Actor {
     } else {
       this.currentHp = currentHP;
     }
-    this.initiative = initiative;
     this.level = level;
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = eligibleForSavingThrows;
@@ -117,14 +114,6 @@ export class Actor {
 
   }
 
-  getInitiative(): number {
-    return this.initiative;
-  }
-
-  setInitiative(initiative: number): void {
-    this.initiative = initiative;
-  }
-
   getLevel(): number {
     return this.level;
   }
@@ -186,8 +175,16 @@ export class Actor {
     return this.timeOfDeath!;
   }
 
+  setTimeOfDeath(timeOfDeath: Date) {
+    this.timeOfDeath = timeOfDeath;
+  }
+
   getResurrectionPenalty(): number {
     return this.resurrectionPenalty;
+  }
+
+  setResurrectionPenalty(penalty: number): void {
+    this.resurrectionPenalty = penalty;
   }
 
   getTemporaryHitPoints(): TemporaryHP {
@@ -239,7 +236,7 @@ export class Actor {
   }
 
   copy(): Actor {
-    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.initiative, this.level,
+    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.level,
       this.battleConditions, this.eligibleForDeathSavingThrows);
 
     actor.timeOfDeath = this.timeOfDeath;

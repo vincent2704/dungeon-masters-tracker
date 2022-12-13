@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actor";
+import {BattleService} from "../../services/battle/battle.service";
 
 @Component({
   selector: 'app-add-actor',
@@ -13,9 +14,9 @@ export class AddActorComponent implements OnInit {
   deathSavingThrowEligibility: boolean = false;
 
   @Output()
-  actorEmitter = new EventEmitter<Actor>();
+  actorEmitter = new EventEmitter<[playerCharacter: Actor, initiative: number]>();
 
-  constructor() {
+  constructor(private battleService: BattleService) {
   }
 
   ngOnInit(): void {
@@ -23,8 +24,8 @@ export class AddActorComponent implements OnInit {
 
   onSubmit() {
     let newActor = new Actor(this.formActorName, this.formActorMaxHp);
-    newActor.setInitiative(this.formActorInitiative);
     newActor.setDeathSavingThrowsEligibility(this.deathSavingThrowEligibility);
+    this.battleService.getActorsMap().set(newActor, this.formActorInitiative)
     this.addActor(newActor);
   }
 
@@ -33,6 +34,6 @@ export class AddActorComponent implements OnInit {
   }
 
   addActor(actor: Actor) {
-    this.actorEmitter.emit(actor);
+    this.actorEmitter.emit([actor, this.formActorInitiative]);
   }
 }

@@ -52,8 +52,8 @@ export class TrackerComponent implements OnInit {
     return this.progressedActors.includes(actorToCheck);
   }
 
-  addActor(actor: Actor) {
-    this.actors.push(actor);
+  addActor(actorInitiativePair: [playerCharacter: Actor, initiative: number]) {
+    this.actors.push(actorInitiativePair[0]);
   }
 
   onSubmitHP(actor: Actor, event: any): void {
