@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Actor} from "../models/actor";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {BattleService} from "../services/battle/battle.service";
+import {ActorService} from "../services/actor/actor.service";
+import {Settings} from "../services/settings/settings";
 
 @Component({
   selector: 'app-battle',
@@ -22,6 +24,7 @@ export class BattleComponent implements OnInit {
   conflictResolvedActors: Actor[] = [];
 
   constructor(
+    private actorService: ActorService,
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
     private battleService: BattleService
@@ -31,10 +34,16 @@ export class BattleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (Settings.isAutoLoadProtagonists()) {
+      this.actorService.getPlayerCharacters()
+        .subscribe((playerCharacters) => {
+          this.mapResponseToActorsArray(playerCharacters);
+        })
+    }
   }
 
   startBattle(): void {
-    this.actorsToInitiativeMap = this.battleService.actorsToInitiativeMap;
+    this.actorsToInitiativeMap = this.battleService.getActorsMap();
     this.actors = Array.from(this.sortActorsByInitiative())
       .map(entry => entry[0]);
     this.resolveInitiativeConflicts();
@@ -44,6 +53,9 @@ export class BattleComponent implements OnInit {
   endBattle(): void {
     this.isBattleStarted = false;
     this.conflictResolvedActors = [];
+    this.actorService.updatePlayerCharacters(this.actors)
+      .subscribe(playerCharacters =>
+        this.mapResponseToActorsArray(playerCharacters));
   }
 
   sortActorsByInitiative(): Map<Actor, number> {
@@ -122,4 +134,9 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
+  private mapResponseToActorsArray(playerCharacters: Actor[]): void {
+    this.actors = playerCharacters.map(character => {
+      return this.actorService.fromJson(character)
+    })
+  }
 }

@@ -22,7 +22,7 @@
             <label for="initiative">Set initiative:</label>
             <input class="form-control form-control-sm" id="initiative" type="text" required
                    (keyup)="setActorInitiative(actor, $event)"
-                   [value]="actorsToInitiativeMap.get(actor)">
+                   [value]="getInitiativeForActor(actor)">
           </td>
           <td>
             <button class="btn btn-primary" (click)="removeActor(actor)">Remove</button>

@@ -37,20 +37,13 @@ export class ActorService {
   }
 
   fromJson(data: any): Actor {
-    let id = data.id;
-    let name = data.name;
-    let maxHp = data.maxHp;
-    let currentHp = data.currentHp;
-    let level = data.level;
-    let timeOfDeath = data.timeOfDeath;
-    let resurrectionPenalty = data.resurrectionPenalty;
+    let actor = new Actor(data.name, data.maxHp);
 
-    let actor = new Actor(name, maxHp);
-    actor.id = id;
-    actor.currentHp = currentHp;
-    actor.level = level;
-    actor.setTimeOfDeath(timeOfDeath);
-    actor.setResurrectionPenalty(resurrectionPenalty);
+    actor.id = data.id;
+    actor.currentHp = data.currentHp;
+    actor.level = data.level;
+    actor.setTimeOfDeath(data.timeOfDeath);
+    actor.setResurrectionPenalty(data.resurrectionPenalty);
 
     return actor;
   }
