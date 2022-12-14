@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {Difficulty} from "../../../models/combat-data/Difficulty";

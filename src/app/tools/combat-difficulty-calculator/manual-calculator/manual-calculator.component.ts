@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {CombatUtils} from "../../../services/combat/combatUtils";

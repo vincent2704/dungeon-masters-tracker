@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {StringUtils} from "../../utilities/string/stringUtils";

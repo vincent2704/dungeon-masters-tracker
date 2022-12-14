@@ -3,7 +3,7 @@ import { ProtagonistsManagerComponent } from './protagonists-manager.component';
 import {ActorService} from "../../services/actor/actor.service";
 import {ProtagonistsInfoComponent} from "./protagonists-info/protagonists-info.component";
 import {Observable} from "rxjs";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 
 describe('ProtagonistsManagerComponent', () => {
   let component: ProtagonistsManagerComponent;

@@ -1,4 +1,4 @@
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Monster} from "../../models/monsters/monster";
 import {CombatData} from "../../models/combat-data/CombatData";
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {TemporalService} from "../../../services/temporal/temporal.service";
 import {HitType} from "../../../models/combat-data/HitType";

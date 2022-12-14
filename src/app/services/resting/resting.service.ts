@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {ActorService} from "../actor/actor.service";
 import {TemporalService} from "../temporal/temporal.service";
 import {DateUtils} from "../../utilities/date/dateUtils";

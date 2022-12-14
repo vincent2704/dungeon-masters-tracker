@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 
 @Component({
   selector: 'app-protagonists-info',

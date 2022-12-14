@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DeathSavingThrowsComponent} from './death-saving-throws.component';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {HitType} from "../../../models/combat-data/HitType";
 

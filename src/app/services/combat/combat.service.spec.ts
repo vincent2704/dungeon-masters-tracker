@@ -1,7 +1,7 @@
 import {CombatUtils, MonsterHitPointsRule} from './combatUtils';
 import {Monster} from "../../models/monsters/monster";
 import {MonsterList} from "../../models/monsters/monsterList";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 
 describe('CombatUtils', () => {
 

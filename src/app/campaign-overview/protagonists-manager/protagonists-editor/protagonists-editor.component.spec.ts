@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProtagonistsEditorComponent} from './protagonists-editor.component';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 import {FormsModule} from "@angular/forms";
 import {Observable, of} from "rxjs";

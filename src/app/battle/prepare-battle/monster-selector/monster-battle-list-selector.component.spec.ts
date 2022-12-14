@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonsterBattleListSelectorComponent } from './monster-battle-list-selector.component';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Monster} from "../../../models/monsters/monster";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {Difficulty} from "../../../models/combat-data/Difficulty";

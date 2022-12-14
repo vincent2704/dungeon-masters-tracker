@@ -5,7 +5,7 @@ import {ActorService} from "../../services/actor/actor.service";
 import {RestingService} from "../../services/resting/resting.service";
 import {FormsModule} from "@angular/forms";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 
 describe('ShortRestComponent', () => {
   let component: ShortRestComponent;

@@ -4,7 +4,7 @@ import { PrepareBattleComponent } from './prepare-battle.component';
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";

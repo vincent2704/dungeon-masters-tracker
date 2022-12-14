@@ -6,7 +6,7 @@ import {Encounter} from "../../../models/encounter";
 import {Monster} from "../../../models/monsters/monster";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {FormsModule} from "@angular/forms";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 
 describe('SavedEncountersComponent', () => {
   let component: SavedEncounterComponent;

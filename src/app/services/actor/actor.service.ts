@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Condition} from "../../models/Condition";
 import {BattleCondition} from "../../models/battleCondition";
 import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {ActorService} from "../../services/actor/actor.service";
 
