@@ -13,7 +13,7 @@ import {PlayerCharacter} from "../models/actors/playerCharacter";
 })
 export class BattleComponent implements OnInit {
 
-  isBattleStarted: boolean = false;
+  battleStarted: boolean = false;
   actors: Actor[] = [];
   actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
@@ -36,10 +36,6 @@ export class BattleComponent implements OnInit {
 
   ngOnInit(): void {
     if (Settings.isAutoLoadProtagonists()) {
-      // this.actorService.getPlayerCharacters()
-      //   .subscribe((playerCharacters) => {
-      //     this.mapResponseToActorsArray(playerCharacters);
-      //   })
       this.actorService.getPlayerCharacters2()
         .subscribe(
           response => {
@@ -56,11 +52,11 @@ export class BattleComponent implements OnInit {
     this.actors = Array.from(this.sortActorsByInitiative())
       .map(entry => entry[0]);
     this.resolveInitiativeConflicts();
-    this.isBattleStarted = true;
+    this.battleStarted = true;
   }
 
   endBattle(): void {
-    this.isBattleStarted = false;
+    this.battleStarted = false;
     this.conflictResolvedActors = [];
     this.actorService.updatePlayerCharacters(this.mapActorsToPlayerCharacters(this.actors))
       .subscribe(playerCharacters =>
