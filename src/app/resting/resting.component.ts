@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActorService} from "../services/actor/actor.service";
+import {PlayerCharacter} from "../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-resting',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestingComponent implements OnInit {
 
-  constructor() { }
+  playerCharacters: PlayerCharacter[] = [];
+
+  constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
+    this.actorService.getPlayerCharacters2()
+      .subscribe(
+        response => {
+          this.playerCharacters = response
+        },
+        error => {
+          console.log(error)
+        })
   }
 
 }

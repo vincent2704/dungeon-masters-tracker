@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {Actor} from "../../models/actors/actor";
 import {ActorService} from "../actor/actor.service";
 import {TemporalService} from "../temporal/temporal.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +11,18 @@ import {DateUtils} from "../../utilities/date/dateUtils";
 export class RestingService {
 
   //TODO: backend - this will probably have to be fixed once Actors are persisted to Map<Actor_ID, Hit_Dice>
-  private actorsToAvailableHitDice: Map<string, number> = new Map<string, number>();
+  private actorsToAvailableHitDice: Map<PlayerCharacter, number> = new Map<PlayerCharacter, number>();
 
   constructor(private actorService: ActorService, private temporalService: TemporalService) {
     //TODO: replace necessary stuff with backend call when backend is implemented
-    for (let actor of actorService.getActors()) {
-      this.actorsToAvailableHitDice.set(actor.name, actor.level); // initial amount of hit dice should be equal to actor's level
-    }
+    this.actorService.getPlayerCharacters2()
+      .subscribe(response => {
+        response.map(playerCharacter =>
+          this.actorsToAvailableHitDice.set(playerCharacter, playerCharacter.level));
+      })
   }
 
-  performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<Actor, ShortRestInput>): void {
+  performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput>): void {
     actorsToShortRestInput.forEach((shortRestInput, actor) => {
       this.applyShortRestInput(actor, shortRestInput);
     })
@@ -34,29 +36,29 @@ export class RestingService {
       return;
     }
 
-    this.actorsToAvailableHitDice.forEach((availableHitDice, actorName) => {
-      let actor = this.actorService.findActorByName(actorName);
-      if(actor.isKnockedDown()) {
+    this.actorsToAvailableHitDice.forEach((availableHitDice, playerCharacter) => {
+      // let actor = this.actorService.findActorByName(actorName);
+      if(playerCharacter.currentHp == 0) {
         return;
       }
-      this.regainHitDice(actor);
-      actor.modifyHp(actor.maxHp, this.temporalService.getCurrentDate());
+      this.regainHitDice(playerCharacter);
+      this.addPlayerCharacterHp(playerCharacter, playerCharacter.maxHp);
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
     this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
   }
 
-  getActorsToAvailableHitDiceMap(): Map<string, number> {
+  getActorsToAvailableHitDiceMap(): Map<PlayerCharacter, number> {
     return this.actorsToAvailableHitDice;
   }
 
-  setActorsToAvailableHitDiceMap(map: Map<string, number>): void {
+  setActorsToAvailableHitDiceMap(map: Map<PlayerCharacter, number>): void {
     this.actorsToAvailableHitDice = map;
   }
 
-  getActorsAvailableHitDice(actor: Actor): number {
-    return this.actorsToAvailableHitDice.get(actor.name)!;
+  getActorsAvailableHitDice(actor: PlayerCharacter): number {
+    return this.actorsToAvailableHitDice.get(actor)!;
   }
 
   getTimeSinceLastLongRest() {
@@ -70,21 +72,28 @@ export class RestingService {
     return timeSinceLastLongRestInHours >= 24 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
   }
 
-  private regainHitDice(actor: Actor): void {
-    let availableHitDice = this.getActorsAvailableHitDice(actor);
-    if(availableHitDice < actor.level) {
-      let maxDiceNumberToRegain = actor.level / 2;
+  private regainHitDice(playerCharacter: PlayerCharacter): void {
+    let availableHitDice = this.getActorsAvailableHitDice(playerCharacter);
+    if(availableHitDice < playerCharacter.level) {
+      let maxDiceNumberToRegain = playerCharacter.level / 2;
       availableHitDice += maxDiceNumberToRegain;
-      if (availableHitDice > actor.level) {
-        availableHitDice = actor.level;
+      if (availableHitDice > playerCharacter.level) {
+        availableHitDice = playerCharacter.level;
       }
-      this.actorsToAvailableHitDice.set(actor.name, availableHitDice);
+      this.actorsToAvailableHitDice.set(playerCharacter, availableHitDice);
     }
   }
 
-  private applyShortRestInput(actor: Actor, shortRestInput: ShortRestInput): void {
-    let currentlyAvailableHitDice = this.actorsToAvailableHitDice.get(actor.name)!;
-    this.actorsToAvailableHitDice.set(actor.name, currentlyAvailableHitDice - shortRestInput.hitDiceToSpend);
-    actor.modifyHp(shortRestInput.hpToAdd, this.temporalService.getCurrentDate());
+  private applyShortRestInput(playerCharacter: PlayerCharacter, shortRestInput: ShortRestInput): void {
+    let currentlyAvailableHitDice = this.actorsToAvailableHitDice.get(playerCharacter)!;
+    this.actorsToAvailableHitDice.set(playerCharacter, currentlyAvailableHitDice - shortRestInput.hitDiceToSpend);
+    this.addPlayerCharacterHp(playerCharacter, shortRestInput.hpToAdd)
+  }
+
+  private addPlayerCharacterHp(playerCharacter: PlayerCharacter, hpAmount: number): void {
+    playerCharacter.currentHp! += hpAmount
+    if(playerCharacter.currentHp! > playerCharacter.maxHp) {
+      playerCharacter.currentHp = playerCharacter.maxHp;
+    }
   }
 }
