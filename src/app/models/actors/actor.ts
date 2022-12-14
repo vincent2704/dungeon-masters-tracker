@@ -44,6 +44,14 @@ export class Actor {
     this.temporaryHP = new TemporaryHP(0, 0);
   }
 
+  getId(): number | undefined {
+    return this.id;
+  }
+
+  getName(): string {
+    return this.name
+  }
+
   getMaxHP(): number {
     return this.maxHp;
   }

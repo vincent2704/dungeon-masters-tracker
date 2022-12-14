@@ -7,6 +7,8 @@ import {Observable, of} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
 import {environment} from "../../../environments/environment";
+import {map} from "rxjs/operators";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,11 @@ export class ActorService {
       return of(PROTAGONISTS);
     }
     return this.httpClient.get<Actor[]>(this.playerCharactersUrl, this.httpOptions);
+  }
+
+  // temporary method for partial backend implementation, it's going to fully replace `getActors()`
+  getPlayerCharacters2(): Observable<PlayerCharacter[]> {
+    return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
   }
 
   fromJson(data: any): Actor {
@@ -73,11 +80,15 @@ export class ActorService {
     //TODO: backend call
   }
 
-  updatePlayerCharacters(playerCharacters: Actor[]): Observable<Actor[]> {
-    return this.httpClient.post<Actor[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
+  // updatePlayerCharacters(playerCharacters: Actor[]): Observable<Actor[]> {
+  //   return this.httpClient.post<Actor[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
+  // }
+
+  updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
+    return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
   }
 
-  deletePlayerCharacters(playerCharacters: Actor[]): Observable<unknown> {
+  deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
     let charactersToDeleteIds = playerCharacters.map(character => character.id);
     let options = {
       params: this.httpOptions.params,

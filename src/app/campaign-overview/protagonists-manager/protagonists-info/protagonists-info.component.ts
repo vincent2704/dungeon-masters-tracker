@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../../models/actors/actor";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-protagonists-info',
@@ -9,7 +10,7 @@ import {Actor} from "../../../models/actors/actor";
 export class ProtagonistsInfoComponent implements OnInit {
 
   @Input()
-  playerCharacters!: Actor[];
+  playerCharacters!: PlayerCharacter[];
 
   constructor() { }
 

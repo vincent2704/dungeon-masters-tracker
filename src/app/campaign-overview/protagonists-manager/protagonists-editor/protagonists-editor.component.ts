@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actors/actor";
 import {ActorService} from "../../../services/actor/actor.service";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-protagonists-editor',
@@ -10,18 +11,18 @@ import {ActorService} from "../../../services/actor/actor.service";
 export class ProtagonistsEditorComponent implements OnInit {
 
   @Output()
-  managingFinishedEmitter = new EventEmitter<Actor[]>()
+  managingFinishedEmitter = new EventEmitter<PlayerCharacter[]>()
 
   @Input()
-  playerCharacters!: Actor[];
+  playerCharacters!: PlayerCharacter[];
 
   actorToAdd = {
     name: '',
     level: '',
     maxHp: ''
   }
-  actorsToDelete: Actor[] = [];
-  actorsToAdd: Actor[] = [];
+  actorsToDelete: PlayerCharacter[] = [];
+  actorsToAdd: PlayerCharacter[] = [];
 
   constructor(private actorService: ActorService) { }
 
@@ -42,7 +43,7 @@ export class ProtagonistsEditorComponent implements OnInit {
     this.addActors(this.actorsToAdd);
 
     this.actorService.updatePlayerCharacters(this.playerCharacters)
-      .subscribe((playerCharacters: Actor[]) => {
+      .subscribe((playerCharacters: PlayerCharacter[]) => {
         this.playerCharacters = playerCharacters;
       })
     this.managingFinishedEmitter.emit(this.playerCharacters)
@@ -54,22 +55,25 @@ export class ProtagonistsEditorComponent implements OnInit {
     this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
-  showDeleteButton(actor: Actor): boolean {
+  showDeleteButton(actor: PlayerCharacter): boolean {
     return !this.actorsToDelete.includes(actor);
   }
 
-  showRetainButton(actor: Actor): boolean {
+  showRetainButton(actor: PlayerCharacter): boolean {
     return this.actorsToDelete.includes(actor);
   }
 
-  onSetActorToRetain(actor: Actor): void {
+  onSetActorToRetain(actor: PlayerCharacter): void {
     this.actorsToDelete.splice(this.actorsToDelete.indexOf(actor), 1);
   }
 
   addActor(): void {
-    let newActor = new Actor(this.actorToAdd.name, parseInt(this.actorToAdd.maxHp), parseInt(this.actorToAdd.maxHp),
-      parseInt(this.actorToAdd.level));
-    this.actorsToAdd.push(newActor);
+    let newPlayerCharacter: PlayerCharacter = {
+      name: this.actorToAdd.name,
+      maxHp: parseInt(this.actorToAdd.maxHp),
+      level: parseInt(this.actorToAdd.level),
+    }
+    this.actorsToAdd.push(newPlayerCharacter);
     this.actorToAdd = {
       name: '',
       maxHp: '',
@@ -77,11 +81,11 @@ export class ProtagonistsEditorComponent implements OnInit {
     }
   }
 
-  onSetActorToDelete(actor: Actor): void {
+  onSetActorToDelete(actor: PlayerCharacter): void {
     this.actorsToDelete.push(actor);
   }
 
-  onDeleteNewActor(addedActor: Actor) {
+  onDeleteNewActor(addedActor: PlayerCharacter) {
     for(let actor of this.actorsToAdd) {
       if(this.actorsToAdd.indexOf(addedActor) > -1) {
         this.actorsToAdd.splice(this.actorsToAdd.indexOf(actor), 1);
@@ -89,15 +93,15 @@ export class ProtagonistsEditorComponent implements OnInit {
     }
   }
 
-  private addActors(actorsToAdd: Actor[]): void {
-    for(let actor of actorsToAdd) {
-      this.playerCharacters.push(actor);
+  private addActors(playerCharactersToAdd: PlayerCharacter[]): void {
+    for(let pc of playerCharactersToAdd) {
+      this.playerCharacters.push(pc);
     }
     this.actorsToAdd = [];
   }
 
-  private deleteActors(actorsToDelete: Actor[]): void {
-    this.actorService.deletePlayerCharacters(actorsToDelete)
+  private deleteActors(playerCharactersToDelete: PlayerCharacter[]): void {
+    this.actorService.deletePlayerCharacters(playerCharactersToDelete)
       .subscribe();
   }
 

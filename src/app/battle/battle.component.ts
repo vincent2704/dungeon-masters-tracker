@@ -4,6 +4,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {BattleService} from "../services/battle/battle.service";
 import {ActorService} from "../services/actor/actor.service";
 import {Settings} from "../services/settings/settings";
+import {PlayerCharacter} from "../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-battle',
@@ -35,10 +36,18 @@ export class BattleComponent implements OnInit {
 
   ngOnInit(): void {
     if (Settings.isAutoLoadProtagonists()) {
-      this.actorService.getPlayerCharacters()
-        .subscribe((playerCharacters) => {
-          this.mapResponseToActorsArray(playerCharacters);
-        })
+      // this.actorService.getPlayerCharacters()
+      //   .subscribe((playerCharacters) => {
+      //     this.mapResponseToActorsArray(playerCharacters);
+      //   })
+      this.actorService.getPlayerCharacters2()
+        .subscribe(
+          response => {
+            this.mapResponseToActorsArray(response)
+          },
+          error => {
+            console.log(error)
+          })
     }
   }
 
@@ -53,7 +62,7 @@ export class BattleComponent implements OnInit {
   endBattle(): void {
     this.isBattleStarted = false;
     this.conflictResolvedActors = [];
-    this.actorService.updatePlayerCharacters(this.actors)
+    this.actorService.updatePlayerCharacters(this.mapActorsToPlayerCharacters(this.actors))
       .subscribe(playerCharacters =>
         this.mapResponseToActorsArray(playerCharacters));
   }
@@ -134,9 +143,23 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
-  private mapResponseToActorsArray(playerCharacters: Actor[]): void {
+  private mapActorsToPlayerCharacters(actors: Actor[]): PlayerCharacter[] {
+    return actors.map(actor => {
+      return {
+        id: actor.getId(),
+        name: actor.getName(),
+        maxHp: actor.getMaxHP(),
+        currentHp: actor.getCurrentHP(),
+        level: actor.getLevel(),
+        timeOfDeath: actor.getTimeOfDeath(),
+      } as PlayerCharacter
+    })
+  }
+
+  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): void {
     this.actors = playerCharacters.map(character => {
       return this.actorService.fromJson(character)
     })
   }
+
 }
