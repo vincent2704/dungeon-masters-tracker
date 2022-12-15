@@ -1,38 +1,43 @@
 describe('battle', () => {
   const actor1Name = 'Test Actor 1'
   const actor2Name = 'Test Actor 2'
+  const actor3Name = 'Test Actor 3'
+  const actor4Name = 'Test Actor 4'
+  const actor5Name = 'Test Actor 5'
+
+  const actorNames = [
+    actor1Name, actor2Name, actor3Name, actor4Name, actor5Name
+  ]
 
   it('creates a new character in the campaign overview', () => {
     cy.visit('http://localhost:4201')
 
-    cy.contains(actor1Name).should('not.exist');
-    cy.contains(actor2Name).should('not.exist');
+
+    actorNames.forEach(actorName => {
+      cy.contains(actorName).should('not.exist');
+    })
 
     cy.contains('Manage').click();
-    cy.get('tr').last().within(() => {
-      cy.get('input').first().type(actor1Name);
-      cy.get('input').eq(1).type('2');
-      cy.get('input').eq(2).type('20');
-      cy.contains('Add').click();
-    });
 
-    cy.get('tr').last().within(() => {
-      cy.get('input').first().type(actor2Name);
-      cy.get('input').eq(1).type('2');
-      cy.get('input').eq(2).type('20');
-      cy.contains('Add').click();
-    });
+    actorNames.forEach(actorName => {
+      cy.get('tr').last().within(() => {
+        cy.get('input').first().type(actorName);
+        cy.get('input').eq(1).type('2');
+        cy.get('input').eq(2).type('20');
+        cy.contains('Add').click();
+      });
+    })
 
     cy.contains('Submit').click();
   })
 
   it('starts battle and kills character', () => {
     cy.contains('Battle').click();
-    cy.contains(actor1Name).parent('tr').within(() => {
-      cy.get('input').first().type('99');
-    })
-    cy.contains(actor2Name).parent('tr').within(() => {
-      cy.get('input').first().type('98');
+
+    actorNames.forEach((actorName, index) => {
+      cy.contains(actorName).parent('tr').within(() => {
+        cy.get('input').first().type(`${index}`);
+      })
     })
     cy.contains('Start battle!').click();
 
@@ -41,24 +46,15 @@ describe('battle', () => {
       cy.get('input').first().type('-40').type('{enter}');
       cy.contains('Dead');
     })
-  })
-
-  it('ends battle and starts it again, with both characters present', () => {
-    cy.contains('End battle!').click();
-    cy.contains(actor1Name).parent('tr').within(() => {
-      cy.get('input').first().type('99');
-    })
-    cy.contains(actor2Name).parent('tr').within(() => {
-      cy.get('input').first().type('98');
-    })
-    cy.contains('Start battle!').click();
-
-    cy.contains(actor1Name);
-    cy.contains(actor2Name);
     cy.contains('End battle!').click();
   })
 
   it('uses revivify on the dead character', () => {
+    actorNames.forEach((actorName, index) => {
+      cy.contains(actorName).parent('tr').within(() => {
+        cy.get('input').first().type(`${index}`);
+      })
+    })
     cy.contains('Start battle!').click();
     cy.contains(actor1Name).parent('tr').within(() => {
       cy.contains('Dead').click();
@@ -73,11 +69,7 @@ describe('battle', () => {
     cy.contains(actor2Name).parent('tr').within(() => {
       cy.contains('Remove').click();
     });
-    cy.contains('Start battle!').click();
-    cy.contains(actor1Name).parent('tr').within(() => {
-      cy.get('input').first().type('-5').type('{enter}');
-    })
-    cy.contains('End battle!').click();
+    cy.get('#campaign-overview-button').click()
     cy.contains(actor2Name);
   })
 

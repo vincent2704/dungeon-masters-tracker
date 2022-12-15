@@ -20,8 +20,6 @@ export class PrepareBattleComponent implements OnInit {
   playerCharacters: PlayerCharacter[] = [];
 
   @Output()
-  actorsEmitter = new EventEmitter<Actor[]>();
-  @Output()
   battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
 
   encounters: Encounter[] = [];
@@ -39,7 +37,6 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   removeActor(actor: Actor) {
-    this.actorsEmitter.emit(this.actors)
     this.actors.splice(this.actors.indexOf(actor), 1);
   }
 
