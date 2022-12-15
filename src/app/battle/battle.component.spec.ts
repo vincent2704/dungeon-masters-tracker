@@ -92,30 +92,6 @@ describe('BattleComponent', () => {
     ]);
   });
 
-  it("should allow to progress an actor added during battle setup", () => {
-    // given
-    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
-    prepareBattleDebugElement.componentInstance.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ]
-    component.battleStarted = false;
-
-    // when
-    let newActor = new Actor('New Actor', 10, 10, 4);
-    prepareBattleDebugElement.componentInstance.addActor(newActor);
-    component.startBattle();
-
-    // then
-    expect(component.actors).toEqual([
-      newActor,
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
-    ]);
-  });
-
   it("should properly recognize conflicted actors", () => {
     // given
     let actor1 = new Actor('Actor 1', 1);
@@ -124,7 +100,6 @@ describe('BattleComponent', () => {
     let actor4 = new Actor('Actor 4', 1);
 
     component.actors = [actor1, actor2, actor3, actor4];
-    // component.conflictResolvedActors = [actor3, actor4];
     component.actorsToInitiativeMap= new Map<Actor, number>(
       [
         [actor1, 5],
@@ -165,34 +140,6 @@ describe('BattleComponent', () => {
     expect(component.conflictResolvedActors).toEqual([]);
   });
 
-
-  // TODO: move it to cypress
-  // it("should resolve initiative conflicts and return actors in proper order", () => {
-  //   // given
-  //   let actor1 = new Actor('Actor 1', 1);
-  //   let actor2 = new Actor('Actor 2', 1);
-  //   let actor3 = new Actor('Actor 3', 1);
-  //   let actor4 = new Actor('Actor 4', 1);
-  //   let actor5 = new Actor('Actor 5', 1);
-  //
-  //   component.actors = [actor1, actor2, actor3, actor4, actor5];
-  //   battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
-  //     [actor1, 3], // zywia
-  //     [actor2, 3], // dargo
-  //     [actor3, 11], // var
-  //     [actor4, 20], // thel
-  //     [actor5, 1], // fal
-  //   ]))
-  //   let actorsToPriorityMap = new Map<Actor, number>();
-  //   actorsToPriorityMap.set(actor2, 1);
-  //   actorsToPriorityMap.set(actor1, 2);
-  //   component.conflictedActorsToPriorityOrderNumbersMap = actorsToPriorityMap;
-  //
-  //   // when
-  //   component.startBattle()
-  //
-  //   expect(component.actors).toEqual([actor4, actor3, actor2, actor1, actor5]);
-  // });
 
 });
 

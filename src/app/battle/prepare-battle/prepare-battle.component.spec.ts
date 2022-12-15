@@ -9,7 +9,6 @@ import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
-import {MonsterList} from "../../models/monsters/monsterList";
 import {of} from "rxjs";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
@@ -75,28 +74,6 @@ describe('PrepareBattleComponent', () => {
 
     let tableRows = fixture.debugElement.queryAll(By.css('tr'));
     expect(tableRows.length).toEqual(4);
-  });
-
-  it('should add monsters from monster list selector to participating actors', () => {
-    // given
-    component.actors = [];
-    let monstersFromList = [
-      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
-    ]
-
-    // when
-    component.addMonstersToBattle(monstersFromList);
-
-    // then
-    expect(component.actors).toEqual([
-      new Actor('Animated Armor1', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Animated Armor2', MonsterList.ANIMATED_ARMOR.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Goblin1', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
-      new Actor('Goblin2', MonsterList.GOBLIN.getDetails().getHitPoints().getHitPoints()),
-    ])
   });
 
 

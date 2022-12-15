@@ -96,7 +96,6 @@ describe('ProtagonistsEditorComponent', () => {
       actor1, actor2, {
         name: 'New Actor',
         maxHp: 10,
-        currentHp: 10,
         level: 1
       } as PlayerCharacter
     ])
