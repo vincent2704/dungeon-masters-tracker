@@ -17,7 +17,7 @@ describe('CampaignOverviewComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters2']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule, NgbModule, HttpClientTestingModule],
@@ -32,7 +32,7 @@ describe('CampaignOverviewComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getPlayerCharacters.and.returnValue(of([]));
+    actorServiceSpy.getPlayerCharacters2.and.returnValue(of([]));
     fixture = TestBed.createComponent(CampaignOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

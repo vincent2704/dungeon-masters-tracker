@@ -1,20 +1,32 @@
 import {CombatDataService} from './combat-data.service';
 import {Actor} from "../../models/actors/actor";
 import {Difficulty} from "../../models/combat-data/Difficulty";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 describe('CombatDataService', () => {
 
   it('should calculate XP for combat', () => {
     //given
-    let actor1 = new Actor('Actor 1', 10);
-    let actor2 = new Actor('Actor 2', 10);
-    let actor3 = new Actor('Actor 3', 10);
-    let actor4 = new Actor('Actor 4', 10);
-
-    actor1.setLevel(5);
-    actor2.setLevel(7);
-    actor3.setLevel(9);
-    actor4.setLevel(11);
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 5
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 7
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 9
+    }
+    let actor4: PlayerCharacter = {
+      name: '4',
+      maxHp: 4,
+      level: 11
+    }
 
     let actors = [actor1, actor2, actor3, actor4];
 
@@ -87,14 +99,22 @@ describe('CombatDataService', () => {
 
   it('should return easy difficulty for various monster XP and count', () => {
     //given
-    let actor1 = new Actor('Actor 1', 10);
-    let actor2 = new Actor('Actor 2', 10);
-    let actor3 = new Actor('Actor 3', 10);
-
     // easy threshold - 1150
-    actor1.setLevel(5);
-    actor2.setLevel(7);
-    actor3.setLevel(9);
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 5
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 7
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 9
+    }
 
     let actors = [actor1, actor2, actor3];
 
@@ -110,16 +130,26 @@ describe('CombatDataService', () => {
   it('should return proper difficulty', () => {
     //given
     let numberOfMonsters = 5;
-
-    let actor1 = new Actor('Actor 1', 10);
-    let actor2 = new Actor('Actor 2', 10);
-    let actor3 = new Actor('Actor 3', 10);
-    let actor4 = new Actor('Actor 4', 10);
-
-    actor1.setLevel(3);
-    actor2.setLevel(3);
-    actor3.setLevel(3);
-    actor4.setLevel(2);
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 3
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 3
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 3
+    }
+    let actor4: PlayerCharacter = {
+      name: '4',
+      maxHp: 4,
+      level: 2
+    }
 
     let actors = [actor1, actor2, actor3, actor4];
 

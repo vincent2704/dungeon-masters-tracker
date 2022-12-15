@@ -7,6 +7,7 @@ import {Condition} from "../../models/Condition";
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -41,17 +42,30 @@ describe('TrackerComponent', () => {
 
   it("should save actors after battle is concluded", () => {
     //given
-    let actor1 = new Actor('Actor 1', 1, 1, 1)
-    let actor2 = new Actor('Actor 2', 1, 1, 2)
-    let actor3 = new Actor('Actor 3', 1, 1, 3)
-    component.actors = [actor1, actor2]
-
-    let actorsFromService = [actor1, actor2, actor3]
-    actorServiceSpy.getActors.and.returnValue(actorsFromService);
+    let actor1 = new Actor('Actor 1', 1)
+    let actor2 = new Actor('Actor 2', 1)
+    let actor3 = new Actor('Actor 3', 1)
+    actor3.setDeathSavingThrowsEligibility(false)
+    component.actors = [actor1, actor2, actor3]
 
     // when
     component.endBattle();
-    expect(actorServiceSpy.updateActors).toHaveBeenCalledOnceWith(component.actors);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
+      {
+        name: 'Actor 1',
+        level: 1,
+        maxHp: 1,
+        currentHp: 1,
+        conditions: []
+      } as PlayerCharacter,
+      {
+        name: 'Actor 2',
+        level: 1,
+        maxHp: 1,
+        currentHp: 1,
+        conditions: []
+      } as PlayerCharacter
+    ]);
   });
 
   it('should progress actor', () => {

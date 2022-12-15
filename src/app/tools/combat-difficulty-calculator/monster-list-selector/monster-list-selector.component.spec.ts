@@ -4,12 +4,12 @@ import {MonsterListSelectorComponent} from './monster-list-selector.component';
 import {MonsterService} from "../../../services/monster/monster.service";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {Monster} from "../../../models/monsters/monster";
-import {Actor} from "../../../models/actors/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
 import {FormsModule} from "@angular/forms";
 import {EncounterService} from "../../../services/encounter/encounter.service";
 import {Encounter} from "../../../models/encounter";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 describe('MonsterListSelectorComponent', () => {
   let component: MonsterListSelectorComponent;
@@ -49,15 +49,26 @@ describe('MonsterListSelectorComponent', () => {
 
   it('should get difficulty', () => {
     // given
-    let actor1 = new Actor('1', 1)
-    actor1.setLevel(3)
-    let actor2 = new Actor('2', 2)
-    actor2.setLevel(3)
-    let actor3 = new Actor('3', 3)
-    actor3.setLevel(3)
-    let actor4 = new Actor('4', 4)
-    actor4.setLevel(2)
-    // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 3
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 3
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 3
+    }
+    let actor4: PlayerCharacter = {
+      name: '4',
+      maxHp: 4,
+      level: 2
+    }
     component.participatingCharacters = [actor1, actor2, actor3, actor4]
 
     // when

@@ -5,6 +5,7 @@ import {Monster} from "../../../models/monsters/monster";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
 import {CombatUtils, MonsterHitPointsRule} from "../../../services/combat/combatUtils";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-monster-battle-list-selector',
@@ -14,7 +15,7 @@ import {CombatUtils, MonsterHitPointsRule} from "../../../services/combat/combat
 export class MonsterBattleListSelectorComponent implements OnInit {
 
   @Input()
-  participatingActors!: Actor[];
+  participatingActors!: PlayerCharacter[];
   monsterService: MonsterService;
 
   @Output()

@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {ActorService} from "../../services/actor/actor.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {BackendCondition} from "../../models/actors/backendCondition";
 
 @Component({
   selector: 'app-tracker',
@@ -101,11 +103,37 @@ export class TrackerComponent implements OnInit {
   }
 
   private updateCharacters(): void {
-    this.actorService.updateActors(this.actors);
+    this.actorService.updatePlayerCharacters(this.retrievePlayerCharacters(this.actors))
+      .subscribe(response => response,
+          error => console.error(`Updating player characters failed. Error: ${error}`));
   }
 
   private allActorsProgressed(): boolean {
     return this.actors.length === this.progressedActors.length;
+  }
+
+  private retrievePlayerCharacters(actors: Actor[]) {
+    return actors
+      .filter(actor => actor.isEligibleForDeathSavingThrows())
+      .map(playerActor => {
+        let conditions = playerActor.getConditions()
+          .map(battleCondition => {
+            return {
+              conditionName: battleCondition.getCondition().getName(),
+              permanent: battleCondition.permanent,
+              turnsLeft: battleCondition.getDurationInTurns()
+            } as BackendCondition
+          })
+
+        return ({
+          id: playerActor.id,
+          name: playerActor.name,
+          level: playerActor.level,
+          maxHp: playerActor.maxHp,
+          currentHp: playerActor.maxHp,
+          conditions: conditions
+        }) as PlayerCharacter
+      })
   }
 
 }

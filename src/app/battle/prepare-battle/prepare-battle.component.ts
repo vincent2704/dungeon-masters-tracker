@@ -4,6 +4,7 @@ import {Monster} from "../../models/monsters/monster";
 import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
 import {BattleService} from "../../services/battle/battle.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -14,6 +15,9 @@ export class PrepareBattleComponent implements OnInit {
 
   @Input()
   actors!: Actor[];
+
+  // TODO: filter playerCharacters from Actors
+  playerCharacters: PlayerCharacter[] = [];
 
   @Output()
   actorsEmitter = new EventEmitter<Actor[]>();

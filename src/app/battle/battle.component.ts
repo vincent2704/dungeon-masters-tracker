@@ -90,7 +90,7 @@ export class BattleComponent implements OnInit {
   }
 
   onClickResolveConflict(): void {
-    this.actors = this.getInitiativeConflictResolvedActors(); //
+    this.actors = this.getInitiativeConflictResolvedActors();
     for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
       this.conflictResolvedActors.push(resolvedActor);
     }

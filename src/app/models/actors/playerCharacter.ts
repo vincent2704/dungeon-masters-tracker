@@ -1,3 +1,5 @@
+import {BackendCondition} from "./backendCondition";
+
 export interface PlayerCharacter {
 
   id?: number
@@ -7,6 +9,7 @@ export interface PlayerCharacter {
   level: number,
   resurrectionPenalty?: number,
   timeOfDeath?: Date,
+  conditions?: BackendCondition[]
 
 }
 
