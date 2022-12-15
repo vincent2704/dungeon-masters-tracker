@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {Condition} from "../../models/Condition";
 import {BattleCondition} from "../../models/battleCondition";
-import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
@@ -13,6 +12,8 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
   providedIn: 'root'
 })
 export class ActorService {
+
+  private demoPlayers: PlayerCharacter[] = [];
 
   private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
   private readonly httpOptions = {
@@ -25,7 +26,7 @@ export class ActorService {
   // temporary method for partial backend implementation, it's going to fully replace `getActors()`
   getPlayerCharacters2(): Observable<PlayerCharacter[]> {
     if(environment.environmentName == Environment.GHPAGES) {
-      return of(PROTAGONISTS);
+      return of(this.demoPlayers);
     }
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
   }
@@ -44,13 +45,19 @@ export class ActorService {
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
     if(environment.environmentName == Environment.GHPAGES) {
-      return of(PROTAGONISTS);
+      this.demoPlayers = playerCharacters;
+      return of(this.demoPlayers);
     }
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
     if(environment.environmentName == Environment.GHPAGES) {
+      for (let pc of playerCharacters) {
+        if (this.demoPlayers.indexOf(pc) > -1) {
+          this.demoPlayers.splice(this.demoPlayers.indexOf(pc), 1);
+        }
+      }
       return new Observable<unknown>();
     }
     let charactersToDeleteIds = playerCharacters.map(character => character.id);

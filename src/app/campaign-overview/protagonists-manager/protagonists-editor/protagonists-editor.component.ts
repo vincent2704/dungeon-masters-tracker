@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../../models/actors/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
@@ -68,9 +67,11 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   addActor(): void {
+    let hp = parseInt(this.actorToAdd.maxHp);
     let newPlayerCharacter: PlayerCharacter = {
       name: this.actorToAdd.name,
-      maxHp: parseInt(this.actorToAdd.maxHp),
+      maxHp: hp,
+      currentHp: hp,
       level: parseInt(this.actorToAdd.level),
     }
     this.actorsToAdd.push(newPlayerCharacter);

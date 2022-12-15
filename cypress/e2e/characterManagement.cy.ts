@@ -1,11 +1,11 @@
 describe('characters', () => {
   const testActorName = 'Test Actor'
   it('visits page', () => {
-    cy.visit('http://localhost:4200')
+    cy.visit('http://localhost:4201')
   })
 
   it('creates a new character in the campaign overview', () => {
-    cy.visit('http://localhost:4200')
+    cy.visit('http://localhost:4201')
 
     cy.contains(testActorName).should('not.exist');
 
