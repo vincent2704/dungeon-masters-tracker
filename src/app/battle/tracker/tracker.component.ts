@@ -112,7 +112,7 @@ export class TrackerComponent implements OnInit {
     return this.actors.length === this.progressedActors.length;
   }
 
-  private retrievePlayerCharacters(actors: Actor[]) {
+  private retrievePlayerCharacters(actors: Actor[]): PlayerCharacter[] {
     return actors
       .filter(actor => actor.isEligibleForDeathSavingThrows())
       .map(playerActor => {

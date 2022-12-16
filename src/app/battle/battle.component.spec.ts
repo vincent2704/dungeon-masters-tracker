@@ -27,7 +27,7 @@ describe('BattleComponent', () => {
       imports: [FormsModule, HttpClientTestingModule],
       declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent],
       providers: [
-        { provide: BattleService, useValue: battleService }
+        {provide: BattleService, useValue: battleService}
       ]
     })
       .compileComponents();
@@ -68,27 +68,27 @@ describe('BattleComponent', () => {
     expect(component.actors).toEqual([actor2, actor3, actor1])
   });
 
-  it("should add actors to battle component", () => {
+  it("should sort actors by initiative", () => {
     // given
-    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
-    prepareBattleDebugElement.componentInstance.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ]
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
+    let actor4 = new Actor('Actor 4', 1);
     component.battleStarted = false;
 
-    // when
-    let newActor = new Actor('New Actor', 10, 10, 4);
-    prepareBattleDebugElement.componentInstance.addActor([newActor, 4]);
+    battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
+        [actor1, 8],
+        [actor2, 10],
+        [actor3, 5],
+        [actor4, 17]
+      ])
+    )
+
     component.startBattle();
 
     // then
     expect(component.actors).toEqual([
-      newActor,
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
+      actor4, actor2, actor1, actor3
     ]);
   });
 
@@ -100,7 +100,7 @@ describe('BattleComponent', () => {
     let actor4 = new Actor('Actor 4', 1);
 
     component.actors = [actor1, actor2, actor3, actor4];
-    component.actorsToInitiativeMap= new Map<Actor, number>(
+    component.actorsToInitiativeMap = new Map<Actor, number>(
       [
         [actor1, 5],
         [actor2, 5],

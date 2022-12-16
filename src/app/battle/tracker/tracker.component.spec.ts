@@ -16,7 +16,7 @@ describe('TrackerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'updateActors']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'updatePlayerCharacters']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -44,28 +44,32 @@ describe('TrackerComponent', () => {
     //given
     let actor1 = new Actor('Actor 1', 1)
     let actor2 = new Actor('Actor 2', 1)
-    let actor3 = new Actor('Actor 3', 1)
-    actor3.setDeathSavingThrowsEligibility(false)
-    component.actors = [actor1, actor2, actor3]
+    actor1.setDeathSavingThrowsEligibility(true);
+    actor2.setDeathSavingThrowsEligibility(true);
+    component.actors = [actor1, actor2]
 
     // when
     component.endBattle();
-    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
-      {
-        name: 'Actor 1',
-        level: 1,
-        maxHp: 1,
-        currentHp: 1,
-        conditions: []
-      } as PlayerCharacter,
-      {
-        name: 'Actor 2',
-        level: 1,
-        maxHp: 1,
-        currentHp: 1,
-        conditions: []
-      } as PlayerCharacter
-    ]);
+
+    let pc1: PlayerCharacter = {
+      id: undefined,
+      name: 'Actor 1',
+      level: 1,
+      maxHp: 1,
+      currentHp: 1,
+      conditions: []
+    }
+    let pc2: PlayerCharacter = {
+      id: undefined,
+      name: 'Actor 2',
+      level: 1,
+      maxHp: 1,
+      currentHp: 1,
+      conditions: []
+    }
+
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith(
+      [pc1, pc2]);
   });
 
   it('should progress actor', () => {
