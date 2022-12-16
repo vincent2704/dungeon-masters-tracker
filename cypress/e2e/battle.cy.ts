@@ -69,7 +69,7 @@ describe('battle', () => {
     cy.contains(actor2Name).parent('tr').within(() => {
       cy.contains('Remove').click();
     });
-    cy.get('#campaign-overview-button').click()
+    cy.get('#nav-campaign-overview-link').click()
     cy.contains(actor2Name);
   })
 

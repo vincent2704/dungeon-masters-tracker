@@ -56,16 +56,19 @@ describe('ProtagonistsEditorComponent', () => {
     let actor1: PlayerCharacter = {
       name: 'Actor',
       maxHp: 10,
+      currentHp: 10,
       level: 1
     }
     let actor2: PlayerCharacter = {
       name: 'Actor 2',
       maxHp: 15,
+      currentHp: 10,
       level: 1
     }
     let actor3: PlayerCharacter = {
       name: 'Actor 3',
       maxHp: 14,
+      currentHp: 10,
       level: 1
     }
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
@@ -96,6 +99,7 @@ describe('ProtagonistsEditorComponent', () => {
       actor1, actor2, {
         name: 'New Actor',
         maxHp: 10,
+        currentHp: 10,
         level: 1
       } as PlayerCharacter
     ])
