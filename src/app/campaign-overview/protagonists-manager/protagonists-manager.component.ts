@@ -23,7 +23,7 @@ export class ProtagonistsManagerComponent implements OnInit {
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters2()
+    this.actorService.getPlayerCharacters()
       .subscribe((playerCharacters: PlayerCharacter[]) => {
         this.playerCharacters = playerCharacters;
       })

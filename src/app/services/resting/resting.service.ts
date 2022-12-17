@@ -10,12 +10,11 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 })
 export class RestingService {
 
-  //TODO: backend - this will probably have to be fixed once Actors are persisted to Map<Actor_ID, Hit_Dice>
   private actorsToAvailableHitDice: Map<PlayerCharacter, number> = new Map<PlayerCharacter, number>();
 
   constructor(private actorService: ActorService, private temporalService: TemporalService) {
     //TODO: replace necessary stuff with backend call when backend is implemented
-    this.actorService.getPlayerCharacters2()
+    this.actorService.getPlayerCharacters()
       .subscribe(response => {
         response.map(playerCharacter =>
           this.actorsToAvailableHitDice.set(playerCharacter, playerCharacter.level));

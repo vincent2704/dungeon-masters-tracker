@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RestingService} from "../../services/resting/resting.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
@@ -12,15 +11,15 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 export class ShortRestComponent implements OnInit {
 
   @Input()
-  actors!: PlayerCharacter[];
+  playerCharacters!: PlayerCharacter[];
   actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput> = new Map<PlayerCharacter, ShortRestInput>();
   shortRestDurationInHours: number = 1;
 
-  constructor(private actorService: ActorService, private restingService: RestingService) {
+  constructor(private restingService: RestingService) {
   }
 
   ngOnInit(): void {
-    for(let actor of this.actors) {
+    for(let actor of this.playerCharacters) {
       this.actorsToShortRestInput.set(actor, new ShortRestInput());
     }
   }

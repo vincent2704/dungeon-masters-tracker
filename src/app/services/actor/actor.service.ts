@@ -24,7 +24,7 @@ export class ActorService {
   }
 
   // temporary method for partial backend implementation, it's going to fully replace `getActors()`
-  getPlayerCharacters2(): Observable<PlayerCharacter[]> {
+  getPlayerCharacters(): Observable<PlayerCharacter[]> {
     if(environment.environmentName == Environment.GHPAGES) {
       return of(this.demoPlayers);
     }

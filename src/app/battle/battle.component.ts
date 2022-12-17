@@ -36,7 +36,7 @@ export class BattleComponent implements OnInit {
 
   ngOnInit(): void {
     if (Settings.isAutoLoadProtagonists()) {
-      this.actorService.getPlayerCharacters2()
+      this.actorService.getPlayerCharacters()
         .subscribe(
           response => {
             this.mapResponseToActorsArray(response)

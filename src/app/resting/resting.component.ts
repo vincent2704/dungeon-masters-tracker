@@ -14,7 +14,7 @@ export class RestingComponent implements OnInit {
   constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters2()
+    this.actorService.getPlayerCharacters()
       .subscribe(
         response => {
           this.playerCharacters = response

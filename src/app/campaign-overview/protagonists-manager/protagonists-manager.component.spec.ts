@@ -3,7 +3,6 @@ import { ProtagonistsManagerComponent } from './protagonists-manager.component';
 import {ActorService} from "../../services/actor/actor.service";
 import {ProtagonistsInfoComponent} from "./protagonists-info/protagonists-info.component";
 import {Observable} from "rxjs";
-import {Actor} from "../../models/actors/actor";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 describe('ProtagonistsManagerComponent', () => {
@@ -12,7 +11,7 @@ describe('ProtagonistsManagerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters2', 'deleteActor', 'setActors']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters', 'deleteActor', 'setActors']);
 
     await TestBed.configureTestingModule({
       declarations: [ ProtagonistsManagerComponent, ProtagonistsInfoComponent ],
@@ -25,7 +24,7 @@ describe('ProtagonistsManagerComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getPlayerCharacters2.and.returnValue(new Observable<PlayerCharacter[]>());
+    actorServiceSpy.getPlayerCharacters.and.returnValue(new Observable<PlayerCharacter[]>());
     fixture = TestBed.createComponent(ProtagonistsManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

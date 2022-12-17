@@ -13,7 +13,7 @@ describe('RestingService', () => {
   let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
 
   beforeEach(() => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getPlayerCharacters2', 'findActorByName']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['getPlayerCharacters', 'findActorByName']);
     const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
 
     TestBed.configureTestingModule({
@@ -26,7 +26,7 @@ describe('RestingService', () => {
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
-    actorServiceSpy.getPlayerCharacters2.and.returnValue(of([
+    actorServiceSpy.getPlayerCharacters.and.returnValue(of([
       {
         name: 'Actor One',
         maxHp: 10

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Actor} from "../../models/actors/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
@@ -23,7 +22,7 @@ export class CombatDifficultyCalculatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters2()
+    this.actorService.getPlayerCharacters()
       .subscribe((playerCharacters) => {
         this.protagonists = playerCharacters;
       })
