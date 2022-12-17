@@ -18,18 +18,21 @@ export class ShortRestComponent implements OnInit {
   constructor(private restingService: RestingService) {
   }
 
-  ngOnInit(): void {
-    for(let actor of this.playerCharacters) {
-      this.actorsToShortRestInput.set(actor, new ShortRestInput());
-    }
+  ngOnChanges(): void {
+    console.debug('short rest component - ngOnChanges')
+    this.playerCharacters.forEach(playerCharacter => {
+      this.actorsToShortRestInput.set(playerCharacter, new ShortRestInput())
+    })
   }
 
-  getAvailableHitDice(actor: PlayerCharacter): number {
-    return this.restingService.getActorsAvailableHitDice(actor);
+  ngOnInit(): void {
+    this.playerCharacters.forEach(playerCharacter => {
+      this.actorsToShortRestInput.set(playerCharacter, new ShortRestInput())
+    })
   }
 
   confirmShortRest(): void {
-    //TODO: validation on hit dice to spend vs available hit dice
+    // TODO: validation on hit dice to spend vs available hit dice
     this.restingService.performShortRest(this.shortRestDurationInHours, this.actorsToShortRestInput);
   }
 }

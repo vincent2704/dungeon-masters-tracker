@@ -10,33 +10,27 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 })
 export class RestingService {
 
-  private actorsToAvailableHitDice: Map<PlayerCharacter, number> = new Map<PlayerCharacter, number>();
-
   constructor(private actorService: ActorService, private temporalService: TemporalService) {
-    //TODO: replace necessary stuff with backend call when backend is implemented
-    this.actorService.getPlayerCharacters()
-      .subscribe(response => {
-        response.map(playerCharacter =>
-          this.actorsToAvailableHitDice.set(playerCharacter, playerCharacter.level));
-      })
   }
 
-  performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput>): void {
+  performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput>) {
     actorsToShortRestInput.forEach((shortRestInput, actor) => {
       this.applyShortRestInput(actor, shortRestInput);
     })
-    this.temporalService.addSeconds(restDurationInHours * 3600);
     //TODO: backend call
+    this.temporalService.addSeconds(restDurationInHours * 3600);
+    let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
+    this.actorService.updatePlayerCharacters(playerCharacters)
+      .subscribe();
   }
 
-  performLongRest(restTimeInHours: number): void {
+  performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
     if(restTimeInHours < this.getMinimumRestingTime()) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
     }
 
-    this.actorsToAvailableHitDice.forEach((availableHitDice, playerCharacter) => {
-      // let actor = this.actorService.findActorByName(actorName);
+    playerCharacters.forEach(playerCharacter => {
       if(playerCharacter.currentHp == 0) {
         return;
       }
@@ -46,18 +40,6 @@ export class RestingService {
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
     this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
-  }
-
-  getActorsToAvailableHitDiceMap(): Map<PlayerCharacter, number> {
-    return this.actorsToAvailableHitDice;
-  }
-
-  setActorsToAvailableHitDiceMap(map: Map<PlayerCharacter, number>): void {
-    this.actorsToAvailableHitDice = map;
-  }
-
-  getActorsAvailableHitDice(actor: PlayerCharacter): number {
-    return this.actorsToAvailableHitDice.get(actor)!;
   }
 
   getTimeSinceLastLongRest() {
@@ -72,20 +54,21 @@ export class RestingService {
   }
 
   private regainHitDice(playerCharacter: PlayerCharacter): void {
-    let availableHitDice = this.getActorsAvailableHitDice(playerCharacter);
+    let availableHitDice = playerCharacter.availableHitDice!;
     if(availableHitDice < playerCharacter.level) {
       let maxDiceNumberToRegain = playerCharacter.level / 2;
       availableHitDice += maxDiceNumberToRegain;
       if (availableHitDice > playerCharacter.level) {
         availableHitDice = playerCharacter.level;
       }
-      this.actorsToAvailableHitDice.set(playerCharacter, availableHitDice);
+      playerCharacter.availableHitDice = availableHitDice;
     }
   }
 
   private applyShortRestInput(playerCharacter: PlayerCharacter, shortRestInput: ShortRestInput): void {
-    let currentlyAvailableHitDice = this.actorsToAvailableHitDice.get(playerCharacter)!;
-    this.actorsToAvailableHitDice.set(playerCharacter, currentlyAvailableHitDice - shortRestInput.hitDiceToSpend);
+    let currentlyAvailableHitDice = playerCharacter.availableHitDice!;
+    playerCharacter.availableHitDice = currentlyAvailableHitDice - shortRestInput.hitDiceToSpend
+
     this.addPlayerCharacterHp(playerCharacter, shortRestInput.hpToAdd)
   }
 

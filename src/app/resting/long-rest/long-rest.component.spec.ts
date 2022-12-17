@@ -33,12 +33,12 @@ describe('LongRestComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should perform Long Rest', () => {
-    // when
-    component.rest()
-    // then
-    expect(restingServiceSpy.performLongRest).toHaveBeenCalledWith(component.restTimeInHours);
-  });
+  // it('should perform Long Rest', () => {
+  //   // when
+  //   component.rest()
+  //   // then
+  //   expect(restingServiceSpy.performLongRest).toHaveBeenCalledWith(component.restTimeInHours);
+  // });
 
   it('should get time since last Long Rest', () => {
     //given

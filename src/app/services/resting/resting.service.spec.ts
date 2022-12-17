@@ -13,7 +13,7 @@ describe('RestingService', () => {
   let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
 
   beforeEach(() => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getPlayerCharacters', 'findActorByName']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
     const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
 
     TestBed.configureTestingModule({
@@ -26,16 +26,6 @@ describe('RestingService', () => {
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
-    actorServiceSpy.getPlayerCharacters.and.returnValue(of([
-      {
-        name: 'Actor One',
-        maxHp: 10
-      } as PlayerCharacter,
-      {
-        name: 'Actor Two',
-        maxHp: 20
-      } as PlayerCharacter
-    ]));
 
     service = TestBed.inject(RestingService);
   });
@@ -44,73 +34,85 @@ describe('RestingService', () => {
     expect(service).toBeTruthy();
   });
 
-  it("should return actor's available Hit Dice", () => {
-    //given
-    let actor1: PlayerCharacter = {
-      name: 'Actor One',
-      maxHp: 14,
-      currentHp: 5,
-      level: 5
-    }
-    let actor2: PlayerCharacter = {
-      name: 'Actor Two',
-      maxHp: 14,
-      currentHp: 5,
-      level: 6
-    }
-    let actorsToHitDiceMap = new Map<PlayerCharacter, number>([
-      [actor1, actor1.level],
-      [actor2, actor2.level],
-    ])
-
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
-
-    //then
-    expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
-    expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
-  });
+  // it("should return actor's available Hit Dice", () => {
+  //   //given
+  //   let actor1: PlayerCharacter = {
+  //     name: 'Actor One',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 5
+  //   }
+  //   let actor2: PlayerCharacter = {
+  //     name: 'Actor Two',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 6
+  //   }
+  //   let actorsToHitDiceMap = new Map<PlayerCharacter, number>([
+  //     [actor1, actor1.level],
+  //     [actor2, actor2.level],
+  //   ])
+  //
+  //   service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
+  //
+  //   //then
+  //   expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
+  //   expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
+  // });
 
   it("should properly perform short rest", () => {
     // given
     let actor1: PlayerCharacter = {
+      id: 1,
       name: 'Actor One',
       maxHp: 14,
       currentHp: 5,
-      level: 5
+      level: 5,
+      availableHitDice: 4
     }
     let actor2: PlayerCharacter = {
+      id: 2,
       name: 'Actor Two',
       maxHp: 14,
       currentHp: 5,
-      level: 6
+      level: 6,
+      availableHitDice: 3
     }
 
-    let actorsToHitDiceMap = new Map<PlayerCharacter, number>([
-      [actor1, actor1.level],
-      [actor2, actor2.level],
+    const playerCharactersToShortRestInput = new Map<PlayerCharacter, ShortRestInput>([
+      [actor1, new ShortRestInput(2, 7)],
+      [actor2, new ShortRestInput(3, 15)],
     ])
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
 
-    // and
-    let durationInHours = 2;
-    let input = new Map<PlayerCharacter, ShortRestInput>([
-      [actor1, new ShortRestInput(3, 5)],
-      [actor2, new ShortRestInput(2, 6)]
-    ]);
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
 
     // when
-    service.performShortRest(durationInHours, input);
+    service.performShortRest(2, playerCharactersToShortRestInput);
 
     // then
-    expect(actor1.currentHp).toEqual(10);
-    expect(actor2.currentHp).toEqual(11);
+    let actor1AfterResting: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 12,
+      level: 5,
+      availableHitDice: 2
+    }
+    let actor2AfterResting: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 14,
+      level: 6,
+      availableHitDice: 0
+    }
 
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<PlayerCharacter, number>([
-      [actor1, 2],
-      [actor2, 4],
-    ]));
     expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(7200);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledWith([
+      actor1AfterResting, actor2AfterResting
+    ]);
   });
+
 
   it("should return time passed since last long rest", () => {
     //given
@@ -157,72 +159,62 @@ describe('RestingService', () => {
     expect(minimumLongRestTime).toEqual(23);
   });
 
-  it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
-    // given
-    let actor1: PlayerCharacter = {
-      name: 'Actor One',
-      maxHp: 14,
-      currentHp: 5,
-      level: 6
-    }
-    let actor2: PlayerCharacter = {
-      name: 'Actor Two',
-      maxHp: 14,
-      currentHp: 5,
-      level: 6
-    }
-    let actor3: PlayerCharacter = {
-      name: 'Actor Three',
-      maxHp: 14,
-      currentHp: 5,
-      level: 6
-    }
-    let actor4: PlayerCharacter = {
-      name: 'Actor Four',
-      maxHp: 14,
-      currentHp: 0,
-      level: 6
-    }
-
-    let actorsToAvailableHitDice = new Map<PlayerCharacter, number>([
-      [actor1, 1],
-      [actor2, 6],
-      [actor3, 5],
-      [actor4, 5],
-    ]);
-    service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
-
-    // and
-    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
-    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
-    let currentDate = new Date(1524, 6, 18, 10, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
-
-    // and
-    // actorServiceSpy.findActorByName.withArgs(actor1.name).and.returnValue(actor1);
-    // actorServiceSpy.findActorByName.withArgs(actor2.name).and.returnValue(actor2);
-    // actorServiceSpy.findActorByName.withArgs(actor3.name).and.returnValue(actor3);
-    // actorServiceSpy.findActorByName.withArgs(actor4.name).and.returnValue(actor4);
-
-    // when
-    service.performLongRest(8);
-
-    //then
-    expect(actor1.currentHp).toEqual(actor1.maxHp);
-    expect(actor2.currentHp).toEqual(actor2.maxHp);
-    expect(actor3.currentHp).toEqual(actor3.maxHp);
-    expect(actor4.currentHp).toEqual(0);
-
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<PlayerCharacter, number>(
-      [
-        [actor1, 4],
-        [actor2, 6],
-        [actor3, 6],
-        [actor4, 5],
-      ]
-    ))
-
-    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(28_800);
-  });
+  // it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
+  //   // given
+  //   let actor1: PlayerCharacter = {
+  //     name: 'Actor One',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 6
+  //   }
+  //   let actor2: PlayerCharacter = {
+  //     name: 'Actor Two',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 6
+  //   }
+  //   let actor3: PlayerCharacter = {
+  //     name: 'Actor Three',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 6
+  //   }
+  //   let actor4: PlayerCharacter = {
+  //     name: 'Actor Four',
+  //     maxHp: 14,
+  //     currentHp: 0,
+  //     level: 6
+  //   }
+  //
+  //   let actorsToAvailableHitDice = new Map<PlayerCharacter, number>([
+  //     [actor1, 1],
+  //     [actor2, 6],
+  //     [actor3, 5],
+  //     [actor4, 5],
+  //   ]);
+  //   service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
+  //
+  //   // and
+  //   let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
+  //   temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
+  //   let currentDate = new Date(1524, 6, 18, 10, 30, 0);
+  //   temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+  //
+  //   // when
+  //   service.performLongRest(8);
+  //
+  //   //then
+  //   expect(actor1.currentHp).toEqual(actor1.maxHp);
+  //   expect(actor2.currentHp).toEqual(actor2.maxHp);
+  //   expect(actor3.currentHp).toEqual(actor3.maxHp);
+  //   expect(actor4.currentHp).toEqual(0);
+  //
+  //   expect(service.playerCharacters[0].availableHitDice).toEqual(4);
+  //   expect(service.playerCharacters[1].availableHitDice).toEqual(6);
+  //   expect(service.playerCharacters[2].availableHitDice).toEqual(6);
+  //   expect(service.playerCharacters[3].availableHitDice).toEqual(5);
+  //
+  //   expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(28_800);
+  // });
 
 });

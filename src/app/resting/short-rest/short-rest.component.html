@@ -32,7 +32,7 @@
             {{actor.currentHp}}
           </th>
           <th scope="row">
-            {{getAvailableHitDice(actor)}}
+            {{actor.availableHitDice}}
           </th>
           <th scope="row">
             <input type="number" placeholder="Hit Dice amount" [(ngModel)]="actorsToShortRestInput.get(actor)!.hitDiceToSpend">

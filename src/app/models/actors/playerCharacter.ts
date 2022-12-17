@@ -2,14 +2,16 @@ import {BackendCondition} from "./backendCondition";
 
 export interface PlayerCharacter {
 
-  id?: number
+  id?: number,
+  level: number,
   name: string,
   maxHp: number,
   currentHp?: number,
-  level: number,
   resurrectionPenalty?: number,
   timeOfDeath?: Date,
-  conditions?: BackendCondition[]
+  conditions?: BackendCondition[],
+  availableHitDice?: number,
+  lastLongRestTime?: Date
 
 }
 
