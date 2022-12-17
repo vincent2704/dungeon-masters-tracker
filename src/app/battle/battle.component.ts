@@ -39,7 +39,7 @@ export class BattleComponent implements OnInit {
       this.actorService.getPlayerCharacters()
         .subscribe(
           response => {
-            this.mapResponseToActorsArray(response)
+            this.actors = this.mapResponseToActorsArray(response)
           },
           error => {
             console.log(error)
@@ -56,11 +56,20 @@ export class BattleComponent implements OnInit {
   }
 
   endBattle(): void {
+    this.actors = [];
     this.battleStarted = false;
     this.conflictResolvedActors = [];
     this.actorService.updatePlayerCharacters(this.mapActorsToPlayerCharacters(this.actors))
-      .subscribe(playerCharacters =>
-        this.mapResponseToActorsArray(playerCharacters));
+      .subscribe();
+    // TODO: find out why updatePlayerCharacters isn't sufficient for populating the table
+    this.actorService.getPlayerCharacters()
+      .subscribe(
+        response => {
+          this.actors = this.mapResponseToActorsArray(response)
+        },
+        error => {
+          console.log(error)
+        })
   }
 
   sortActorsByInitiative(): Map<Actor, number> {
@@ -152,8 +161,8 @@ export class BattleComponent implements OnInit {
     })
   }
 
-  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): void {
-    this.actors = playerCharacters.map(character => {
+  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
+    return playerCharacters.map(character => {
       return this.actorService.fromJson(character)
     })
   }
