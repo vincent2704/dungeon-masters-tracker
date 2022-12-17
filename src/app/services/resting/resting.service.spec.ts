@@ -159,62 +159,101 @@ describe('RestingService', () => {
     expect(minimumLongRestTime).toEqual(23);
   });
 
-  // it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
-  //   // given
-  //   let actor1: PlayerCharacter = {
-  //     name: 'Actor One',
-  //     maxHp: 14,
-  //     currentHp: 5,
-  //     level: 6
-  //   }
-  //   let actor2: PlayerCharacter = {
-  //     name: 'Actor Two',
-  //     maxHp: 14,
-  //     currentHp: 5,
-  //     level: 6
-  //   }
-  //   let actor3: PlayerCharacter = {
-  //     name: 'Actor Three',
-  //     maxHp: 14,
-  //     currentHp: 5,
-  //     level: 6
-  //   }
-  //   let actor4: PlayerCharacter = {
-  //     name: 'Actor Four',
-  //     maxHp: 14,
-  //     currentHp: 0,
-  //     level: 6
-  //   }
-  //
-  //   let actorsToAvailableHitDice = new Map<PlayerCharacter, number>([
-  //     [actor1, 1],
-  //     [actor2, 6],
-  //     [actor3, 5],
-  //     [actor4, 5],
-  //   ]);
-  //   service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
-  //
-  //   // and
-  //   let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
-  //   temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
-  //   let currentDate = new Date(1524, 6, 18, 10, 30, 0);
-  //   temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
-  //
-  //   // when
-  //   service.performLongRest(8);
-  //
-  //   //then
-  //   expect(actor1.currentHp).toEqual(actor1.maxHp);
-  //   expect(actor2.currentHp).toEqual(actor2.maxHp);
-  //   expect(actor3.currentHp).toEqual(actor3.maxHp);
-  //   expect(actor4.currentHp).toEqual(0);
-  //
-  //   expect(service.playerCharacters[0].availableHitDice).toEqual(4);
-  //   expect(service.playerCharacters[1].availableHitDice).toEqual(6);
-  //   expect(service.playerCharacters[2].availableHitDice).toEqual(6);
-  //   expect(service.playerCharacters[3].availableHitDice).toEqual(5);
-  //
-  //   expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(28_800);
-  // });
+  it("should perform Long Rest", () => {
+    // given
+    const restTimeInHours = 8;
+    let actor1: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 5,
+      level: 5,
+      availableHitDice: 1
+    }
+    let actor2: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 6
+    }
+    let actor3: PlayerCharacter = {
+      name: 'Actor Three',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor4: PlayerCharacter = {
+      name: 'Actor Four',
+      maxHp: 14,
+      currentHp: 0,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor5: PlayerCharacter = {
+      name: 'Actor Five',
+      maxHp: 14,
+      currentHp: 1,
+      level: 1,
+      availableHitDice: 0
+    }
+    const playerCharacters: PlayerCharacter[] = [
+      actor1, actor2, actor3, actor4, actor5
+    ]
+
+    // and
+    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
+    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
+    let currentDate = new Date(1524, 6, 18, 10, 30, 0);
+    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
+
+    // when
+    service.performLongRest(restTimeInHours, playerCharacters)
+
+    // then
+    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledOnceWith(28_800);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
+      {
+        id: 1,
+        name: 'Actor One',
+        maxHp: 14,
+        currentHp: 14,
+        level: 5,
+        availableHitDice: 3
+      },
+      {
+        id: 2,
+        name: 'Actor Two',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Three',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Four',
+        maxHp: 14,
+        currentHp: 0,
+        level: 6,
+        availableHitDice: 5
+      },
+      {
+        name: 'Actor Five',
+        maxHp: 14,
+        currentHp: 14,
+        level: 1,
+        availableHitDice: 1
+      }
+    ])
+  });
 
 });

@@ -11,7 +11,6 @@ export interface PlayerCharacter {
   timeOfDeath?: Date,
   conditions?: BackendCondition[],
   availableHitDice?: number,
-  lastLongRestTime?: Date
 
 }
 

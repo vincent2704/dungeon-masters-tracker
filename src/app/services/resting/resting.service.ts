@@ -17,7 +17,6 @@ export class RestingService {
     actorsToShortRestInput.forEach((shortRestInput, actor) => {
       this.applyShortRestInput(actor, shortRestInput);
     })
-    //TODO: backend call
     this.temporalService.addSeconds(restDurationInHours * 3600);
     let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
     this.actorService.updatePlayerCharacters(playerCharacters)
@@ -25,21 +24,31 @@ export class RestingService {
   }
 
   performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
+    console.log('resting service - performLongRest()')
     if(restTimeInHours < this.getMinimumRestingTime()) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
     }
 
     playerCharacters.forEach(playerCharacter => {
+      console.log(`${playerCharacter.name} available hit dice before: ${playerCharacter.availableHitDice}`)
       if(playerCharacter.currentHp == 0) {
         return;
       }
       this.regainHitDice(playerCharacter);
-      this.addPlayerCharacterHp(playerCharacter, playerCharacter.maxHp);
+      console.log(`${playerCharacter.name} available hit dice after: ${playerCharacter.availableHitDice}`)
+      this.addPlayerCharacterHp(playerCharacter, playerCharacter.maxHp)
     })
+
+    console.log(`restingService - updated PlayerCharacters`)
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
     this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
+    this.actorService.updatePlayerCharacters(playerCharacters)
+      .subscribe(response => {
+        console.log(`actorService - updatePlayerCharactersFinished()`)
+        playerCharacters = response;
+      });
   }
 
   getTimeSinceLastLongRest() {
@@ -56,7 +65,9 @@ export class RestingService {
   private regainHitDice(playerCharacter: PlayerCharacter): void {
     let availableHitDice = playerCharacter.availableHitDice!;
     if(availableHitDice < playerCharacter.level) {
-      let maxDiceNumberToRegain = playerCharacter.level / 2;
+      let maxDiceNumberToRegain = playerCharacter.level == 1
+        ? 1
+        : Math.trunc(playerCharacter.level / 2);
       availableHitDice += maxDiceNumberToRegain;
       if (availableHitDice > playerCharacter.level) {
         availableHitDice = playerCharacter.level;
