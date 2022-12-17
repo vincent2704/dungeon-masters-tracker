@@ -8,6 +8,7 @@ import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {of} from "rxjs";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -16,7 +17,7 @@ describe('TrackerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'updatePlayerCharacters']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -26,15 +27,25 @@ describe('TrackerComponent', () => {
       ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     fixture = TestBed.createComponent(TrackerComponent);
     component = fixture.componentInstance;
+
+    actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     component.actors = [];
     fixture.detectChanges();
+
   });
+
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(TrackerComponent);
+  //   component = fixture.componentInstance;
+  //
+  //   actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
+  //   component.actors = [];
+  //
+  //   fixture.detectChanges();
+  // });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -47,6 +58,7 @@ describe('TrackerComponent', () => {
     actor1.setDeathSavingThrowsEligibility(true);
     actor2.setDeathSavingThrowsEligibility(true);
     component.actors = [actor1, actor2]
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]))
 
     // when
     component.endBattle();
@@ -68,8 +80,9 @@ describe('TrackerComponent', () => {
       conditions: []
     }
 
-    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith(
-      [pc1, pc2]);
+    const playerChars = [pc1, pc2]
+
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith(playerChars);
   });
 
   it('should progress actor', () => {

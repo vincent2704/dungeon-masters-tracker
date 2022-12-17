@@ -103,7 +103,8 @@ export class TrackerComponent implements OnInit {
   }
 
   private updateCharacters(): void {
-    this.actorService.updatePlayerCharacters(this.retrievePlayerCharacters(this.actors))
+    let playerCharacters = this.retrievePlayerCharacters(this.actors);
+    this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => response,
           error => console.error(`Updating player characters failed. Error: ${error}`));
   }
