@@ -7,6 +7,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
 import {environment} from "../../../environments/environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ActorService {
   private demoPlayers: PlayerCharacter[] = [];
 
   private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
+  private readonly battleFinishedUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters/finish-battle`
   private readonly httpOptions = {
     params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
   }
@@ -48,7 +50,14 @@ export class ActorService {
       this.demoPlayers = playerCharacters;
       return of(this.demoPlayers);
     }
+    console.log('updatePlayerCharacters invoked')
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
+  }
+
+  updateCharactersAfterBattle(playersBattleFinishedRequests: PlayerBattleFinishedRequest[]):
+    Observable<PlayerCharacter[]> {
+    return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
+      playersBattleFinishedRequests, this.httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {

@@ -55,21 +55,10 @@ export class BattleComponent implements OnInit {
     this.battleStarted = true;
   }
 
-  endBattle(): void {
-    this.actors = [];
+  endBattle(event: any): void {
+    this.actors = event;
     this.battleStarted = false;
     this.conflictResolvedActors = [];
-    this.actorService.updatePlayerCharacters(this.mapActorsToPlayerCharacters(this.actors))
-      .subscribe();
-    // TODO: find out why updatePlayerCharacters isn't sufficient for populating the table
-    this.actorService.getPlayerCharacters()
-      .subscribe(
-        response => {
-          this.actors = this.mapResponseToActorsArray(response)
-        },
-        error => {
-          console.log(error)
-        })
   }
 
   sortActorsByInitiative(): Map<Actor, number> {
@@ -148,18 +137,7 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
-  private mapActorsToPlayerCharacters(actors: Actor[]): PlayerCharacter[] {
-    return actors.map(actor => {
-      return {
-        id: actor.getId(),
-        name: actor.getName(),
-        maxHp: actor.getMaxHP(),
-        currentHp: actor.getCurrentHP(),
-        level: actor.getLevel(),
-        timeOfDeath: actor.getTimeOfDeath(),
-      } as PlayerCharacter
-    })
-  }
+
 
   private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
     return playerCharacters.map(character => {

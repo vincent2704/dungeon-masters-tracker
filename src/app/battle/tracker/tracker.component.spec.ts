@@ -37,16 +37,6 @@ describe('TrackerComponent', () => {
 
   });
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(TrackerComponent);
-  //   component = fixture.componentInstance;
-  //
-  //   actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-  //   component.actors = [];
-  //
-  //   fixture.detectChanges();
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

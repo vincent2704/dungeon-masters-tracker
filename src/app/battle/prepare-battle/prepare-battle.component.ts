@@ -5,6 +5,7 @@ import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
 import {BattleService} from "../../services/battle/battle.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {ActorService} from "../../services/actor/actor.service";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -13,8 +14,7 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 })
 export class PrepareBattleComponent implements OnInit {
 
-  @Input()
-  actors!: Actor[];
+  actors: Actor[] = [];
 
   // TODO: filter playerCharacters from Actors
   playerCharacters: PlayerCharacter[] = [];
@@ -25,11 +25,20 @@ export class PrepareBattleComponent implements OnInit {
   encounters: Encounter[] = [];
   actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
-  constructor(private encounterService: EncounterService,
+  constructor(private actorService: ActorService,
+              private encounterService: EncounterService,
               private battleService: BattleService) {
   }
 
   ngOnInit(): void {
+    this.actorService.getPlayerCharacters()
+      .subscribe(
+        response => {
+          this.actors = this.mapResponseToActorsArray(response)
+        },
+        error => {
+          console.log(error)
+        })
     this.encounters = this.encounterService.getEncounters();
     for(let actor of this.actors) {
       this.actorsToInitiativeMap.set(actor, 1);
@@ -67,5 +76,11 @@ export class PrepareBattleComponent implements OnInit {
       return initiative
     }
     return 0;
+  }
+
+  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
+    return playerCharacters.map(character => {
+      return this.actorService.fromJson(character)
+    })
   }
 }
