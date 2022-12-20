@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TrackerComponent } from './tracker.component';
+import {TrackerComponent} from './tracker.component';
 import {Actor} from "../../models/actors/actor";
 import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {of} from "rxjs";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -17,7 +17,7 @@ describe('TrackerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -45,34 +45,22 @@ describe('TrackerComponent', () => {
     //given
     let actor1 = new Actor('Actor 1', 1)
     let actor2 = new Actor('Actor 2', 1)
+    actor2.id = 2;
+    actor1.type = BattleParticipantType.PLAYER_CHARACTER
+    actor2.type = BattleParticipantType.PLAYER_CHARACTER
+    let actor3 = new Actor('Monster', 1)
     actor1.setDeathSavingThrowsEligibility(true);
     actor2.setDeathSavingThrowsEligibility(true);
-    component.actors = [actor1, actor2]
-    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]))
+    component.actors = [actor1, actor2, actor3]
+    actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
 
     // when
     component.endBattle();
 
-    let pc1: PlayerCharacter = {
-      id: undefined,
-      name: 'Actor 1',
-      level: 1,
-      maxHp: 1,
-      currentHp: 1,
-      conditions: []
-    }
-    let pc2: PlayerCharacter = {
-      id: undefined,
-      name: 'Actor 2',
-      level: 1,
-      maxHp: 1,
-      currentHp: 1,
-      conditions: []
-    }
-
-    const playerChars = [pc1, pc2]
-
-    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith(playerChars);
+    expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
+      playerId: 2,
+      playerCurrentHp: 1
+    }]);
   });
 
   it('should progress actor', () => {
@@ -89,9 +77,9 @@ describe('TrackerComponent', () => {
   it("should increment round after all actors are progressed", () => {
     // given
     expect(component.round).toEqual(1);
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
-    let actor2 = new Actor('Actor 2', 1, 1, 3);
-    let actor3 = new Actor('Actor 3', 1, 1, 11);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
     component.actors = [actor1, actor2, actor3];
 
     // when
@@ -111,7 +99,7 @@ describe('TrackerComponent', () => {
 
   it("should decrement actor's temporary hit points duration after the end of actor's turn", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    let actor1 = new Actor('Actor 1', 1);
     component.actors = [actor1];
 
     // when
@@ -124,8 +112,8 @@ describe('TrackerComponent', () => {
 
   it("should decrement actor's condition duration after the end of actor's turn", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
-    let actor2 = new Actor('Actor 1', 1, 1, 1);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 1', 1);
     component.actors = [actor1, actor2];
 
     // when
@@ -140,7 +128,7 @@ describe('TrackerComponent', () => {
 
   it("should display death saving throws", () => {
     // given
-    let actor = new Actor('Actor 1', 1, 1, 3);
+    let actor = new Actor('Actor 1', 1);
     let date = new Date();
     actor.setDeathSavingThrowsEligibility(true);
     actor.modifyHp(-1, date);
@@ -151,7 +139,7 @@ describe('TrackerComponent', () => {
 
   it("should not display death saving throws if character is ineligible", () => {
     // given
-    let actor = new Actor('Actor 1', 1, 1, 3);
+    let actor = new Actor('Actor 1', 1);
     let date = new Date();
     actor.setDeathSavingThrowsEligibility(false);
     actor.modifyHp(-1, date);

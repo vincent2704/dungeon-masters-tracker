@@ -3,8 +3,8 @@ import {Actor} from "../../models/actors/actor";
 import {TemporalService} from "../../services/temporal/temporal.service";
 import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
-import {BackendCondition} from "../../models/actors/backendCondition";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 @Component({
   selector: 'app-tracker',
@@ -84,7 +84,11 @@ export class TrackerComponent implements OnInit {
   }
 
   endBattle() {
-    let battleFinishRequests: PlayerBattleFinishedRequest[] = this.createBattleFinishRequests(this.actors)
+    let playerCharacterActors: Actor[] = this.actors.filter(
+      actor => {
+        return actor.type == BattleParticipantType.PLAYER_CHARACTER && actor.id
+      });
+    let battleFinishRequests: PlayerBattleFinishedRequest[] = this.createBattleFinishRequests(playerCharacterActors)
     this.actorService.updateCharactersAfterBattle(battleFinishRequests)
       .subscribe(response => {
           if (this.isTimeTracked) {

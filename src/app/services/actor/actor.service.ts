@@ -8,6 +8,7 @@ import {Environment} from "../../environment";
 import {environment} from "../../../environments/environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class ActorService {
     actor.id = data.id;
     actor.currentHp = data.currentHp;
     actor.level = data.level;
+    actor.type = BattleParticipantType.PLAYER_CHARACTER;
     actor.setTimeOfDeath(data.timeOfDeath);
     actor.setResurrectionPenalty(data.resurrectionPenalty);
 

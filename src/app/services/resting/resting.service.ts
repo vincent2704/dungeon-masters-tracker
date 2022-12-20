@@ -24,29 +24,23 @@ export class RestingService {
   }
 
   performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
-    console.log('resting service - performLongRest()')
     if(restTimeInHours < this.getMinimumRestingTime()) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
     }
 
     playerCharacters.forEach(playerCharacter => {
-      console.log(`${playerCharacter.name} available hit dice before: ${playerCharacter.availableHitDice}`)
       if(playerCharacter.currentHp == 0) {
         return;
       }
       this.regainHitDice(playerCharacter);
-      console.log(`${playerCharacter.name} available hit dice after: ${playerCharacter.availableHitDice}`)
       this.addPlayerCharacterHp(playerCharacter, playerCharacter.maxHp)
     })
-
-    console.log(`restingService - updated PlayerCharacters`)
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
     this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
     this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => {
-        console.log(`actorService - updatePlayerCharactersFinished()`)
         playerCharacters = response;
       });
   }

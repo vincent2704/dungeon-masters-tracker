@@ -13,6 +13,7 @@ import {
 import {DifficultyBarComponent} from "../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {BattleService} from "../services/battle/battle.service";
+import {BattleParticipantType} from "../models/actors/battleParticipantType";
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -27,7 +28,7 @@ describe('BattleComponent', () => {
       imports: [FormsModule, HttpClientTestingModule],
       declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent],
       providers: [
-        {provide: BattleService, useValue: battleService}
+        { provide: BattleService, useValue: battleService }
       ]
     })
       .compileComponents();
@@ -118,10 +119,11 @@ describe('BattleComponent', () => {
 
   it("should clear list of conflict-resolved actors after the end of battle", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 1);
-    let actor2 = new Actor('Actor 2', 1, 1, 1);
-    let actor3 = new Actor('Actor 3', 1, 1, 1);
-    let actor4 = new Actor('Actor 4', 1, 1, 1);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
+    let actor4 = new Actor('Actor 4', 1);
+    actor4.type = BattleParticipantType.MONSTER;
     component.conflictResolvedActors = [actor1, actor2, actor3, actor4];
 
     battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
@@ -134,7 +136,7 @@ describe('BattleComponent', () => {
     component.startBattle();
 
     //when
-    component.endBattle();
+    component.endBattle([actor1, actor2, actor3]);
 
     //then
     expect(component.conflictResolvedActors).toEqual([]);

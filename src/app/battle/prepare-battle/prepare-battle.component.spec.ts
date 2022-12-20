@@ -8,6 +8,7 @@ import {Settings} from "../../services/settings/settings";
 import {By} from "@angular/platform-browser";
 import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('PrepareBattleComponent', () => {
   let component: PrepareBattleComponent;
@@ -21,7 +22,7 @@ describe('PrepareBattleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ FormsModule, HttpClientTestingModule ],
       declarations: [ PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent ]
     })
     .compileComponents();
