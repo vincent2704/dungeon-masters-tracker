@@ -1,4 +1,5 @@
 export interface PlayerBattleFinishedRequest {
   playerId: number,
-  playerCurrentHp: number
+  playerCurrentHp: number,
+  timeOfDeath?: Date
 }

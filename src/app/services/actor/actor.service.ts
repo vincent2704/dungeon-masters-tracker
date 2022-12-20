@@ -41,7 +41,7 @@ export class ActorService {
     actor.currentHp = data.currentHp;
     actor.level = data.level;
     actor.type = BattleParticipantType.PLAYER_CHARACTER;
-    actor.setTimeOfDeath(data.timeOfDeath);
+    actor.setTimeOfDeath(new Date(data.timeOfDeathEpoch));
     actor.setResurrectionPenalty(data.resurrectionPenalty);
 
     return actor;

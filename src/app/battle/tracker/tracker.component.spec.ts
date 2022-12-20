@@ -43,15 +43,17 @@ describe('TrackerComponent', () => {
 
   it("should save actors after battle is concluded", () => {
     //given
-    let actor1 = new Actor('Actor 1', 1)
-    let actor2 = new Actor('Actor 2', 1)
+    let actor1 = new Actor('Actor 1', 1, BattleParticipantType.PLAYER_CHARACTER)
+    let actor2 = new Actor('Actor 2', 1, BattleParticipantType.PLAYER_CHARACTER)
+    let actor3 = new Actor('Actor 3', 1, BattleParticipantType.PLAYER_CHARACTER)
     actor2.id = 2;
-    actor1.type = BattleParticipantType.PLAYER_CHARACTER
-    actor2.type = BattleParticipantType.PLAYER_CHARACTER
-    let actor3 = new Actor('Monster', 1)
+    actor3.id = 3;
+    let date = new Date();
+    actor3.modifyHp(-100, date);
+    let actor4 = new Actor('Monster', 1)
     actor1.setDeathSavingThrowsEligibility(true);
     actor2.setDeathSavingThrowsEligibility(true);
-    component.actors = [actor1, actor2, actor3]
+    component.actors = [actor1, actor2, actor3, actor4]
     actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
 
     // when
@@ -59,8 +61,14 @@ describe('TrackerComponent', () => {
 
     expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
       playerId: 2,
-      playerCurrentHp: 1
-    }]);
+      playerCurrentHp: 1,
+      timeOfDeath: undefined
+    },
+      {
+        playerId: 3,
+        playerCurrentHp: 0,
+        timeOfDeath: date
+      }]);
   });
 
   it('should progress actor', () => {

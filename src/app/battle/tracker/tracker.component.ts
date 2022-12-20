@@ -126,6 +126,7 @@ export class TrackerComponent implements OnInit {
       return {
         playerId: actor.getId(),
         playerCurrentHp: actor.getCurrentHP(),
+        timeOfDeath: actor.getTimeOfDeath()
       } as PlayerBattleFinishedRequest
     })
   }

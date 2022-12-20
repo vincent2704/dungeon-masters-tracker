@@ -8,7 +8,7 @@ export interface PlayerCharacter {
   maxHp: number,
   currentHp?: number,
   resurrectionPenalty?: number,
-  timeOfDeath?: Date,
+  timeOfDeathEpoch?: number,
   conditions?: BackendCondition[],
   availableHitDice?: number,
 
