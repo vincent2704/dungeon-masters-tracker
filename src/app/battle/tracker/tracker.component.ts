@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";

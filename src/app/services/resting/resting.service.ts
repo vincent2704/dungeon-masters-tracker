@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {ActorService} from "../actor/actor.service";
-import {CampaignService} from "../temporal/campaign.service";
+import {CampaignService} from "../campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 

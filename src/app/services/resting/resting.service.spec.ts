@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {RestingService} from './resting.service';
 import {ActorService} from "../actor/actor.service";
-import {CampaignService} from "../temporal/campaign.service";
+import {CampaignService} from "../campaign/campaign.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {of} from "rxjs";

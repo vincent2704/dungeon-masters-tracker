@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TravelCalculatorComponent} from './travel-calculator.component';
 import {Settings} from "../../services/settings/settings";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {FormsModule} from "@angular/forms";
 
 describe('TravelCalculatorComponent', () => {

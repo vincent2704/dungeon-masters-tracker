@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbCalendar, NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {TimeStructure} from "../../models/timeStructure";
 
 @Component({

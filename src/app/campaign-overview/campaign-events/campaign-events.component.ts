@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CampaignEvent} from "../../models/campaign/campaignEvent";
 import {EventService} from "../../services/events/event.service";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 
 @Component({
   selector: 'app-campaign-events',

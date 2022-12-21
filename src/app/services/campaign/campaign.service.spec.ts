@@ -6,7 +6,7 @@ import {TimeStructure} from "../../models/timeStructure";
 import {FormsModule} from "@angular/forms";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('TemporalService', () => {
+describe('CampaignService', () => {
   let service: CampaignService;
 
   beforeEach(() => {

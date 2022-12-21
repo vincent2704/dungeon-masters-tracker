@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResurrectionComponent } from './resurrection.component';
 import {NgbCollapse, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../models/actors/actor";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 
 describe('ResurrectionComponent', () => {

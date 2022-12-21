@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
-import {CampaignService} from "../../services/temporal/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {StringUtils} from "../../utilities/string/stringUtils";
 

@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {EventService} from './event.service';
-import {CampaignService} from "../temporal/campaign.service";
+import {CampaignService} from "../campaign/campaign.service";
 import {HttpClient} from "@angular/common/http";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {CampaignEvent} from "../../models/campaign/campaignEvent";
