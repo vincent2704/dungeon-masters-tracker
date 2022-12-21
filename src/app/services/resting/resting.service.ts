@@ -38,7 +38,10 @@ export class RestingService {
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
-    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()));
+    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()))
+      .subscribe(response => {
+        this.temporalService.updateSessionStorageCampaign(response);
+      });
     this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => {
         playerCharacters = response;

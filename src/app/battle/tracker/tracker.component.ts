@@ -92,7 +92,8 @@ export class TrackerComponent implements OnInit {
     this.actorService.updateCharactersAfterBattle(battleFinishRequests)
       .subscribe(response => {
           if (this.isTimeTracked) {
-            this.temporalService.addSeconds((this.round - 1) * 6);
+            this.temporalService.addSeconds((this.round - 1) * 6)
+              .subscribe(response => this.temporalService.updateSessionStorageCampaign(response));
           }
           this.battleEndedEmitter.emit(this.mapPlayerCharactersToActors(response));
         },

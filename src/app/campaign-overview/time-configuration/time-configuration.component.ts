@@ -28,7 +28,10 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   onConfirmDate(): void {
-    this.temporalService.setCurrentDate(this.dateModel, this.timeModel);
+    this.temporalService.setCurrentDate(this.dateModel, this.timeModel)
+      .subscribe(response => {
+        this.temporalService.updateSessionStorageCampaign(response);
+      })
     this.currentDate = this.temporalService.getCurrentDate();
   }
 
