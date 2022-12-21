@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {EventService} from './event.service';
-import {TemporalService} from "../temporal/temporal.service";
+import {CampaignService} from "../temporal/campaign.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
@@ -9,7 +9,7 @@ import {of} from "rxjs";
 
 describe('EventService', () => {
   let service: EventService;
-  let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
+  let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
 
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
@@ -23,11 +23,11 @@ describe('EventService', () => {
       imports: [HttpClientTestingModule],
       providers: [
         EventService,
-        {provide: TemporalService, useValue: temporalSpy},
+        {provide: CampaignService, useValue: temporalSpy},
       ]
     });
 
-    temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
+    temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
     temporalServiceSpy.getCurrentDate.and.returnValue(new Date(1524, 6, 16, 18, 30));
 
     httpClient = TestBed.inject(HttpClient);

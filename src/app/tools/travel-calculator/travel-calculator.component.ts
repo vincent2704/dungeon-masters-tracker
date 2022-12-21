@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/temporal/campaign.service";
 import {Settings} from "../../services/settings/settings";
 
 @Component({
@@ -12,7 +12,7 @@ export class TravelCalculatorComponent implements OnInit {
   travelInformation: string = '';
   trackTime: boolean = true;
 
-  constructor( private temporalService: TemporalService) {
+  constructor( private temporalService: CampaignService) {
   }
 
   ngOnInit(): void {

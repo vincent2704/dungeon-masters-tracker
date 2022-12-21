@@ -2,14 +2,14 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TravelCalculatorComponent} from './travel-calculator.component';
 import {Settings} from "../../services/settings/settings";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/temporal/campaign.service";
 import {FormsModule} from "@angular/forms";
 
 describe('TravelCalculatorComponent', () => {
   let component: TravelCalculatorComponent;
   let fixture: ComponentFixture<TravelCalculatorComponent>;
 
-  let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
+  let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
 
   beforeEach(async () => {
     const temporalService = jasmine.createSpyObj('TemporalService', ['addSeconds'])
@@ -18,7 +18,7 @@ describe('TravelCalculatorComponent', () => {
       imports: [FormsModule],
       declarations: [TravelCalculatorComponent],
       providers: [
-        {provide: TemporalService, useValue: temporalService},
+        {provide: CampaignService, useValue: temporalService},
       ]
     })
       .compileComponents();
@@ -26,7 +26,7 @@ describe('TravelCalculatorComponent', () => {
     fixture = TestBed.createComponent(TravelCalculatorComponent);
     component = fixture.componentInstance;
 
-    temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
+    temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
     fixture.detectChanges();
   });
 

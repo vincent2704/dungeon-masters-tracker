@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/temporal/campaign.service";
 import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
@@ -24,7 +24,7 @@ export class TrackerComponent implements OnInit {
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
 
-  constructor(private temporalService: TemporalService, private actorService: ActorService) {
+  constructor(private temporalService: CampaignService, private actorService: ActorService) {
   }
 
   ngOnInit(): void {

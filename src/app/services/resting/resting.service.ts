@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {ActorService} from "../actor/actor.service";
-import {TemporalService} from "../temporal/temporal.service";
+import {CampaignService} from "../temporal/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
@@ -10,7 +10,7 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 })
 export class RestingService {
 
-  constructor(private actorService: ActorService, private temporalService: TemporalService) {
+  constructor(private actorService: ActorService, private temporalService: CampaignService) {
   }
 
   performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput>) {

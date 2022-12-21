@@ -4,6 +4,7 @@ import {DeathSavingThrowsComponent} from './death-saving-throws.component';
 import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {HitType} from "../../../models/combat-data/HitType";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('DeathSavingThrowsComponent', () => {
   let component: DeathSavingThrowsComponent;
@@ -11,6 +12,7 @@ describe('DeathSavingThrowsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ DeathSavingThrowsComponent ]
     })
     .compileComponents();

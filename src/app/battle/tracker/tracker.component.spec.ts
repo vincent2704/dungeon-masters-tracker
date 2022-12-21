@@ -9,6 +9,7 @@ import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
 import {of} from "rxjs";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -20,7 +21,7 @@ describe('TrackerComponent', () => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       declarations: [ TrackerComponent, AddActorComponent ],
       providers: [
         { provide: ActorService, useValue: actorSpy },

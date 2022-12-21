@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/temporal/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {StringUtils} from "../../utilities/string/stringUtils";
 
@@ -18,7 +18,7 @@ export class ResurrectionComponent implements OnInit {
 
   isCollapsed: boolean = true;
 
-  constructor(private temporalService: TemporalService) {
+  constructor(private temporalService: CampaignService) {
   }
 
   ngOnInit(): void {

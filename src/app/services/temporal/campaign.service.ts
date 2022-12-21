@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {TimeStructure} from "../../models/timeStructure";
+import {HttpClient} from "@angular/common/http";
 
 /*
   Service that manages time progress in the campaign
@@ -8,12 +9,12 @@ import {TimeStructure} from "../../models/timeStructure";
 @Injectable({
   providedIn: 'root'
 })
-export class TemporalService {
+export class CampaignService {
 
   private currentDate: Date;
   private lastLongRestFinishedDate: Date;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     //TODO: backend call
     this.currentDate = new Date(
       1524, 6, 17,

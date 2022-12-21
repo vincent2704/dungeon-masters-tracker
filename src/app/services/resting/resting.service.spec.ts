@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {RestingService} from './resting.service';
 import {ActorService} from "../actor/actor.service";
-import {TemporalService} from "../temporal/temporal.service";
+import {CampaignService} from "../temporal/campaign.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {of} from "rxjs";
@@ -10,7 +10,7 @@ import {of} from "rxjs";
 describe('RestingService', () => {
   let service: RestingService;
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
-  let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
+  let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
 
   beforeEach(() => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
@@ -20,12 +20,12 @@ describe('RestingService', () => {
       providers: [
         RestingService,
         {provide: ActorService, useValue: actorSpy},
-        {provide: TemporalService, useValue: temporalSpy},
+        {provide: CampaignService, useValue: temporalSpy},
       ]
     });
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
+    temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
 
     service = TestBed.inject(RestingService);
   });

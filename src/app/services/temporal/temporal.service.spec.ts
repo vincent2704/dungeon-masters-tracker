@@ -1,15 +1,19 @@
 import {TestBed} from '@angular/core/testing';
 
-import {TemporalService} from './temporal.service';
+import {CampaignService} from './campaign.service';
 import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {TimeStructure} from "../../models/timeStructure";
+import {FormsModule} from "@angular/forms";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('TemporalService', () => {
-  let service: TemporalService;
+  let service: CampaignService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TemporalService);
+    TestBed.configureTestingModule({
+      imports: [FormsModule, HttpClientTestingModule]
+    });
+    service = TestBed.inject(CampaignService);
   });
 
   it('should be created', () => {

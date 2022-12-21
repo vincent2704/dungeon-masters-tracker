@@ -3,14 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResurrectionComponent } from './resurrection.component';
 import {NgbCollapse, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../models/actors/actor";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/temporal/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 
 describe('ResurrectionComponent', () => {
   let component: ResurrectionComponent;
   let fixture: ComponentFixture<ResurrectionComponent>;
 
-  let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
+  let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
   let currentDate = new Date(
     1524, 6, 17,
     18, 30, 0
@@ -22,12 +22,12 @@ describe('ResurrectionComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ResurrectionComponent, NgbCollapse, NgbTooltip ],
       providers: [
-        {provide: TemporalService, useValue: temporalService},
+        {provide: CampaignService, useValue: temporalService},
       ]
     })
     .compileComponents();
 
-    temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
+    temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
     temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
   });
 
