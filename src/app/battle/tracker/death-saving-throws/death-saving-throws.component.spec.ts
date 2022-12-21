@@ -29,9 +29,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should stabilize actor after 3 successful death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.success();
     component.success();
@@ -44,9 +44,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should NOT remove unconsciousness on successful death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.success();
     component.success();
@@ -58,9 +58,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should kill actor on 3 failed death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.failure();
     component.failure();
@@ -89,7 +89,7 @@ describe('DeathSavingThrowsComponent', () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.criticalSuccess()
     //then
@@ -100,8 +100,8 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should break stabilized state when unconscious character with 0 HP gets hit", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1, new Date());
+    component.actor = new Actor('Actor', 10);
+    component.actor.modifyHp(-10, new Date());
     component.actor.setStabilized(true);
 
     //when

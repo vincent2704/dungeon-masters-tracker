@@ -1,7 +1,7 @@
 describe('notes', () => {
 
   it('adds 2 notes', () => {
-    cy.visit('http://localhost:4200');
+    cy.visit('http://localhost:4201');
     cy.contains('Notes').click();
     cy.get('#notes-add-note-button').click();
 

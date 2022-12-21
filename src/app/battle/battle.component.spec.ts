@@ -12,20 +12,30 @@ import {
 } from "./prepare-battle/monster-selector/monster-battle-list-selector.component";
 import {DifficultyBarComponent} from "../tools/combat-difficulty-calculator/difficulty-bar/difficulty-bar.component";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {BattleService} from "../services/battle/battle.service";
+import {BattleParticipantType} from "../models/actors/battleParticipantType";
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
   let fixture: ComponentFixture<BattleComponent>;
 
+  let battleServiceSpy: jasmine.SpyObj<BattleService>
+
   beforeEach(async () => {
+    const battleService = jasmine.createSpyObj('BattleService', ['getActorsMap']);
+
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
-      declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent]
+      declarations: [BattleComponent, PrepareBattleComponent, AddActorComponent, MonsterBattleListSelectorComponent, DifficultyBarComponent],
+      providers: [
+        { provide: BattleService, useValue: battleService }
+      ]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
+    battleServiceSpy = TestBed.inject(BattleService) as jasmine.SpyObj<BattleService>;
     fixture = TestBed.createComponent(BattleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -37,99 +47,68 @@ describe('BattleComponent', () => {
 
   it("should sort battle actors by initiative after starting the battle", () => {
     // given
-    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
-    prepareBattleDebugElement.componentInstance.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ]
-    component.isBattleStarted = false;
+    let actor1 = new Actor('Actor 1', 1)
+    let actor2 = new Actor('Actor 2', 1)
+    let actor3 = new Actor('Actor 3', 1)
 
-    // when
-    component.startBattle();
-
-    // then
-    expect(component.actors).toEqual([
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
-    ]);
-  });
-
-  it("should sort battle actors by their initiative", () => {
-    // given
     component.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
+      actor1, actor2, actor3
     ];
 
+    component.battleStarted = false;
+
+    battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
+      [actor1, 1],
+      [actor2, 3],
+      [actor3, 2]
+    ]));
+
     // when
-    let sortedActors = component.sortActorsByInitiative();
-    expect(sortedActors).toEqual([
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
-    ]);
+    component.startBattle()
+
+    expect(component.actors).toEqual([actor2, actor3, actor1])
   });
 
-  it("should add actors to battle component", () => {
+  it("should sort actors by initiative", () => {
     // given
-    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
-    prepareBattleDebugElement.componentInstance.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ]
-    component.isBattleStarted = false;
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
+    let actor4 = new Actor('Actor 4', 1);
+    component.battleStarted = false;
 
-    // when
-    let newActor = new Actor('New Actor', 10, 10, 4);
-    prepareBattleDebugElement.componentInstance.addActor(newActor);
+    battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
+        [actor1, 8],
+        [actor2, 10],
+        [actor3, 5],
+        [actor4, 17]
+      ])
+    )
+
     component.startBattle();
 
     // then
     expect(component.actors).toEqual([
-      newActor,
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
+      actor4, actor2, actor1, actor3
     ]);
   });
 
-  it("should allow to progress an actor added during battle setup", () => {
+  it("should properly recognize conflicted actors", () => {
     // given
-    let prepareBattleDebugElement = findComponent(fixture, PrepareBattleComponent)
-    prepareBattleDebugElement.componentInstance.actors = [
-      new Actor('Actor 1', 1, 1, 1),
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2)
-    ]
-    component.isBattleStarted = false;
-
-    // when
-    let newActor = new Actor('New Actor', 10, 10, 4);
-    prepareBattleDebugElement.componentInstance.addActor(newActor);
-    component.startBattle();
-
-    // then
-    expect(component.actors).toEqual([
-      newActor,
-      new Actor('Actor 2', 1, 1, 3),
-      new Actor('Actor 3', 1, 1, 2),
-      new Actor('Actor 1', 1, 1, 1)
-    ]);
-  });
-
-  it("should properly recognize conflicted actors before opening conflict modal", () => {
-    // given
-    let actor1 = new Actor('Actor 1', 1, 1, 1);
-    let actor2 = new Actor('Actor 2', 1, 1, 1);
-    let actor3 = new Actor('Actor 3', 1, 1, 2);
-    let actor4 = new Actor('Actor 4', 1, 1, 2);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
+    let actor4 = new Actor('Actor 4', 1);
 
     component.actors = [actor1, actor2, actor3, actor4];
-    component.conflictResolvedActors = [actor3, actor4];
+    component.actorsToInitiativeMap = new Map<Actor, number>(
+      [
+        [actor1, 5],
+        [actor2, 5],
+        [actor3, 6],
+        [actor4, 7]
+      ],
+    )
 
     //when
     component.resolveInitiativeConflicts();
@@ -140,45 +119,29 @@ describe('BattleComponent', () => {
 
   it("should clear list of conflict-resolved actors after the end of battle", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 1);
-    let actor2 = new Actor('Actor 2', 1, 1, 1);
-    let actor3 = new Actor('Actor 3', 1, 1, 1);
-    let actor4 = new Actor('Actor 4', 1, 1, 1);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
+    let actor4 = new Actor('Actor 4', 1);
+    actor4.type = BattleParticipantType.MONSTER;
     component.conflictResolvedActors = [actor1, actor2, actor3, actor4];
+
+    battleServiceSpy.getActorsMap.and.returnValue(new Map<Actor, number>([
+      [actor1, 1],
+      [actor2, 2],
+      [actor3, 3],
+      [actor4, 4],
+    ]))
+
     component.startBattle();
 
     //when
-    component.endBattle();
+    component.endBattle([actor1, actor2, actor3]);
 
     //then
     expect(component.conflictResolvedActors).toEqual([]);
   });
 
-  it("should resolve initiative conflicts and return actors in proper order", () => {
-    // given
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
-    let actor2 = new Actor('Actor 2', 1, 1, 3);
-    let actor3 = new Actor('Actor 3', 1, 1, 11);
-    let actor4 = new Actor('Actor 4', 1, 1, 20);
-    let actor5 = new Actor('Actor 5', 1, 1, 1);
-
-    component.actors = [actor1, actor2, actor3, actor4, actor5];
-    component.sortActorsByInitiative();
-
-    //and
-    let actorsToPriorityMap = new Map<Actor, number>();
-    actorsToPriorityMap.set(actor2, 1);
-    actorsToPriorityMap.set(actor1, 2);
-    component.conflictedActorsToPriorityOrderNumbersMap = actorsToPriorityMap;
-    // remember priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
-    let expectedActors = [actor4, actor3, actor2, actor1, actor5];
-    //when
-    let sortedActors = component.getInitiativeConflictResolvedActors();
-
-    //then
-    expect(sortedActors).toEqual(expectedActors);
-    expect(component.actors).toEqual(expectedActors);
-  });
 
 });
 

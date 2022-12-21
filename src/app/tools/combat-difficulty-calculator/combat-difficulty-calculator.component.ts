@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Actor} from "../../models/actors/actor";
 import {ActorService} from "../../services/actor/actor.service";
 import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-combat-difficulty-calculator',
@@ -11,13 +11,13 @@ import {EncounterService} from "../../services/encounter/encounter.service";
 })
 export class CombatDifficultyCalculatorComponent implements OnInit {
 
-  protagonists: Actor[];
-  actorsSelectionStatusMap: Map<Actor, boolean>;
-  participatingActors: Actor[] = [];
+  protagonists: PlayerCharacter[];
+  actorsSelectionStatusMap: Map<PlayerCharacter, boolean>;
+  participatingActors: PlayerCharacter[] = [];
   encounters: Encounter[] = [];
 
   constructor(private actorService: ActorService, private encounterService: EncounterService) {
-    this.actorsSelectionStatusMap = new Map<Actor, boolean>();
+    this.actorsSelectionStatusMap = new Map<PlayerCharacter, boolean>();
     this.protagonists = []
   }
 
@@ -38,7 +38,7 @@ export class CombatDifficultyCalculatorComponent implements OnInit {
     this.encounters = this.encounterService.getEncounters();
   }
 
-  onSelectActor(actor: Actor) {
+  onSelectActor(actor: PlayerCharacter) {
     let selected = this.actorsSelectionStatusMap.get(actor);
     this.actorsSelectionStatusMap.set(actor, !selected);
 
@@ -51,7 +51,7 @@ export class CombatDifficultyCalculatorComponent implements OnInit {
     })
   }
 
-  isSelected(actor: Actor): boolean {
+  isSelected(actor: PlayerCharacter): boolean {
     return this.actorsSelectionStatusMap.get(actor)!;
   }
 

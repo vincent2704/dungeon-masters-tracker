@@ -4,6 +4,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {BattleService} from "../services/battle/battle.service";
 import {ActorService} from "../services/actor/actor.service";
 import {Settings} from "../services/settings/settings";
+import {PlayerCharacter} from "../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-battle',
@@ -12,7 +13,7 @@ import {Settings} from "../services/settings/settings";
 })
 export class BattleComponent implements OnInit {
 
-  isBattleStarted: boolean = false;
+  battleStarted: boolean = false;
   actors: Actor[] = [];
   actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
@@ -36,9 +37,13 @@ export class BattleComponent implements OnInit {
   ngOnInit(): void {
     if (Settings.isAutoLoadProtagonists()) {
       this.actorService.getPlayerCharacters()
-        .subscribe((playerCharacters) => {
-          this.mapResponseToActorsArray(playerCharacters);
-        })
+        .subscribe(
+          response => {
+            this.actors = this.mapResponseToActorsArray(response)
+          },
+          error => {
+            console.log(error)
+          })
     }
   }
 
@@ -47,15 +52,13 @@ export class BattleComponent implements OnInit {
     this.actors = Array.from(this.sortActorsByInitiative())
       .map(entry => entry[0]);
     this.resolveInitiativeConflicts();
-    this.isBattleStarted = true;
+    this.battleStarted = true;
   }
 
-  endBattle(): void {
-    this.isBattleStarted = false;
+  endBattle(event: any): void {
+    this.actors = event;
+    this.battleStarted = false;
     this.conflictResolvedActors = [];
-    this.actorService.updatePlayerCharacters(this.actors)
-      .subscribe(playerCharacters =>
-        this.mapResponseToActorsArray(playerCharacters));
   }
 
   sortActorsByInitiative(): Map<Actor, number> {
@@ -85,7 +88,7 @@ export class BattleComponent implements OnInit {
   }
 
   onClickResolveConflict(): void {
-    this.actors = this.getInitiativeConflictResolvedActors(); //
+    this.actors = this.getInitiativeConflictResolvedActors();
     for (let resolvedActor of this.conflictedActorsToPriorityOrderNumbersMap.keys()) {
       this.conflictResolvedActors.push(resolvedActor);
     }
@@ -134,9 +137,12 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
-  private mapResponseToActorsArray(playerCharacters: Actor[]): void {
-    this.actors = playerCharacters.map(character => {
+
+
+  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
+    return playerCharacters.map(character => {
       return this.actorService.fromJson(character)
     })
   }
+
 }

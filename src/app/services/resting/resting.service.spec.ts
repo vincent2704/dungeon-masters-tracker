@@ -3,8 +3,9 @@ import {TestBed} from '@angular/core/testing';
 import {RestingService} from './resting.service';
 import {ActorService} from "../actor/actor.service";
 import {TemporalService} from "../temporal/temporal.service";
-import {Actor} from "../../models/actors/actor";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {of} from "rxjs";
 
 describe('RestingService', () => {
   let service: RestingService;
@@ -12,7 +13,7 @@ describe('RestingService', () => {
   let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
 
   beforeEach(() => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'findActorByName']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
     const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
 
     TestBed.configureTestingModule({
@@ -25,10 +26,6 @@ describe('RestingService', () => {
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
-    actorServiceSpy.getActors.and.returnValue([
-      new Actor('Actor One', 10),
-      new Actor('Actor Two', 20),
-    ]);
 
     service = TestBed.inject(RestingService);
   });
@@ -37,53 +34,85 @@ describe('RestingService', () => {
     expect(service).toBeTruthy();
   });
 
-  it("should return actor's available Hit Dice", () => {
-    //given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 5);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
-    let actorsToHitDiceMap = new Map<string, number>([
-      [actor1.name, actor1.level],
-      [actor2.name, actor2.level],
-    ])
-
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
-
-    //then
-    expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
-    expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
-  });
+  // it("should return actor's available Hit Dice", () => {
+  //   //given
+  //   let actor1: PlayerCharacter = {
+  //     name: 'Actor One',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 5
+  //   }
+  //   let actor2: PlayerCharacter = {
+  //     name: 'Actor Two',
+  //     maxHp: 14,
+  //     currentHp: 5,
+  //     level: 6
+  //   }
+  //   let actorsToHitDiceMap = new Map<PlayerCharacter, number>([
+  //     [actor1, actor1.level],
+  //     [actor2, actor2.level],
+  //   ])
+  //
+  //   service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
+  //
+  //   //then
+  //   expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
+  //   expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
+  // });
 
   it("should properly perform short rest", () => {
     // given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 5);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
+    let actor1: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 5,
+      level: 5,
+      availableHitDice: 4
+    }
+    let actor2: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 3
+    }
 
-    let actorsToHitDiceMap = new Map<string, number>([
-      [actor1.name, actor1.level],
-      [actor2.name, actor2.level],
+    const playerCharactersToShortRestInput = new Map<PlayerCharacter, ShortRestInput>([
+      [actor1, new ShortRestInput(2, 7)],
+      [actor2, new ShortRestInput(3, 15)],
     ])
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
 
-    // and
-    let durationInHours = 2;
-    let input = new Map<Actor, ShortRestInput>([
-      [actor1, new ShortRestInput(3, 5)],
-      [actor2, new ShortRestInput(2, 6)]
-    ]);
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
 
     // when
-    service.performShortRest(durationInHours, input);
+    service.performShortRest(2, playerCharactersToShortRestInput);
 
     // then
-    expect(actor1.getCurrentHP()).toEqual(10);
-    expect(actor2.getCurrentHP()).toEqual(11);
+    let actor1AfterResting: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 12,
+      level: 5,
+      availableHitDice: 2
+    }
+    let actor2AfterResting: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 14,
+      level: 6,
+      availableHitDice: 0
+    }
 
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>([
-      [actor1.name, 2],
-      [actor2.name, 4],
-    ]));
     expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(7200);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledWith([
+      actor1AfterResting, actor2AfterResting
+    ]);
   });
+
 
   it("should return time passed since last long rest", () => {
     //given
@@ -130,52 +159,101 @@ describe('RestingService', () => {
     expect(minimumLongRestTime).toEqual(23);
   });
 
-  it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
+  it("should perform Long Rest", () => {
     // given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 6);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
-    let actor3 = new Actor('Actor Three', 14, 5, 1, 6);
-    let actor4 = new Actor('Actor Four', 14, 0, 1, 6);
-
-    let actorsToAvailableHitDice = new Map<string, number>([
-      [actor1.name, 1],
-      [actor2.name, 6],
-      [actor3.name, 5],
-      [actor4.name, 5],
-    ]);
-    service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
+    const restTimeInHours = 8;
+    let actor1: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 5,
+      level: 5,
+      availableHitDice: 1
+    }
+    let actor2: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 6
+    }
+    let actor3: PlayerCharacter = {
+      name: 'Actor Three',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor4: PlayerCharacter = {
+      name: 'Actor Four',
+      maxHp: 14,
+      currentHp: 0,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor5: PlayerCharacter = {
+      name: 'Actor Five',
+      maxHp: 14,
+      currentHp: 1,
+      level: 1,
+      availableHitDice: 0
+    }
+    const playerCharacters: PlayerCharacter[] = [
+      actor1, actor2, actor3, actor4, actor5
+    ]
 
     // and
     let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
     let currentDate = new Date(1524, 6, 18, 10, 30, 0);
     temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
-
-    // and
-    actorServiceSpy.findActorByName.withArgs(actor1.name).and.returnValue(actor1);
-    actorServiceSpy.findActorByName.withArgs(actor2.name).and.returnValue(actor2);
-    actorServiceSpy.findActorByName.withArgs(actor3.name).and.returnValue(actor3);
-    actorServiceSpy.findActorByName.withArgs(actor4.name).and.returnValue(actor4);
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
 
     // when
-    service.performLongRest(8);
+    service.performLongRest(restTimeInHours, playerCharacters)
 
-    //then
-    expect(actor1.currentHp).toEqual(actor1.maxHp);
-    expect(actor2.currentHp).toEqual(actor2.maxHp);
-    expect(actor3.currentHp).toEqual(actor3.maxHp);
-    expect(actor4.currentHp).toEqual(0);
-
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>(
-      [
-        [actor1.name, 4],
-        [actor2.name, 6],
-        [actor3.name, 6],
-        [actor4.name, 5],
-      ]
-    ))
-
-    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(28_800);
+    // then
+    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledOnceWith(28_800);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
+      {
+        id: 1,
+        name: 'Actor One',
+        maxHp: 14,
+        currentHp: 14,
+        level: 5,
+        availableHitDice: 3
+      },
+      {
+        id: 2,
+        name: 'Actor Two',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Three',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Four',
+        maxHp: 14,
+        currentHp: 0,
+        level: 6,
+        availableHitDice: 5
+      },
+      {
+        name: 'Actor Five',
+        maxHp: 14,
+        currentHp: 14,
+        level: 1,
+        availableHitDice: 1
+      }
+    ])
   });
 
 });

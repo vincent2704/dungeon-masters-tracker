@@ -2,6 +2,7 @@
 import {Actor} from "./actor";
 import {Condition} from "../Condition";
 import {BattleCondition} from "../battleCondition";
+import {BattleParticipantType} from "./battleParticipantType";
 
 describe('Actor', () => {
 
@@ -24,7 +25,7 @@ describe('Actor', () => {
   it("should not modify actor's HP if actor is dead", () => {
     let actor = new Actor('Actor Name', 20, 0);
     let date = new Date();
-    actor.kill(date);
+    actor.modifyHp(-40, date);
 
     actor.modifyHp(40, date);
     expect(actor.getCurrentHP()).toEqual(0);
@@ -88,9 +89,9 @@ describe('Actor', () => {
 
   it("should remove unconsciousness when actor's HP raises above 0", () => {
     //given
-    let actor = new Actor('Actor Name', 20, 1);
+    let actor = new Actor('Actor Name', 20, BattleParticipantType.PLAYER_CHARACTER);
     let date = new Date();
-    actor.modifyHp(-1, date);
+    actor.modifyHp(-20, date);
     expect(actor.hasCondition(Condition.UNCONSCIOUS)).toBeTrue();
     //when
     actor.modifyHp(1, date);
@@ -100,7 +101,7 @@ describe('Actor', () => {
 
   it("should return conditions that the actor is not under state of", () => {
     //given
-    let actor = new Actor('Actor Name', 20, 0);
+    let actor = new Actor('Actor Name', 20);
     actor.addCondition(new BattleCondition(Condition.UNCONSCIOUS));
     actor.addCondition(new BattleCondition(Condition.CHARMED));
     actor.addCondition(new BattleCondition(Condition.STUNNED));
@@ -151,13 +152,6 @@ describe('Actor', () => {
     let actor = new Actor('Actor Name', 0);
     //then
     expect(actor.getMaxHP()).toEqual(1);
-  });
-
-  it("should not allow to create actor with currentHP lower than 0", () => {
-    //given
-    let actor = new Actor('Actor Name', 20, -5);
-    //then
-    expect(actor.getCurrentHP()).toEqual(0);
   });
 
   it("should not allow set actor's HP to lower than 0", () => {

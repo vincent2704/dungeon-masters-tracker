@@ -13,14 +13,13 @@
         </thead>
         <tbody>
         <tr *ngFor="let actor of actors">
-<!--          {{ actor | json }}-->
           <td>
             {{actor.name}}
           </td>
           <td>{{actor.currentHp}} ({{actor.maxHp}})</td>
           <td>
-            <label for="initiative">Set initiative:</label>
-            <input class="form-control form-control-sm" id="initiative" type="text" required
+            <label [for]="actor.name+'-initiative'">Set initiative:</label>
+            <input class="form-control form-control-sm" [attr.id]="actor.name+'-initiative'" type="text" required
                    (keyup)="setActorInitiative(actor, $event)"
                    [value]="getInitiativeForActor(actor)">
           </td>
@@ -46,5 +45,5 @@
 <div class="container-fluid">
   <app-add-actor (actorEmitter)="addActor($event)"></app-add-actor>
   <app-monster-battle-list-selector (battleStartEmitter)="startBattle()" (monsterActorsEmitter)="addMonstersToBattle($event)"
-                                    [participatingActors]="actors"></app-monster-battle-list-selector>
+                                    [participatingActors]="playerCharacters"></app-monster-battle-list-selector>
 </div>

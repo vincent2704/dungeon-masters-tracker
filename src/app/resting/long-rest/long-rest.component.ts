@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RestingService} from "../../services/resting/resting.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-long-rest',
@@ -8,10 +9,11 @@ import {RestingService} from "../../services/resting/resting.service";
 })
 export class LongRestComponent implements OnInit {
 
-  restTimeInHours: number;
+  @Input()
+  playerCharacters!: PlayerCharacter[];
+  restTimeInHours: number = 0;
 
   constructor(private restingService: RestingService) {
-    this.restTimeInHours = restingService.getMinimumRestingTime();
   }
 
   ngOnInit(): void {
@@ -19,7 +21,7 @@ export class LongRestComponent implements OnInit {
   }
 
   rest(): void {
-    this.restingService.performLongRest(this.restTimeInHours);
+    this.restingService.performLongRest(this.restTimeInHours, this.playerCharacters);
   }
 
   getTimeSinceLastRest(): number {

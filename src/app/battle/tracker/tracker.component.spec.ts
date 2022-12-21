@@ -1,12 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TrackerComponent } from './tracker.component';
+import {TrackerComponent} from './tracker.component';
 import {Actor} from "../../models/actors/actor";
 import {BattleCondition} from "../../models/battleCondition";
 import {Condition} from "../../models/Condition";
 import {FormsModule} from "@angular/forms";
 import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
+import {of} from "rxjs";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -15,7 +17,7 @@ describe('TrackerComponent', () => {
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
 
   beforeEach(async () => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'updateActors']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -25,14 +27,14 @@ describe('TrackerComponent', () => {
       ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     fixture = TestBed.createComponent(TrackerComponent);
     component = fixture.componentInstance;
+
+    actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     component.actors = [];
     fixture.detectChanges();
+
   });
 
   it('should create', () => {
@@ -41,17 +43,32 @@ describe('TrackerComponent', () => {
 
   it("should save actors after battle is concluded", () => {
     //given
-    let actor1 = new Actor('Actor 1', 1, 1, 1)
-    let actor2 = new Actor('Actor 2', 1, 1, 2)
-    let actor3 = new Actor('Actor 3', 1, 1, 3)
-    component.actors = [actor1, actor2]
-
-    let actorsFromService = [actor1, actor2, actor3]
-    actorServiceSpy.getActors.and.returnValue(actorsFromService);
+    let actor1 = new Actor('Actor 1', 1, BattleParticipantType.PLAYER_CHARACTER)
+    let actor2 = new Actor('Actor 2', 1, BattleParticipantType.PLAYER_CHARACTER)
+    let actor3 = new Actor('Actor 3', 1, BattleParticipantType.PLAYER_CHARACTER)
+    actor2.id = 2;
+    actor3.id = 3;
+    let date = new Date();
+    actor3.modifyHp(-100, date);
+    let actor4 = new Actor('Monster', 1)
+    actor1.setDeathSavingThrowsEligibility(true);
+    actor2.setDeathSavingThrowsEligibility(true);
+    component.actors = [actor1, actor2, actor3, actor4]
+    actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
 
     // when
     component.endBattle();
-    expect(actorServiceSpy.updateActors).toHaveBeenCalledOnceWith(component.actors);
+
+    expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
+      playerId: 2,
+      playerCurrentHp: 1,
+      timeOfDeath: undefined
+    },
+      {
+        playerId: 3,
+        playerCurrentHp: 0,
+        timeOfDeath: date
+      }]);
   });
 
   it('should progress actor', () => {
@@ -68,9 +85,9 @@ describe('TrackerComponent', () => {
   it("should increment round after all actors are progressed", () => {
     // given
     expect(component.round).toEqual(1);
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
-    let actor2 = new Actor('Actor 2', 1, 1, 3);
-    let actor3 = new Actor('Actor 3', 1, 1, 11);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 2', 1);
+    let actor3 = new Actor('Actor 3', 1);
     component.actors = [actor1, actor2, actor3];
 
     // when
@@ -90,7 +107,7 @@ describe('TrackerComponent', () => {
 
   it("should decrement actor's temporary hit points duration after the end of actor's turn", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
+    let actor1 = new Actor('Actor 1', 1);
     component.actors = [actor1];
 
     // when
@@ -103,8 +120,8 @@ describe('TrackerComponent', () => {
 
   it("should decrement actor's condition duration after the end of actor's turn", () => {
     // given
-    let actor1 = new Actor('Actor 1', 1, 1, 3);
-    let actor2 = new Actor('Actor 1', 1, 1, 1);
+    let actor1 = new Actor('Actor 1', 1);
+    let actor2 = new Actor('Actor 1', 1);
     component.actors = [actor1, actor2];
 
     // when
@@ -119,7 +136,7 @@ describe('TrackerComponent', () => {
 
   it("should display death saving throws", () => {
     // given
-    let actor = new Actor('Actor 1', 1, 1, 3);
+    let actor = new Actor('Actor 1', 1);
     let date = new Date();
     actor.setDeathSavingThrowsEligibility(true);
     actor.modifyHp(-1, date);
@@ -130,7 +147,7 @@ describe('TrackerComponent', () => {
 
   it("should not display death saving throws if character is ineligible", () => {
     // given
-    let actor = new Actor('Actor 1', 1, 1, 3);
+    let actor = new Actor('Actor 1', 1);
     let date = new Date();
     actor.setDeathSavingThrowsEligibility(false);
     actor.modifyHp(-1, date);

@@ -62,18 +62,18 @@
     <div *ngIf="shownBackendNote && editing" class="card">
       <div class="card-body">
         <div class="card-title">
-          <input id="notes-edited-note-title-input222"
+          <input id="notes-edited-note-title-input"
                  i18n-placeholder="note title placeholder|New note title input placeholder" type="text"
                  class="form-control" placeholder="Title" [(ngModel)]="noteChanges.title" name="noteTitle">
         </div>
-        <textarea id="notes-edited-note-body-input2222"
+        <textarea id="notes-edited-note-body-input"
                   i18n-placeholder="note body|New note description input placeholder" class="form-control"
                   placeholder="Note description" [(ngModel)]="noteChanges.body" name="noteBody"></textarea>
-        <button id="notes-confirm-edit-button222"
+        <button id="notes-confirm-edit-button"
                 i18n="confirm button|Button used to confirm" class="btn btn-primary"
                 (click)="submitEdit()">Confirm
         </button>
-        <button id="notes-cancel-edit-butto22n"
+        <button id="notes-cancel-edit-button"
                 i18n="confirm button|Button used to confirm" class="btn btn-primary"
                 (click)="cancelEdit()">Cancel
         </button>

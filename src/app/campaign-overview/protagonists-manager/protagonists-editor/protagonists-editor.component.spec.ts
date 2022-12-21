@@ -5,6 +5,7 @@ import {Actor} from "../../../models/actors/actor";
 import {ActorService} from "../../../services/actor/actor.service";
 import {FormsModule} from "@angular/forms";
 import {Observable, of} from "rxjs";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 describe('ProtagonistsEditorComponent', () => {
   let component: ProtagonistsEditorComponent;
@@ -38,7 +39,12 @@ describe('ProtagonistsEditorComponent', () => {
 
   it('should add actor to list of actors to delete', () => {
     //given
-    let actorToDelete = new Actor('Actor', 10)
+    let actorToDelete: PlayerCharacter = {
+      name: 'Name',
+      maxHp: 10,
+      level: 1
+    }
+      // let actorToDelete = new Actor('Actor', 10)
     //when
     component.onSetActorToDelete(actorToDelete);
     //then
@@ -47,9 +53,24 @@ describe('ProtagonistsEditorComponent', () => {
 
   it('should change actors if changes are submitted', () => {
     //given
-    let actor1 = new Actor('Actor', 10);
-    let actor2 = new Actor('Actor 2', 15);
-    let actor3 = new Actor('Actor 3', 14);
+    let actor1: PlayerCharacter = {
+      name: 'Actor',
+      maxHp: 10,
+      currentHp: 10,
+      level: 1
+    }
+    let actor2: PlayerCharacter = {
+      name: 'Actor 2',
+      maxHp: 15,
+      currentHp: 10,
+      level: 1
+    }
+    let actor3: PlayerCharacter = {
+      name: 'Actor 3',
+      maxHp: 14,
+      currentHp: 10,
+      level: 1
+    }
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;
 
@@ -75,16 +96,32 @@ describe('ProtagonistsEditorComponent', () => {
 
     // then
     expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
-      actor1, actor2, new Actor('New Actor', 10, 10, 0, 1)
+      actor1, actor2, {
+        name: 'New Actor',
+        maxHp: 10,
+        currentHp: 10,
+        level: 1
+      } as PlayerCharacter
     ])
   });
 
   it('should not change actors if changes are cancelled', () => {
     //given
-    let actor1 = new Actor('Actor', 10);
-    actor1.setLevel(1);
-    let actor2 = new Actor('Actor 2', 15);
-    let actor3 = new Actor('Actor 3', 14);
+    let actor1: PlayerCharacter = {
+      name: 'Actor',
+      maxHp: 10,
+      level: 1
+    }
+    let actor2: PlayerCharacter = {
+      name: 'Actor 2',
+      maxHp: 15,
+      level: 1
+    }
+    let actor3: PlayerCharacter = {
+      name: 'Actor 3',
+      maxHp: 14,
+      level: 1
+    }
 
     fixture = TestBed.createComponent(ProtagonistsEditorComponent);
     component = fixture.componentInstance;

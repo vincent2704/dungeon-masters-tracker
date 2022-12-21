@@ -7,6 +7,7 @@ import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {EncounterService} from "../../../services/encounter/encounter.service";
 import {Encounter} from "../../../models/encounter";
 import {CombatUtils} from "../../../services/combat/combatUtils";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-monster-list-selector',
@@ -16,7 +17,7 @@ import {CombatUtils} from "../../../services/combat/combatUtils";
 export class MonsterListSelectorComponent implements OnInit {
 
   @Input()
-  participatingCharacters!: Actor[];
+  participatingCharacters!: PlayerCharacter[];
   monsterService: MonsterService;
 
   selectedMonsters: Map<Monster, number> = new Map<Monster, number>();

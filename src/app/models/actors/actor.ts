@@ -2,12 +2,14 @@ import {Condition} from "../Condition";
 import {BattleCondition} from "../battleCondition";
 import {TemporaryHP} from "../temporaryHP";
 import {DateUtils} from "../../utilities/date/dateUtils";
+import {BattleParticipantType} from "./battleParticipantType";
 
 export class Actor {
 
   id?: number;
   name: string;
   maxHp: number;
+  type: BattleParticipantType;
   currentHp: number;
   level: number;
   battleConditions: BattleCondition[];
@@ -20,6 +22,7 @@ export class Actor {
   constructor(
     name: string,
     maxHP: number,
+    type: BattleParticipantType = BattleParticipantType.MONSTER,
     currentHP: number = maxHP,
     level: number = 1,
     battleConditions: BattleCondition[] = [],
@@ -42,6 +45,15 @@ export class Actor {
     this.battleConditions = battleConditions;
     this.eligibleForDeathSavingThrows = eligibleForSavingThrows;
     this.temporaryHP = new TemporaryHP(0, 0);
+    this.type = type;
+  }
+
+  getId(): number | undefined {
+    return this.id;
+  }
+
+  getName(): string {
+    return this.name
   }
 
   getMaxHP(): number {
@@ -236,13 +248,14 @@ export class Actor {
   }
 
   copy(): Actor {
-    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.level,
+    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.type, this.level,
       this.battleConditions, this.eligibleForDeathSavingThrows);
 
     actor.timeOfDeath = this.timeOfDeath;
     actor.temporaryHP = this.temporaryHP;
     actor.stabilized = this.stabilized;
     actor.resurrectionPenalty = this.resurrectionPenalty;
+    actor.id = this.id;
 
     return actor;
   }
