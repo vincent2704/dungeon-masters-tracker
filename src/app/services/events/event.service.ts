@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
+import {CampaignEvent} from "../../models/campaign/campaignEvent";
 import {Environment} from "../../environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";

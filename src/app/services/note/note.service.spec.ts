@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { NoteService } from './note.service';
-import { Note } from "../../models/note/note";
+import { Note } from "../../models/campaign/note";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from "@angular/common/http";
 

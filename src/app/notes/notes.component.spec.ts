@@ -4,7 +4,7 @@ import { NotesComponent } from './notes.component';
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {NoteService} from "../services/note/note.service";
-import {Note} from "../models/note/note";
+import {Note} from "../models/campaign/note";
 import {Observable, of} from "rxjs";
 
 describe('NotesComponent', () => {

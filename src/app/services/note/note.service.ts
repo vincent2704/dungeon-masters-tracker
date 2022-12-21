@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Note} from "../../models/note/note";
+import {Note} from "../../models/campaign/note";
 import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Environment} from "../../environment";

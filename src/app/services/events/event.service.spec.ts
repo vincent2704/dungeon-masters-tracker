@@ -2,10 +2,9 @@ import {TestBed} from '@angular/core/testing';
 
 import {EventService} from './event.service';
 import {CampaignService} from "../temporal/campaign.service";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
-import {of} from "rxjs";
+import {CampaignEvent} from "../../models/campaign/campaignEvent";
 
 describe('EventService', () => {
   let service: EventService;
