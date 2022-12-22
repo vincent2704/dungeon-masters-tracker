@@ -43,9 +43,8 @@ export class CampaignService {
     return new Date();
   }
 
-  getLastLongRestDate(): Date {
-    const lastLongRestTimeEpoch = this.getSessionStorageCampaign().lastLongRestTimeEpoch
-    return new Date(lastLongRestTimeEpoch);
+  updateCampaign(request: CampaignUpdateRequest): Observable<Campaign> {
+    return this.httpClient.put<Campaign>(this.campaignUrl, request);
   }
 
   setCurrentDate(newDate: Date): Observable<Campaign> {
@@ -76,7 +75,6 @@ export class CampaignService {
   }
 
   getSessionStorageCampaign(): Campaign {
-    console.log(`campaign: ${JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY)!).realDateStart}`)
     return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
   }
 }

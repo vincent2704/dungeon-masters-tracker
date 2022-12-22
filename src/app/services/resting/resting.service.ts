@@ -4,44 +4,68 @@ import {ActorService} from "../actor/actor.service";
 import {CampaignService} from "../campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {Campaign} from "../../models/campaign/campaign";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestingService {
 
-  constructor(private actorService: ActorService, private temporalService: CampaignService) {
+  private readonly MILLISECONDS_IN_HOUR = 3_600_000;
+
+  constructor(private actorService: ActorService, private campaignService: CampaignService) {
   }
 
   performShortRest(restDurationInHours: number, actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput>) {
     actorsToShortRestInput.forEach((shortRestInput, actor) => {
       this.applyShortRestInput(actor, shortRestInput);
     })
-    this.temporalService.addSeconds(restDurationInHours * 3600);
+    const dateTimeAfterShortRest =
+      this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch +
+      restDurationInHours * this.MILLISECONDS_IN_HOUR
     let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
     this.actorService.updatePlayerCharacters(playerCharacters)
-      .subscribe();
+      .subscribe(response => {
+        this.campaignService.updateCampaign(
+          {
+            campaignDateTimeCurrentEpoch: dateTimeAfterShortRest
+          } as Campaign
+        )
+          .subscribe(response => {
+            this.campaignService.updateSessionStorageCampaign(response);
+          })
+      });
   }
 
   performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
-    if(restTimeInHours < this.getMinimumRestingTime()) {
+    if (restTimeInHours < this.getMinimumRestingTime()) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
     }
 
     playerCharacters.forEach(playerCharacter => {
-      if(playerCharacter.currentHp == 0) {
+      if (playerCharacter.currentHp == 0) {
         return;
       }
       this.regainHitDice(playerCharacter);
       this.addPlayerCharacterHp(playerCharacter, playerCharacter.maxHp)
     })
 
-    this.temporalService.addSeconds(restTimeInHours * 3600);
-    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getSessionStorageCurrentDate()))
+    const campaignDateTimeAfterRestEpoch =
+      this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
+      + restTimeInHours * 3600 * 1000
+
+    const campaignUpdateRequest: CampaignUpdateRequest = {
+      campaignDateTimeCurrentEpoch: campaignDateTimeAfterRestEpoch,
+      lastLongRestTimeEpoch: campaignDateTimeAfterRestEpoch
+    }
+
+    this.campaignService.updateCampaign(campaignUpdateRequest)
       .subscribe(response => {
-        this.temporalService.updateSessionStorageCampaign(response);
-      });
+        this.campaignService.updateSessionStorageCampaign(response);
+      })
+
     this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => {
         playerCharacters = response;
@@ -49,8 +73,9 @@ export class RestingService {
   }
 
   getTimeSinceLastLongRest() {
+    const sessionStorageCampaign = this.campaignService.getSessionStorageCampaign()
     let timeSinceLastLongRest =
-      this.temporalService.getSessionStorageCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime();
+      sessionStorageCampaign.campaignDateTimeCurrentEpoch - sessionStorageCampaign.lastLongRestTimeEpoch
     return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
   }
 
@@ -61,7 +86,7 @@ export class RestingService {
 
   private regainHitDice(playerCharacter: PlayerCharacter): void {
     let availableHitDice = playerCharacter.availableHitDice!;
-    if(availableHitDice < playerCharacter.level) {
+    if (availableHitDice < playerCharacter.level) {
       let maxDiceNumberToRegain = playerCharacter.level == 1
         ? 1
         : Math.trunc(playerCharacter.level / 2);
@@ -82,7 +107,7 @@ export class RestingService {
 
   private addPlayerCharacterHp(playerCharacter: PlayerCharacter, hpAmount: number): void {
     playerCharacter.currentHp! += hpAmount
-    if(playerCharacter.currentHp! > playerCharacter.maxHp) {
+    if (playerCharacter.currentHp! > playerCharacter.maxHp) {
       playerCharacter.currentHp = playerCharacter.maxHp;
     }
   }
