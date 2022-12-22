@@ -31,7 +31,7 @@ export class CampaignEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.newEvent.campaignDateTimeOccurredEpoch = this.temporalService.getCurrentDate().getTime();
+    this.newEvent.campaignDateTimeOccurredEpoch = this.temporalService.getSessionStorageCurrentDate().getTime();
     this.eventService.addCampaignEvent(this.newEvent)
       .subscribe((event) => {
         this.events.push(event);

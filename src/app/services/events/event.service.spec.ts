@@ -27,7 +27,7 @@ describe('EventService', () => {
     });
 
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
-    temporalServiceSpy.getCurrentDate.and.returnValue(new Date(1524, 6, 16, 18, 30));
+    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(new Date(1524, 6, 16, 18, 30));
 
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);

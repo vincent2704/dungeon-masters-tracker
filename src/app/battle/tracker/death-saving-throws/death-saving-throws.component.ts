@@ -41,20 +41,20 @@ export class DeathSavingThrowsComponent implements OnInit {
   failure() {
     this.failures++;
     if(this.failures >= 3) {
-      this.actor.kill(this.temporalService.getCurrentDate());
+      this.actor.kill(this.temporalService.getSessionStorageCurrentDate());
     }
   }
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.modifyHp(1, this.temporalService.getCurrentDate());
+    this.actor.modifyHp(1, this.temporalService.getSessionStorageCurrentDate());
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
   criticalFail() {
     this.failures += 2;
     if(this.failures >= 3) {
-      this.actor.kill(this.temporalService.getCurrentDate());
+      this.actor.kill(this.temporalService.getSessionStorageCurrentDate());
     }
   }
 

@@ -19,7 +19,7 @@ export class CampaignService {
   private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
 
   constructor(private httpClient: HttpClient) {
-   this.httpClient.get<Campaign>(this.campaignUrl)
+   this.getCampaign()
      .subscribe(response => {
        let campaign = {
          name: response.name,
@@ -29,12 +29,15 @@ export class CampaignService {
          realDateLastPlayedEpoch: response.realDateLastPlayedEpoch,
          lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
        } as Campaign;
-
        sessionStorage.setItem('campaign', JSON.stringify(campaign));
      })
   }
 
-  getCurrentDate(): Date {
+  getCampaign(): Observable<Campaign> {
+    return this.httpClient.get<Campaign>(this.campaignUrl);
+  }
+
+  getSessionStorageCurrentDate(): Date {
     const campaign = this.getSessionStorageCampaign()
     if(campaign.campaignDateTimeCurrentEpoch) {
       return new Date(campaign.campaignDateTimeCurrentEpoch);
@@ -130,7 +133,8 @@ export class CampaignService {
     sessionStorage.setItem('campaign', JSON.stringify(campaign));
   }
 
-  private getSessionStorageCampaign(): Campaign {
+  getSessionStorageCampaign(): Campaign {
+    console.debug(`session storage CAMPAIGN INFO: ${sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY)}`)
     return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
   }
 }

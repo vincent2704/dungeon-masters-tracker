@@ -6,11 +6,21 @@ import {CampaignService} from "../campaign/campaign.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {of} from "rxjs";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('RestingService', () => {
   let service: RestingService;
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
   let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
+
+  const sessionStorageCampaign = {
+    name: "Dummy Name",
+    campaignDateTimeStartEpoch: -14057296560,
+    campaignDateTimeCurrentEpoch: -14057296560,
+    realDateStartEpoch: -14057296560,
+    realDateLastPlayedEpoch: -14057296560,
+    lastLongRestTimeEpoch: -14057296560
+  } as Campaign
 
   beforeEach(() => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
@@ -23,6 +33,8 @@ describe('RestingService', () => {
         {provide: CampaignService, useValue: temporalSpy},
       ]
     });
+
+    sessionStorage.setItem('campaign', JSON.stringify(sessionStorageCampaign))
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
@@ -120,7 +132,7 @@ describe('RestingService', () => {
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
     // and
     let currentDate = new Date(1524, 6, 17, 23, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(currentDate);
 
     //when
     let timePassed = service.getTimeSinceLastLongRest();
@@ -135,7 +147,7 @@ describe('RestingService', () => {
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
     // and
     let currentDate = new Date(1524, 6, 18, 23, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(currentDate);
 
     //when
     let minimumLongRestTime = service.getMinimumRestingTime();
@@ -150,7 +162,7 @@ describe('RestingService', () => {
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
     // and
     let currentDate = new Date(1524, 6, 17, 19, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(currentDate);
 
     //when
     let minimumLongRestTime = service.getMinimumRestingTime();
@@ -207,8 +219,9 @@ describe('RestingService', () => {
     let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
     temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
     let currentDate = new Date(1524, 6, 18, 10, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(currentDate);
     actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
+    temporalServiceSpy.addSeconds.and.returnValue(of(sessionStorageCampaign))
 
     // when
     service.performLongRest(restTimeInHours, playerCharacters)

@@ -74,10 +74,10 @@ export class TrackerComponent implements OnInit {
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
     if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
+        new Date(this.temporalService.getSessionStorageCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
       );
     } else {
-      actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
+      actor.modifyHp(hpModifier, this.temporalService.getSessionStorageCurrentDate());
     }
 
     (<HTMLInputElement>event.target).value = '';

@@ -29,9 +29,9 @@ describe('CampaignService', () => {
     service.setCurrentDate(newDate, newTime);
 
     //then
-    expect(service.getCurrentDate().getDate()).toEqual(17);
-    expect(service.getCurrentDate().toLocaleString('en-US', {month: 'long'})).toEqual('December');
-    expect(service.getCurrentDate().getFullYear()).toEqual(1524);
+    expect(service.getSessionStorageCurrentDate().getDate()).toEqual(17);
+    expect(service.getSessionStorageCurrentDate().toLocaleString('en-US', {month: 'long'})).toEqual('December');
+    expect(service.getSessionStorageCurrentDate().getFullYear()).toEqual(1524);
   });
 
   it('should add progressed time', () => {
@@ -44,7 +44,7 @@ describe('CampaignService', () => {
     service.addSeconds(60);
 
     //then
-    expect(service.getCurrentDate()).toEqual(new Date(2020, 11, 17, 18, 31, 0));
+    expect(service.getSessionStorageCurrentDate()).toEqual(new Date(2020, 11, 17, 18, 31, 0));
   });
 
   it('should properly add time using time structure', () => {
@@ -59,7 +59,7 @@ describe('CampaignService', () => {
     service.addTime(timeStructure);
 
     //then
-    expect(service.getCurrentDate()).toEqual(new Date(2021, 1, 2, 1, 2,1));
+    expect(service.getSessionStorageCurrentDate()).toEqual(new Date(2021, 1, 2, 1, 2,1));
   });
 
   it('should properly add one month', () => {
@@ -74,7 +74,7 @@ describe('CampaignService', () => {
     service.addTime(timeStructure);
 
     //then
-    expect(service.getCurrentDate()).toEqual(new Date(1524, 7, 17, 18, 30,0));
+    expect(service.getSessionStorageCurrentDate()).toEqual(new Date(1524, 7, 17, 18, 30,0));
   });
 
   it('should properly subtract time using time structure', () => {
@@ -89,7 +89,7 @@ describe('CampaignService', () => {
     service.subtractTime(timeStructure);
 
     //then
-    expect(service.getCurrentDate()).toEqual(new Date(2019, 11, 2, 11, 57,59));
+    expect(service.getSessionStorageCurrentDate()).toEqual(new Date(2019, 11, 2, 11, 57,59));
   });
 
 });

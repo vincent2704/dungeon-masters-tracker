@@ -38,7 +38,7 @@ export class RestingService {
     })
 
     this.temporalService.addSeconds(restTimeInHours * 3600);
-    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getCurrentDate()))
+    this.temporalService.setLastLongRestDate(new Date(this.temporalService.getSessionStorageCurrentDate()))
       .subscribe(response => {
         this.temporalService.updateSessionStorageCampaign(response);
       });
@@ -50,7 +50,7 @@ export class RestingService {
 
   getTimeSinceLastLongRest() {
     let timeSinceLastLongRest =
-      this.temporalService.getCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime();
+      this.temporalService.getSessionStorageCurrentDate().getTime() - this.temporalService.getLastLongRestDate().getTime();
     return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
   }
 
