@@ -45,7 +45,6 @@ export class ActorService {
     const timeOfDeath = data.timeOfDeathEpoch
       ? new Date(data.timeOfDeathEpoch)
       : undefined
-    console.log(`${data.name} timeOfDeath: ${timeOfDeath}`)
     actor.setTimeOfDeath(timeOfDeath);
     actor.setResurrectionPenalty(data.resurrectionPenalty!);
 

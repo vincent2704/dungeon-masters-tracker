@@ -37,7 +37,6 @@ describe('actorService', () => {
 
   it("should properly parse actor from JSON", () => {
     // given
-    // const playerCharacterJson = "{ id: 1, name: \"Falimir\", level: 1, maxHp: 11, currentHp: 11, timeOfDeathEpoch: null, resurrectionPenalty: 0, availableHitDice: 1, lastLongRestTime: null }"
     const playerCharacter: PlayerCharacter = {
       id: 1,
       name: 'Falimir',
@@ -60,23 +59,5 @@ describe('actorService', () => {
     // then
     expect(result).toEqual(expectedActor)
   });
-
-  // fromJson(data: any): Actor {
-  //   let actor = new Actor(data.name, data.maxHp);
-  //
-  //   actor.id = data.id;
-  //   actor.currentHp = data.currentHp;
-  //   actor.level = data.level;
-  //   actor.type = BattleParticipantType.PLAYER_CHARACTER;
-  //
-  //   const timeOfDeath = data.timeOfDeathEpoch
-  //     ? new Date(data.timeOfDeathEpoch)
-  //     : undefined
-  //   console.log(`${data.name} timeOfDeath: ${timeOfDeath}`)
-  //   actor.setTimeOfDeath(timeOfDeath);
-  //   actor.setResurrectionPenalty(data.resurrectionPenalty);
-  //
-  //   return actor;
-  // }
 
 });

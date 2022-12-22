@@ -19,7 +19,6 @@ export class ShortRestComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    console.debug('short rest component - ngOnChanges')
     this.playerCharacters.forEach(playerCharacter => {
       this.actorsToShortRestInput.set(playerCharacter, new ShortRestInput())
     })
