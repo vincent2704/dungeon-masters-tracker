@@ -16,7 +16,7 @@ describe('EventService', () => {
   const backendUrl = 'http://localhost:8080/v1/events?campaignId=0f29e0da-c69f-44a5-9679-76019f21c8ec';
 
   beforeEach(() => {
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getCurrentDate']);
+    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getSessionStorageCurrentDate']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

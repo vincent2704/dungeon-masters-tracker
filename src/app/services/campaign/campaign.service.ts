@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
-import {TimeStructure} from "../../models/timeStructure";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
@@ -25,8 +23,6 @@ export class CampaignService {
          name: response.name,
          campaignDateTimeStartEpoch: response.campaignDateTimeStartEpoch,
          campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
-         realDateStartEpoch: response.realDateStartEpoch,
-         realDateLastPlayedEpoch: response.realDateLastPlayedEpoch,
          lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
        } as Campaign;
        sessionStorage.setItem('campaign', JSON.stringify(campaign));
@@ -53,7 +49,6 @@ export class CampaignService {
   }
 
   setCurrentDate(newDate: Date): Observable<Campaign> {
-
     const updateRequest: CampaignUpdateRequest = {
       campaignDateTimeCurrentEpoch: newDate.getTime()
     }
@@ -76,60 +71,12 @@ export class CampaignService {
     return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
   }
 
-  addTime(timeStructure: TimeStructure): Observable<Campaign> {
-    let currentCampaignDate = new Date(this.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
-
-    let months = timeStructure.months ? timeStructure.months : 0;
-    let days = timeStructure.days ? timeStructure.days : 0;
-    let hours = timeStructure.hours ? timeStructure.hours : 0;
-    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
-    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
-
-    currentCampaignDate.setMonth(currentCampaignDate.getMonth() + months);
-    currentCampaignDate.setDate(currentCampaignDate.getDate() + days);
-    currentCampaignDate.setHours(
-      currentCampaignDate.getHours() + hours,
-      currentCampaignDate.getMinutes() + minutes,
-      currentCampaignDate.getSeconds() + seconds
-    );
-
-    const campaignUpdateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: currentCampaignDate.getTime()
-    }
-
-    return this.httpClient.put<Campaign>(this.campaignUrl, campaignUpdateRequest);
-  }
-
-  subtractTime(timeStructure: TimeStructure): Observable<Campaign> {
-    let currentCampaignDate = new Date(this.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
-
-    let months = timeStructure.months ? timeStructure.months : 0;
-    let days = timeStructure.days ? timeStructure.days : 0;
-    let hours = timeStructure.hours ? timeStructure.hours : 0;
-    let minutes = timeStructure.minutes ? timeStructure.minutes : 0;
-    let seconds = timeStructure.seconds ? timeStructure.seconds : 0;
-
-    currentCampaignDate.setMonth(currentCampaignDate.getMonth() - months);
-    currentCampaignDate.setDate(currentCampaignDate.getDate() - days);
-    currentCampaignDate.setHours(
-      currentCampaignDate.getHours() - hours,
-      currentCampaignDate.getMinutes() - minutes,
-      currentCampaignDate.getSeconds() - seconds
-    );
-
-    const campaignUpdateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: currentCampaignDate.getTime()
-    }
-
-    return this.httpClient.put<Campaign>(this.campaignUrl, campaignUpdateRequest);
-  }
-
   updateSessionStorageCampaign(campaign: Campaign): void {
     sessionStorage.setItem('campaign', JSON.stringify(campaign));
   }
 
   getSessionStorageCampaign(): Campaign {
-    console.debug(`session storage CAMPAIGN INFO: ${sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY)}`)
+    console.log(`campaign: ${JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY)!).realDateStart}`)
     return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
   }
 }

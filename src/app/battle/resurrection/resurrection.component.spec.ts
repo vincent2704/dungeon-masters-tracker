@@ -17,7 +17,7 @@ describe('ResurrectionComponent', () => {
   );
 
   beforeEach(async () => {
-    const temporalService = jasmine.createSpyObj('TemporalService', ['getCurrentDate'])
+    const temporalService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCurrentDate'])
 
     await TestBed.configureTestingModule({
       declarations: [ ResurrectionComponent, NgbCollapse, NgbTooltip ],

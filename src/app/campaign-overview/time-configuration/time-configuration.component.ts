@@ -19,7 +19,7 @@ export class TimeConfigurationComponent implements OnInit {
   timeChangeInput: TimeStructure = new TimeStructure();
 
   constructor(private calendar: NgbCalendar, private temporalService: CampaignService) {
-    this.currentDate = temporalService.getSessionStorageCurrentDate();
+    this.currentDate = new Date(temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
     this.dateModel = { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth()+1, day: this.currentDate.getDate() };
     this.timeModel = { hour: this.currentDate.getHours(), minute: this.currentDate.getMinutes(), second: this.currentDate.getSeconds() };
   }
@@ -45,10 +45,7 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   getCurrentDateFormatted(): string {
-    return `
-    ${this.currentDate.getDate()},
-    ${this.currentDate.toLocaleString('en-US', {month: 'long'})},
-    ${this.currentDate.getFullYear()}`;
+    return `${this.currentDate.getDate()}, ${this.currentDate.toLocaleString('en-US', {month: 'long'})}, ${this.currentDate.getFullYear()}`;
   }
 
   addTime(): void {
@@ -109,7 +106,7 @@ export class TimeConfigurationComponent implements OnInit {
     this.timeChangeInput.seconds = undefined;
   }
 
-  private getCurrentDateFromModels(): Date {
+  getCurrentDateFromModels(): Date {
     return new Date(
       // month-1 because NgbDateStruct counts months from 1 while Date counts months from 0
       this.dateModel.year, this.dateModel.month - 1, this.dateModel.day,

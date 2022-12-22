@@ -17,14 +17,14 @@ describe('RestingService', () => {
     name: "Dummy Name",
     campaignDateTimeStartEpoch: -14057296560,
     campaignDateTimeCurrentEpoch: -14057296560,
-    realDateStartEpoch: -14057296560,
-    realDateLastPlayedEpoch: -14057296560,
+    realDateStart: -14057296560,
+    realDateLastPlayed: -14057296560,
     lastLongRestTimeEpoch: -14057296560
   } as Campaign
 
   beforeEach(() => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
+    const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getSessionStorageCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
 
     TestBed.configureTestingModule({
       providers: [
