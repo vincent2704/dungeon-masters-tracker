@@ -52,15 +52,10 @@ export class CampaignService {
     return new Date(lastLongRestTimeEpoch);
   }
 
-  setCurrentDate(newDate: NgbDateStruct, newTime: NgbTimeStruct): Observable<Campaign> {
-    const updatedTime = new Date(
-      // month-1 because NgbDateStruct counts months from 1 while Date counts months from 0
-      newDate.year, newDate.month - 1, newDate.day,
-      newTime.hour, newTime.minute, newTime.second
-    ).getTime();
+  setCurrentDate(newDate: Date): Observable<Campaign> {
 
     const updateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: updatedTime
+      campaignDateTimeCurrentEpoch: newDate.getTime()
     }
 
     return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
