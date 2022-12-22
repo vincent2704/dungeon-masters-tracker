@@ -55,13 +55,6 @@ export class CampaignService {
     return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
   }
 
-  setLastLongRestDate(lastLongRestFinishedDate: Date): Observable<Campaign> {
-    const updateRequest: CampaignUpdateRequest = {
-      lastLongRestTimeEpoch: lastLongRestFinishedDate.getTime()
-    }
-    return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
-  }
-
   addSeconds(secondsToAdd: number): Observable<Campaign> {
     const newDateTime = this.getSessionStorageCampaign().campaignDateTimeCurrentEpoch + secondsToAdd * 1000
     const updateRequest: CampaignUpdateRequest = {

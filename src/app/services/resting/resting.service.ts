@@ -39,7 +39,8 @@ export class RestingService {
   }
 
   performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
-    if (restTimeInHours < this.getMinimumRestingTime()) {
+    const campaign = this.campaignService.getSessionStorageCampaign();
+    if (restTimeInHours < this.getMinimumRestingTime(campaign)) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
     }
@@ -64,24 +65,24 @@ export class RestingService {
     this.campaignService.updateCampaign(campaignUpdateRequest)
       .subscribe(response => {
         this.campaignService.updateSessionStorageCampaign(response);
-      })
 
-    this.actorService.updatePlayerCharacters(playerCharacters)
-      .subscribe(response => {
-        playerCharacters = response;
-      });
+        this.actorService.updatePlayerCharacters(playerCharacters)
+          .subscribe(response => {
+            playerCharacters = response;
+          }, error => console.error(`Long rest - failed to update player character data.`))
+
+      }, error => console.error(`Long rest - failed to update campaign data.`))
   }
 
-  getTimeSinceLastLongRest() {
-    const sessionStorageCampaign = this.campaignService.getSessionStorageCampaign()
-    let timeSinceLastLongRest =
-      sessionStorageCampaign.campaignDateTimeCurrentEpoch - sessionStorageCampaign.lastLongRestTimeEpoch
-    return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
-  }
-
-  getMinimumRestingTime() {
-    const timeSinceLastLongRestInHours = this.getTimeSinceLastLongRest()
+  getMinimumRestingTime(campaign: Campaign) {
+    const timeSinceLastLongRestInHours = this.getTimeSinceLastLongRest(campaign)
     return timeSinceLastLongRestInHours >= 24 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
+  }
+
+  getTimeSinceLastLongRest(campaign: Campaign) {
+    let timeSinceLastLongRest =
+      campaign.campaignDateTimeCurrentEpoch - campaign.lastLongRestTimeEpoch
+    return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
   }
 
   private regainHitDice(playerCharacter: PlayerCharacter): void {

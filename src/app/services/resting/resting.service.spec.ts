@@ -47,32 +47,6 @@ describe('RestingService', () => {
     expect(service).toBeTruthy();
   });
 
-  // it("should return actor's available Hit Dice", () => {
-  //   //given
-  //   let actor1: PlayerCharacter = {
-  //     name: 'Actor One',
-  //     maxHp: 14,
-  //     currentHp: 5,
-  //     level: 5
-  //   }
-  //   let actor2: PlayerCharacter = {
-  //     name: 'Actor Two',
-  //     maxHp: 14,
-  //     currentHp: 5,
-  //     level: 6
-  //   }
-  //   let actorsToHitDiceMap = new Map<PlayerCharacter, number>([
-  //     [actor1, actor1.level],
-  //     [actor2, actor2.level],
-  //   ])
-  //
-  //   service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
-  //
-  //   //then
-  //   expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
-  //   expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
-  // });
-
   it("should properly perform short rest", () => {
     // given
     actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
@@ -154,15 +128,16 @@ describe('RestingService', () => {
     let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
 
     // and
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    const sessionStorageCampaign: Campaign = {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime()
-    } as Campaign)
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let timePassed = service.getTimeSinceLastLongRest();
+    let timePassed = service.getTimeSinceLastLongRest(sessionStorageCampaign);
 
     //then
     expect(timePassed).toEqual(5);
@@ -172,15 +147,18 @@ describe('RestingService', () => {
     //given
     let currentDate = new Date(1524, 6, 18, 23, 30, 0);
     let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    const sessionStorageCampaign: Campaign =
+    {
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
+        campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime()
-    } as Campaign)
+    }
+
+      campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let minimumLongRestTime = service.getMinimumRestingTime();
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
 
     //then
     expect(minimumLongRestTime).toEqual(8);
@@ -190,18 +168,43 @@ describe('RestingService', () => {
     //given
     let currentDate = new Date(1524, 6, 17, 19, 30, 0);
     let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    const sessionStorageCampaign: Campaign = {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime()
-    } as Campaign)
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let minimumLongRestTime = service.getMinimumRestingTime();
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
 
     //then
     expect(minimumLongRestTime).toEqual(23);
+  });
+
+  it("should not allow long rest if rest time is too short", () => {
+    //given
+    let currentDate = new Date(1524, 6, 17, 19, 30, 0);
+    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
+    const sessionStorageCampaign: Campaign = {
+      name: 'Campaign Name',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: restFinishedAt.getTime()
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
+
+    //when
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
+    expect(minimumLongRestTime).toEqual(23);
+
+    service.performLongRest(22, [])
+
+    //then
+    expect(campaignServiceSpy.updateCampaign).not.toHaveBeenCalled()
+    expect(campaignServiceSpy.updateSessionStorageCampaign).not.toHaveBeenCalled()
+    expect(actorServiceSpy.updatePlayerCharacters).not.toHaveBeenCalled()
   });
 
   it("should perform Long Rest", () => {
@@ -249,19 +252,31 @@ describe('RestingService', () => {
     ]
 
     // and
+    const campaignLastLongRestDateTime = new Date(1524, 9, 10);
+    const campaignDateTimeCurrent = new Date(1524, 9, 12);
     campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: 2,
-      lastLongRestTimeEpoch: 3
+      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime(),
+      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime()
     } as Campaign)
 
+    const campaignAfterShortRestResponse: Campaign = {
+      name: 'Updated Campaign',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
+      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000
+    }
+    campaignServiceSpy.updateCampaign.and.returnValue(of(
+      campaignAfterShortRestResponse
+    ))
     actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
 
     // when
     service.performLongRest(restTimeInHours, playerCharacters)
 
     // then
+    expect(campaignServiceSpy.updateSessionStorageCampaign).toHaveBeenCalledOnceWith(campaignAfterShortRestResponse);
     expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
       {
         id: 1,
