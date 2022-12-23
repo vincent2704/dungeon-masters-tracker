@@ -10,21 +10,26 @@ import {ActorService} from "../../services/actor/actor.service";
 import {of} from "rxjs";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CampaignService} from "../../services/campaign/campaign.service";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
   let fixture: ComponentFixture<TrackerComponent>;
 
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
       declarations: [ TrackerComponent, AddActorComponent ],
       providers: [
         { provide: ActorService, useValue: actorSpy },
+        { provide: CampaignService, useValue: campaignService }
       ]
     })
     .compileComponents();
@@ -33,6 +38,15 @@ describe('TrackerComponent', () => {
     component = fixture.componentInstance;
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
+
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
+
     component.actors = [];
     fixture.detectChanges();
 

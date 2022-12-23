@@ -5,6 +5,7 @@ import {CampaignService} from "../campaign/campaign.service";
 import {HttpClient} from "@angular/common/http";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {CampaignEvent} from "../../models/campaign/campaignEvent";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('EventService', () => {
   let service: EventService;
@@ -16,7 +17,7 @@ describe('EventService', () => {
   const backendUrl = 'http://localhost:8080/v1/events?campaignId=0f29e0da-c69f-44a5-9679-76019f21c8ec';
 
   beforeEach(() => {
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getSessionStorageCurrentDate']);
+    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getSessionStorageCampaign']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -27,7 +28,13 @@ describe('EventService', () => {
     });
 
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
-    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(new Date(1524, 6, 16, 18, 30));
+    const currentDate = new Date(1524, 6, 16, 18, 30)
+    temporalServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
 
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);

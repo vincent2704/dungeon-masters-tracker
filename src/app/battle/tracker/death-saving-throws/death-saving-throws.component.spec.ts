@@ -5,20 +5,37 @@ import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {HitType} from "../../../models/combat-data/HitType";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CampaignService} from "../../../services/campaign/campaign.service";
+import {Campaign} from "../../../models/campaign/campaign";
 
 describe('DeathSavingThrowsComponent', () => {
   let component: DeathSavingThrowsComponent;
   let fixture: ComponentFixture<DeathSavingThrowsComponent>;
 
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
+
   beforeEach(async () => {
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
+
     await TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
-      declarations: [ DeathSavingThrowsComponent ]
+      declarations: [ DeathSavingThrowsComponent ],
+      providers: [
+        { provide: CampaignService, useValue: campaignService }
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
+
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
     component.actor = new Actor('Actor', 10, 1);

@@ -5,6 +5,7 @@ import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 
 @Component({
   selector: 'app-tracker',
@@ -24,7 +25,7 @@ export class TrackerComponent implements OnInit {
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
 
-  constructor(private temporalService: CampaignService, private actorService: ActorService) {
+  constructor(private campaignService: CampaignService, private actorService: ActorService) {
   }
 
   ngOnInit(): void {
@@ -74,11 +75,12 @@ export class TrackerComponent implements OnInit {
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
     if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
+        new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
           + timeSinceBattleStartedInMilliseconds)
       );
     } else {
-      actor.modifyHp(hpModifier, this.temporalService.getSessionStorageCurrentDate());
+      actor.modifyHp(
+        hpModifier, new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
     }
 
     (<HTMLInputElement>event.target).value = '';
@@ -93,8 +95,12 @@ export class TrackerComponent implements OnInit {
     this.actorService.updateCharactersAfterBattle(battleFinishRequests)
       .subscribe(response => {
           if (this.isTimeTracked) {
-            this.temporalService.addSeconds((this.round - 1) * 6)
-              .subscribe(response => this.temporalService.updateSessionStorageCampaign(response));
+            const campaign = this.campaignService.getSessionStorageCampaign();
+            const campaignUpdateRequest: CampaignUpdateRequest = {
+              campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
+            }
+            this.campaignService.updateCampaign(campaignUpdateRequest)
+              .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
           }
           this.battleEndedEmitter.emit(this.mapPlayerCharactersToActors(response));
         },

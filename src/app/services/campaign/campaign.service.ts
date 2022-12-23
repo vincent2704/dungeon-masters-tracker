@@ -33,16 +33,6 @@ export class CampaignService {
     return this.httpClient.get<Campaign>(this.campaignUrl);
   }
 
-  getSessionStorageCurrentDate(): Date {
-    const campaign = this.getSessionStorageCampaign()
-    if(campaign.campaignDateTimeCurrentEpoch) {
-      return new Date(campaign.campaignDateTimeCurrentEpoch);
-    }
-
-    console.error(`Failed to retrieve current date for campaign: ${Environment.CAMPAIGN_ID}`)
-    return new Date();
-  }
-
   updateCampaign(request: CampaignUpdateRequest): Observable<Campaign> {
     return this.httpClient.put<Campaign>(this.campaignUrl, request);
   }
@@ -52,14 +42,6 @@ export class CampaignService {
       campaignDateTimeCurrentEpoch: newDate.getTime()
     }
 
-    return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
-  }
-
-  addSeconds(secondsToAdd: number): Observable<Campaign> {
-    const newDateTime = this.getSessionStorageCampaign().campaignDateTimeCurrentEpoch + secondsToAdd * 1000
-    const updateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: newDateTime
-    }
     return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
   }
 

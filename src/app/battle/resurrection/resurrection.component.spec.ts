@@ -5,6 +5,7 @@ import {NgbCollapse, NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../models/actors/actor";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('ResurrectionComponent', () => {
   let component: ResurrectionComponent;
@@ -17,7 +18,7 @@ describe('ResurrectionComponent', () => {
   );
 
   beforeEach(async () => {
-    const temporalService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCurrentDate'])
+    const temporalService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign'])
 
     await TestBed.configureTestingModule({
       declarations: [ ResurrectionComponent, NgbCollapse, NgbTooltip ],
@@ -28,7 +29,12 @@ describe('ResurrectionComponent', () => {
     .compileComponents();
 
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
-    temporalServiceSpy.getSessionStorageCurrentDate.and.returnValue(currentDate);
+    temporalServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
   });
 
   beforeEach(() => {
@@ -71,7 +77,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getSessionStorageCurrentDate(), 10);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     //and
     component.round = 1;
@@ -83,7 +90,8 @@ describe('ResurrectionComponent', () => {
   it('should not allow to use Raise Dead', () => {
     //given
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getSessionStorageCurrentDate(), 10);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     component.round = 2; // 10 days ago + 6 seconds (after 1st round finished)
 
@@ -95,7 +103,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getSessionStorageCurrentDate(), 10);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     //and
     component.round = 1;
@@ -107,7 +116,8 @@ describe('ResurrectionComponent', () => {
   it('should not allow to use Reincarnate', () => {
     //given
     component.character = new Actor('Character', 10);
-    let exactlyTenDaysAgo = DateUtils.subtractDays(temporalServiceSpy.getSessionStorageCurrentDate(), 10);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     component.round = 2; // 10 days ago + 6 seconds (after 1st round finished)
 
@@ -119,7 +129,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getSessionStorageCurrentDate(), 100);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyHundredYearsAgo = DateUtils.subtractYears(currentDate, 100);
     component.character.kill(exactlyHundredYearsAgo);
     //and
     component.round = 1;
@@ -132,7 +143,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getSessionStorageCurrentDate(), 100);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyHundredYearsAgo = DateUtils.subtractYears(currentDate, 100);
     component.character.kill(exactlyHundredYearsAgo);
     //and
     component.round = 2; // 6 seconds passed
@@ -145,7 +157,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getSessionStorageCurrentDate(), 200);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(currentDate, 200);
     component.character.kill(exactlyTwoHundredYearsAgo);
     //and
     component.round = 1;
@@ -158,7 +171,8 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(temporalServiceSpy.getSessionStorageCurrentDate(), 200);
+    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(currentDate, 200);
     component.character.kill(exactlyTwoHundredYearsAgo);
     //and
     component.round = 2; // 6 seconds passed
