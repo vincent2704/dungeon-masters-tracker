@@ -187,7 +187,7 @@ export class Actor {
     return this.timeOfDeath!;
   }
 
-  setTimeOfDeath(timeOfDeath: Date) {
+  setTimeOfDeath(timeOfDeath: Date | undefined) {
     this.timeOfDeath = timeOfDeath;
   }
 

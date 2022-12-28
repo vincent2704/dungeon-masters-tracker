@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {Settings} from "../../services/settings/settings";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 
 @Component({
   selector: 'app-travel-calculator',
@@ -12,7 +13,7 @@ export class TravelCalculatorComponent implements OnInit {
   travelInformation: string = '';
   trackTime: boolean = true;
 
-  constructor( private temporalService: TemporalService) {
+  constructor( private campaignService: CampaignService) {
   }
 
   ngOnInit(): void {
@@ -59,10 +60,17 @@ export class TravelCalculatorComponent implements OnInit {
     let travelTimeInMinutes = travelTimeHours * 60;
     let minuteRemainder = travelTimeInMinutes % 60
 
-    this.travelInformation = `Travel time: ${Math.floor(travelTimeHours)} hour(s) ${Math.round(minuteRemainder)} minute(s)`;
+    this.travelInformation = `Travel time: ${Math.floor(travelTimeHours)} hour(s) ` +
+      `${Math.round(minuteRemainder)} minute(s)`;
 
     if (this.trackTime) {
-      this.temporalService.addSeconds(travelTimeHours * 3600);
+      // this.campaignService.addSeconds(travelTimeHours * 3600);
+      const campaign = this.campaignService.getSessionStorageCampaign();
+      const campaignUpdateRequest: CampaignUpdateRequest = {
+        campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + travelTimeHours * 3_600_000
+      }
+      this.campaignService.updateCampaign(campaignUpdateRequest)
+        .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
     }
   }
 

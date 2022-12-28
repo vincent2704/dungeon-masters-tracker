@@ -34,15 +34,19 @@ export class ActorService {
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
   }
 
-  fromJson(data: any): Actor {
+  fromJson(data: PlayerCharacter): Actor {
     let actor = new Actor(data.name, data.maxHp);
 
     actor.id = data.id;
-    actor.currentHp = data.currentHp;
+    actor.currentHp = data.currentHp!;
     actor.level = data.level;
     actor.type = BattleParticipantType.PLAYER_CHARACTER;
-    actor.setTimeOfDeath(new Date(data.timeOfDeathEpoch));
-    actor.setResurrectionPenalty(data.resurrectionPenalty);
+
+    const timeOfDeath = data.timeOfDeathEpoch
+      ? new Date(data.timeOfDeathEpoch)
+      : undefined
+    actor.setTimeOfDeath(timeOfDeath);
+    actor.setResurrectionPenalty(data.resurrectionPenalty!);
 
     return actor;
   }

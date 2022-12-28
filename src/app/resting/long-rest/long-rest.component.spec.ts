@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LongRestComponent } from './long-rest.component';
 import {FormsModule} from "@angular/forms";
 import {RestingService} from "../../services/resting/resting.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('LongRestComponent', () => {
   let component: LongRestComponent;
@@ -17,7 +18,7 @@ describe('LongRestComponent', () => {
       providers: [
         {provide: RestingService, useValue: restingSpy}
       ],
-      imports: [ FormsModule ],
+      imports: [ FormsModule, HttpClientTestingModule ],
       declarations: [ LongRestComponent ]
     })
       .compileComponents();
@@ -33,12 +34,13 @@ describe('LongRestComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should perform Long Rest', () => {
-  //   // when
-  //   component.rest()
-  //   // then
-  //   expect(restingServiceSpy.performLongRest).toHaveBeenCalledWith(component.restTimeInHours);
-  // });
+  it('should perform Long Rest', () => {
+    // when
+    component.rest()
+    // then
+    expect(restingServiceSpy.performLongRest)
+      .toHaveBeenCalledWith(component.restTimeInHours, component.playerCharacters);
+  });
 
   it('should get time since last Long Rest', () => {
     //given

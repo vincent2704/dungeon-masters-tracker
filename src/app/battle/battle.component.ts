@@ -137,8 +137,6 @@ export class BattleComponent implements OnInit {
     return initiativeToActorsMap;
   }
 
-
-
   private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
     return playerCharacters.map(character => {
       return this.actorService.fromJson(character)

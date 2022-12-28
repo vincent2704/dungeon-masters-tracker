@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NoteService} from "../services/note/note.service";
-import {Note} from "../models/note/note";
+import {Note} from "../models/campaign/note";
 
 @Component({
   selector: 'app-notes',

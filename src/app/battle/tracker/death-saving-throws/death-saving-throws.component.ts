@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
-import {TemporalService} from "../../../services/temporal/temporal.service";
+import {CampaignService} from "../../../services/campaign/campaign.service";
 import {HitType} from "../../../models/combat-data/HitType";
 
 @Component({
@@ -22,7 +22,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   successes: number = 0;
   failures: number = 0;
 
-  constructor(private temporalService: TemporalService) { }
+  constructor(private temporalService: CampaignService) { }
 
   ngOnInit(): void {
   }
@@ -41,20 +41,20 @@ export class DeathSavingThrowsComponent implements OnInit {
   failure() {
     this.failures++;
     if(this.failures >= 3) {
-      this.actor.kill(this.temporalService.getCurrentDate());
+      this.actor.kill(new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
     }
   }
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.modifyHp(1, this.temporalService.getCurrentDate());
+    this.actor.modifyHp(1, new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
   criticalFail() {
     this.failures += 2;
     if(this.failures >= 3) {
-      this.actor.kill(this.temporalService.getCurrentDate());
+      this.actor.kill(new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
     }
   }
 

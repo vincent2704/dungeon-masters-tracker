@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {StringUtils} from "../../utilities/string/stringUtils";
 
@@ -18,7 +18,7 @@ export class ResurrectionComponent implements OnInit {
 
   isCollapsed: boolean = true;
 
-  constructor(private temporalService: TemporalService) {
+  constructor(private temporalService: CampaignService) {
   }
 
   ngOnInit(): void {
@@ -82,7 +82,7 @@ export class ResurrectionComponent implements OnInit {
   private getCurrentTimeInBattle(): Date {
     // temporal service current time is actually battle start time and is
     // updated only after battle is finished, because there's an option not to track time in battle.
-    let currentDate = this.temporalService.getCurrentDate();
+    let currentDate = new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
     return DateUtils.addRounds(currentDate, this.round - 1); // current round time hasn't passed yet, that's why -1
   }
 

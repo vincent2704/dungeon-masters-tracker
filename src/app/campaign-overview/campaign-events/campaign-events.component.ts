@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CampaignEvent} from "../../models/campaign-events/campaignEvent";
+import {CampaignEvent} from "../../models/campaign/campaignEvent";
 import {EventService} from "../../services/events/event.service";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 
 @Component({
   selector: 'app-campaign-events',
@@ -18,7 +18,7 @@ export class CampaignEventsComponent implements OnInit {
     body: ''
   }
 
-  constructor(private eventService: EventService, private temporalService: TemporalService) {
+  constructor(private eventService: EventService, private temporalService: CampaignService) {
   }
 
   ngOnInit(): void {
@@ -31,7 +31,8 @@ export class CampaignEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.newEvent.campaignDateTimeOccurredEpoch = this.temporalService.getCurrentDate().getTime();
+    this.newEvent.campaignDateTimeOccurredEpoch =
+      this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
     this.eventService.addCampaignEvent(this.newEvent)
       .subscribe((event) => {
         this.events.push(event);

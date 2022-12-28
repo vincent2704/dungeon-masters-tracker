@@ -9,21 +9,28 @@ import {AddActorComponent} from "../add-actor/add-actor.component";
 import {ActorService} from "../../services/actor/actor.service";
 import {of} from "rxjs";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CampaignService} from "../../services/campaign/campaign.service";
+import {Campaign} from "../../models/campaign/campaign";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
   let fixture: ComponentFixture<TrackerComponent>;
 
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign', 'updateCampaign', 'updateSessionStorageCampaign']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientTestingModule],
       declarations: [ TrackerComponent, AddActorComponent ],
       providers: [
         { provide: ActorService, useValue: actorSpy },
+        { provide: CampaignService, useValue: campaignService }
       ]
     })
     .compileComponents();
@@ -32,6 +39,15 @@ describe('TrackerComponent', () => {
     component = fixture.componentInstance;
 
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
+
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
+
     component.actors = [];
     fixture.detectChanges();
 
@@ -41,9 +57,9 @@ describe('TrackerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should save actors after battle is concluded", () => {
+  it("should save actors and campaign after battle is concluded", () => {
     //given
-    let actor1 = new Actor('Actor 1', 1, BattleParticipantType.PLAYER_CHARACTER)
+    let actor1 = new Actor('Actor 1', 1, BattleParticipantType.ALLIED_NPC)
     let actor2 = new Actor('Actor 2', 1, BattleParticipantType.PLAYER_CHARACTER)
     let actor3 = new Actor('Actor 3', 1, BattleParticipantType.PLAYER_CHARACTER)
     actor2.id = 2;
@@ -55,11 +71,32 @@ describe('TrackerComponent', () => {
     actor2.setDeathSavingThrowsEligibility(true);
     component.actors = [actor1, actor2, actor3, actor4]
     actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
+    component.round++;
+    component.isTimeTracked = true;
+
+    const initialCampaignState: Campaign = {
+      name: 'Name',
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0
+    }
+    const campaignUpdateRequest: CampaignUpdateRequest = {
+      campaignDateTimeCurrentEpoch: 6_000
+    }
+    const updatedCampaignState: Campaign = {
+      name: 'Name',
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 6_000,
+      lastLongRestTimeEpoch: 0
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(initialCampaignState);
+    campaignServiceSpy.updateCampaign.withArgs(campaignUpdateRequest).and.returnValue(of(updatedCampaignState));
 
     // when
     component.endBattle();
 
     expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
+      // actor1 is not updated because it is NPC with no ID, so is not a saved character
       playerId: 2,
       playerCurrentHp: 1,
       timeOfDeath: undefined
@@ -69,6 +106,7 @@ describe('TrackerComponent', () => {
         playerCurrentHp: 0,
         timeOfDeath: date
       }]);
+    expect(campaignServiceSpy.updateSessionStorageCampaign).toHaveBeenCalledOnceWith(updatedCampaignState);
   });
 
   it('should progress actor', () => {
