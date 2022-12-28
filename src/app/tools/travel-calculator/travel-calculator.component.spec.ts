@@ -4,21 +4,24 @@ import {TravelCalculatorComponent} from './travel-calculator.component';
 import {Settings} from "../../services/settings/settings";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {FormsModule} from "@angular/forms";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {of} from "rxjs";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('TravelCalculatorComponent', () => {
   let component: TravelCalculatorComponent;
   let fixture: ComponentFixture<TravelCalculatorComponent>;
 
-  let temporalServiceSpy: jasmine.SpyObj<CampaignService>;
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>;
 
   beforeEach(async () => {
-    const temporalService = jasmine.createSpyObj('TemporalService', ['addSeconds'])
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign', 'updateCampaign', 'updateSessionStorageCampaign'])
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [TravelCalculatorComponent],
       providers: [
-        {provide: CampaignService, useValue: temporalService},
+        {provide: CampaignService, useValue: campaignService},
       ]
     })
       .compileComponents();
@@ -26,7 +29,7 @@ describe('TravelCalculatorComponent', () => {
     fixture = TestBed.createComponent(TravelCalculatorComponent);
     component = fixture.componentInstance;
 
-    temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
     fixture.detectChanges();
   });
 
@@ -67,13 +70,39 @@ describe('TravelCalculatorComponent', () => {
     Settings.setSISystem(true);
     component.trackTime = true;
     component.pace = 'Fast'
+
+
+    const initialCampaignState: Campaign = {
+      name: 'Name',
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 1,
+      lastLongRestTimeEpoch: 0
+    }
+
+    const expectedCampaignUpdateRequest: CampaignUpdateRequest = {
+      campaignDateTimeCurrentEpoch: 14_400_001
+    }
+
+    const expectedCampaignState: Campaign = {
+      name: 'Name',
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 14_400_001,
+      lastLongRestTimeEpoch: 0
+    }
+
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(initialCampaignState)
+
+    campaignServiceSpy.updateCampaign.withArgs(expectedCampaignUpdateRequest)
+      .and.returnValue(of(expectedCampaignState))
+
     //when
     component.updateTravelTime(24)
+
     //then
-    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(14_400);
+    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledWith(expectedCampaignUpdateRequest);
   });
 
-  it('should update travel time if time progress checkbox is not checked', () => {
+  it('should not update campaign time if time progress checkbox is not checked', () => {
     //given
     Settings.setSISystem(true);
     component.trackTime = false;
@@ -81,7 +110,7 @@ describe('TravelCalculatorComponent', () => {
     //when
     component.updateTravelTime(24)
     //then
-    expect(temporalServiceSpy.addSeconds).not.toHaveBeenCalled();
+    expect(campaignServiceSpy.updateCampaign).not.toHaveBeenCalled();
   });
 
   it('should display travel time in proper format', () => {
@@ -98,7 +127,7 @@ describe('TravelCalculatorComponent', () => {
 
     component.updateTravelTime(4.5)
 
-    for(let data of testData) {
+    for (let data of testData) {
       component.updateTravelTime(data.kilometers)
       expect(component.travelInformation).toEqual(`Travel time: ${data.hours} hour(s) ${data.minutes} minute(s)`)
     }

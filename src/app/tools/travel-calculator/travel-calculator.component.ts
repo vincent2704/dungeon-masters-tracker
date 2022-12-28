@@ -60,7 +60,8 @@ export class TravelCalculatorComponent implements OnInit {
     let travelTimeInMinutes = travelTimeHours * 60;
     let minuteRemainder = travelTimeInMinutes % 60
 
-    this.travelInformation = `Travel time: ${Math.floor(travelTimeHours)} hour(s) ${Math.round(minuteRemainder)} minute(s)`;
+    this.travelInformation = `Travel time: ${Math.floor(travelTimeHours)} hour(s) ` +
+      `${Math.round(minuteRemainder)} minute(s)`;
 
     if (this.trackTime) {
       // this.campaignService.addSeconds(travelTimeHours * 3600);
