@@ -26,11 +26,7 @@ export class ActorService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // temporary method for partial backend implementation, it's going to fully replace `getActors()`
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return of(this.demoPlayers);
-    }
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
   }
 
@@ -56,7 +52,6 @@ export class ActorService {
       this.demoPlayers = playerCharacters;
       return of(this.demoPlayers);
     }
-    console.log('updatePlayerCharacters invoked')
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
   }
 
