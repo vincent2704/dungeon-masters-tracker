@@ -1,6 +1,5 @@
 export enum Environment {
   LOCAL = 'local',
-  GHPAGES = 'ghpages',
   PROD = 'prod',
 
   HOST_ADDRESS = 'http://localhost:8080',

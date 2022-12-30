@@ -55,14 +55,6 @@
               ],
               "outputHashing": "all"
             },
-            "ghpages": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ghpages.ts"
-                }
-              ]
-            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -79,9 +71,6 @@
           "configurations": {
             "production": {
               "browserTarget": "dungeon-masters-tracker:build:production"
-            },
-            "ghpages": {
-              "browserTarget": "dungeon-masters-tracker:build:ghpages"
             },
             "development": {
               "browserTarget": "dungeon-masters-tracker:build:development"
@@ -111,14 +100,6 @@
             "scripts": []
           },
           "configurations": {
-            "ghpages": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ghpages.ts"
-                }
-              ]
-            }
           }
         }
       }
