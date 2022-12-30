@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TemporaryHitPointsComponent } from './temporary-hit-points.component';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 
 describe('TemporaryHitPointsComponent', () => {

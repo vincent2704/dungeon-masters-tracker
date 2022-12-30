@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Component, Input, OnInit} from '@angular/core';
 import {RestingService} from "../../services/resting/resting.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {ActorService} from "../../services/actor/actor.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-short-rest',
@@ -11,26 +10,28 @@ import {ActorService} from "../../services/actor/actor.service";
 })
 export class ShortRestComponent implements OnInit {
 
-  actors: Actor[] = [];
-  actorsToShortRestInput: Map<Actor, ShortRestInput> = new Map<Actor, ShortRestInput>();
+  @Input()
+  playerCharacters!: PlayerCharacter[];
+  actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput> = new Map<PlayerCharacter, ShortRestInput>();
   shortRestDurationInHours: number = 1;
 
-  constructor(private actorService: ActorService, private restingService: RestingService) {
+  constructor(private restingService: RestingService) {
+  }
+
+  ngOnChanges(): void {
+    this.playerCharacters.forEach(playerCharacter => {
+      this.actorsToShortRestInput.set(playerCharacter, new ShortRestInput())
+    })
   }
 
   ngOnInit(): void {
-    this.actors = this.actorService.getActors()
-    for(let actor of this.actors) {
-      this.actorsToShortRestInput.set(actor, new ShortRestInput());
-    }
-  }
-
-  getAvailableHitDice(actor: Actor): number {
-    return this.restingService.getActorsAvailableHitDice(actor);
+    this.playerCharacters.forEach(playerCharacter => {
+      this.actorsToShortRestInput.set(playerCharacter, new ShortRestInput())
+    })
   }
 
   confirmShortRest(): void {
-    //TODO: validation on hit dice to spend vs available hit dice
+    // TODO: validation on hit dice to spend vs available hit dice
     this.restingService.performShortRest(this.shortRestDurationInHours, this.actorsToShortRestInput);
   }
 }

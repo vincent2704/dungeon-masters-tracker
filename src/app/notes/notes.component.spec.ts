@@ -1,17 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotesComponent } from './notes.component';
-import { NoteService } from "../services/note/note.service";
-import { Note } from "../models/note/note";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import {NoteService} from "../services/note/note.service";
+import {Note} from "../models/campaign/note";
+import {Observable, of} from "rxjs";
 
 describe('NotesComponent', () => {
   let component: NotesComponent;
   let fixture: ComponentFixture<NotesComponent>;
 
   let noteServiceSpy: jasmine.SpyObj<NoteService>;
-  let defaultNote = new Note('Title 1', 'Body 1')
+  let defaultNote: Note = {
+    id: 1,
+    title: 'Note 1',
+    body: 'Description 1'
+  }
 
   beforeEach(async () => {
     const noteService = jasmine.createSpyObj('NoteService',
@@ -29,7 +34,7 @@ describe('NotesComponent', () => {
 
   beforeEach(() => {
     noteServiceSpy = TestBed.inject(NoteService) as jasmine.SpyObj<NoteService>;
-    noteServiceSpy.getNotes.and.returnValue([defaultNote]);
+    noteServiceSpy.getNotes.and.returnValue(of([defaultNote]));
 
     fixture = TestBed.createComponent(NotesComponent);
     component = fixture.componentInstance;
@@ -38,62 +43,83 @@ describe('NotesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.notes);
+    expect(component.notesBackend);
   });
 
   it('should show note', () => {
-    expect(component.shownNote).toBeUndefined();
+    expect(component.shownBackendNote).toBeUndefined();
 
-    component.showNote(defaultNote);
-    expect(component.shownNote).toEqual(defaultNote);
+    component.showBackendNote(defaultNote);
+    expect(component.shownBackendNote).toEqual(defaultNote);
   });
 
   it('should add note', () => {
-    noteServiceSpy.addNote('Title 2', 'Body 2');
+    const noteToAdd: Note = {
+      title: 'Title',
+      body: 'Body'
+    }
+    noteServiceSpy.addNote(noteToAdd);
 
-    expect(noteServiceSpy.addNote).toHaveBeenCalledWith('Title 2', 'Body 2');
-    expect(component.newNoteTitle).toEqual("");
-    expect(component.newNoteBody).toEqual("");
+    expect(noteServiceSpy.addNote).toHaveBeenCalledWith(noteToAdd);
+    expect(component.newNote.title).toEqual("");
+    expect(component.newNote.body).toEqual("");
   });
 
   it('should delete note', () => {
+    noteServiceSpy.deleteNote.withArgs(defaultNote.id!).and.returnValue(new Observable<unknown>())
     component.deleteNote(defaultNote);
-    expect(noteServiceSpy.deleteNote).toHaveBeenCalledWith(defaultNote);
-    expect(component.shownNote).toBeUndefined();
+
+    expect(noteServiceSpy.deleteNote).toHaveBeenCalledWith(defaultNote.id!);
+    expect(component.shownBackendNote).toBeUndefined();
   });
 
   it('should edit note', () => {
-    component.showNote(defaultNote);
+
+    component.showBackendNote(defaultNote);
     component.editNote();
 
     expect(component.editing).toBeTrue();
-    expect(component.editedNoteProperties.title).toEqual(defaultNote.getTitle());
-    expect(component.editedNoteProperties.body).toEqual(defaultNote.getBody());
+    expect(component.noteChanges.title).toEqual(defaultNote.title);
+    expect(component.noteChanges.body).toEqual(defaultNote.body);
 
     let newTitle = 'New Title';
     let newBody = 'New Body';
 
-    component.editedNoteProperties.title = newTitle;
-    component.editedNoteProperties.body = newBody;
+    component.noteChanges.title = newTitle;
+    component.noteChanges.body = newBody;
+
+    noteServiceSpy.updateNote.withArgs({
+      id: 1,
+      title: newTitle,
+      body: newBody
+    }).and.returnValue(of({
+      id: 1,
+      title: newTitle,
+      body: newBody
+    }))
 
     component.submitEdit();
-    expect(noteServiceSpy.updateNote).toHaveBeenCalledWith(component.shownNote!, newTitle, newBody);
+    expect(noteServiceSpy.updateNote).toHaveBeenCalledWith(component.shownBackendNote!);
     expect(component.editing).toBeFalse();
   });
 
   it('should cancel editing note', () => {
-    component.showNote(defaultNote);
+    component.showBackendNote(defaultNote);
     component.editNote();
 
     let newTitle = 'New Title';
     let newBody = 'New Body';
 
-    component.editedNoteProperties.title = newTitle;
-    component.editedNoteProperties.body = newBody;
+    component.noteChanges.title = newTitle;
+    component.noteChanges.body = newBody;
 
     component.cancelEdit();
     expect(noteServiceSpy.updateNote).not.toHaveBeenCalled();
-    expect(component.notes).toEqual([new Note('Title 1', 'Body 1')])
+    expect(component.notesBackend).toEqual([{
+      id: defaultNote.id,
+      title: defaultNote.title,
+      body: defaultNote.body
+    }])
   });
 
 });

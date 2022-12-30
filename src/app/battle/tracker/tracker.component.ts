@@ -1,7 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../models/actor";
-import {TemporalService} from "../../services/temporal/temporal.service";
+import {Actor} from "../../models/actors/actor";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {ActorService} from "../../services/actor/actor.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 
 @Component({
   selector: 'app-tracker',
@@ -17,14 +21,15 @@ export class TrackerComponent implements OnInit {
   progressedActors: Actor[] = [];
 
   @Output()
-  battleEndedEmitter = new EventEmitter<void>();
+  battleEndedEmitter = new EventEmitter<Actor[]>();
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
 
-  constructor(private temporalService: TemporalService, private actorService: ActorService) {
+  constructor(private campaignService: CampaignService, private actorService: ActorService) {
   }
 
   ngOnInit(): void {
+    this.round = 1;
     for (let actor of this.actors) {
       this.unconsciousActorsReceivingDamage.set(actor, false);
     }
@@ -52,15 +57,15 @@ export class TrackerComponent implements OnInit {
     return this.progressedActors.includes(actorToCheck);
   }
 
-  addActor(actor: Actor) {
-    this.actors.push(actor);
+  addActor(actorInitiativePair: [playerCharacter: Actor, initiative: number]) {
+    this.actors.push(actorInitiativePair[0]);
   }
 
   onSubmitHP(actor: Actor, event: any): void {
     let hpModifier = parseInt(event.target.value);
 
-    if(this.isDamage(hpModifier)) {
-      if(actor.isKnockedDown()) {
+    if (this.isDamage(hpModifier)) {
+      if (actor.isKnockedDown()) {
         this.unconsciousActorsReceivingDamage.set(actor, true);
       } else {
         this.unconsciousActorsReceivingDamage.set(actor, false);
@@ -70,22 +75,37 @@ export class TrackerComponent implements OnInit {
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
     if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.temporalService.getCurrentDate().getTime() + timeSinceBattleStartedInMilliseconds)
+        new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
+          + timeSinceBattleStartedInMilliseconds)
       );
     } else {
-      actor.modifyHp(hpModifier, this.temporalService.getCurrentDate());
+      actor.modifyHp(
+        hpModifier, new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
     }
 
     (<HTMLInputElement>event.target).value = '';
   }
 
   endBattle() {
-    this.updateCharacters();
-    if (this.isTimeTracked) {
-      this.temporalService.addSeconds((this.round - 1) * 6);
-    }
-    this.round = 1;
-    this.battleEndedEmitter.emit();
+    let playerCharacterActors: Actor[] = this.actors.filter(
+      actor => {
+        return actor.type == BattleParticipantType.PLAYER_CHARACTER && actor.id
+      });
+    let battleFinishRequests: PlayerBattleFinishedRequest[] = this.createBattleFinishRequests(playerCharacterActors)
+    this.actorService.updateCharactersAfterBattle(battleFinishRequests)
+      .subscribe(response => {
+          if (this.isTimeTracked) {
+            const campaign = this.campaignService.getSessionStorageCampaign();
+            const campaignUpdateRequest: CampaignUpdateRequest = {
+              campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
+            }
+            console.log(campaignUpdateRequest)
+            this.campaignService.updateCampaign(campaignUpdateRequest)
+              .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
+          }
+          this.battleEndedEmitter.emit(this.mapPlayerCharactersToActors(response));
+        },
+        error => console.error(`Updating player characters failed. Error: ${error}`));
   }
 
   isUnconsciousActorReceivingDamage(actor: Actor): boolean {
@@ -100,12 +120,24 @@ export class TrackerComponent implements OnInit {
     return hitPointModifier < 0;
   }
 
-  private updateCharacters(): void {
-    this.actorService.updateActors(this.actors);
-  }
-
   private allActorsProgressed(): boolean {
     return this.actors.length === this.progressedActors.length;
+  }
+
+  private mapPlayerCharactersToActors(playerCharacters: PlayerCharacter[]): Actor[] {
+    return playerCharacters.map(playerCharacter => {
+      return this.actorService.fromJson(playerCharacter);
+    })
+  }
+
+  private createBattleFinishRequests(actors: Actor[]): PlayerBattleFinishedRequest[] {
+    return actors.map(actor => {
+      return {
+        playerId: actor.getId(),
+        playerCurrentHp: actor.getCurrentHP(),
+        timeOfDeath: actor.getTimeOfDeath()
+      } as PlayerBattleFinishedRequest
+    })
   }
 
 }

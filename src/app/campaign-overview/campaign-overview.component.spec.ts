@@ -8,21 +8,28 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CampaignEventsComponent} from "./campaign-events/campaign-events.component";
 import {ProtagonistsManagerComponent} from "./protagonists-manager/protagonists-manager.component";
 import {ProtagonistsInfoComponent} from "./protagonists-manager/protagonists-info/protagonists-info.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {of} from "rxjs";
+import {CampaignService} from "../services/campaign/campaign.service";
+import {Campaign} from "../models/campaign/campaign";
 
 describe('CampaignOverviewComponent', () => {
   let component: CampaignOverviewComponent;
   let fixture: ComponentFixture<CampaignOverviewComponent>;
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
-    const actorService = jasmine.createSpyObj('ActorService', ['getActors', 'deleteActor', 'setActors']);
+    const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule, NgbModule],
+      imports: [FormsModule, NgbModule, HttpClientTestingModule],
       declarations: [ CampaignOverviewComponent, TimeConfigurationComponent,
         CampaignEventsComponent, ProtagonistsManagerComponent, ProtagonistsInfoComponent ],
       providers: [
-        { provide: ActorService, useValue: actorService }
+        { provide: ActorService, useValue: actorService },
+        { provide: CampaignService, useValue: campaignService }
       ]
     })
     .compileComponents();
@@ -30,7 +37,16 @@ describe('CampaignOverviewComponent', () => {
 
   beforeEach(() => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    actorServiceSpy.getActors.and.returnValue([]);
+    actorServiceSpy.getPlayerCharacters.and.returnValue(of([]));
+
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
+
     fixture = TestBed.createComponent(CampaignOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

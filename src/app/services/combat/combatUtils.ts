@@ -1,16 +1,17 @@
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Monster} from "../../models/monsters/monster";
 import {CombatData} from "../../models/combat-data/CombatData";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 export class CombatUtils {
 
   constructor() { }
 
-  static getDailyXpBudget(characters: Actor[]): number {
+  static getDailyXpBudget(characters: PlayerCharacter[]): number {
     let dailyXpTable = CombatData.ADVENTURING_DAY_XP;
 
     return characters.reduce((currentXp, character) => {
-      return currentXp + dailyXpTable.get(character.getLevel())!;
+      return currentXp + dailyXpTable.get(character.level)!;
     }, 0);
   }
 

@@ -3,12 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LongRestComponent } from './long-rest.component';
 import {FormsModule} from "@angular/forms";
 import {RestingService} from "../../services/resting/resting.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {Campaign} from "../../models/campaign/campaign";
 
 describe('LongRestComponent', () => {
   let component: LongRestComponent;
   let fixture: ComponentFixture<LongRestComponent>;
 
   let restingServiceSpy: jasmine.SpyObj<RestingService>;
+
+  const sessionStorageCampaign = {
+    name: "Dummy Name",
+    campaignDateTimeStartEpoch: -14057296560,
+    campaignDateTimeCurrentEpoch: -14057296560,
+    realDateStart: -14057296560,
+    realDateLastPlayed: -14057296560,
+    lastLongRestTimeEpoch: -14057296560
+  } as Campaign
 
   beforeEach(async () => {
     const restingSpy = jasmine.createSpyObj('RestingService', ['getMinimumRestingTime', 'performLongRest', 'getTimeSinceLastLongRest'])
@@ -17,10 +28,12 @@ describe('LongRestComponent', () => {
       providers: [
         {provide: RestingService, useValue: restingSpy}
       ],
-      imports: [ FormsModule ],
+      imports: [ FormsModule, HttpClientTestingModule ],
       declarations: [ LongRestComponent ]
     })
       .compileComponents();
+
+    sessionStorage.setItem('campaign', JSON.stringify(sessionStorageCampaign))
 
     restingServiceSpy = TestBed.inject(RestingService) as jasmine.SpyObj<RestingService>;
     restingServiceSpy.getMinimumRestingTime.and.returnValue(8);
@@ -37,7 +50,8 @@ describe('LongRestComponent', () => {
     // when
     component.rest()
     // then
-    expect(restingServiceSpy.performLongRest).toHaveBeenCalledWith(component.restTimeInHours);
+    expect(restingServiceSpy.performLongRest)
+      .toHaveBeenCalledWith(component.restTimeInHours, component.playerCharacters);
   });
 
   it('should get time since last Long Rest', () => {

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {ActorService} from "../../services/actor/actor.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-protagonists-manager',
@@ -9,23 +10,32 @@ import {Actor} from "../../models/actor";
 export class ProtagonistsManagerComponent implements OnInit {
 
   @Input()
-  playerCharacters!: Actor[];
+  playerCharacters!: PlayerCharacter[];
 
   newActorName: string = '';
   newActorLevel: string = '';
   newActorMaxHp: string = '';
   managingProtagonists: boolean = false;
 
-  actorsToDelete: Actor[] = [];
-  actorsToAdd: Actor[] = [];
+  actorsToDelete: PlayerCharacter[] = [];
+  actorsToAdd: PlayerCharacter[] = [];
 
-  constructor() { }
+  constructor(private actorService: ActorService) { }
 
   ngOnInit(): void {
+    this.actorService.getPlayerCharacters()
+      .subscribe((playerCharacters: PlayerCharacter[]) => {
+        this.playerCharacters = playerCharacters;
+      })
   }
 
   onManageProtagonists(): void {
     this.managingProtagonists = !this.managingProtagonists;
+  }
+
+  onProtagonistsChangesSubmitted(playerCharacters: PlayerCharacter[]): void {
+    this.managingProtagonists = false;
+    this.playerCharacters = playerCharacters;
   }
 
 }

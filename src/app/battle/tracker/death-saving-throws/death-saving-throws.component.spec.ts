@@ -1,22 +1,41 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DeathSavingThrowsComponent} from './death-saving-throws.component';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {HitType} from "../../../models/combat-data/HitType";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CampaignService} from "../../../services/campaign/campaign.service";
+import {Campaign} from "../../../models/campaign/campaign";
 
 describe('DeathSavingThrowsComponent', () => {
   let component: DeathSavingThrowsComponent;
   let fixture: ComponentFixture<DeathSavingThrowsComponent>;
 
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
+
   beforeEach(async () => {
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
+
     await TestBed.configureTestingModule({
-      declarations: [ DeathSavingThrowsComponent ]
+      imports: [ HttpClientTestingModule ],
+      declarations: [ DeathSavingThrowsComponent ],
+      providers: [
+        { provide: CampaignService, useValue: campaignService }
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: "Dummy Name",
+      campaignDateTimeStartEpoch: 0,
+      campaignDateTimeCurrentEpoch: 0,
+      lastLongRestTimeEpoch: 0,
+    } as Campaign)
+
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);
     component = fixture.componentInstance;
     component.actor = new Actor('Actor', 10, 1);
@@ -29,9 +48,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should stabilize actor after 3 successful death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.success();
     component.success();
@@ -44,9 +63,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should NOT remove unconsciousness on successful death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.success();
     component.success();
@@ -58,9 +77,9 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should kill actor on 3 failed death saving throws", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
+    component.actor = new Actor('Actor', 10);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.failure();
     component.failure();
@@ -89,7 +108,7 @@ describe('DeathSavingThrowsComponent', () => {
     //given
     component.actor = new Actor('Actor', 10, 1);
     let date = new Date();
-    component.actor.modifyHp(-1, date);
+    component.actor.modifyHp(-10, date);
     //when
     component.criticalSuccess()
     //then
@@ -100,8 +119,8 @@ describe('DeathSavingThrowsComponent', () => {
 
   it("should break stabilized state when unconscious character with 0 HP gets hit", () => {
     //given
-    component.actor = new Actor('Actor', 10, 1);
-    component.actor.modifyHp(-1, new Date());
+    component.actor = new Actor('Actor', 10);
+    component.actor.modifyHp(-10, new Date());
     component.actor.setStabilized(true);
 
     //when

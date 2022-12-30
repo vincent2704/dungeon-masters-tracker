@@ -1,57 +1,81 @@
 import {Injectable} from '@angular/core';
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {Condition} from "../../models/Condition";
 import {BattleCondition} from "../../models/battleCondition";
-import {PROTAGONISTS} from "../../models/dummy-backend-data/actorsData";
+import {Observable, of} from "rxjs";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Environment} from "../../environment";
+import {environment} from "../../../environments/environment";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
+import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActorService {
-  private actors: Actor[] = PROTAGONISTS;
 
-  constructor() {
+  private demoPlayers: PlayerCharacter[] = [];
+
+  private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
+  private readonly battleFinishedUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters/finish-battle`
+  private readonly httpOptions = {
+    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
   }
 
-  getActors(): Actor[] {
-    return this.actors.map(actor => {
-      return actor.copy();
-    });
+  constructor(private httpClient: HttpClient) {
   }
 
-  findActorByName(actorName: string): Actor {
-    return this.actors.find(actor => actor.name == actorName)!;
+  getPlayerCharacters(): Observable<PlayerCharacter[]> {
+    return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
   }
 
-  addActor(actor: Actor): void {
-    this.actors.push(actor);
+  fromJson(data: PlayerCharacter): Actor {
+    let actor = new Actor(data.name, data.maxHp);
+
+    actor.id = data.id;
+    actor.currentHp = data.currentHp!;
+    actor.level = data.level;
+    actor.type = BattleParticipantType.PLAYER_CHARACTER;
+
+    const timeOfDeath = data.timeOfDeathEpoch
+      ? new Date(data.timeOfDeathEpoch)
+      : undefined
+    actor.setTimeOfDeath(timeOfDeath);
+    actor.setResurrectionPenalty(data.resurrectionPenalty!);
+
+    return actor;
   }
 
-  deleteActor(actor: Actor): void {
-    this.actors.splice(this.actors.indexOf(actor), 1);
-  }
-
-  deleteActors(actorsToDelete: Actor[]): void {
-    for(let actor of actorsToDelete) {
-      if(this.actors.indexOf(actor) > -1) {
-        this.actors.splice(this.actors.indexOf(actor), 1);
-      }
+  updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      this.demoPlayers = playerCharacters;
+      return of(this.demoPlayers);
     }
+    return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
   }
 
-  setActors(Actors: Actor[]): void {
-    this.actors = Actors;
-    //TODO: backend call
+  updateCharactersAfterBattle(playersBattleFinishedRequests: PlayerBattleFinishedRequest[]):
+    Observable<PlayerCharacter[]> {
+    return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
+      playersBattleFinishedRequests, this.httpOptions);
   }
 
-  updateActors(actors: Actor[]): void {
-    for(let actor of actors) {
-      for(let i = 0; i < this.actors.length; i++) {
-        if(actor.name == this.actors[i].name) {
-          this.actors[i] = actor;
+  deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      for (let pc of playerCharacters) {
+        if (this.demoPlayers.indexOf(pc) > -1) {
+          this.demoPlayers.splice(this.demoPlayers.indexOf(pc), 1);
         }
       }
+      return new Observable<unknown>();
     }
+    let charactersToDeleteIds = playerCharacters.map(character => character.id);
+    let options = {
+      params: this.httpOptions.params,
+      body: charactersToDeleteIds
+    }
+    return this.httpClient.delete<Actor[]>(this.playerCharactersUrl, options);
   }
 
   addBattleCondition(actor: Actor, condition: BattleCondition): void {

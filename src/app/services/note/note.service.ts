@@ -1,37 +1,56 @@
-import { Injectable } from '@angular/core';
-import {Note} from "../../models/note/note";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Note} from "../../models/campaign/note";
+import {Observable, of} from "rxjs";
+import {environment} from "../../../environments/environment";
+import {Environment} from "../../environment";
 
 @Injectable({
   providedIn: 'root'
 })
-// TODO: backend calls
 export class NoteService {
 
-  private readonly notes: Note[];
-
-  constructor() {
-    this.notes = []
+  private readonly notesUrl: string = `${Environment.HOST_ADDRESS}/v1/notes`
+  private readonly httpOptions = {
+    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
   }
 
-  getNotes(): Note[] {
-    return this.notes;
+  // field for GH Pages demo purpose
+  private notes: Observable<Note[]> = new Observable<Note[]>();
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  addNote(noteTitle: string, noteBody: string) {
-    this.notes.push(new Note(noteTitle, noteBody));
-  }
-
-  deleteNote(note: Note) {
-    this.notes.splice(this.notes.indexOf(note), 1);
-  }
-
-  updateNote(noteToUpdate: Note, newTitle: string, newBody: string) {
-    let note = this.notes.find(note => note === noteToUpdate);
-    if(note) {
-      note.setTitle(newTitle);
-      note.setBody(newBody);
-    } else {
-      console.error(`Update failed for note with title '${noteToUpdate.getTitle()}' - note not found.`);
+  addNote(note: Note): Observable<Note> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(note);
     }
+    return this.httpClient.post<Note>(this.notesUrl, note, this.httpOptions);
+  }
+
+  getNotes(): Observable<Note[]> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return this.notes;
+    }
+    return this.httpClient.get<Note[]>(
+      this.notesUrl,
+      this.httpOptions
+    )
+  }
+
+  updateNote(note: Note): Observable<Note> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(note);
+    }
+    return this.httpClient.put<Note>(this.notesUrl, note, this.httpOptions)
+  }
+
+  deleteNote(id: number): Observable<unknown> {
+    if(environment.environmentName == Environment.GHPAGES) {
+      return of(id);
+    }
+
+    const url = `${this.notesUrl}/${id}`;
+    return this.httpClient.delete(url, this.httpOptions);
   }
 }

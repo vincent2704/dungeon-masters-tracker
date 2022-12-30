@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {MonsterService} from "../../../services/monster/monster.service";
 import {Monster} from "../../../models/monsters/monster";
 import {CombatDataService} from "../../../services/combat-data/combat-data.service";
@@ -7,6 +7,7 @@ import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {EncounterService} from "../../../services/encounter/encounter.service";
 import {Encounter} from "../../../models/encounter";
 import {CombatUtils} from "../../../services/combat/combatUtils";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-monster-list-selector',
@@ -16,7 +17,7 @@ import {CombatUtils} from "../../../services/combat/combatUtils";
 export class MonsterListSelectorComponent implements OnInit {
 
   @Input()
-  participatingCharacters!: Actor[];
+  participatingCharacters!: PlayerCharacter[];
   monsterService: MonsterService;
 
   selectedMonsters: Map<Monster, number> = new Map<Monster, number>();

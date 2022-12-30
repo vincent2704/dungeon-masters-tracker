@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Actor} from "../../../models/actor";
-import {ActorService} from "../../../services/actor/actor.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {Actor} from "../../../models/actors/actor";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-protagonists-info',
@@ -9,12 +9,11 @@ import {ActorService} from "../../../services/actor/actor.service";
 })
 export class ProtagonistsInfoComponent implements OnInit {
 
-  playerCharacters: Actor[] = [];
+  @Input()
+  playerCharacters!: PlayerCharacter[];
 
-  constructor(private actorService: ActorService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.playerCharacters = this.actorService.getActors();
   }
-
 }

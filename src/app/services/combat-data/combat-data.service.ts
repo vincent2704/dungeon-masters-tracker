@@ -1,14 +1,15 @@
 import {Difficulty} from "../../models/combat-data/Difficulty";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
 import {CombatData} from "../../models/combat-data/CombatData";
 import {EncounterMultiplier} from "../../models/combat-data/EncounterMultiplier";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 export class CombatDataService {
 
   constructor() {
   }
 
-  static getDifficulty(actors: Actor[], monstersXp: number, monsterCount: number): Difficulty {
+  static getDifficulty(actors: PlayerCharacter[], monstersXp: number, monsterCount: number): Difficulty {
     if( actors.length == 0 || monstersXp == 0 || monsterCount == 0 ) {
       return Difficulty.NOT_APPLICABLE
     }
@@ -50,9 +51,9 @@ export class CombatDataService {
     return valueMap.get(level)!;
   }
 
-  static getActorsDifficultyThreshold(difficulty: Difficulty, actors: Actor[]): number {
+  static getActorsDifficultyThreshold(difficulty: Difficulty, actors: PlayerCharacter[]): number {
     let valueMap = this.getValueMap(difficulty);
-    let actorLevels: number[] = actors.map(actor => actor.getLevel());
+    let actorLevels: number[] = actors.map(actor => actor.level);
     let xpThreshold = 0;
 
     actorLevels.forEach(actorLevel => {

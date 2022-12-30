@@ -2,9 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManualCalculatorComponent } from './manual-calculator.component';
 import {FormsModule} from "@angular/forms";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
 import {DifficultyBarComponent} from "../difficulty-bar/difficulty-bar.component";
+import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 describe('ManualCalculatorComponent', () => {
   let component: ManualCalculatorComponent;
@@ -31,14 +32,26 @@ describe('ManualCalculatorComponent', () => {
 
   it('should get difficulty', () => {
     // given
-    let actor1 = new Actor('1', 1)
-    actor1.setLevel(3)
-    let actor2 =  new Actor('2', 2)
-    actor2.setLevel(3)
-    let actor3 = new Actor('3', 3)
-    actor3.setLevel(3)
-    let actor4 = new Actor('4', 4)
-    actor4.setLevel(2)
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 3
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 3
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 3
+    }
+    let actor4: PlayerCharacter = {
+      name: '4',
+      maxHp: 4,
+      level: 2
+    }
     // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
     component.participatingCharacters = [actor1, actor2, actor3, actor4]
 

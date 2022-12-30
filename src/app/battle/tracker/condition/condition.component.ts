@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActorService} from "../../../services/actor/actor.service";
-import {Actor} from "../../../models/actor";
+import {Actor} from "../../../models/actors/actor";
 import {BattleCondition} from "../../../models/battleCondition";
 import {Condition} from "../../../models/Condition";
 

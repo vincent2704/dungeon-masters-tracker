@@ -1,7 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Actor} from "../models/actor";
+import {Actor} from "../models/actors/actor";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component";
+import {BattleService} from "../services/battle/battle.service";
+import {ActorService} from "../services/actor/actor.service";
+import {Settings} from "../services/settings/settings";
+import {PlayerCharacter} from "../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-battle',
@@ -10,46 +13,61 @@ import {PrepareBattleComponent} from "./prepare-battle/prepare-battle.component"
 })
 export class BattleComponent implements OnInit {
 
-  isBattleStarted: boolean = false;
+  battleStarted: boolean = false;
   actors: Actor[] = [];
+  actorsToInitiativeMap: Map<Actor, number> = new Map<Actor, number>();
 
   @ViewChild('initiativeConflictModal')
   conflictModal!: any;
-
-  @ViewChild('prepareBattleComponent')
-  prepareBattleComponent!: PrepareBattleComponent;
 
   conflictedActors: Actor[] = [];
   conflictedActorsToPriorityOrderNumbersMap: Map<Actor, number> = new Map<Actor, number>();
   conflictResolvedActors: Actor[] = [];
 
   constructor(
+    private actorService: ActorService,
     private modalService: NgbModal,
-    private modalConfig: NgbModalConfig
+    private modalConfig: NgbModalConfig,
+    private battleService: BattleService
   ) {
     modalConfig.backdrop = 'static';
     modalConfig.keyboard = false;
   }
 
   ngOnInit(): void {
+    if (Settings.isAutoLoadProtagonists()) {
+      this.actorService.getPlayerCharacters()
+        .subscribe(
+          response => {
+            this.actors = this.mapResponseToActorsArray(response)
+          },
+          error => {
+            console.log(error)
+          })
+    }
   }
 
   startBattle(): void {
-    this.actors = this.prepareBattleComponent.actors;
-    this.actors = this.sortActorsByInitiative();
+    this.actorsToInitiativeMap = this.battleService.getActorsMap();
+    this.actors = Array.from(this.sortActorsByInitiative())
+      .map(entry => entry[0]);
     this.resolveInitiativeConflicts();
-    this.isBattleStarted = true;
+    this.battleStarted = true;
   }
 
-  endBattle(): void {
-    this.isBattleStarted = false;
+  endBattle(event: any): void {
+    this.actors = event;
+    this.battleStarted = false;
     this.conflictResolvedActors = [];
   }
 
-  sortActorsByInitiative(): Actor[] {
-    this.actors.sort(
-      ((actor1, actor2) => actor2.getInitiative() - actor1.getInitiative()));
-    return this.actors;
+  sortActorsByInitiative(): Map<Actor, number> {
+    return new Map<Actor, number>(
+      Array.from(this.actorsToInitiativeMap)
+        .sort((entry1, entry2) => {
+          return entry2[1] - entry1[1];
+        })
+    )
   }
 
   resolveInitiativeConflicts(): void {
@@ -105,16 +123,24 @@ export class BattleComponent implements OnInit {
 
   private getInitiativeToActorsMap(): Map<number, Actor[]> {
     let initiativeToActorsMap: Map<number, Actor[]> = new Map<number, Actor[]>();
-    this.actors.map(actor => {
-      let key = actor.getInitiative();
-      let isInitiativePresentInMap = initiativeToActorsMap.get(key);
+
+    Array.from(this.actorsToInitiativeMap).map(entry => {
+      let initiative = entry[1];
+      let isInitiativePresentInMap = initiativeToActorsMap.get(initiative);
       if (!isInitiativePresentInMap) {
-        initiativeToActorsMap.set(key, [actor]);
+        initiativeToActorsMap.set(initiative, [entry[0]]);
       } else {
-        initiativeToActorsMap.get(key)!.push(actor);
+        initiativeToActorsMap.get(initiative)!.push(entry[0]);
       }
-    });
+    })
+
     return initiativeToActorsMap;
+  }
+
+  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
+    return playerCharacters.map(character => {
+      return this.actorService.fromJson(character)
+    })
   }
 
 }

@@ -24,15 +24,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let actor of actors">
+        <tr *ngFor="let actor of playerCharacters">
           <th scope="row">
             {{actor.name}}
           </th>
           <th scope="row">
-            {{actor.currentHP}}
+            {{actor.currentHp}}
           </th>
           <th scope="row">
-            {{getAvailableHitDice(actor)}}
+            {{actor.availableHitDice}}
           </th>
           <th scope="row">
             <input type="number" placeholder="Hit Dice amount" [(ngModel)]="actorsToShortRestInput.get(actor)!.hitDiceToSpend">

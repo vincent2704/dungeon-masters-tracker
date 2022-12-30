@@ -1,11 +1,10 @@
 <div class="container">
-  <app-prepare-battle #prepareBattleComponent *ngIf="!isBattleStarted else appTracker"
+  <app-prepare-battle #prepareBattleComponent *ngIf="!battleStarted else appTracker"
                       (battleStartedEmitter)="startBattle()"></app-prepare-battle>
   <ng-template #appTracker>
-    <app-tracker (battleEndedEmitter)="endBattle()" [actors]="actors"></app-tracker>
+    <app-tracker (battleEndedEmitter)="endBattle($event)" [actors]="actors"></app-tracker>
   </ng-template>
 </div>
-
 <ng-template #initiativeConflictModal>
   <div class="modal-header">
     <h4 i18n="initiative conflict modal header|Title for modal"

@@ -2,33 +2,43 @@ import {TestBed} from '@angular/core/testing';
 
 import {RestingService} from './resting.service';
 import {ActorService} from "../actor/actor.service";
-import {TemporalService} from "../temporal/temporal.service";
-import {Actor} from "../../models/actor";
+import {CampaignService} from "../campaign/campaign.service";
 import {ShortRestInput} from "../../models/resting/shortRestInput";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {of} from "rxjs";
+import {Campaign} from "../../models/campaign/campaign";
+import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 
 describe('RestingService', () => {
   let service: RestingService;
   let actorServiceSpy: jasmine.SpyObj<ActorService>;
-  let temporalServiceSpy: jasmine.SpyObj<TemporalService>;
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>;
+
+  const sessionStorageCampaign = {
+    name: "Dummy Name",
+    campaignDateTimeStartEpoch: -14057296560,
+    campaignDateTimeCurrentEpoch: -14057296560,
+    realDateStart: -14057296560,
+    realDateLastPlayed: -14057296560,
+    lastLongRestTimeEpoch: -14057296560
+  } as Campaign
 
   beforeEach(() => {
-    const actorSpy = jasmine.createSpyObj('ActorService', ['getActors', 'findActorByName']);
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['addSeconds', 'getCurrentDate', 'getLastLongRestDate', 'setLastLongRestDate']);
+    const actorSpy = jasmine.createSpyObj('ActorService', ['updatePlayerCharacters']);
+    const campaignSpy = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign', 'updateCampaign', 'updateSessionStorageCampaign']);
 
     TestBed.configureTestingModule({
       providers: [
         RestingService,
         {provide: ActorService, useValue: actorSpy},
-        {provide: TemporalService, useValue: temporalSpy},
+        {provide: CampaignService, useValue: campaignSpy},
       ]
     });
 
+    sessionStorage.setItem('campaign', JSON.stringify(sessionStorageCampaign))
+
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
-    temporalServiceSpy = TestBed.inject(TemporalService) as jasmine.SpyObj<TemporalService>;
-    actorServiceSpy.getActors.and.returnValue([
-      new Actor('Actor One', 10),
-      new Actor('Actor Two', 20),
-    ]);
+    campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
 
     service = TestBed.inject(RestingService);
   });
@@ -37,64 +47,97 @@ describe('RestingService', () => {
     expect(service).toBeTruthy();
   });
 
-  it("should return actor's available Hit Dice", () => {
-    //given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 5);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
-    let actorsToHitDiceMap = new Map<string, number>([
-      [actor1.name, actor1.level],
-      [actor2.name, actor2.level],
-    ])
-
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
-
-    //then
-    expect(service.getActorsAvailableHitDice(actor1)).toEqual(5);
-    expect(service.getActorsAvailableHitDice(actor2)).toEqual(6);
-  });
-
   it("should properly perform short rest", () => {
     // given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 5);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
+    campaignServiceSpy.updateCampaign.and.returnValue(of({
+    } as Campaign));
 
-    let actorsToHitDiceMap = new Map<string, number>([
-      [actor1.name, actor1.level],
-      [actor2.name, actor2.level],
-    ])
-    service.setActorsToAvailableHitDiceMap(actorsToHitDiceMap)
+    const currentDate = new Date(1524, 6, 17, 23, 30, 0);
+    const dateTimeAfterShortRest = new Date(1524, 6, 18, 1, 30, 0);
+    const longRestFinished = new Date(1524, 6, 17, 18, 30, 0);
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(
+      {
+        name: 'Campaign Name',
+        campaignDateTimeStartEpoch: 1,
+        campaignDateTimeCurrentEpoch: currentDate.getTime(),
+        lastLongRestTimeEpoch: longRestFinished.getTime()
+      } as Campaign
+    )
 
     // and
-    let durationInHours = 2;
-    let input = new Map<Actor, ShortRestInput>([
-      [actor1, new ShortRestInput(3, 5)],
-      [actor2, new ShortRestInput(2, 6)]
-    ]);
+
+    let actor1: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 5,
+      level: 5,
+      availableHitDice: 4
+    }
+    let actor2: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 3
+    }
+
+    const playerCharactersToShortRestInput = new Map<PlayerCharacter, ShortRestInput>([
+      [actor1, new ShortRestInput(2, 7)],
+      [actor2, new ShortRestInput(3, 15)],
+    ])
 
     // when
-    service.performShortRest(durationInHours, input);
+    service.performShortRest(2, playerCharactersToShortRestInput);
 
     // then
-    expect(actor1.getCurrentHP()).toEqual(10);
-    expect(actor2.getCurrentHP()).toEqual(11);
+    let actor1AfterResting: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 12,
+      level: 5,
+      availableHitDice: 2
+    }
+    let actor2AfterResting: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 14,
+      level: 6,
+      availableHitDice: 0
+    }
 
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>([
-      [actor1.name, 2],
-      [actor2.name, 4],
-    ]));
-    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(7200);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledWith([
+      actor1AfterResting, actor2AfterResting
+    ]);
+    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledOnceWith(
+      {
+        campaignDateTimeCurrentEpoch: dateTimeAfterShortRest.getTime(),
+      } as CampaignUpdateRequest
+    )
+    expect(campaignServiceSpy.updateSessionStorageCampaign).toHaveBeenCalled();
   });
+
 
   it("should return time passed since last long rest", () => {
     //given
-    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
-    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
-    // and
     let currentDate = new Date(1524, 6, 17, 23, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
+
+    // and
+    const sessionStorageCampaign: Campaign = {
+      name: 'Campaign Name',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: restFinishedAt.getTime()
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let timePassed = service.getTimeSinceLastLongRest();
+    let timePassed = service.getTimeSinceLastLongRest(sessionStorageCampaign);
 
     //then
     expect(timePassed).toEqual(5);
@@ -102,14 +145,20 @@ describe('RestingService', () => {
 
   it("should set minimum rest time for party that last time rested 24 hours ago or longer", () => {
     //given
-    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
-    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
-    // and
     let currentDate = new Date(1524, 6, 18, 23, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    let restFinishedAt = new Date(1524, 6, 17, 18, 30, 0);
+    const sessionStorageCampaign: Campaign =
+    {
+      name: 'Campaign Name',
+        campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: restFinishedAt.getTime()
+    }
+
+      campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let minimumLongRestTime = service.getMinimumRestingTime();
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
 
     //then
     expect(minimumLongRestTime).toEqual(8);
@@ -117,65 +166,156 @@ describe('RestingService', () => {
 
   it("should set minimum rest time for party that last time rested less than 24 hours ago", () => {
     //given
-    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
-    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt)
-    // and
     let currentDate = new Date(1524, 6, 17, 19, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
+    const sessionStorageCampaign: Campaign = {
+      name: 'Campaign Name',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: restFinishedAt.getTime()
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
     //when
-    let minimumLongRestTime = service.getMinimumRestingTime();
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
 
     //then
     expect(minimumLongRestTime).toEqual(23);
   });
 
-  it("Long Rest should properly regain Hit Dice and heal non-knocked down actors", () => {
-    // given
-    let actor1 = new Actor('Actor One', 14, 5, 1, 6);
-    let actor2 = new Actor('Actor Two', 14, 5, 1, 6);
-    let actor3 = new Actor('Actor Three', 14, 5, 1, 6);
-    let actor4 = new Actor('Actor Four', 14, 0, 1, 6);
-
-    let actorsToAvailableHitDice = new Map<string, number>([
-      [actor1.name, 1],
-      [actor2.name, 6],
-      [actor3.name, 5],
-      [actor4.name, 5],
-    ]);
-    service.setActorsToAvailableHitDiceMap(actorsToAvailableHitDice);
-
-    // and
+  it("should not allow long rest if rest time is too short", () => {
+    //given
+    let currentDate = new Date(1524, 6, 17, 19, 30, 0);
     let restFinishedAt = new Date(1524, 6, 17, 10, 30, 0);
-    temporalServiceSpy.getLastLongRestDate.and.returnValue(restFinishedAt);
-    let currentDate = new Date(1524, 6, 18, 10, 30, 0);
-    temporalServiceSpy.getCurrentDate.and.returnValue(currentDate);
+    const sessionStorageCampaign: Campaign = {
+      name: 'Campaign Name',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: currentDate.getTime(),
+      lastLongRestTimeEpoch: restFinishedAt.getTime()
+    }
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(sessionStorageCampaign)
 
-    // and
-    actorServiceSpy.findActorByName.withArgs(actor1.name).and.returnValue(actor1);
-    actorServiceSpy.findActorByName.withArgs(actor2.name).and.returnValue(actor2);
-    actorServiceSpy.findActorByName.withArgs(actor3.name).and.returnValue(actor3);
-    actorServiceSpy.findActorByName.withArgs(actor4.name).and.returnValue(actor4);
+    //when
+    let minimumLongRestTime = service.getMinimumRestingTime(sessionStorageCampaign);
+    expect(minimumLongRestTime).toEqual(23);
 
-    // when
-    service.performLongRest(8);
+    service.performLongRest(22, [])
 
     //then
-    expect(actor1.currentHP).toEqual(actor1.maxHP);
-    expect(actor2.currentHP).toEqual(actor2.maxHP);
-    expect(actor3.currentHP).toEqual(actor3.maxHP);
-    expect(actor4.currentHP).toEqual(0);
+    expect(campaignServiceSpy.updateCampaign).not.toHaveBeenCalled()
+    expect(campaignServiceSpy.updateSessionStorageCampaign).not.toHaveBeenCalled()
+    expect(actorServiceSpy.updatePlayerCharacters).not.toHaveBeenCalled()
+  });
 
-    expect(service.getActorsToAvailableHitDiceMap()).toEqual(new Map<string, number>(
-      [
-        [actor1.name, 4],
-        [actor2.name, 6],
-        [actor3.name, 6],
-        [actor4.name, 5],
-      ]
+  it("should perform Long Rest", () => {
+    // given
+    const restTimeInHours = 8;
+    let actor1: PlayerCharacter = {
+      id: 1,
+      name: 'Actor One',
+      maxHp: 14,
+      currentHp: 5,
+      level: 5,
+      availableHitDice: 1
+    }
+    let actor2: PlayerCharacter = {
+      id: 2,
+      name: 'Actor Two',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 6
+    }
+    let actor3: PlayerCharacter = {
+      name: 'Actor Three',
+      maxHp: 14,
+      currentHp: 5,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor4: PlayerCharacter = {
+      name: 'Actor Four',
+      maxHp: 14,
+      currentHp: 0,
+      level: 6,
+      availableHitDice: 5
+    }
+    let actor5: PlayerCharacter = {
+      name: 'Actor Five',
+      maxHp: 14,
+      currentHp: 1,
+      level: 1,
+      availableHitDice: 0
+    }
+    const playerCharacters: PlayerCharacter[] = [
+      actor1, actor2, actor3, actor4, actor5
+    ]
+
+    // and
+    const campaignLastLongRestDateTime = new Date(1524, 9, 10);
+    const campaignDateTimeCurrent = new Date(1524, 9, 12);
+    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+      name: 'Campaign Name',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime(),
+      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime()
+    } as Campaign)
+
+    const campaignAfterShortRestResponse: Campaign = {
+      name: 'Updated Campaign',
+      campaignDateTimeStartEpoch: 1,
+      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
+      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000
+    }
+    campaignServiceSpy.updateCampaign.and.returnValue(of(
+      campaignAfterShortRestResponse
     ))
+    actorServiceSpy.updatePlayerCharacters.and.returnValue(of([]));
 
-    expect(temporalServiceSpy.addSeconds).toHaveBeenCalledWith(28_800);
+    // when
+    service.performLongRest(restTimeInHours, playerCharacters)
+
+    // then
+    expect(campaignServiceSpy.updateSessionStorageCampaign).toHaveBeenCalledOnceWith(campaignAfterShortRestResponse);
+    expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledOnceWith([
+      {
+        id: 1,
+        name: 'Actor One',
+        maxHp: 14,
+        currentHp: 14,
+        level: 5,
+        availableHitDice: 3
+      },
+      {
+        id: 2,
+        name: 'Actor Two',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Three',
+        maxHp: 14,
+        currentHp: 14,
+        level: 6,
+        availableHitDice: 6
+      },
+      {
+        name: 'Actor Four',
+        maxHp: 14,
+        currentHp: 0,
+        level: 6,
+        availableHitDice: 5
+      },
+      {
+        name: 'Actor Five',
+        maxHp: 14,
+        currentHp: 14,
+        level: 1,
+        availableHitDice: 1
+      }
+    ])
   });
 
 });

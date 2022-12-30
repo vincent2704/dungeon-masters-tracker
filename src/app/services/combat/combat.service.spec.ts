@@ -1,21 +1,33 @@
 import {CombatUtils, MonsterHitPointsRule} from './combatUtils';
 import {Monster} from "../../models/monsters/monster";
 import {MonsterList} from "../../models/monsters/monsterList";
-import {Actor} from "../../models/actor";
+import {Actor} from "../../models/actors/actor";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
 
 describe('CombatUtils', () => {
 
   it('should proper daily budget for characters', () => {
     // given
-    let actor1 = new Actor('Actor 1', 10);
-    let actor2 = new Actor('Actor 2', 10);
-    let actor3 = new Actor('Actor 3', 10);
-    let actor4 = new Actor('Actor 4', 10);
-
-    actor1.setLevel(3);
-    actor2.setLevel(2);
-    actor3.setLevel(4);
-    actor4.setLevel(3);
+    let actor1: PlayerCharacter = {
+      name: '1',
+      maxHp: 1,
+      level: 3
+    }
+    let actor2: PlayerCharacter = {
+      name: '2',
+      maxHp: 2,
+      level: 2
+    }
+    let actor3: PlayerCharacter = {
+      name: '3',
+      maxHp: 3,
+      level: 4
+    }
+    let actor4: PlayerCharacter = {
+      name: '4',
+      maxHp: 4,
+      level: 3
+    }
 
     let playerCharacters = [actor1, actor2, actor3, actor4]
 

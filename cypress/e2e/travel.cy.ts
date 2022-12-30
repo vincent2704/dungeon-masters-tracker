@@ -1,7 +1,7 @@
 describe('traveling', () => {
 
   it('displays travel time', () => {
-    cy.visit('http://localhost:4200');
+    cy.visit('http://localhost:4201');
     cy.get('#current-hour-info').should('have.text', '18:30');
 
     cy.contains('Tools').click();

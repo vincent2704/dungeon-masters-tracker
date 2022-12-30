@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RestingService} from "../../services/resting/resting.service";
+import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {Campaign} from "../../models/campaign/campaign";
+import {CampaignService} from "../../services/campaign/campaign.service";
 
 @Component({
   selector: 'app-long-rest',
@@ -8,29 +11,34 @@ import {RestingService} from "../../services/resting/resting.service";
 })
 export class LongRestComponent implements OnInit {
 
-  restTimeInHours: number;
+  @Input()
+  playerCharacters!: PlayerCharacter[];
+  restTimeInHours: number = 0;
 
-  constructor(private restingService: RestingService) {
-    this.restTimeInHours = restingService.getMinimumRestingTime();
+  campaign: Campaign;
+
+  constructor(private restingService: RestingService, private campaignService: CampaignService) {
+    this.campaign = campaignService.getSessionStorageCampaign();
   }
 
   ngOnInit(): void {
-    this.restTimeInHours = this.restingService.getMinimumRestingTime();
+    this.campaign = this.campaignService.getSessionStorageCampaign();
+    this.restTimeInHours = this.restingService.getMinimumRestingTime(this.campaign);
   }
 
   rest(): void {
-    this.restingService.performLongRest(this.restTimeInHours);
+    this.restingService.performLongRest(this.restTimeInHours, this.playerCharacters);
   }
 
   getTimeSinceLastRest(): number {
-    return this.restingService.getTimeSinceLastLongRest();
+    return this.restingService.getTimeSinceLastLongRest(this.campaign);
   }
 
   getMinimumRestingTime(): number {
-    return this.restingService.getMinimumRestingTime();
+    return this.restingService.getMinimumRestingTime(this.campaign);
   }
 
   isRestingEnabled(): boolean {
-    return this.restTimeInHours >= this.restingService.getMinimumRestingTime();
+    return this.restTimeInHours >= this.restingService.getMinimumRestingTime(this.campaign);
   }
 }
