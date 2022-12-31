@@ -9,13 +9,13 @@ describe('StringUtils', () => {
 
     Settings.setSISystem(false);
     expect(action.getDescription().getDescription()).toEqual(
-      "+4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
+      "to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
       "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack."
     )
     Settings.setSISystem(true);
     expect(action.getDescription().getDescription()).toEqual(
-      "+4 to hit, reach 1.5 m or range 6/18 m, one creature. " +
+      "to hit, reach 1.5 m or range 6/18 m, one creature. " +
       "Hit: 5 (1d6 + 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack."
     )
