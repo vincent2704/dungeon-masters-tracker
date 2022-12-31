@@ -2,6 +2,7 @@ import {Actor} from "../../models/actors/actor";
 import {Monster} from "../../models/monsters/monster";
 import {CombatData} from "../../models/combat-data/CombatData";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {Action} from "../../models/monsters/actions-and-traits/action";
 
 export class CombatUtils {
 
@@ -40,6 +41,10 @@ export class CombatUtils {
     }
     hp += monsterHitPoints.getStaticAdditionalHP();
     return hp;
+  }
+
+  private static throwDiceForAttackRoll(action: Action): number {
+    return this.getRandomNumber(1, 20);
   }
 
   private static getRandomNumber(min: number, max: number) {

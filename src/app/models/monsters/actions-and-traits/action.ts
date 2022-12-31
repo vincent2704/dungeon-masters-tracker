@@ -4,7 +4,8 @@ import {ActionDescriptionPoint} from "./actionDescriptionPoint";
 
 export class Action {
 
-  private constructor(private readonly name: string, private readonly description: ActionDescription) {
+  private constructor(private readonly name: string, private readonly description: ActionDescription,
+                      private readonly attackModifier: number = 0) {
   }
 
   getName(): string {
@@ -15,11 +16,15 @@ export class Action {
     return this.description;
   }
 
+  getAttackModifier(): number {
+    return this.attackModifier;
+  }
+
   private static readonly ABOLETH_MULTIATTACK = new Action('Multiattack',
     new ActionDescription("The aboleth makes three tentacle attacks"));
 
   private static readonly ABOLETH_TENTACLE = new Action('Tentacle',
-    new ActionDescription("+9 to hit, reach {10} {ft.}, one " +
+    new ActionDescription("to hit, reach {10} {ft.}, one " +
       "target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a " +
       "creature, it must succeed on a DC 14 Constitution saving throw " +
       "or become diseased. The disease has no effect for 1 minute and " +
@@ -30,7 +35,7 @@ export class Action {
       "spell of 6th level or higher. When the creature is outside a body " +
       "of water, it takes 6 (1d12) acid damage every 10 minutes unless " +
       "moisture is applied to the skin before 10 minutes have passed",
-      ActionType.MELEE_WEAPON_ATTACK))
+      ActionType.MELEE_WEAPON_ATTACK), 9)
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
     new ActionDescription("+9 to hit, reach {10} {ft.} one target. " +

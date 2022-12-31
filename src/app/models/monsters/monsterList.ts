@@ -432,11 +432,15 @@ export class MonsterList {
     )
   )
 
+  // static MONSTERS: Monster[] = [
+  //   this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
+  //   this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.WIGHT, this.ZOMBIE,
+  //   this.BANDIT, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER,
+  //   this.BEHIR, this.NIGHTMARE
+  // ]
+
   static MONSTERS: Monster[] = [
-    this.ANIMATED_ARMOR, this.BANSHEE, this.BASILISK, this.BUGBEAR, this.FLYING_SWORD, this.GARGOYLE, this.GHOST,
-    this.GHOUL, this.GOBLIN, this.OGRE, this.ORC, this.SKELETON, this.SPECTATOR, this.WEREWOLF, this.WIGHT, this.ZOMBIE,
-    this.BANDIT, this.ABOLETH, this.DEVA, this.PLANETAR, this.SOLAR, this.RUG_OF_SMOTHERING, this.ANKHEG, this.AZER,
-    this.BEHIR, this.NIGHTMARE
+    this.ABOLETH
   ]
 
 }

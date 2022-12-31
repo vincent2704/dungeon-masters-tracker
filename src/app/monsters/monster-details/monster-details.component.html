@@ -65,10 +65,10 @@
   <div class="col-8">
     <div *ngIf="isActionTypeSpecified(action); else actionTypeNotSpecifiedBlock">
       <div class="fst-italic">{{action.getDescription().getActionType()}}:</div>
-      <p class="fst-normal">{{action.getDescription().getDescription()}}</p>
+      <p class="fst-normal">{{getActionDescription(action)}}</p>
     </div>
     <ng-template #actionTypeNotSpecifiedBlock>
-      <p class="fst-normal">{{action.getDescription().getDescription()}}</p>
+      <p class="fst-normal">{{getActionDescription(action)}}</p>
     </ng-template>
     <div *ngFor="let actionPoint of action.getDescription().getPoints(); let i = index" [attr.data-index]="i">
       <p class="fst-italic">{{i + 1}}. {{actionPoint.getTitle()}}.</p>
