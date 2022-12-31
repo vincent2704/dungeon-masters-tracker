@@ -27,7 +27,7 @@ export class CombatUtils {
     if(thrownValue == 20) {
       return 'Critical hit!';
     }
-    return `${this.getRandomNumber(1, 20) + action.getAttackModifier()}`;
+    return `${thrownValue + action.getAttackModifier()}`;
   }
 
   static getEncounterMonsters(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
