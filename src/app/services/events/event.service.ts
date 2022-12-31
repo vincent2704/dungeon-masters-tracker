@@ -21,9 +21,6 @@ export class EventService {
   }
 
   getCampaignEvents(): Observable<CampaignEvent[]> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return this.campaignEvents;
-    }
     return this.httpClient.get<CampaignEvent[]>(this.eventsUrl, this.httpOptions);
   }
 
@@ -33,10 +30,6 @@ export class EventService {
   }
 
   deleteEvent(eventId: number): Observable<unknown> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return of(eventId);
-    }
-
     return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, this.httpOptions);
   }
 

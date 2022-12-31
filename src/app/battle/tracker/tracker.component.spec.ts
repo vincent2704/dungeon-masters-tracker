@@ -13,6 +13,7 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {Campaign} from "../../models/campaign/campaign";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {Action} from "../../models/monsters/actions-and-traits/action";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -203,6 +204,25 @@ describe('TrackerComponent', () => {
 
     // then
     expect(component.showDeathSavingThrows(actor)).toBeFalse();
+  });
+
+  it("should randomize attack roll", () => {
+    // given
+    const actor = new Actor('Actor 1', 1);
+    const action = Action.ANIMATED_ARMOR_ACTIONS[1];
+    expect(component.attackRolls.size).toEqual(0);
+
+    const key = 'Actor 1-Slam'
+
+    // when
+    component.rollAttack(actor, action)
+    component.rollAttack(actor, action)
+    component.rollAttack(actor, action)
+
+    // then
+    expect(component.attackRolls.size).toEqual(1);
+    expect(component.attackRolls.get(key)).toBeTruthy();
+    expect(component.attackRolls.get(key)!.length).toBeGreaterThanOrEqual(1);
   });
 
 });

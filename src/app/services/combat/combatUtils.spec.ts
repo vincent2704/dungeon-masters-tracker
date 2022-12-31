@@ -3,6 +3,7 @@ import {Monster} from "../../models/monsters/monster";
 import {MonsterList} from "../../models/monsters/monsterList";
 import {Actor} from "../../models/actors/actor";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {Action} from "../../models/monsters/actions-and-traits/action";
 
 describe('CombatUtils', () => {
 
@@ -47,15 +48,26 @@ describe('CombatUtils', () => {
 
     // then
     let one = new Actor(`Zombie1`, 22)
+    one.setMonster(MonsterList.ZOMBIE)
     one.setDeathSavingThrowsEligibility(false);
     let two = new Actor(`Zombie2`, 22)
+    two.setMonster(MonsterList.ZOMBIE)
     two.setDeathSavingThrowsEligibility(false);
     let three = new Actor(`Werewolf1`, 58)
+    three.setMonster(MonsterList.WEREWOLF)
     three.setDeathSavingThrowsEligibility(false);
 
     let expectedList = [one, two, three]
 
     expect(result).toEqual(expectedList)
+  });
+
+  it('should randomize attack rolls', () => {
+    const action1 = Action.ANIMATED_ARMOR_ACTIONS[0] // no modifier
+    const action2 = Action.ANIMATED_ARMOR_ACTIONS[1] // +4 to hit
+
+    expect(CombatUtils.throwDiceForAttackRoll(action1)).toEqual('');
+    expect(CombatUtils.throwDiceForAttackRoll(action2)).not.toEqual('');
   });
 
 });

@@ -33,6 +33,16 @@ export class MonsterDetailsComponent implements OnInit {
     return `${score} (${modifierValue})`;
   }
 
+  getActionDescription(action: Action): string {
+    let description: string = '';
+    const attackModifier = action.getAttackModifier();
+    if(attackModifier > 0) {
+      description = `+${attackModifier} `
+    }
+
+    return description + action.getDescription().getDescription();
+  }
+
   getDamageResistances(): string {
     let resistances = this.monster.getDetails().getDamageResistances().getResistances();
     let additionalResistances = this.monster.getDetails().getDamageResistances().getAdditionalResistances();

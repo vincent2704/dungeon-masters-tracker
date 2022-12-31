@@ -21,7 +21,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
   @Output()
   battleStartEmitter = new EventEmitter<void>();
   @Output()
-  monsterActorsEmitter = new EventEmitter<Actor[]>();
+  monstersEmitter = new EventEmitter<Actor[]>();
 
   selectedMonstersCount: Map<Monster, number> = new Map<Monster, number>();
   randomizeMonstersHPCheckboxChecked: boolean = false;
@@ -42,7 +42,7 @@ export class MonsterBattleListSelectorComponent implements OnInit {
       ? MonsterHitPointsRule.THROW_DICE
       : MonsterHitPointsRule.FIXED;
 
-    this.monsterActorsEmitter.emit(CombatUtils.getEncounterMonsters(
+    this.monstersEmitter.emit(CombatUtils.getEncounterMonsters(
       this.selectedMonstersCount, monsterHitPointsRule));
     this.selectedMonstersCount.clear();
   }

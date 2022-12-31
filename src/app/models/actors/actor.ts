@@ -3,6 +3,7 @@ import {BattleCondition} from "../battleCondition";
 import {TemporaryHP} from "../temporaryHP";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {BattleParticipantType} from "./battleParticipantType";
+import {Monster} from "../monsters/monster";
 
 export class Actor {
 
@@ -18,6 +19,7 @@ export class Actor {
   private stabilized: boolean = false;
   private timeOfDeath?: Date = undefined;
   private resurrectionPenalty: number = 0;
+  private monster?: Monster; // set only if type==MONSTER
 
   constructor(
     name: string,
@@ -62,6 +64,10 @@ export class Actor {
 
   getCurrentHP(): number {
     return this.currentHp;
+  }
+
+  getMonster(): Monster | undefined {
+    return this.monster;
   }
 
   modifyHp(hitPointsModifier: number, currentDate: Date): void {
@@ -211,6 +217,10 @@ export class Actor {
     this.temporaryHP.decrementDuration();
   }
 
+  setMonster(monster: Monster) {
+    this.monster = monster;
+  }
+
   getAvailableConditions(): Condition[] {
     let availableConditions: Condition[] = [];
     for (let condition of Condition.ALL_CONDITIONS) {
@@ -245,19 +255,6 @@ export class Actor {
     for (let condition of this.getExpiredConditions()) {
       this.removeCondition(condition);
     }
-  }
-
-  copy(): Actor {
-    let actor = new Actor(this.name, this.maxHp, this.currentHp, this.type, this.level,
-      this.battleConditions, this.eligibleForDeathSavingThrows);
-
-    actor.timeOfDeath = this.timeOfDeath;
-    actor.temporaryHP = this.temporaryHP;
-    actor.stabilized = this.stabilized;
-    actor.resurrectionPenalty = this.resurrectionPenalty;
-    actor.id = this.id;
-
-    return actor;
   }
 
   revivify(currentDate: Date): void {

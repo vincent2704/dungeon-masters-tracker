@@ -22,16 +22,10 @@ export class NoteService {
   }
 
   addNote(note: Note): Observable<Note> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return of(note);
-    }
     return this.httpClient.post<Note>(this.notesUrl, note, this.httpOptions);
   }
 
   getNotes(): Observable<Note[]> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return this.notes;
-    }
     return this.httpClient.get<Note[]>(
       this.notesUrl,
       this.httpOptions
@@ -39,17 +33,10 @@ export class NoteService {
   }
 
   updateNote(note: Note): Observable<Note> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return of(note);
-    }
     return this.httpClient.put<Note>(this.notesUrl, note, this.httpOptions)
   }
 
   deleteNote(id: number): Observable<unknown> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      return of(id);
-    }
-
     const url = `${this.notesUrl}/${id}`;
     return this.httpClient.delete(url, this.httpOptions);
   }

@@ -51,10 +51,13 @@ describe('SavedEncountersComponent', () => {
 
     // then
     let werewolf1 = new Actor('Werewolf1', 58)
+    werewolf1.setMonster(MonsterList.WEREWOLF);
     werewolf1.setDeathSavingThrowsEligibility(false);
     let werewolf2 = new Actor('Werewolf2', 58)
+    werewolf2.setMonster(MonsterList.WEREWOLF);
     werewolf2.setDeathSavingThrowsEligibility(false);
     let deva1 = new Actor('Deva1', 136)
+    deva1.setMonster(MonsterList.DEVA);
     deva1.setDeathSavingThrowsEligibility(false);
     expect(component.encounterEmitter.emit).toHaveBeenCalledOnceWith([
       werewolf1, werewolf2, deva1

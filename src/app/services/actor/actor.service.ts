@@ -48,10 +48,6 @@ export class ActorService {
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      this.demoPlayers = playerCharacters;
-      return of(this.demoPlayers);
-    }
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
   }
 
@@ -62,14 +58,6 @@ export class ActorService {
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
-    if(environment.environmentName == Environment.GHPAGES) {
-      for (let pc of playerCharacters) {
-        if (this.demoPlayers.indexOf(pc) > -1) {
-          this.demoPlayers.splice(this.demoPlayers.indexOf(pc), 1);
-        }
-      }
-      return new Observable<unknown>();
-    }
     let charactersToDeleteIds = playerCharacters.map(character => character.id);
     let options = {
       params: this.httpOptions.params,

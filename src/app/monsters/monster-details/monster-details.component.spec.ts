@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MonsterDetailsComponent } from './monster-details.component';
 import {MonsterList} from "../../models/monsters/monsterList";
 import {Settings} from "../../services/settings/settings";
+import {Action} from "../../models/monsters/actions-and-traits/action";
 
 describe('MonsterDetailsComponent', () => {
   let component: MonsterDetailsComponent;
@@ -83,6 +84,16 @@ describe('MonsterDetailsComponent', () => {
     component.monster = MonsterList.NIGHTMARE;
     expect(component.getLanguages()).toEqual('understands Abyssal, Common, Infernal but ' +
       'can\'t speak');
+  });
+
+  it('should properly display action description', () => {
+    // given
+    const action1 = Action.ANIMATED_ARMOR_ACTIONS[0]; // multiattack
+    const action2 = Action.ANIMATED_ARMOR_ACTIONS[1]; // Slam
+
+    expect(component.getActionDescription(action1)).toEqual('The armor makes two melee attacks.')
+    expect(component.getActionDescription(action2)).toEqual('+4 to hit, reach 1.5 m, one target. ' +
+      'Hit: 5 (1d6 + 2) bludgeoning damage.')
   });
 
 });
