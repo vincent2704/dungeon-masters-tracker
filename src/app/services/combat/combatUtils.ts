@@ -16,21 +16,18 @@ export class CombatUtils {
     }, 0);
   }
 
-  static getEncounterMonsters2(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
-    let actorsToAdd: Actor[] = [];
-    monsterList.forEach((count, monster) => {
-      for (let i = 1; i <= count; i++) {
-        let monsterHitPoints = monster.getDetails().getHitPoints();
-        let monsterHP = hitPointsRule == MonsterHitPointsRule.FIXED
-          ? monsterHitPoints.getHitPoints()
-          : this.throwDiceForHitPoints(monster);
-        let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
-        battleParticipant.setDeathSavingThrowsEligibility(false);
-        battleParticipant.setMonster(monster);
-        actorsToAdd.push(battleParticipant)
-      }
-    })
-    return actorsToAdd;
+  public static throwDiceForAttackRoll(action: Action): string {
+    if(!action.getAttackModifier()) {
+      return '';
+    }
+    const thrownValue = this.getRandomNumber(1, 20);
+    if(thrownValue == 1) {
+      return 'Critical fail!';
+    }
+    if(thrownValue == 20) {
+      return 'Critical hit!';
+    }
+    return `${this.getRandomNumber(1, 20) + action.getAttackModifier()}`;
   }
 
   static getEncounterMonsters(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
@@ -61,11 +58,9 @@ export class CombatUtils {
     return hp;
   }
 
-  private static throwDiceForAttackRoll(action: Action): number {
-    return this.getRandomNumber(1, 20);
-  }
-
   private static getRandomNumber(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
