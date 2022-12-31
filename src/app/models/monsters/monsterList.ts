@@ -440,7 +440,7 @@ export class MonsterList {
   // ]
 
   static MONSTERS: Monster[] = [
-    this.ABOLETH
+    this.ANIMATED_ARMOR, this.ABOLETH
   ]
 
 }

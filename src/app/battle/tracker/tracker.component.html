@@ -30,6 +30,13 @@
         </div>
       </div>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
+      <div *ngIf="isMonster(actor)" class="row">
+        <div *ngFor="let action of getActions(actor)" class="col">
+          <button class="btn btn-primary" ngbTooltip="{{getActionDescription(action)}}">
+            {{action.getName()}}
+          </button>
+        </div>
+      </div>
       <div *ngIf="showDeathSavingThrows(actor)">
         <app-death-saving-throws
           [actor]="actor" [actorReceivingDamage]="isUnconsciousActorReceivingDamage(actor)"

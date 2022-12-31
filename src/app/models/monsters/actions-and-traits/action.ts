@@ -38,8 +38,8 @@ export class Action {
       ActionType.MELEE_WEAPON_ATTACK), 9)
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
-    new ActionDescription("+9 to hit, reach {10} {ft.} one target. " +
-      "Hit: 15 (3d6 + 5) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK))
+    new ActionDescription("to hit, reach {10} {ft.} one target. " +
+      "Hit: 15 (3d6 + 5) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK), 9)
 
   private static readonly ABOLETH_ENSLAVE = new Action('Enslave (3/Day)',
     new ActionDescription("The aboleth targets one creature it can see " +
@@ -127,8 +127,8 @@ export class Action {
     new ActionDescription("The armor makes two melee attacks."))
 
   private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
-    new ActionDescription("+4 to hit, reach {5} {ft.}, one target. " +
-      "Hit: 5 (1d6 + 2) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK))
+    new ActionDescription("to hit, reach {5} {ft.}, one target. " +
+      "Hit: 5 (1d6 + 2) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK), 4)
 
   private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
     new ActionDescription("+3 to hit, reach {5} {ft.}, one " +

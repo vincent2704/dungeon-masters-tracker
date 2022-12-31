@@ -16,6 +16,23 @@ export class CombatUtils {
     }, 0);
   }
 
+  static getEncounterMonsters2(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
+    let actorsToAdd: Actor[] = [];
+    monsterList.forEach((count, monster) => {
+      for (let i = 1; i <= count; i++) {
+        let monsterHitPoints = monster.getDetails().getHitPoints();
+        let monsterHP = hitPointsRule == MonsterHitPointsRule.FIXED
+          ? monsterHitPoints.getHitPoints()
+          : this.throwDiceForHitPoints(monster);
+        let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
+        battleParticipant.setDeathSavingThrowsEligibility(false);
+        battleParticipant.setMonster(monster);
+        actorsToAdd.push(battleParticipant)
+      }
+    })
+    return actorsToAdd;
+  }
+
   static getEncounterMonsters(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
     let actorsToAdd: Actor[] = [];
     monsterList.forEach((count, monster) => {
@@ -26,6 +43,7 @@ export class CombatUtils {
           : this.throwDiceForHitPoints(monster);
         let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
         battleParticipant.setDeathSavingThrowsEligibility(false);
+        battleParticipant.setMonster(monster);
         actorsToAdd.push(battleParticipant)
       }
     })

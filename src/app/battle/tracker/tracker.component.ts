@@ -6,6 +6,7 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {Action} from "../../models/monsters/actions-and-traits/action";
 
 @Component({
   selector: 'app-tracker',
@@ -130,6 +131,16 @@ export class TrackerComponent implements OnInit {
     })
   }
 
+  getActionDescription(action: Action): string {
+    let description: string = '';
+    const attackModifier = action.getAttackModifier();
+    if(attackModifier > 0) {
+      description = `+${attackModifier} `
+    }
+
+    return description + action.getDescription().getDescription();
+  }
+
   private createBattleFinishRequests(actors: Actor[]): PlayerBattleFinishedRequest[] {
     return actors.map(actor => {
       return {
@@ -140,4 +151,11 @@ export class TrackerComponent implements OnInit {
     })
   }
 
+  isMonster(actor: Actor): boolean {
+    return actor.type == BattleParticipantType.MONSTER;
+  }
+
+  getActions(actor: Actor): Action[] {
+    return actor.getMonster()?.getDetails().getActions()!;
+  }
 }
