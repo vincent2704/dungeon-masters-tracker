@@ -1,5 +1,5 @@
 import {MonsterArmor} from "./monsterArmor";
-import {MonsterHitPoints} from "./monsterHitPoints";
+import {DiceRoll} from "../common/diceRoll";
 import {MonsterSpeed} from "./monster-speed/monsterSpeed";
 import {AbilitySet} from "../common/ability/abilitySet";
 import {SavingThrow} from "./savingThrow";
@@ -20,7 +20,7 @@ export class MonsterDetails {
   constructor(
     private readonly alignment: Alignment,
     private readonly armorClass: MonsterArmor[],
-    private readonly hitPoints: MonsterHitPoints,
+    private readonly hitPoints: DiceRoll,
     private readonly speeds: MonsterSpeed[],
     private readonly abilitySet: AbilitySet,
     private readonly actions: Action[] = [],
@@ -48,7 +48,7 @@ export class MonsterDetails {
     return this.armorClass;
   }
 
-  getHitPoints(): MonsterHitPoints {
+  getHitPoints(): DiceRoll {
     return this.hitPoints;
   }
 

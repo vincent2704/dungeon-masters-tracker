@@ -1,6 +1,6 @@
-import {DieType} from "../common/dieType";
+import {DieType} from "./dieType";
 
-export class MonsterHitPoints {
+export class DiceRoll {
 
   constructor(private hitPoints: number, private diceThrows: number,
               private dieType: DieType, private staticAdditionalHP: number = 0) {
