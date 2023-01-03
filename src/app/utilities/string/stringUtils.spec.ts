@@ -79,6 +79,12 @@ describe('StringUtils', () => {
 
     expect(action.getDescription().getDescription()).toEqual("+5 to hit, reach 1.5 m, one target. " +
       "Hit: 17 (4d6 + 3) necrotic damage.")
+
+    let action2 = Action.AZER_ACTIONS[0] // warhammer
+    expect(action2.getDescription().getDescription()).toEqual("+5 to hit, reach 1.5 m, one " +
+      "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
+      "bludgeoning damage if used with two hands to make a melee " +
+      "attack, plus 3 (1d6) fire damage.")
   });
 
 });

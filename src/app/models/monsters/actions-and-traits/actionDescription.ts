@@ -9,12 +9,12 @@ export class ActionDescription {
     private readonly actionType: ActionType = ActionType.NOT_SPECIFIED,
     private readonly attackModifier: number = 0,
     private readonly points: ActionDescriptionPoint[] = [],
-    private readonly damageRoll?: DiceRoll,
+    private readonly damageRolls: DiceRoll[] = [],
   ) {
   }
 
   getDescription(): string {
-    return StringUtils.formatActionDescription(this.description, this.attackModifier, this.damageRoll);
+    return StringUtils.formatActionDescription(this.description, this.attackModifier, this.damageRolls);
   }
 
   getActionType(): string {
@@ -29,8 +29,8 @@ export class ActionDescription {
     return this.attackModifier;
   }
 
-  getDamageRoll(): DiceRoll | undefined {
-    return this.damageRoll;
+  getDamageRoll(): DiceRoll[] {
+    return this.damageRolls;
   }
 
 }

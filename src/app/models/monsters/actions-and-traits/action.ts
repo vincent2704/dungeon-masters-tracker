@@ -22,7 +22,6 @@ export class Action {
 
   private static readonly ABOLETH_TENTACLE = new Action('Tentacle',
     new ActionDescription("to hit, reach {10} {ft.}, one " +
-      // "target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a " +
       "target. Hit: {damageInfo} bludgeoning damage. If the target is a " +
       "creature, it must succeed on a DC 14 Constitution saving throw " +
       "or become diseased. The disease has no effect for 1 minute and " +
@@ -33,7 +32,7 @@ export class Action {
       "spell of 6th level or higher. When the creature is outside a body " +
       "of water, it takes 6 (1d12) acid damage every 10 minutes unless " +
       "moisture is applied to the skin before 10 minutes have passed",
-      ActionType.MELEE_WEAPON_ATTACK, 9, [], new DiceRoll(12, 2, DieType.D6, 5)))
+      ActionType.MELEE_WEAPON_ATTACK, 9, [], [new DiceRoll(12, 2, DieType.D6, 5)]))
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
     new ActionDescription("to hit, reach {10} {ft.} one target. " +
@@ -127,7 +126,7 @@ export class Action {
   private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
       "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 4, [],
-      new DiceRoll(5, 1, DieType.D6, 2)))
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
@@ -157,9 +156,14 @@ export class Action {
 
   private static readonly AZER_WARHAMMER = new Action('Warhammer',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
+      "target. Hit: {damageInfo} bludgeoning damage, or {damageInfo} " +
       "bludgeoning damage if used with two hands to make a melee " +
-      "attack, plus 3 (1d6) fire damage.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "attack, plus {damageInfo} fire damage.", ActionType.MELEE_WEAPON_ATTACK, 5, [],
+      [
+        new DiceRoll(7, 1, DieType.D8, 3),
+        new DiceRoll(8, 1, DieType.D10, 3),
+        new DiceRoll(3, 1, DieType.D6)
+      ]))
 
   private static readonly BANSHEE_CORRUPTING_TOUCH = new Action('Corrupting Touch',
     new ActionDescription("to hit, reach {5} {ft.}, one " +

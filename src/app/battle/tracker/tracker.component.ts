@@ -102,7 +102,6 @@ export class TrackerComponent implements OnInit {
             const campaignUpdateRequest: CampaignUpdateRequest = {
               campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
             }
-            console.log(campaignUpdateRequest)
             this.campaignService.updateCampaign(campaignUpdateRequest)
               .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
           }

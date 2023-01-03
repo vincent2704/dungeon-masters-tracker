@@ -3,28 +3,32 @@ import {DiceRoll} from "../../models/common/diceRoll";
 
 export class StringUtils {
 
-  static formatActionDescription(description: string, attackModifier: number, damageRoll: DiceRoll | undefined): string {
+  static formatActionDescription(description: string, attackModifier: number, damageRolls: DiceRoll[]): string {
     if (attackModifier > 0) {
       description = `+${attackModifier} ` + description
     }
-    if (damageRoll) {
-      description = this.formatDamageInfo(description, damageRoll);
+    if (damageRolls.length > 0) {
+      description = this.formatDamageInfo(description, damageRolls);
     }
     description = this.formatDescription(description);
 
     return description;
   }
 
-  static formatDamageInfo(description: string, damageRoll: DiceRoll): string {
-    let damageRollString: string = `${damageRoll.getHitPoints()} ` +
-      `(${damageRoll.getDiceThrows()}${damageRoll.getDieType().getName()}`
-    const staticAdditionalHp = damageRoll.getStaticAdditionalHP();
-    if (staticAdditionalHp == 0) {
-      damageRollString += `)`;
-    } else {
-      damageRollString += ` + ${staticAdditionalHp})`;
+  static formatDamageInfo(description: string, damageRolls: DiceRoll[]): string {
+    for(let roll of damageRolls) {
+      let damageRollString: string = `${roll.getHitPoints()} ` +
+        `(${roll.getDiceThrows()}${roll.getDieType().getName()}`
+      const staticAdditionalHp = roll.getStaticAdditionalHP();
+      if (staticAdditionalHp == 0) {
+        damageRollString += `)`;
+      } else {
+        damageRollString += ` + ${staticAdditionalHp})`;
+      }
+      description = description.replace("{damageInfo}", damageRollString);
     }
-    return description.replace("{damageInfo}", damageRollString)
+
+    return description;
   }
 
   static formatDescription(description: string) {
