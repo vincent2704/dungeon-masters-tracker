@@ -75,6 +75,8 @@ describe('StringUtils', () => {
   it("properly format damage info", () => {
     // given
     let action = Action.GHOST_ACTIONS[0]; // withering touch
+    Settings.setSISystem(true);
+
     expect(action.getDescription().getDescription()).toEqual("+5 to hit, reach 1.5 m, one target. " +
       "Hit: 17 (4d6 + 3) necrotic damage.")
   });

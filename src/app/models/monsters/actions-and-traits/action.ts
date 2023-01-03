@@ -1,6 +1,8 @@
 import {ActionDescription} from "./actionDescription";
 import {ActionType} from "./actionType";
 import {ActionDescriptionPoint} from "./actionDescriptionPoint";
+import {DiceRoll} from "../../common/diceRoll";
+import {DieType} from "../../common/dieType";
 
 export class Action {
 
@@ -31,7 +33,7 @@ export class Action {
       "spell of 6th level or higher. When the creature is outside a body " +
       "of water, it takes 6 (1d12) acid damage every 10 minutes unless " +
       "moisture is applied to the skin before 10 minutes have passed",
-      ActionType.MELEE_WEAPON_ATTACK))
+      ActionType.MELEE_WEAPON_ATTACK, 9, [], new DiceRoll(12, 2, DieType.D6, 5)))
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
     new ActionDescription("to hit, reach {10} {ft.} one target. " +
@@ -124,7 +126,8 @@ export class Action {
 
   private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 5 (1d6 + 2) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 4, [],
+      new DiceRoll(5, 1, DieType.D6, 2)))
 
   private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
     new ActionDescription("to hit, reach {5} {ft.}, one " +

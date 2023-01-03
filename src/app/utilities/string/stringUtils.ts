@@ -4,12 +4,27 @@ import {DiceRoll} from "../../models/common/diceRoll";
 export class StringUtils {
 
   static formatActionDescription(description: string, attackModifier: number, damageRoll: DiceRoll | undefined): string {
-    if(attackModifier > 0) {
+    if (attackModifier > 0) {
       description = `+${attackModifier} ` + description
+    }
+    if (damageRoll) {
+      description = this.formatDamageInfo(description, damageRoll);
     }
     description = this.formatDescription(description);
 
     return description;
+  }
+
+  static formatDamageInfo(description: string, damageRoll: DiceRoll): string {
+    let damageRollString: string = `${damageRoll.getHitPoints()} ` +
+      `(${damageRoll.getDiceThrows()}${damageRoll.getDieType().getName()}`
+    const staticAdditionalHp = damageRoll.getStaticAdditionalHP();
+    if (staticAdditionalHp == 0) {
+      damageRollString += `)`;
+    } else {
+      damageRollString += ` + ${staticAdditionalHp})`;
+    }
+    return description.replace("{damageInfo}", damageRollString)
   }
 
   static formatDescription(description: string) {
@@ -24,11 +39,11 @@ export class StringUtils {
   // different calculation algorithm
   private static formatMiles(description: string): string {
     let mileDistances = description.match(/{[\w\d]+} ({miles}|{mile})/g)
-    if(mileDistances) {
+    if (mileDistances) {
       mileDistances.map(mileDistance => {
         description = description.replace("{miles}", MeasurementSystem.getMilesMeasurementUnitLong())
         description = description.replace("{mile}", MeasurementSystem.getMilesMeasurementUnitLongSingular())
-        return mileDistance.substring(mileDistance.indexOf("{")+1, mileDistance.indexOf("}"))
+        return mileDistance.substring(mileDistance.indexOf("{") + 1, mileDistance.indexOf("}"))
       }).forEach(mileDistanceValue => {
         description = description.replace(`{${mileDistanceValue}}`,
           MeasurementSystem.getMilesDistance(parseInt(mileDistanceValue)).toString())
@@ -55,20 +70,5 @@ export class StringUtils {
     }
     return description;
   }
-
-  // static formatDamageInfo(description: ActionDescription): string {
-  //   const damageRoll = description.getDamageRoll();
-  //   if(damageRoll && description.getDescription().includes('{damageInfo}')) {
-  //     let damageRollString = `${damageRoll.getHitPoints()} (${damageRoll.getDiceThrows()}${damageRoll.getDieType()}`
-  //     const staticAdditionalHp = damageRoll.getStaticAdditionalHP();
-  //     if(staticAdditionalHp == 0) {
-  //       damageRollString += `)`;
-  //     } else {
-  //       damageRollString += ` + ${staticAdditionalHp})`;
-  //     }
-  //     return description.getDescription().replace("{damageInfo}", damageRollString)
-  //   }
-  //   return description.getDescription();
-  // }
 
 }

@@ -9,7 +9,7 @@ export class ActionDescription {
     private readonly actionType: ActionType = ActionType.NOT_SPECIFIED,
     private readonly attackModifier: number = 0,
     private readonly points: ActionDescriptionPoint[] = [],
-    private readonly damageRoll?: DiceRoll
+    private readonly damageRoll?: DiceRoll,
   ) {
   }
 
