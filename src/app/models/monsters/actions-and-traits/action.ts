@@ -389,7 +389,8 @@ export class Action {
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 2 (1d6 - 1) piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 1))
+      "Hit: {damageInfo} piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 1,
+      [new DiceRoll(2, 1, DieType.D6, -1)]))
 
   private static readonly SPECTATOR_EYE_RAYS = new Action('Eye Rays',
     new ActionDescription(

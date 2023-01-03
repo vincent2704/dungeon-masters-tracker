@@ -85,6 +85,10 @@ describe('StringUtils', () => {
       "target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) " +
       "bludgeoning damage if used with two hands to make a melee " +
       "attack, plus 3 (1d6) fire damage.")
+
+    let action3 = Action.SPECTATOR_ACTIONS[0] // bite
+    expect(action3.getDescription().getDescription()).toEqual("+1 to hit, reach 1.5 m, one target. " +
+      "Hit: 2 (1d6 - 1) piercing damage.")
   });
 
 });

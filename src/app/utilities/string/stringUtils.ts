@@ -19,11 +19,16 @@ export class StringUtils {
     for(let roll of damageRolls) {
       let damageRollString: string = `${roll.getHitPoints()} ` +
         `(${roll.getDiceThrows()}${roll.getDieType().getName()}`
-      const staticAdditionalHp = roll.getStaticAdditionalHP();
+      let staticAdditionalHp = roll.getStaticAdditionalHP();
       if (staticAdditionalHp == 0) {
         damageRollString += `)`;
       } else {
-        damageRollString += ` + ${staticAdditionalHp})`;
+        if(staticAdditionalHp > 0) {
+          damageRollString += ` + ${staticAdditionalHp})`;
+        } else {
+          staticAdditionalHp = Math.abs(staticAdditionalHp)
+          damageRollString += ` - ${staticAdditionalHp})`;
+        }
       }
       description = description.replace("{damageInfo}", damageRollString);
     }
