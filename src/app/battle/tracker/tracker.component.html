@@ -30,15 +30,7 @@
         </div>
       </div>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
-      <div *ngIf="isMonster(actor)" class="row">
-        <div *ngFor="let action of getActions(actor)" class="col">
-          <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
-                  (click)="rollAttack(actor, action)">
-            {{action.getName()}}
-          </button>
-          <p *ngIf="getRollResult(actor, action)">{{getRollResult(actor, action)}}</p>
-        </div>
-      </div>
+      <app-monster-actions *ngIf="isMonster(actor)" [monsterActor]="actor"></app-monster-actions>
       <div *ngIf="showDeathSavingThrows(actor)">
         <app-death-saving-throws
           [actor]="actor" [actorReceivingDamage]="isUnconsciousActorReceivingDamage(actor)"

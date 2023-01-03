@@ -6,9 +6,6 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Action} from "../../models/monsters/actions-and-traits/action";
-import {CombatUtils} from "../../services/combat/combatUtils";
-
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -26,7 +23,6 @@ export class TrackerComponent implements OnInit {
   battleEndedEmitter = new EventEmitter<Actor[]>();
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
-  attackRolls: Map<string, string> = new Map<string, string>();
 
   constructor(private campaignService: CampaignService, private actorService: ActorService) {
   }
@@ -146,18 +142,4 @@ export class TrackerComponent implements OnInit {
     return actor.type == BattleParticipantType.MONSTER;
   }
 
-  getActions(actor: Actor): Action[] {
-    return actor.getMonster()?.getDetails().getActions()!;
-  }
-
-  getRollResult(actor: Actor, action: Action): string | undefined {
-    const key = `${actor.getName()}-${action.getName()}`;
-    return this.attackRolls.get(key);
-  }
-
-  rollAttack(actor: Actor, action: Action) {
-    const rollResult = CombatUtils.throwDiceForAttackRoll(action);
-    const key = `${actor.getName()}-${action.getName()}`;
-    this.attackRolls.set(key, rollResult);
-  }
 }

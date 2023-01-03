@@ -1,0 +1,7 @@
+<div *ngFor="let action of getActions()" class="col">
+  <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
+          (click)="rollAttack(action)">
+    {{action.getName()}}
+  </button>
+  <p *ngIf="getAttackRollResult(action)">{{getAttackRollResult(action)}}</p>
+</div>
