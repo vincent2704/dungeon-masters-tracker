@@ -32,11 +32,13 @@ export class Action {
       "spell of 6th level or higher. When the creature is outside a body " +
       "of water, it takes 6 (1d12) acid damage every 10 minutes unless " +
       "moisture is applied to the skin before 10 minutes have passed",
-      ActionType.MELEE_WEAPON_ATTACK, 9, [], [new DiceRoll(12, 2, DieType.D6, 5)]))
+      ActionType.MELEE_WEAPON_ATTACK, 9,
+      [new DiceRoll(12, 2, DieType.D6, 5)]))
 
   private static readonly ABOLETH_TAIL = new Action('Tail',
     new ActionDescription("to hit, reach {10} {ft.} one target. " +
-      "Hit: 15 (3d6 + 5) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 9))
+      "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 9,
+      [new DiceRoll(15, 3, DieType.D6, 5)]))
 
   private static readonly ABOLETH_ENSLAVE = new Action('Enslave (3/Day)',
     new ActionDescription("The aboleth targets one creature it can see " +
@@ -57,8 +59,9 @@ export class Action {
 
   private static readonly DEVA_MACE = new Action('Mace',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 7 (1d6 + 4) bludgeoning damage plus 18 (4d8) " +
-      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 8))
+      "target. Hit: {damageInfo} bludgeoning damage plus 18 (4d8) " +
+      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 8,
+      [new DiceRoll(7, 1, DieType.D6, 4)]))
 
   private static readonly DEVA_HEALING_TOUCH = new Action('Healing Touch (3/Day)',
     new ActionDescription("The deva touches another creature. " +
@@ -83,8 +86,12 @@ export class Action {
 
   private static readonly PLANETAR_GREATSWORD = new Action('Greatsword',
     new ActionDescription("to hit, reach {5} {ft.}, " +
-      "one target. Hit: 21 (4d6 + 7) slashing damage plus 22 (5d8) " +
-      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 12))
+      "one target. Hit: {damageInfo} slashing damage plus {damageInfo} " +
+      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 12,
+      [
+        new DiceRoll(21, 4, DieType.D6, 7),
+        new DiceRoll(22, 5, DieType.D8)
+      ]))
 
   private static readonly PLANETAR_HEALING_TOUCH = new Action('Healing Touch (4/Day)',
     new ActionDescription("The planetar touches another creature. " +
@@ -96,15 +103,23 @@ export class Action {
 
   private static readonly SOLAR_GREATSWORD = new Action('Greatsword',
     new ActionDescription("to hit, reach {5} {ft.}, " +
-      "one target. Hit: 22 (4d6 + 8) slashing damage plus 27 (6d8) " +
-      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 15))
+      "one target. Hit: {damageInfo} slashing damage plus {damageInfo} " +
+      "radiant damage.", ActionType.MELEE_WEAPON_ATTACK, 15,
+      [
+        new DiceRoll(22, 4, DieType.D6, 8),
+        new DiceRoll(27, 6, DieType.D8)
+      ]))
 
   private static readonly SOLAR_SLAYING_LONGBOW = new Action('Slaying Longbow',
     new ActionDescription("to hit, range " +
-      "{120}/{600} {ft.}, one target. Hit: 15 (2d8 + 6) piercing damage plus " +
-      "27 (6d8) radiant damage. If the target is a creature that has 100 " +
+      "{120}/{600} {ft.}, one target. Hit: {damageInfo} piercing damage plus " +
+      "{damageInfo} radiant damage. If the target is a creature that has 100 " +
       "hit points or fewer, it must succeed on a DC 15 Constitution " +
-      "saving throw or die.", ActionType.RANGED_WEAPON_ATTACK, 13))
+      "saving throw or die.", ActionType.RANGED_WEAPON_ATTACK, 13,
+      [
+        new DiceRoll(15, 2, DieType.D8, 6),
+        new DiceRoll(27, 6, DieType.D8)
+      ]))
 
   private static readonly SOLAR_FLYING_SWORD = new Action('Flying Sword',
     new ActionDescription("The solar releases its greatsword to hover " +
@@ -125,12 +140,13 @@ export class Action {
 
   private static readonly ANIMATED_ARMOR_SLAM = new Action('Slam',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 4, [],
+      "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
       [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly FLYING_SWORD_LONGSWORD = new Action('Longsword',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 5 (1d8 + 1) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 3))
+      "target. Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 3,
+      [new DiceRoll(5, 1, DieType.D8, 1)]))
 
   private static readonly RUG_OF_SMOTHERING_SMOTHER = new Action('Smother',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
@@ -138,14 +154,19 @@ export class Action {
       "(escape DC 13). Until this grapple ends, the target is restrained, " +
       "blinded, and at risk of suffocating, and the rug can't smother " +
       "another target. In addition, at the start of each of the target's " +
-      "turns, the target takes 10 (2d6 + 3) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "turns, the target takes {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 5,
+      [new DiceRoll(10, 2, DieType.D6, 3)]))
 
   private static readonly ANKHEG_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 9 (2d6 + 3) slashing damage plus 3 (1d6) acid damage. If " +
+      "Hit: {damageInfo} slashing damage plus {damageInfo} acid damage. If " +
       "the target is a Large or smaller creature, it is grappled (escape " +
       "DC 13). Until this grapple ends, the ankheg can bite only the " +
-      "grappled creature and has advantage on attack rolls to do so.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "grappled creature and has advantage on attack rolls to do so.", ActionType.MELEE_WEAPON_ATTACK, 5,
+      [
+        new DiceRoll(9, 2, DieType.D6, 3),
+        new DiceRoll(3, 1, DieType.D6)
+      ]))
 
   private static readonly ANKHEG_ACID_SPRAY = new Action('Acid Spray (Recharge 6)',
     new ActionDescription("The ankheg spits acid in a line that is " +
@@ -158,7 +179,7 @@ export class Action {
     new ActionDescription("to hit, reach {5} {ft.}, one " +
       "target. Hit: {damageInfo} bludgeoning damage, or {damageInfo} " +
       "bludgeoning damage if used with two hands to make a melee " +
-      "attack, plus {damageInfo} fire damage.", ActionType.MELEE_WEAPON_ATTACK, 5, [],
+      "attack, plus {damageInfo} fire damage.", ActionType.MELEE_WEAPON_ATTACK, 5,
       [
         new DiceRoll(7, 1, DieType.D8, 3),
         new DiceRoll(8, 1, DieType.D10, 3),
@@ -167,7 +188,8 @@ export class Action {
 
   private static readonly BANSHEE_CORRUPTING_TOUCH = new Action('Corrupting Touch',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 12 (3d6 + 2) necrotic damage.", ActionType.MELEE_SPELL_ATTACK, 4))
+      "target. Hit: {damageInfo} necrotic damage.", ActionType.MELEE_SPELL_ATTACK, 4,
+      [new DiceRoll(12, 3, DieType.D6, 2)]))
 
   private static readonly BANSHEE_HORRIFYING_VISAGE = new Action('Horrifying Visage',
     new ActionDescription("Each non-undead creature within {60} {feet} of " +
@@ -189,7 +211,11 @@ export class Action {
 
   private static readonly BASILISK_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 10 (2d6 + 3) piercing damage plus 7 (2d6) poison damage.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "Hit: {damageInfo} piercing damage plus {damageInfo} poison damage.", ActionType.MELEE_WEAPON_ATTACK, 5,
+      [
+        new DiceRoll(10, 2, DieType.D6, 3),
+        new DiceRoll(7, 2, DieType.D6)
+      ]))
 
   private static readonly BEHIR_MULTIATTACK = new Action('Multiattack',
     new ActionDescription("The behir makes two attacks: one with its bite and " +
@@ -197,14 +223,19 @@ export class Action {
 
   private static readonly BEHIR_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {10} {ft.}, one target. " +
-      "Hit: 22 (3d10 + 6) piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 10))
+      "Hit: {damageInfo} piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 10,
+      [new DiceRoll(22, 3, DieType.D10, 6)]))
 
   private static readonly BEHIR_CONSTRICT = new Action('Constrict',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "Large or smaller creature. Hit: 17 (2d10 + 6) bludgeoning " +
-      "damage plus 17 (2d10 + 6) slashing damage. The target is " +
+      "Large or smaller creature. Hit: {damageInfo} bludgeoning " +
+      "damage plus {damageInfo} slashing damage. The target is " +
       "grappled (escape DC 16) if the behir isn't already constricting a " +
-      "creature, and the target is restrained until this grapple ends.", ActionType.MELEE_WEAPON_ATTACK, 10))
+      "creature, and the target is restrained until this grapple ends.", ActionType.MELEE_WEAPON_ATTACK, 10,
+      [
+        new DiceRoll(17, 2, DieType.D10, 6),
+        new DiceRoll(17, 2, DieType.D10, 6)
+      ]))
 
   private static readonly BEHIR_LIGHTNING_BREATH = new Action('Lightning Breath (Recharge 5-6)',
     new ActionDescription("The behir exhales a line of " +
@@ -231,12 +262,17 @@ export class Action {
 
   private static readonly BUGBEAR_MORNINGSTAR = new Action('Morningstar',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 11 (2d8 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "target. Hit: {damageInfo} piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(11, 2, DieType.D8, 2)]))
 
   private static readonly BUGBEAR_JAVELIN = new Action('Javelin',
     new ActionDescription("to hit, reach {5} {ft.} or " +
-      "range {30}/{120} {ft.}, one target. Hit: 9 (2d6 + 2) piercing damage " +
-      "in melee or 5 (1d6 + 2) piercing damage at range.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 4))
+      "range {30}/{120} {ft.}, one target. Hit: {damageInfo} piercing damage " +
+      "in melee or {damageInfo} piercing damage at range.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 4,
+      [
+        new DiceRoll(9, 2, DieType.D6, 2),
+        new DiceRoll(5, 1, DieType.D6, 2)
+      ]))
 
   private static readonly GARGOYLE_MULTIATTACK = new Action('Multiattack',
     new ActionDescription('The gargoyle makes two attacks: one with its ' +
@@ -244,15 +280,18 @@ export class Action {
 
   private static readonly GARGOYLE_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "Hit: {damageInfo} piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly GARGOYLE_CLAWS = new Action('Claws',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly GHOST_WITHERING_TOUCH = new Action('Withering Touch',
     new ActionDescription("to hit, reach {5} {ft.}, " +
-      "one target. Hit: 17 (4d6 + 3) necrotic damage.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "one target. Hit: {damageInfo} necrotic damage.", ActionType.MELEE_WEAPON_ATTACK, 5,
+      [new DiceRoll(17, 4, DieType.D6, 3)]))
 
   private static readonly GHOST_ETHEREALNESS = new Action('Etherealness',
     new ActionDescription("The ghost enters the Ethereal Plane from the " +
@@ -274,7 +313,7 @@ export class Action {
   )
 
   private static readonly GHOST_POSSESSION = new Action('Possession (Recharge 6)',
-    new ActionDescription(" One humanoid that the ghost can " +
+    new ActionDescription("One humanoid that the ghost can " +
       "see within {5} {feet} of it must succeed on a DC 13 Charisma " +
       "saving throw or be possessed by the ghost; the ghost then " +
       "disappears, and the target is incapacitated and loses control " +
@@ -295,48 +334,58 @@ export class Action {
       "saving throw or after the possession ends."))
 
   private static readonly GHOUL_BITE = new Action('Bite',
-    new ActionDescription("to hit, reach {5} {ft.}, one creature. Hit: 9 (2d6 + 2) piercing damage.",
-      ActionType.MELEE_WEAPON_ATTACK, 2))
+    new ActionDescription("to hit, reach {5} {ft.}, one creature. Hit: {damageInfo} piercing damage.",
+      ActionType.MELEE_WEAPON_ATTACK, 2, [new DiceRoll(9, 2, DieType.D6, 2)]))
 
   private static readonly GHOUL_CLAWS = new Action('Claws',
-    new ActionDescription("to hit, reach {5} {ft.}, one target. Hit: 7 (2d4 + 2) slashing damage. " +
+    new ActionDescription("to hit, reach {5} {ft.}, one target. Hit: {damageInfo} slashing damage. " +
       "If the target is a creature other than an elf or undead, it must succeed on a DC 10 Constitution saving " +
       "throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, " +
-      "ending the effect on itself on a success.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "ending the effect on itself on a success.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(7, 2, DieType.D4, 2)]
+      ))
 
   private static readonly GOBLIN_SCIMITAR = new Action('Scimitar',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 5 (1d6 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "target. Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly GOBLIN_SHORTBOW = new Action('Shortbow',
     new ActionDescription("to hit, range {80}/{320} {ft.}, " +
-      "Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4))
+      "Hit: {damageInfo} piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly OGRE_GREATCLUB = new Action('Greatclub',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 13 (2d8 + 4) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 6));
+      "target. Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 6,
+      [new DiceRoll(13, 2, DieType.D8, 4)]));
 
   private static readonly OGRE_JAVELIN = new Action('Javelin',
     new ActionDescription("to hit, reach " +
-    "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: 11 (2d6 + 4) " +
-    "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 6))
+    "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: {damageInfo} " +
+    "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 6,
+      [new DiceRoll(11, 2, DieType.D6, 4)]))
 
   private static readonly ORC_GREATAXE = new Action('Greataxe',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 9 (1d12 + 3) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 5))
+      "target. Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 5,
+      [new DiceRoll(9, 1, DieType.D12, 3)]))
 
   private static readonly ORC_JAVELIN = new Action('Javelin',
     new ActionDescription("to hit, reach " +
-      "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: 6 (1d6 + 3) " +
-      "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 5))
+      "{5} {ft.} or range {30}/{120} {ft.}, one target. Hit: {damageInfo} " +
+      "piercing damage.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 5,
+      [new DiceRoll(6, 1, DieType.D6, 3)]))
 
   private static readonly SKELETON_SHORTSWORD = new Action('Shortsword',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4));
+      "target. Hit: {damageInfo} piercing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]));
 
   private static readonly SKELETON_SHORTBOW = new Action('Shortbow',
     new ActionDescription("to hit, range {80}/{320} {ft.}, " +
-      "one target. Hit: 5 (1d6 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4));
+      "one target. Hit: {damageInfo} piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]));
 
   private static readonly SPECTATOR_BITE = new Action('Bite',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
@@ -346,7 +395,7 @@ export class Action {
     new ActionDescription(
       "The spectator shoots up to two of the following " +
       "magical eye rays at one or two creatures it can see within {90} " +
-      "{feet} of it. It can use each ray only once on a turn.", ActionType.NOT_SPECIFIED, 0,
+      "{feet} of it. It can use each ray only once on a turn.", ActionType.NOT_SPECIFIED, 0, [],
       ActionDescriptionPoint.SPECTATOR_EYE_RAYS_DESCRIPTION_POINTS))
 
   private static readonly SPECTATOR_CREATE_FOOD_AND_WATER = new Action('Create Food and Water',
