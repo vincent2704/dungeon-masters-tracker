@@ -32,7 +32,8 @@
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
       <div *ngIf="isMonster(actor)" class="row">
         <div *ngFor="let action of getActions(actor)" class="col">
-          <button class="btn btn-primary" ngbTooltip="{{getActionDescription(action)}}" (click)="rollAttack(actor, action)">
+          <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
+                  (click)="rollAttack(actor, action)">
             {{action.getName()}}
           </button>
           <p *ngIf="getRollResult(actor, action)">{{getRollResult(actor, action)}}</p>

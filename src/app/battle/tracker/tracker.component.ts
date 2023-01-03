@@ -132,16 +132,6 @@ export class TrackerComponent implements OnInit {
     })
   }
 
-  getActionDescription(action: Action): string {
-    let description: string = '';
-    const attackModifier = action.getDescription().getAttackModifier();
-    if(attackModifier > 0) {
-      description = `+${attackModifier} `
-    }
-
-    return description + action.getDescription().getDescription();
-  }
-
   private createBattleFinishRequests(actors: Actor[]): PlayerBattleFinishedRequest[] {
     return actors.map(actor => {
       return {

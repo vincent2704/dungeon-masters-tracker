@@ -409,19 +409,25 @@ export class Action {
       "claws or spear."))
 
   private static readonly WEREWOLF_BITE = new Action('Bite (Wolf or Hybrid Form Only)',
-    new ActionDescription("to hit, reach {5} {ft.}, one target. Hit: 6 (1d8 + 2) piercing " +
+    new ActionDescription("to hit, reach {5} {ft.}, one target. Hit: {damageInfo} piercing " +
       "damage. If the target is a humanoid, it must succeed on a " +
       "DC 12 Constitution saving throw or be cursed with werewolf " +
-      "lycanthropy.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "lycanthropy.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(6, 1, DieType.D8, 2)]))
 
   private static readonly WEREWOLF_CLAWS = new Action('Claws (Hybrid Form Only)',
     new ActionDescription("to hit, reach {5} {ft.}, one creature. " +
-      "Hit: 7 (2d4 + 2) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(7, 2, DieType.D4, 2)]))
 
   private static readonly WEREWOLF_SPEAR = new Action('Spear (Humanoid Form Only)',
-    new ActionDescription("to hit, reach {5} {ft.} or range {20}/{60} {ft.}, one creature. Hit: 5 (1d6 " +
-      "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
-      "with two hands to make a melee attack.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 4))
+    new ActionDescription("to hit, reach {5} {ft.} or range {20}/{60} {ft.}, one creature. Hit: {damageInfo}" +
+      " piercing damage, or {damageInfo} piercing damage if used " +
+      "with two hands to make a melee attack.", ActionType.MELEE_OR_RANGED_WEAPON_ATTACK, 4,
+      [
+        new DiceRoll(5, 1, DieType.D6, 2),
+        new DiceRoll(6, 1, DieType.D8, 2),
+      ]))
 
   private static readonly WIGHT_MULTIATTACK = new Action('Multiattack',
     new ActionDescription("The wight makes two longsword attacks or " +
@@ -430,7 +436,7 @@ export class Action {
 
   private static readonly WIGHT_LIFE_DRAIN = new Action('Life Drain',
     new ActionDescription("to hit, reach {5} {ft.}, " +
-      "one creature. Hit: 5 (1d6 + 2) necrotic damage. The target " +
+      "one creature. Hit: {damageInfo} necrotic damage. The target " +
       "must succeed on a DC 13 Constitution saving throw or its " +
       "hit point maximum is reduced by an amount equal to the " +
       "damage taken. This reduction lasts until the target finishes " +
@@ -438,33 +444,45 @@ export class Action {
       "maximum to 0. A humanoid slain by this attack rises 24 hours later as a " +
       "zombie under the wight’s control, unless the humanoid is " +
       "restored to life or its body is destroyed. The wight can have " +
-      "no more than twelve zombies under its control at one time.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "no more than twelve zombies under its control at one time.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [new DiceRoll(5, 1, DieType.D6, 2)]))
 
   private static readonly WIGHT_LONGSWORD = new Action('Longsword',
     new ActionDescription("to hit, reach {5} {ft.}, one  " +
-      "target. Hit: 6 (1d8 + 2) slashing damage, or 7 (1d10 + 2)  " +
-      "slashing damage if used with two hands.", ActionType.MELEE_WEAPON_ATTACK, 4))
+      "target. Hit: {damageInfo} slashing damage, or {damageInfo}  " +
+      "slashing damage if used with two hands.", ActionType.MELEE_WEAPON_ATTACK, 4,
+      [
+        new DiceRoll(6, 1, DieType.D8, 2),
+        new DiceRoll(7, 1, DieType.D10, 2)
+      ]))
 
   private static readonly WIGHT_LONGBOW = new Action('Longbow',
     new ActionDescription("to hit, range {150}/{600} {ft.},  " +
-      "one target. Hit: 6 (1d8 + 2) piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4))
+      "one target. Hit: {damageInfo} piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 4,
+      [new DiceRoll(6, 1, DieType.D8, 2)]))
 
   private static readonly ZOMBIE_SLAM = new Action('Slam',
     new ActionDescription("to hit, reach {5} {ft.}, one target. " +
-      "Hit: 4 (1d6 + 1) bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 3))
+      "Hit: {damageInfo} bludgeoning damage.", ActionType.MELEE_WEAPON_ATTACK, 3,
+      [new DiceRoll(4, 1, DieType.D6, 1)]))
 
   private static readonly BANDIT_SCIMITAR = new Action('Scimitar',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 4 (1d6 + 1) slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 3))
+      "target. Hit: {damageInfo} slashing damage.", ActionType.MELEE_WEAPON_ATTACK, 3,
+      [new DiceRoll(4, 1, DieType.D6, 1)]))
 
   private static readonly BANDIT_LIGHT_CROSSBOW = new Action('Light Crossbow',
-    new ActionDescription("to hit, range " +
-      "{80}/{320} {ft.}, one target. Hit: 5 (1d8 + 1) piercing damage.", ActionType.RANGED_WEAPON_ATTACK, 3))
+    new ActionDescription("to hit, range {80}/{320} {ft.}, one target. {damageInfo} piercing damage.",
+      ActionType.RANGED_WEAPON_ATTACK, 3, [new DiceRoll(5, 1, DieType.D8, 1)]))
 
   private static readonly NIGHTMARE_HOOVES = new Action('Hooves',
     new ActionDescription("to hit, reach {5} {ft.}, one " +
-      "target. Hit: 13 (2d8 + 4) bludgeoning damage plus 7 (2d6) " +
-      "fire damage.", ActionType.MELEE_WEAPON_ATTACK, 6))
+      "target. Hit: {damageInfo} bludgeoning damage plus {damageInfo} " +
+      "fire damage.", ActionType.MELEE_WEAPON_ATTACK, 6,
+      [
+        new DiceRoll(13, 2, DieType.D8, 4),
+        new DiceRoll(7, 2, DieType.D6)
+      ]))
 
   private static readonly NIGHTMARE_ETHEREAL_STRIDE = new Action('Ethereal Stride',
     new ActionDescription("The nightmare and up to three willing creatures " +
