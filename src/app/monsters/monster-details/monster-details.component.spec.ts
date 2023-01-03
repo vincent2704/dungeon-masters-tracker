@@ -91,6 +91,8 @@ describe('MonsterDetailsComponent', () => {
     const action1 = Action.ANIMATED_ARMOR_ACTIONS[0]; // multiattack
     const action2 = Action.ANIMATED_ARMOR_ACTIONS[1]; // Slam
 
+    Settings.setSISystem(true);
+
     expect(component.getActionDescription(action1)).toEqual('The armor makes two melee attacks.')
     expect(component.getActionDescription(action2)).toEqual('+4 to hit, reach 1.5 m, one target. ' +
       'Hit: 5 (1d6 + 2) bludgeoning damage.')

@@ -1,5 +1,7 @@
 import {MonsterList} from "../../models/monsters/monsterList";
 import {Settings} from "../../services/settings/settings";
+import {Action} from "../../models/monsters/actions-and-traits/action";
+import {StringUtils} from "./stringUtils";
 
 describe('StringUtils', () => {
 
@@ -9,13 +11,13 @@ describe('StringUtils', () => {
 
     Settings.setSISystem(false);
     expect(action.getDescription().getDescription()).toEqual(
-      "to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
+      "+4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 5 (1d6 " +
       "+ 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack."
     )
     Settings.setSISystem(true);
     expect(action.getDescription().getDescription()).toEqual(
-      "to hit, reach 1.5 m or range 6/18 m, one creature. " +
+      "+4 to hit, reach 1.5 m or range 6/18 m, one creature. " +
       "Hit: 5 (1d6 + 2) piercing damage, or 6 (1d8 + 2) piercing damage if used " +
       "with two hands to make a melee attack."
     )
@@ -68,6 +70,13 @@ describe('StringUtils', () => {
       "of living creatures up to 7.5 kilometers away. She knows the general " +
       "direction they're in but not their exact locations."
     )
+  });
+
+  it("properly format damage info", () => {
+    // given
+    let action = Action.GHOST_ACTIONS[0]; // withering touch
+    expect(action.getDescription().getDescription()).toEqual("+5 to hit, reach 1.5 m, one target. " +
+      "Hit: 17 (4d6 + 3) necrotic damage.")
   });
 
 });

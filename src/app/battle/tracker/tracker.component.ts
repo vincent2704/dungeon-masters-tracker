@@ -135,7 +135,7 @@ export class TrackerComponent implements OnInit {
 
   getActionDescription(action: Action): string {
     let description: string = '';
-    const attackModifier = action.getAttackModifier();
+    const attackModifier = action.getDescription().getAttackModifier();
     if(attackModifier > 0) {
       description = `+${attackModifier} `
     }

@@ -1,8 +1,18 @@
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
+import {DiceRoll} from "../../models/common/diceRoll";
 
 export class StringUtils {
 
-  static formatDescription(description: string): string {
+  static formatActionDescription(description: string, attackModifier: number, damageRoll: DiceRoll | undefined): string {
+    if(attackModifier > 0) {
+      description = `+${attackModifier} ` + description
+    }
+    description = this.formatDescription(description);
+
+    return description;
+  }
+
+  static formatDescription(description: string) {
     description = this.formatMiles(description);
     description = this.formatFeet(description);
 
@@ -45,5 +55,20 @@ export class StringUtils {
     }
     return description;
   }
+
+  // static formatDamageInfo(description: ActionDescription): string {
+  //   const damageRoll = description.getDamageRoll();
+  //   if(damageRoll && description.getDescription().includes('{damageInfo}')) {
+  //     let damageRollString = `${damageRoll.getHitPoints()} (${damageRoll.getDiceThrows()}${damageRoll.getDieType()}`
+  //     const staticAdditionalHp = damageRoll.getStaticAdditionalHP();
+  //     if(staticAdditionalHp == 0) {
+  //       damageRollString += `)`;
+  //     } else {
+  //       damageRollString += ` + ${staticAdditionalHp})`;
+  //     }
+  //     return description.getDescription().replace("{damageInfo}", damageRollString)
+  //   }
+  //   return description.getDescription();
+  // }
 
 }
