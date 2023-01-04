@@ -17,7 +17,7 @@ export class CombatUtils {
     }, 0);
   }
 
-  public static throwDiceForAttackRoll(action: Action): string {
+  static throwDiceForAttackRoll(action: Action): string {
     if(!action.getDescription().getAttackModifier()) {
       return '';
     }
@@ -48,14 +48,17 @@ export class CombatUtils {
     return actorsToAdd;
   }
 
-  private static throwDice(diceRoll: DiceRoll): number {
-    let hp = 0;
-    for (let diceThrow = 1; diceThrow <= diceRoll.getDiceThrows(); diceThrow++) {
+  static throwDice(diceRoll: DiceRoll, criticalHit: boolean = false): number {
+    let result: number = 0;
+    const diceThrows = criticalHit
+      ? diceRoll.getDiceThrows() * 2
+      : diceRoll.getDiceThrows()
+    for (let diceThrow = 1; diceThrow <= diceThrows; diceThrow++) {
       let maxDieValueThrown = diceRoll.getDieType().getSides();
-      hp += this.getRandomNumber(1, maxDieValueThrown)
+      result += this.getRandomNumber(1, maxDieValueThrown)
     }
-    hp += diceRoll.getStaticAdditionalHP();
-    return hp;
+    result += diceRoll.getStaticAdditionalHP();
+    return result;
   }
 
   private static getRandomNumber(min: number, max: number) {

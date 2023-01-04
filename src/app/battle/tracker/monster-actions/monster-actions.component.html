@@ -9,19 +9,22 @@
     </button>
   </div>
 </div>
-<div *ngIf="showSelectedActionRolls" class="row" >
+<div *ngIf="showSelectedActionRolls" class="row">
+  <div class="col">Selected Action: {{selectedAction.getName()}}</div>
   <div class="col">
-    <button class="btn btn-primary" (click)="rollAttack(selectedAction)">
+    <button class="btn btn-primary" (click)="rollAttack()">
       Roll Attack
     </button>
   </div>
   <div class="col" *ngFor="let diceRoll of selectedAction.getDescription().getDamageRolls()">
-    <button class="btn btn-primary">Roll Hit - {{diceRoll.toString()}}</button>
+    <button class="btn btn-primary" (click)="rollHit(diceRoll, false)">Roll Hit - {{diceRoll.toString()}}</button>
+    <button class="btn btn-primary" (click)="rollHit(diceRoll, true)">Roll Critical Hit</button>
   </div>
   <div class="col">
-    <button class="btn btn-primary" (click)="showSelectedActionRolls = false">Hide</button>
+    <button class="btn btn-primary" (click)="hideRolls()">Hide</button>
   </div>
   <div class="col">
-    <p *ngIf="getAttackRollResult(selectedAction)">Attack roll result: {{getAttackRollResult(selectedAction)}}</p>
+    <p *ngIf="attackRollResult.length > 0">Attack roll result: {{attackRollResult}}</p>
+    <p *ngIf="hitRollResult > 0">Damage dealt: {{hitRollResult}}</p>
   </div>
 </div>

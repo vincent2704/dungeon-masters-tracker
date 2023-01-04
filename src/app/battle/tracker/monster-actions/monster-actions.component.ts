@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Action} from "../../../models/monsters/actions-and-traits/action";
 import {CombatUtils} from "../../../services/combat/combatUtils";
 import {Actor} from "../../../models/actors/actor";
+import {DiceRoll} from "../../../models/common/diceRoll";
 
 @Component({
   selector: 'app-monster-actions',
@@ -13,10 +14,11 @@ export class MonsterActionsComponent implements OnInit {
   @Input()
   monsterActor!: Actor;
 
-  attackRolls: Map<string, string> = new Map<string, string>();
-
   selectedAction!: Action;
   showSelectedActionRolls: boolean = false;
+
+  attackRollResult: string = '';
+  hitRollResult: number = 0;
 
   constructor() { }
 
@@ -31,18 +33,14 @@ export class MonsterActionsComponent implements OnInit {
     return this.monsterActor.getMonster()!.getDetails().getActions();
   }
 
-  getAttackRollResult(action: Action): string | undefined {
-    if(!action) {
-      return '';
-    }
-    const key = action.getName();
-    return this.attackRolls.get(key);
+  rollAttack() {
+    this.hitRollResult = 0;
+    this.attackRollResult = CombatUtils.throwDiceForAttackRoll(this.selectedAction);
   }
 
-  rollAttack(action: Action) {
-    const rollResult = CombatUtils.throwDiceForAttackRoll(action);
-    const key = action.getName();
-    this.attackRolls.set(key, rollResult);
+  rollHit(diceRoll: DiceRoll, criticalHit: boolean) {
+    this.attackRollResult = '';
+    this.hitRollResult = CombatUtils.throwDice(diceRoll, criticalHit);
   }
 
   toggleSelectedActionRolls(action: Action) {
@@ -50,6 +48,12 @@ export class MonsterActionsComponent implements OnInit {
       this.selectedAction = action;
       this.showSelectedActionRolls = true;
     }
+  }
+
+  hideRolls(): void {
+    this.showSelectedActionRolls = false;
+    this.hitRollResult = 0;
+    this.attackRollResult = '';
   }
 
 }
