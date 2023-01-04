@@ -1,6 +1,7 @@
 <h3 i18n="round header|Header presenting which round it is during combat"
 >Round: {{round}}</h3>
 <h4>Time passed: {{(round - 1) * 6}} seconds</h4>
+
 <table class="table table-hover table-dark">
   <thead>
   <tr>
@@ -10,20 +11,28 @@
     </th>
     <th i18n="|Column showing character Hit Points, current and maximum in brackets"
         scope="col"
-        class="col-md-6">Hit Points (Max)
+        class="col-md-8">Hit Points (Max)
     </th>
     <th i18n="|Column showing Conditions which given character is under effect of"
         scope="col"
         class="col-md-2">Conditions
     </th>
-    <th scope="col"
-        class="col-md-2"></th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let actor of actors">
-    <td class="col-md-2">{{actor.name}}</td>
-<!--                    <td>{{actor | json}}</td>-->
+    <td class="col-md-2">
+      {{actor.name}}
+      <div *ngIf="actor.getMonster()" class="form-check">
+        <input class="form-check-input" type="checkbox" [attr.id]="actor.name+'-show-actions-checkbox'"
+        (change)="toggleShowActions(actor)">
+        <label class="form-check-label" [for]="actor.name+'-show-actions-checkbox'">
+          Show Actions
+        </label>
+      </div>
+    </td>
+    <!--                    <td>{{actor | json}}</td>-->
     <td class="col-md-6">
       <div class="row">
         <div class="col">{{actor.currentHp}} ({{actor.maxHp}})</div>
@@ -34,7 +43,7 @@
         </div>
       </div>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
-      <app-monster-actions *ngIf="isMonster(actor)" [monsterActor]="actor"></app-monster-actions>
+      <app-monster-actions *ngIf="isMonster(actor) && isShowActions(actor)" [monsterActor]="actor"></app-monster-actions>
       <div *ngIf="showDeathSavingThrows(actor)">
         <app-death-saving-throws
           [actor]="actor" [actorReceivingDamage]="isUnconsciousActorReceivingDamage(actor)"
@@ -46,7 +55,7 @@
     <td class="col-md-2">
       <app-condition [actor]="actor"></app-condition>
     </td>
-    <td  class="col-md-2">
+    <td class="col-md-2">
       <button i18n="progress button|Button used to indicate that a character have progressed their turn"
               class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
         Progress

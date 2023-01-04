@@ -23,6 +23,7 @@ export class TrackerComponent implements OnInit {
   battleEndedEmitter = new EventEmitter<Actor[]>();
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
+  monsterWithActionsShown: Map<string, boolean> = new Map<string, boolean>();
 
   constructor(private campaignService: CampaignService, private actorService: ActorService) {
   }
@@ -142,4 +143,15 @@ export class TrackerComponent implements OnInit {
     return actor.type == BattleParticipantType.MONSTER;
   }
 
+  toggleShowActions(actor: Actor): void {
+    if(this.monsterWithActionsShown.get(actor.getName())) {
+      this.monsterWithActionsShown.set(actor.getName(), false);
+    } else {
+      this.monsterWithActionsShown.set(actor.getName(), true)
+    }
+  }
+
+  isShowActions(actor: Actor): boolean {
+    return !!this.monsterWithActionsShown.get(actor.getName());
+  }
 }

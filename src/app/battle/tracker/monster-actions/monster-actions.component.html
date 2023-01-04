@@ -17,7 +17,7 @@
     </button>
   </div>
   <div class="col" *ngFor="let diceRoll of selectedAction.getDescription().getDamageRolls()">
-    <button class="btn btn-primary" (click)="rollHit(diceRoll, false)">Roll Hit - {{diceRoll.toString()}}</button>
+    <button class="btn btn-primary" (click)="rollHit(diceRoll, false)">Roll {{diceRoll.toString()}}</button>
     <button class="btn btn-primary" (click)="rollHit(diceRoll, true)">Roll Critical Hit</button>
   </div>
   <div class="col">
