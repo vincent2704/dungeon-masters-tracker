@@ -17,19 +17,7 @@ export class StringUtils {
 
   static formatDamageInfo(description: string, damageRolls: DiceRoll[]): string {
     for(let roll of damageRolls) {
-      let damageRollString: string = `${roll.getHitPoints()} ` +
-        `(${roll.getDiceThrows()}${roll.getDieType().getName()}`
-      let staticAdditionalHp = roll.getStaticAdditionalHP();
-      if (staticAdditionalHp == 0) {
-        damageRollString += `)`;
-      } else {
-        if(staticAdditionalHp > 0) {
-          damageRollString += ` + ${staticAdditionalHp})`;
-        } else {
-          staticAdditionalHp = Math.abs(staticAdditionalHp)
-          damageRollString += ` - ${staticAdditionalHp})`;
-        }
-      }
+      let damageRollString: string = roll.toString();
       description = description.replace("{damageInfo}", damageRollString);
     }
 

@@ -1,14 +1,27 @@
-<div *ngFor="let action of getActions()" class="col">
-  <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
-          (click)="toggleSelectedActionRolls(action)">
-    {{action.getName()}}
-  </button>
-</div>
-  <div *ngIf="showSelectedActionRolls">
-    <button class="btn btn-primary" (click)="rollAttack(selectedAction)">
-      Roll Attack {{selectedAction.getName()}}
+<div class="row">
+  <div class="col">
+    <p>{{getMonsterName()}} Actions:</p>
+  </div>
+  <div *ngFor="let action of getActions()" class="col">
+    <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
+            (click)="toggleSelectedActionRolls(action)">
+      {{action.getName()}}
     </button>
-    <button class="btn btn-primary">Roll Hit</button>
+  </div>
+</div>
+<div *ngIf="showSelectedActionRolls" class="row" >
+  <div class="col">
+    <button class="btn btn-primary" (click)="rollAttack(selectedAction)">
+      Roll Attack
+    </button>
+  </div>
+  <div class="col" *ngFor="let diceRoll of selectedAction.getDescription().getDamageRolls()">
+    <button class="btn btn-primary">Roll Hit - {{diceRoll.toString()}}</button>
+  </div>
+  <div class="col">
     <button class="btn btn-primary" (click)="showSelectedActionRolls = false">Hide</button>
+  </div>
+  <div class="col">
     <p *ngIf="getAttackRollResult(selectedAction)">Attack roll result: {{getAttackRollResult(selectedAction)}}</p>
   </div>
+</div>

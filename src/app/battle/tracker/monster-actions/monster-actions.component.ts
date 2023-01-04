@@ -23,6 +23,10 @@ export class MonsterActionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getMonsterName(): string {
+    return this.monsterActor.getMonster()!.getBasicInfo().getName();
+  }
+
   getActions(): Action[] {
     return this.monsterActor.getMonster()!.getDetails().getActions();
   }
@@ -42,8 +46,10 @@ export class MonsterActionsComponent implements OnInit {
   }
 
   toggleSelectedActionRolls(action: Action) {
-    this.selectedAction = action;
-    this.showSelectedActionRolls = true;
+    if(action.getDescription().getDamageRolls().length > 0) {
+      this.selectedAction = action;
+      this.showSelectedActionRolls = true;
+    }
   }
 
 }

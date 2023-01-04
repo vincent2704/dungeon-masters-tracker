@@ -29,7 +29,7 @@ export class ActionDescription {
     return this.attackModifier;
   }
 
-  getDamageRoll(): DiceRoll[] {
+  getDamageRolls(): DiceRoll[] {
     return this.damageRolls;
   }
 

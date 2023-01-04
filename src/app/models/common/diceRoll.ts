@@ -22,4 +22,21 @@ export class DiceRoll {
     return this.staticAdditionalHP;
   }
 
+  toString(): string {
+    let damageRollString: string = `${this.hitPoints} ` +
+      `(${this.diceThrows}${this.dieType.getName()}`
+    let staticAdditionalHp = this.getStaticAdditionalHP();
+    if (staticAdditionalHp == 0) {
+      damageRollString += `)`;
+    } else {
+      if(staticAdditionalHp > 0) {
+        damageRollString += ` + ${staticAdditionalHp})`;
+      } else {
+        staticAdditionalHp = Math.abs(staticAdditionalHp)
+        damageRollString += ` - ${staticAdditionalHp})`;
+      }
+    }
+    return damageRollString;
+  }
+
 }
