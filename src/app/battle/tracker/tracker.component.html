@@ -5,22 +5,26 @@
   <thead>
   <tr>
     <th i18n="|Column showing character name"
-        scope="col">Character
+        scope="col"
+        class="col-md-2">Character
     </th>
     <th i18n="|Column showing character Hit Points, current and maximum in brackets"
-        scope="col">Hit Points (Max)
+        scope="col"
+        class="col-md-6">Hit Points (Max)
     </th>
     <th i18n="|Column showing Conditions which given character is under effect of"
-        scope="col">Conditions
+        scope="col"
+        class="col-md-2">Conditions
     </th>
-    <th scope="col"></th>
+    <th scope="col"
+        class="col-md-2"></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let actor of actors">
-    <td>{{actor.name}}</td>
+    <td class="col-md-2">{{actor.name}}</td>
 <!--                    <td>{{actor | json}}</td>-->
-    <td>
+    <td class="col-md-6">
       <div class="row">
         <div class="col">{{actor.currentHp}} ({{actor.maxHp}})</div>
         <div class="col">
@@ -39,10 +43,10 @@
         </app-death-saving-throws>
       </div>
     </td>
-    <td>
+    <td class="col-md-2">
       <app-condition [actor]="actor"></app-condition>
     </td>
-    <td>
+    <td  class="col-md-2">
       <button i18n="progress button|Button used to indicate that a character have progressed their turn"
               class="btn" (click)="progressActor(actor)" [disabled]="isActorProgressed(actor)">
         Progress
