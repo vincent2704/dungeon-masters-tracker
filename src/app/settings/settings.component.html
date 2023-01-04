@@ -1,24 +1,28 @@
-<div class="w-25">
-  <div class="row">
-    <div class="col">
-      <label class="form-check-label" for="metricSystemSwitch">Use metric system</label>
-    </div>
-    <div class="col">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="metricSystemSwitch" [checked]="isUsingSISystem()"
+<div class="row">
+  <div class="col">
+    <h4>General</h4>
+    <div class="list-group">
+      <label class="list-group-item">
+        <input class="form-check-input" type="checkbox" [checked]="isUsingSISystem()"
                (change)="onUseSISystemChange()">
-      </div>
+        Use metric system
+      </label>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <label for="autoLoadProtagonistsSwitch" class="form-check-label">Load protagonists</label>
-    </div>
-    <div class="col">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="autoLoadProtagonistsSwitch" [checked]="isAutoLoadProtagonists()"
+
+  <div class="col">
+    <h4>Battle</h4>
+    <div class="list-group">
+      <label class="list-group-item">
+        <input class="form-check-input" type="checkbox" [checked]="isAutoLoadProtagonists()"
                (change)="onAutoLoadProtagonistsChange()">
-      </div>
+        Automatically load Player Characters to the initial battle list
+      </label>
+      <label class="list-group-item">
+        <input class="form-check-input" type="checkbox" [checked]="isAutoLoadMonsterActions()"
+               (change)="onAutoLoadMonsterActionsChange()">
+        Automatically load all Monster Actions in the battle tracker
+      </label>
     </div>
   </div>
 </div>

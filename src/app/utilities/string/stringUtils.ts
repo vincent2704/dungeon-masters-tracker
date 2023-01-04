@@ -1,8 +1,30 @@
 import {MeasurementSystem} from "../../services/measurement-system/measurement.system";
+import {DiceRoll} from "../../models/common/diceRoll";
 
 export class StringUtils {
 
-  static formatDescription(description: string): string {
+  static formatActionDescription(description: string, attackModifier: number, damageRolls: DiceRoll[]): string {
+    if (attackModifier > 0) {
+      description = `+${attackModifier} ` + description
+    }
+    if (damageRolls.length > 0) {
+      description = this.formatDamageInfo(description, damageRolls);
+    }
+    description = this.formatDescription(description);
+
+    return description;
+  }
+
+  static formatDamageInfo(description: string, damageRolls: DiceRoll[]): string {
+    for(let roll of damageRolls) {
+      let damageRollString: string = roll.toString();
+      description = description.replace("{damageInfo}", damageRollString);
+    }
+
+    return description;
+  }
+
+  static formatDescription(description: string) {
     description = this.formatMiles(description);
     description = this.formatFeet(description);
 
@@ -14,11 +36,11 @@ export class StringUtils {
   // different calculation algorithm
   private static formatMiles(description: string): string {
     let mileDistances = description.match(/{[\w\d]+} ({miles}|{mile})/g)
-    if(mileDistances) {
+    if (mileDistances) {
       mileDistances.map(mileDistance => {
         description = description.replace("{miles}", MeasurementSystem.getMilesMeasurementUnitLong())
         description = description.replace("{mile}", MeasurementSystem.getMilesMeasurementUnitLongSingular())
-        return mileDistance.substring(mileDistance.indexOf("{")+1, mileDistance.indexOf("}"))
+        return mileDistance.substring(mileDistance.indexOf("{") + 1, mileDistance.indexOf("}"))
       }).forEach(mileDistanceValue => {
         description = description.replace(`{${mileDistanceValue}}`,
           MeasurementSystem.getMilesDistance(parseInt(mileDistanceValue)).toString())

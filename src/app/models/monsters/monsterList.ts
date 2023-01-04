@@ -22,7 +22,7 @@ import {SpecialTrait} from "./actions-and-traits/specialTrait";
 import {Action} from "./actions-and-traits/action";
 import {Reaction} from "./actions-and-traits/reaction";
 import {LegendaryAction} from "./actions-and-traits/legendaryAction";
-import {MonsterHitPoints} from "./monsterHitPoints";
+import {DiceRoll} from "../common/diceRoll";
 import {MonsterArmor} from "./monsterArmor";
 import {MonsterEquipment} from "./enums/monsterEquipment";
 import {DamageImmunities} from "./monster-damage-data/damageImmunities";
@@ -52,7 +52,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.ANIMATED_ARMOR_ID,
       'Animated Armor', MonsterSize.MEDIUM, MonsterType.CONSTRUCT, MonsterChallenge.ONE),
     new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(18, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(33, 6, DieType.D8, 6),
+      new DiceRoll(33, 6, DieType.D8, 6),
       [new MonsterSpeed(25)], new AbilitySet(14, 11, 13, 1, 3, 1),
       Action.ANIMATED_ARMOR_ACTIONS, SpecialTrait.ANIMATED_ARMOR_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
@@ -67,7 +67,7 @@ export class MonsterList {
       'Banshee', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.FOUR
     ),
     new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)],
-      new MonsterHitPoints(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
+      new DiceRoll(58, 13, DieType.D8), [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
       new AbilitySet(1, 14, 10, 12, 11, 17),
       Action.BANSHEE_ACTIONS, SpecialTrait.BANSHEE_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
@@ -85,7 +85,7 @@ export class MonsterList {
       'Basilisk', MonsterSize.MEDIUM, MonsterType.MONSTROSITY, MonsterChallenge.THREE),
     new MonsterDetails(
       Alignment.UNALIGNED, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
+      new DiceRoll(52, 8, DieType.D8, 16), [new MonsterSpeed(20)],
       new AbilitySet(16, 8, 15, 2, 8, 7),
       Action.BASILISK_ACTIONS, SpecialTrait.BASILISK_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9)
@@ -96,7 +96,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.BUGBEAR_ID,
       'Bugbear', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE),
     new MonsterDetails(Alignment.CHAOTIC_EVIL,
-      [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(27, 5, DieType.D8, 5),
+      [new MonsterArmor(16, [MonsterEquipment.HIDE_ARMOR, MonsterEquipment.SHIELD])], new DiceRoll(27, 5, DieType.D8, 5),
       [new MonsterSpeed(30)], new AbilitySet(15, 14, 13, 8, 11, 9),
       Action.BUGBEAR_ACTIONS, SpecialTrait.BUGBEAR_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
@@ -110,7 +110,7 @@ export class MonsterList {
       'Flying Sword', MonsterSize.SMALL, MonsterType.CONSTRUCT, MonsterChallenge.ONE_FOURTH
     ),
     new MonsterDetails(
-      Alignment.UNALIGNED, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(17, 5, DieType.D6),
+      Alignment.UNALIGNED, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new DiceRoll(17, 5, DieType.D6),
       [new MonsterSpeed(0), new MonsterSpeed(50, MovementType.FLY)],
       new AbilitySet(12, 15, 11, 1, 5, 1),
       Action.FLYING_SWORD_ACTIONS, SpecialTrait.FLYING_SWORD_SPECIAL_TRAITS,
@@ -125,7 +125,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.GOBLIN_ID,
       'Goblin', MonsterSize.SMALL, MonsterType.HUMANOID, MonsterChallenge.ONE_FOURTH),
     new MonsterDetails(Alignment.NEUTRAL_EVIL,
-      [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new MonsterHitPoints(7, 2, DieType.D6),
+      [new MonsterArmor(15, [MonsterEquipment.LEATHER_ARMOR, MonsterEquipment.SHIELD])], new DiceRoll(7, 2, DieType.D6),
       [new MonsterSpeed(30)], new AbilitySet(8, 14, 10, 10, 8, 8),
       Action.GOBLIN_ACTIONS, SpecialTrait.GOBLIN_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9), [MonsterTag.GOBLINOID],
@@ -137,7 +137,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.OGRE_ID,
       'Ogre', MonsterSize.LARGE, MonsterType.GIANT, MonsterChallenge.TWO),
     new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [MonsterEquipment.HIDE_ARMOR])],
-      new MonsterHitPoints(59, 7, DieType.D10, 21), [new MonsterSpeed(40)],
+      new DiceRoll(59, 7, DieType.D10, 21), [new MonsterSpeed(40)],
       new AbilitySet(19, 8, 16, 5, 7, 7),
       Action.OGRE_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
       [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON), new SingleMonsterLanguage(Language.GIANT)])
@@ -148,7 +148,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.ORC_ID,
       'Orc', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.HALF),
     new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(13, [MonsterEquipment.HIDE_ARMOR])],
-      new MonsterHitPoints(15, 2, DieType.D8, 6), [new MonsterSpeed(30)],
+      new DiceRoll(15, 2, DieType.D8, 6), [new MonsterSpeed(30)],
       new AbilitySet(16, 12, 16, 7, 11, 10),
       Action.ORC_ACTIONS, SpecialTrait.ORC_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
       [MonsterTag.ORC], [], [new MonsterSkill(Skill.INTIMIDATION, 2)],
@@ -160,7 +160,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.GARGOYLE_ID,
       'Gargoyle', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, MonsterChallenge.TWO),
     new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(15, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(52, 7, DieType.D8, 21),
+      new DiceRoll(52, 7, DieType.D8, 21),
       [new MonsterSpeed(30), new MonsterSpeed(60, MovementType.FLY)],
       new AbilitySet(15, 11, 16, 6, 11, 7),
       Action.GARGOYLE_ACTIONS, SpecialTrait.GARGOYLE_SPECIAL_TRAITS,
@@ -175,7 +175,7 @@ export class MonsterList {
   static GHOST = new Monster(
     new MonsterBasicInfo(MonsterId.GHOST_ID,
       'Ghost', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.FOUR),
-    new MonsterDetails(Alignment.ANY, [new MonsterArmor(11)], new MonsterHitPoints(45, 10, DieType.D8),
+    new MonsterDetails(Alignment.ANY, [new MonsterArmor(11)], new DiceRoll(45, 10, DieType.D8),
       [new MonsterSpeed(0), new MonsterSpeed(40, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
       new AbilitySet(7, 13, 10, 10, 12, 17),
       Action.GHOST_ACTIONS, SpecialTrait.GHOST_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 11),
@@ -192,7 +192,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.GHOUL_ID,
       'Ghoul', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE),
     new MonsterDetails(
-      Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)], new MonsterHitPoints(22, 5, DieType.D8),
+      Alignment.CHAOTIC_EVIL, [new MonsterArmor(12)], new DiceRoll(22, 5, DieType.D8),
       [new MonsterSpeed(30)], new AbilitySet(13, 15, 10, 7, 10, 6),
       Action.GHOUL_ACTIONS, [], new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 10),
       [], [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.COMMON)]), undefined,
@@ -205,7 +205,7 @@ export class MonsterList {
       'Skeleton', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
     new MonsterDetails(
       Alignment.LAWFUL_EVIL, [new MonsterArmor(13, [MonsterEquipment.ARMOR_SCRAPS])],
-      new MonsterHitPoints(13, 2, DieType.D8, 4), [new MonsterSpeed(30)],
+      new DiceRoll(13, 2, DieType.D8, 4), [new MonsterSpeed(30)],
       new AbilitySet(10, 14, 15, 6, 8, 5),
       Action.SKELETON_ACTIONS, [],
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 9),
@@ -220,7 +220,7 @@ export class MonsterList {
     ),
     new MonsterDetails(
       Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(39, 6, DieType.D8, 12),
+      new DiceRoll(39, 6, DieType.D8, 12),
       [new MonsterSpeed(0), new MonsterSpeed(30, MovementType.FLY, new MonsterSpeedDetails(MonsterSpeedNote.HOVER))],
       new AbilitySet(8, 14, 14, 13, 14, 11),
       Action.SPECTATOR_ACTIONS, [],
@@ -237,7 +237,7 @@ export class MonsterList {
       'Werewolf', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.THREE),
     new MonsterDetails(Alignment.CHAOTIC_EVIL, [new MonsterArmor(11, [], MonsterArmorDescription.IN_HUMANOID_FORM),
         new MonsterArmor(12, [MonsterEquipment.NATURAL_ARMOR], MonsterArmorDescription.IN_WOLF_OR_HYBRID_FORM)],
-      new MonsterHitPoints(58, 9, DieType.D8, 18),
+      new DiceRoll(58, 9, DieType.D8, 18),
       [new MonsterSpeed(30, MovementType.LAND, new MonsterSpeedDetails(MonsterSpeedNote.IN_WOLF_FORM, 40))],
       new AbilitySet(15, 13, 14, 10, 11, 10),
       Action.WEREWOLF_ACTIONS, SpecialTrait.WEREWOLF_SPECIAL_TRAITS,
@@ -254,7 +254,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.WIGHT_ID,
       'Wight', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.THREE),
     new MonsterDetails(Alignment.NEUTRAL_EVIL, [new MonsterArmor(14, [MonsterEquipment.STUDDED_LEATHER])],
-      new MonsterHitPoints(45, 6, DieType.D8, 18), [new MonsterSpeed(30)],
+      new DiceRoll(45, 6, DieType.D8, 18), [new MonsterSpeed(30)],
       new AbilitySet(15, 14, 16, 10, 13, 15),
       Action.WIGHT_ACTIONS, SpecialTrait.WIGHT_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 13),
       [], [], [new MonsterSkill(Skill.PERCEPTION, 3), new MonsterSkill(Skill.STEALTH, 4)],
@@ -268,7 +268,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.ZOMBIE_ID,
       'Zombie', MonsterSize.MEDIUM, MonsterType.UNDEAD, MonsterChallenge.ONE_FOURTH),
     new MonsterDetails(
-      Alignment.NEUTRAL_EVIL, [new MonsterArmor(8)], new MonsterHitPoints(22, 3, DieType.D8, 9),
+      Alignment.NEUTRAL_EVIL, [new MonsterArmor(8)], new DiceRoll(22, 3, DieType.D8, 9),
       [new MonsterSpeed(20)], new AbilitySet(13, 6, 16, 3, 6, 5),
       Action.ZOMBIE_ACTIONS, SpecialTrait.ZOMBIE_SPECIAL_TRAITS, new MonsterSenses([new MonsterSense(Sense.DARKVISION, 60)], 8),
       [], [new SavingThrow(Ability.WISDOM, 0)], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ALL_IN_LIFE)], 0, false),
@@ -281,7 +281,7 @@ export class MonsterList {
       'Bandit', MonsterSize.MEDIUM, MonsterType.HUMANOID, MonsterChallenge.ONE_EIGHTH
     ),
     new MonsterDetails(Alignment.ANY_NON_LAWFUL, [new MonsterArmor(12, [MonsterEquipment.LEATHER_ARMOR])],
-      new MonsterHitPoints(11, 2, DieType.D8, 2), [new MonsterSpeed(30)],
+      new DiceRoll(11, 2, DieType.D8, 2), [new MonsterSpeed(30)],
       new AbilitySet(11, 12, 12, 10, 10, 10),
       Action.BANDIT_ACTIONS, [], new MonsterSenses([], 10), [MonsterTag.ANY_RACE],
       [], [], new MonsterLanguages([new SingleMonsterLanguage(Language.ANY_USUALLY_COMMON)])
@@ -292,7 +292,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.ABOLETH_ID,
       'Aboleth', MonsterSize.LARGE, MonsterType.ABERRATION, MonsterChallenge.TEN),
     new MonsterDetails(
-      Alignment.LAWFUL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(135, 18, DieType.D10, 36),
+      Alignment.LAWFUL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])], new DiceRoll(135, 18, DieType.D10, 36),
       [new MonsterSpeed(10), new MonsterSpeed(40, MovementType.SWIM)],
       new AbilitySet(21, 9, 15, 18, 15, 18),
       Action.ABOLETH_ACTIONS, SpecialTrait.ABOLETH_SPECIAL_TRAITS,
@@ -310,7 +310,7 @@ export class MonsterList {
       'Deva', MonsterSize.MEDIUM, MonsterType.CELESTIAL, MonsterChallenge.TEN),
     new MonsterDetails(
       Alignment.LAWFUL_GOOD, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(136, 16, DieType.D8, 64),
+      new DiceRoll(136, 16, DieType.D8, 64),
       [new MonsterSpeed(30), new MonsterSpeed(90, MovementType.FLY)],
       new AbilitySet(18, 18, 18, 17, 20, 20),
       Action.DEVA_ACTIONS, SpecialTrait.DEVA_SPECIAL_TRAITS,
@@ -329,7 +329,7 @@ export class MonsterList {
       'Planetar', MonsterSize.LARGE, MonsterType.CELESTIAL, MonsterChallenge.SIXTEEN),
     new MonsterDetails(
       Alignment.LAWFUL_GOOD, [new MonsterArmor(19, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(200, 16, DieType.D10, 112),
+      new DiceRoll(200, 16, DieType.D10, 112),
       [new MonsterSpeed(40), new MonsterSpeed(120, MovementType.FLY)],
       new AbilitySet(24, 20, 24, 19, 22, 25),
       Action.PLANETAR_ACTIONS, SpecialTrait.PLANETAR_SPECIAL_TRAITS,
@@ -346,7 +346,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.SOLAR_ID,
       'Solar', MonsterSize.LARGE, MonsterType.CELESTIAL, MonsterChallenge.TWENTY_ONE),
     new MonsterDetails(Alignment.LAWFUL_GOOD,
-      [new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR])], new MonsterHitPoints(243, 18, DieType.D10, 144),
+      [new MonsterArmor(21, [MonsterEquipment.NATURAL_ARMOR])], new DiceRoll(243, 18, DieType.D10, 144),
       [new MonsterSpeed(50), new MonsterSpeed(150, MovementType.FLY)],
       new AbilitySet(26, 22, 26, 25, 25, 30),
       Action.SOLAR_ACTIONS, SpecialTrait.SOLAR_SPECIAL_TRAITS,
@@ -364,7 +364,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.RUG_OF_SMOTHERING_ID,
       'Rug of Smothering', MonsterSize.LARGE, MonsterType.CONSTRUCT, MonsterChallenge.TWO),
     new MonsterDetails(Alignment.UNALIGNED, [new MonsterArmor(12)],
-      new MonsterHitPoints(33, 6, DieType.D10), [new MonsterSpeed(10)],
+      new DiceRoll(33, 6, DieType.D10), [new MonsterSpeed(10)],
       new AbilitySet(17, 14, 10, 1, 3, 1),
       Action.RUG_OF_SMOTHERING_ACTIONS, SpecialTrait.RUG_OF_SMOTHERING_SPECIAL_TRAITS,
       new MonsterSenses([new MonsterSense(Sense.BLINDSIGHT, 60, MonsterSenseNote.BLIND_BEYOND_RADIUS)], 6),
@@ -379,7 +379,7 @@ export class MonsterList {
     ),
     new MonsterDetails(
       Alignment.UNALIGNED, [new MonsterArmor(14, [MonsterEquipment.NATURAL_ARMOR]), new MonsterArmor(11, [], MonsterArmorDescription.WHILE_PRONE)],
-      new MonsterHitPoints(39, 6, DieType.D10, 6),
+      new DiceRoll(39, 6, DieType.D10, 6),
       [new MonsterSpeed(30), new MonsterSpeed(10, MovementType.BURROW)],
       new AbilitySet(17, 11, 13, 1, 13, 6),
       Action.ANKHEG_ACTIONS, [],
@@ -391,7 +391,7 @@ export class MonsterList {
     new MonsterBasicInfo(MonsterId.AZER_ID,
       'Azer', MonsterSize.MEDIUM, MonsterType.ELEMENTAL, MonsterChallenge.TWO),
     new MonsterDetails(Alignment.LAWFUL_NEUTRAL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR, MonsterEquipment.SHIELD])],
-      new MonsterHitPoints(39, 6, DieType.D8, 12), [new MonsterSpeed(30)],
+      new DiceRoll(39, 6, DieType.D8, 12), [new MonsterSpeed(30)],
       new AbilitySet(17, 12, 15, 12, 13, 10),
       Action.AZER_ACTIONS, SpecialTrait.AZER_SPECIAL_TRAITS,
       new MonsterSenses([], 11), [], [new SavingThrow(Ability.CONSTITUTION, 4)],
@@ -405,7 +405,7 @@ export class MonsterList {
       'Behir', MonsterSize.HUGE, MonsterType.MONSTROSITY, MonsterChallenge.ELEVEN),
     new MonsterDetails(
       Alignment.NEUTRAL_EVIL, [new MonsterArmor(17, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(168, 16, DieType.D12, 64), [new MonsterSpeed(50), new MonsterSpeed(40, MovementType.CLIMB)],
+      new DiceRoll(168, 16, DieType.D12, 64), [new MonsterSpeed(50), new MonsterSpeed(40, MovementType.CLIMB)],
       new AbilitySet(23, 16, 18, 7, 14, 12),
       Action.BEHIR_ACTIONS, [],
       new MonsterSenses([new MonsterSense(Sense.DARKVISION, 90)], 16), [],
@@ -420,7 +420,7 @@ export class MonsterList {
       'Nightmare', MonsterSize.LARGE, MonsterType.FIEND, MonsterChallenge.THREE),
     new MonsterDetails(
       Alignment.NEUTRAL_EVIL, [new MonsterArmor(13, [MonsterEquipment.NATURAL_ARMOR])],
-      new MonsterHitPoints(68, 8, DieType.D10, 24),
+      new DiceRoll(68, 8, DieType.D10, 24),
       [new MonsterSpeed(60), new MonsterSpeed(90, MovementType.FLY)],
       new AbilitySet(18, 15, 16, 10, 13, 15),
       Action.NIGHTMARE_ACTIONS, SpecialTrait.NIGHTMARE_SPECIAL_TRAITS,

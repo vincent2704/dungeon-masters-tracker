@@ -13,7 +13,9 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {Campaign} from "../../models/campaign/campaign";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Action} from "../../models/monsters/actions-and-traits/action";
+import {Monster} from "../../models/monsters/monster";
+import {MonsterList} from "../../models/monsters/monsterList";
+import {Settings} from "../../services/settings/settings";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -206,23 +208,28 @@ describe('TrackerComponent', () => {
     expect(component.showDeathSavingThrows(actor)).toBeFalse();
   });
 
-  it("should randomize attack roll", () => {
+  it("should display monster actions according to the settings", () => {
     // given
-    const actor = new Actor('Actor 1', 1);
-    const action = Action.ANIMATED_ARMOR_ACTIONS[1];
-    expect(component.attackRolls.size).toEqual(0);
+    let actor1 = new Actor('1', 1)
+    actor1.setMonster(MonsterList.ORC)
+    let actor2 = new Actor('2', 2)
+    actor2.setMonster(MonsterList.WEREWOLF)
 
-    const key = 'Actor 1-Slam'
+    component.actors = [actor1, actor2]
+    expect(Settings.isAutoLoadMonsterActions()).toBeFalse();
 
-    // when
-    component.rollAttack(actor, action)
-    component.rollAttack(actor, action)
-    component.rollAttack(actor, action)
+    // case 1
+    component.ngOnInit();
+    expect(component.isShowActions(actor1)).toBeFalse();
+    expect(component.isShowActions(actor2)).toBeFalse();
 
-    // then
-    expect(component.attackRolls.size).toEqual(1);
-    expect(component.attackRolls.get(key)).toBeTruthy();
-    expect(component.attackRolls.get(key)!.length).toBeGreaterThanOrEqual(1);
+    // case 2
+    Settings.changeAutoLoadMonsterActions()
+    expect(Settings.isAutoLoadMonsterActions()).toBeTrue();
+
+    component.ngOnInit();
+    expect(component.isShowActions(actor1)).toBeTrue();
+    expect(component.isShowActions(actor2)).toBeTrue();
   });
 
 });

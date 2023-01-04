@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col">
+    <p>{{getMonsterName()}} Actions:</p>
+  </div>
+  <div *ngFor="let action of getActions()" class="col">
+    <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
+            (click)="toggleSelectedActionRolls(action)">
+      {{action.getName()}}
+    </button>
+  </div>
+</div>
+<div *ngIf="showSelectedActionRolls" class="row">
+  <div class="col">Selected Action: <h5 class="fst-italic">{{selectedAction.getName()}}</h5></div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="rollAttack()">
+      Roll Attack
+    </button>
+  </div>
+  <div class="col" *ngFor="let diceRoll of selectedAction.getDescription().getDamageRolls()">
+    <button class="btn btn-primary" (click)="rollHit(diceRoll, false)">Roll {{diceRoll.toString()}}</button>
+    <button class="btn btn-warning" (click)="rollHit(diceRoll, true)">Roll Critical Hit</button>
+  </div>
+  <div class="col">
+    <p *ngIf="attackRollResult.length > 0">Attack roll result: {{attackRollResult}}</p>
+    <p *ngIf="hitRollResult > 0">Damage dealt: {{hitRollResult}}</p>
+  </div>
+</div>

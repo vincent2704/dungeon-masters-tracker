@@ -3,6 +3,7 @@ import {Monster} from "../../models/monsters/monster";
 import {CombatData} from "../../models/combat-data/CombatData";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {Action} from "../../models/monsters/actions-and-traits/action";
+import {DiceRoll} from "../../models/common/diceRoll";
 
 export class CombatUtils {
 
@@ -16,8 +17,8 @@ export class CombatUtils {
     }, 0);
   }
 
-  public static throwDiceForAttackRoll(action: Action): string {
-    if(!action.getAttackModifier()) {
+  static throwDiceForAttackRoll(action: Action): string {
+    if(!action.getDescription().getAttackModifier()) {
       return '';
     }
     const thrownValue = this.getRandomNumber(1, 20);
@@ -27,7 +28,7 @@ export class CombatUtils {
     if(thrownValue == 20) {
       return 'Critical hit!';
     }
-    return `${this.getRandomNumber(1, 20) + action.getAttackModifier()}`;
+    return `${thrownValue + action.getDescription().getAttackModifier()}`;
   }
 
   static getEncounterMonsters(monsterList: Map<Monster, number>, hitPointsRule: MonsterHitPointsRule): Actor[] {
@@ -37,7 +38,7 @@ export class CombatUtils {
         let monsterHitPoints = monster.getDetails().getHitPoints();
         let monsterHP = hitPointsRule == MonsterHitPointsRule.FIXED
           ? monsterHitPoints.getHitPoints()
-          : this.throwDiceForHitPoints(monster);
+          : this.throwDice(monster.getDetails().getHitPoints());
         let battleParticipant = new Actor(`${monster.getBasicInfo().getName()}${i}`, monsterHP);
         battleParticipant.setDeathSavingThrowsEligibility(false);
         battleParticipant.setMonster(monster);
@@ -47,15 +48,17 @@ export class CombatUtils {
     return actorsToAdd;
   }
 
-  private static throwDiceForHitPoints(monster: Monster): number {
-    let hp = 0;
-    let monsterHitPoints = monster.getDetails().getHitPoints();
-    for (let diceThrow = 1; diceThrow <= monsterHitPoints.getDiceThrows(); diceThrow++) {
-      let maxDieValueThrown = monsterHitPoints.getDieType().getSides();
-      hp += this.getRandomNumber(1, maxDieValueThrown)
+  static throwDice(diceRoll: DiceRoll, criticalHit: boolean = false): number {
+    let result: number = 0;
+    const diceThrows = criticalHit
+      ? diceRoll.getDiceThrows() * 2
+      : diceRoll.getDiceThrows()
+    for (let diceThrow = 1; diceThrow <= diceThrows; diceThrow++) {
+      let maxDieValueThrown = diceRoll.getDieType().getSides();
+      result += this.getRandomNumber(1, maxDieValueThrown)
     }
-    hp += monsterHitPoints.getStaticAdditionalHP();
-    return hp;
+    result += diceRoll.getStaticAdditionalHP();
+    return result;
   }
 
   private static getRandomNumber(min: number, max: number) {

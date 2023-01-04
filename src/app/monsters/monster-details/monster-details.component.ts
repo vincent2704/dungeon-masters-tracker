@@ -34,13 +34,7 @@ export class MonsterDetailsComponent implements OnInit {
   }
 
   getActionDescription(action: Action): string {
-    let description: string = '';
-    const attackModifier = action.getAttackModifier();
-    if(attackModifier > 0) {
-      description = `+${attackModifier} `
-    }
-
-    return description + action.getDescription().getDescription();
+    return action.getDescription().getDescription();
   }
 
   getDamageResistances(): string {
