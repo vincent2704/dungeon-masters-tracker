@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <h2>Set up characters before starting the battle:</h2>
-      <table class="table table-hover table-dark">
+      <table *ngIf="actors.length > 0; else addActorBlock" class="table table-hover table-dark">
         <thead>
         <tr>
           <th scope="col">Actor</th>
@@ -29,6 +29,13 @@
         </tr>
         </tbody>
       </table>
+      <ng-template #addActorBlock>
+        <h4 class="fst-italic">
+          There are no Player Characters in your campaign or you have disabled loading them automatically to the
+          battle list. If you don't want to add any persistent Player Character or change the settings, you can
+          create a simple, temporary battle participant by using the input below.
+        </h4>
+      </ng-template>
     </div>
     <div class="col">
       <h2>Add predefined encounter:</h2>

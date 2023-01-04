@@ -13,20 +13,28 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onUseSISystemChange() {
+  onUseSISystemChange(): void {
     Settings.changeUsedMeasurementSystem();
   }
 
-  isUsingSISystem() {
+  onAutoLoadProtagonistsChange(): void {
+    Settings.changeAutoLoadProtagonists();
+  }
+
+  onAutoLoadMonsterActionsChange(): void {
+    Settings.changeAutoLoadMonsterActions();
+  }
+
+  isUsingSISystem(): boolean {
     return Settings.isUsingSISystem();
   }
 
-  isAutoLoadProtagonists() {
+  isAutoLoadProtagonists(): boolean {
     return Settings.isAutoLoadProtagonists();
   }
 
-  onAutoLoadProtagonistsChange() {
-    Settings.changeAutoLoadProtagonists();
+  isAutoLoadMonsterActions(): boolean {
+    return Settings.isAutoLoadMonsterActions();
   }
 
 }

@@ -6,6 +6,7 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {Settings} from "../../services/settings/settings";
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -32,6 +33,9 @@ export class TrackerComponent implements OnInit {
     this.round = 1;
     for (let actor of this.actors) {
       this.unconsciousActorsReceivingDamage.set(actor, false);
+      if(Settings.isAutoLoadMonsterActions() && actor.getMonster()) {
+        this.monsterWithActionsShown.set(actor.getName(), true);
+      }
     }
   }
 

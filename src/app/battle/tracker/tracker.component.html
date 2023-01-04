@@ -26,6 +26,7 @@
       {{actor.name}}
       <div *ngIf="actor.getMonster()" class="form-check">
         <input class="form-check-input" type="checkbox" [attr.id]="actor.name+'-show-actions-checkbox'"
+               [checked]="monsterWithActionsShown.get(actor.getName())"
         (change)="toggleShowActions(actor)">
         <label class="form-check-label" [for]="actor.name+'-show-actions-checkbox'">
           Show Actions

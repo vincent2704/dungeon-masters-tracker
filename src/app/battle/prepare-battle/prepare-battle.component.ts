@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {Monster} from "../../models/monsters/monster";
 import {Encounter} from "../../models/encounter";
@@ -6,6 +6,7 @@ import {EncounterService} from "../../services/encounter/encounter.service";
 import {BattleService} from "../../services/battle/battle.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {ActorService} from "../../services/actor/actor.service";
+import {Settings} from "../../services/settings/settings";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -31,18 +32,24 @@ export class PrepareBattleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters()
-      .subscribe(
-        response => {
-          this.actors = this.mapResponseToActorsArray(response)
-        },
-        error => {
-          console.log(error)
-        })
+    if(this.isAutoLoadProtagonists()) {
+      this.actorService.getPlayerCharacters()
+        .subscribe(
+          response => {
+            this.actors = this.mapResponseToActorsArray(response)
+          },
+          () => {
+            console.log("Prepare Battle - Player Characters retrieving error")
+          })
+    }
     this.encounters = this.encounterService.getEncounters();
     for(let actor of this.actors) {
       this.actorsToInitiativeMap.set(actor, 1);
     }
+  }
+
+  isAutoLoadProtagonists(): boolean {
+    return Settings.isAutoLoadProtagonists();
   }
 
   removeActor(actor: Actor) {
