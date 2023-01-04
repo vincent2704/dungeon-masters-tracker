@@ -15,6 +15,9 @@ export class MonsterActionsComponent implements OnInit {
 
   attackRolls: Map<string, string> = new Map<string, string>();
 
+  selectedAction!: Action;
+  showSelectedActionRolls: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -25,6 +28,9 @@ export class MonsterActionsComponent implements OnInit {
   }
 
   getAttackRollResult(action: Action): string | undefined {
+    if(!action) {
+      return '';
+    }
     const key = action.getName();
     return this.attackRolls.get(key);
   }
@@ -33,6 +39,11 @@ export class MonsterActionsComponent implements OnInit {
     const rollResult = CombatUtils.throwDiceForAttackRoll(action);
     const key = action.getName();
     this.attackRolls.set(key, rollResult);
+  }
+
+  toggleSelectedActionRolls(action: Action) {
+    this.selectedAction = action;
+    this.showSelectedActionRolls = true;
   }
 
 }

@@ -87,7 +87,7 @@ import { MonsterActionsComponent } from './battle/tracker/monster-actions/monste
     ProtagonistsEditorComponent,
     UnconsciousDamageComponent,
     NotesComponent,
-    MonsterActionsComponent,
+    MonsterActionsComponent
   ],
   imports: [
     BrowserModule,

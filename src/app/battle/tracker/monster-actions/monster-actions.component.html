@@ -1,7 +1,14 @@
 <div *ngFor="let action of getActions()" class="col">
   <button class="btn btn-primary" ngbTooltip="{{action.getDescription().getDescription()}}"
-          (click)="rollAttack(action)">
+          (click)="toggleSelectedActionRolls(action)">
     {{action.getName()}}
   </button>
-  <p *ngIf="getAttackRollResult(action)">{{getAttackRollResult(action)}}</p>
 </div>
+  <div *ngIf="showSelectedActionRolls">
+    <button class="btn btn-primary" (click)="rollAttack(selectedAction)">
+      Roll Attack {{selectedAction.getName()}}
+    </button>
+    <button class="btn btn-primary">Roll Hit</button>
+    <button class="btn btn-primary" (click)="showSelectedActionRolls = false">Hide</button>
+    <p *ngIf="getAttackRollResult(selectedAction)">Attack roll result: {{getAttackRollResult(selectedAction)}}</p>
+  </div>
