@@ -44,16 +44,14 @@ export class MonsterActionsComponent implements OnInit {
   }
 
   toggleSelectedActionRolls(action: Action) {
-    if(action.getDescription().getDamageRolls().length > 0) {
+    if(!this.showSelectedActionRolls && action.getDescription().getDamageRolls().length > 0) {
       this.selectedAction = action;
       this.showSelectedActionRolls = true;
+    } else {
+      this.showSelectedActionRolls = false;
+      this.hitRollResult = 0;
+      this.attackRollResult = '';
     }
-  }
-
-  hideRolls(): void {
-    this.showSelectedActionRolls = false;
-    this.hitRollResult = 0;
-    this.attackRollResult = '';
   }
 
 }
