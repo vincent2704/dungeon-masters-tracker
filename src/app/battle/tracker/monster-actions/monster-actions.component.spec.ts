@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonsterActionsComponent } from './monster-actions.component';
+import { NgbTooltip } from "@ng-bootstrap/ng-bootstrap";
 import {Actor} from "../../../models/actors/actor";
 import {Action} from "../../../models/monsters/actions-and-traits/action";
 import {MonsterList} from "../../../models/monsters/monsterList";
@@ -12,7 +13,7 @@ describe('MonsterActionsComponent', () => {
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
-      declarations: [ MonsterActionsComponent ]
+      declarations: [ MonsterActionsComponent, NgbTooltip ]
     })
     .compileComponents();
   });
@@ -31,20 +32,26 @@ describe('MonsterActionsComponent', () => {
 
   it("should randomize attack roll", () => {
     // given
-    const action = Action.ANIMATED_ARMOR_ACTIONS[1]; // Slam
-    expect(component.attackRolls.size).toEqual(0);
-
-    const key = 'Slam'
+    component.selectedAction = Action.ANIMATED_ARMOR_ACTIONS[1]; // Slam
 
     // when
-    component.rollAttack(action)
-    component.rollAttack(action)
-    component.rollAttack(action)
+    component.rollAttack()
 
     // then
-    expect(component.attackRolls.size).toEqual(1);
-    expect(component.attackRolls.get(key)).toBeTruthy();
-    expect(component.attackRolls.get(key)!.length).toBeGreaterThanOrEqual(1);
+    expect(component.attackRollResult.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("should randomize hit roll", () => {
+    // given
+    component.selectedAction = Action.ANIMATED_ARMOR_ACTIONS[1]; // Slam
+    const roll = component.selectedAction.getDescription().getDamageRolls()[0];
+
+    // when
+    component.rollHit(roll, false)
+
+    // then
+    // 3 is the lowest possible damage value for this Action
+    expect(component.hitRollResult).toBeGreaterThanOrEqual(3);
   });
 
 });

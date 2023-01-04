@@ -13,6 +13,9 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {Campaign} from "../../models/campaign/campaign";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {Monster} from "../../models/monsters/monster";
+import {MonsterList} from "../../models/monsters/monsterList";
+import {Settings} from "../../services/settings/settings";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -203,6 +206,30 @@ describe('TrackerComponent', () => {
 
     // then
     expect(component.showDeathSavingThrows(actor)).toBeFalse();
+  });
+
+  it("should display monster actions according to the settings", () => {
+    // given
+    let actor1 = new Actor('1', 1)
+    actor1.setMonster(MonsterList.ORC)
+    let actor2 = new Actor('2', 2)
+    actor2.setMonster(MonsterList.WEREWOLF)
+
+    component.actors = [actor1, actor2]
+    expect(Settings.isAutoLoadMonsterActions()).toBeFalse();
+
+    // case 1
+    component.ngOnInit();
+    expect(component.isShowActions(actor1)).toBeFalse();
+    expect(component.isShowActions(actor2)).toBeFalse();
+
+    // case 2
+    Settings.changeAutoLoadMonsterActions()
+    expect(Settings.isAutoLoadMonsterActions()).toBeTrue();
+
+    component.ngOnInit();
+    expect(component.isShowActions(actor1)).toBeTrue();
+    expect(component.isShowActions(actor2)).toBeTrue();
   });
 
 });
