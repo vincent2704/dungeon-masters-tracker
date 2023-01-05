@@ -34,12 +34,10 @@ export class MonsterActionsComponent implements OnInit {
   }
 
   rollAttack() {
-    this.hitRollResult = undefined;
     this.attackRollResult = CombatUtils.rollAttack(this.selectedAction);
   }
 
   rollHit(diceRoll: DiceRoll, criticalHit: boolean) {
-    this.attackRollResult = undefined;
     this.hitRollResult = `${CombatUtils.throwDice(diceRoll, criticalHit)}`;
   }
 
