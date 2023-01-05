@@ -23,6 +23,10 @@ export class AbilitySet {
     this.charisma = new AbilityScore(Ability.CHARISMA, charismaScore);
   }
 
+  getAbilityScore(abilityNameShort: string): AbilityScore {
+    return this.getAbilityScores().find(scoreToFind => scoreToFind.getAbility().getNameShort() == abilityNameShort)!;
+  }
+
   getStrength(): AbilityScore {
     return this.strength;
   }

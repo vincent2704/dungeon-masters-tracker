@@ -1,1 +1,52 @@
-<p>saving-throws works!</p>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getStrength().getAbility().getNameShort())">
+    <span class="row">
+    <span class="col">
+      {{abilitySet.getStrength().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getStrength())}}
+</button>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getDexterity().getAbility().getNameShort())">
+    <span class="row">
+    <span class="col">
+      {{abilitySet.getDexterity().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getDexterity())}}
+</button>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getConstitution().getAbility().getNameShort())">
+    <span class="row">
+    <span class="col">
+      {{abilitySet.getConstitution().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getConstitution())}}
+</button>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getIntelligence().getAbility().getNameShort())">
+    <span class="row">
+    <span class="col">
+      {{abilitySet.getIntelligence().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getIntelligence())}}
+</button>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getWisdom().getAbility().getNameShort())">
+    <span class="row">
+    <span class="col">
+      {{abilitySet.getWisdom().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getWisdom())}}
+</button>
+<button class="btn btn-primary" (click)="rollSavingThrow(abilitySet.getCharisma().getAbility().getNameShort())">
+  <span class="row">
+    <span class="col">
+      {{abilitySet.getCharisma().getAbility().getNameShort()}}
+    </span>
+  </span>
+  {{getAbilityInfo(abilitySet.getCharisma())}}
+</button>
+
+<div *ngIf="abilityThrown && throwResult">
+  <h5 class="fst-italic d-inline">{{abilityThrown.getNameShort()}}</h5> saving throw result: {{throwResult}}
+</div>
