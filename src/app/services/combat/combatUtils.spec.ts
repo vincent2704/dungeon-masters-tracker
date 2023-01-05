@@ -66,8 +66,8 @@ describe('CombatUtils', () => {
     const action1 = Action.ANIMATED_ARMOR_ACTIONS[0] // no modifier
     const action2 = Action.ANIMATED_ARMOR_ACTIONS[1] // +4 to hit
 
-    expect(CombatUtils.throwDiceForAttackRoll(action1)).toEqual('');
-    expect(CombatUtils.throwDiceForAttackRoll(action2)).not.toEqual('');
+    expect(CombatUtils.rollAttack(action1)).toEqual('');
+    expect(CombatUtils.rollAttack(action2)).not.toEqual('');
   });
 
 });

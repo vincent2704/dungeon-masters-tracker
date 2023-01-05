@@ -38,7 +38,7 @@ describe('MonsterActionsComponent', () => {
     component.rollAttack()
 
     // then
-    expect(component.attackRollResult.length).toBeGreaterThanOrEqual(1);
+    expect(component.attackRollResult).toBeTruthy();
   });
 
   it("should randomize hit roll", () => {

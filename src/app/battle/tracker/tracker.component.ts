@@ -7,6 +7,7 @@ import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinis
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 import {Settings} from "../../services/settings/settings";
+import {AbilitySet} from "../../models/common/ability/abilitySet";
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -25,6 +26,7 @@ export class TrackerComponent implements OnInit {
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
   monsterWithActionsShown: Map<string, boolean> = new Map<string, boolean>();
+  monsterWithSavingThrowsShown: Map<string, boolean> = new Map<string, boolean>();
 
   constructor(private campaignService: CampaignService, private actorService: ActorService) {
   }
@@ -157,5 +159,25 @@ export class TrackerComponent implements OnInit {
 
   isShowActions(actor: Actor): boolean {
     return !!this.monsterWithActionsShown.get(actor.getName());
+  }
+
+  toggleShowSavingThrows(actor: Actor): void {
+    if(this.monsterWithSavingThrowsShown.get(actor.getName())) {
+      this.monsterWithSavingThrowsShown.set(actor.getName(), false);
+    } else {
+      this.monsterWithSavingThrowsShown.set(actor.getName(), true)
+    }
+  }
+
+  isShowSavingThrows(actor: Actor): boolean {
+    return !!this.monsterWithSavingThrowsShown.get(actor.getName());
+  }
+
+  getAbilitySet(actor: Actor): AbilitySet | undefined {
+    const actorMonster = actor.getMonster();
+    if(actorMonster) {
+      return actorMonster.getDetails().getAbilitySet();
+    }
+    return undefined;
   }
 }

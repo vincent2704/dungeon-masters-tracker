@@ -15,13 +15,11 @@
     <button class="btn btn-primary" (click)="rollAttack()">
       Roll Attack
     </button>
+    <p *ngIf="attackRollResult">Attack roll result: {{attackRollResult}}</p>
   </div>
   <div class="col" *ngFor="let diceRoll of selectedAction.getDescription().getDamageRolls()">
     <button class="btn btn-primary" (click)="rollHit(diceRoll, false)">Roll {{diceRoll.toString()}}</button>
     <button class="btn btn-warning" (click)="rollHit(diceRoll, true)">Roll Critical Hit</button>
-  </div>
-  <div class="col">
-    <p *ngIf="attackRollResult.length > 0">Attack roll result: {{attackRollResult}}</p>
-    <p *ngIf="hitRollResult > 0">Damage dealt: {{hitRollResult}}</p>
+    <p *ngIf="hitRollResult">Damage dealt: {{hitRollResult}}</p>
   </div>
 </div>

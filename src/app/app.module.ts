@@ -45,6 +45,7 @@ import { UnconsciousDamageComponent } from './battle/tracker/death-saving-throws
 import { NotesComponent } from './notes/notes.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MonsterActionsComponent } from './battle/tracker/monster-actions/monster-actions.component';
+import { SavingThrowsComponent } from './battle/tracker/saving-throws/saving-throws.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { MonsterActionsComponent } from './battle/tracker/monster-actions/monste
     ProtagonistsEditorComponent,
     UnconsciousDamageComponent,
     NotesComponent,
-    MonsterActionsComponent
+    MonsterActionsComponent,
+    SavingThrowsComponent
   ],
   imports: [
     BrowserModule,

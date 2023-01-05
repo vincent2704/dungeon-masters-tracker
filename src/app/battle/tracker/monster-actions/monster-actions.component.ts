@@ -17,8 +17,8 @@ export class MonsterActionsComponent implements OnInit {
   selectedAction!: Action;
   showSelectedActionRolls: boolean = false;
 
-  attackRollResult: string = '';
-  hitRollResult: number = 0;
+  attackRollResult?: string;
+  hitRollResult?: string;
 
   constructor() { }
 
@@ -34,13 +34,11 @@ export class MonsterActionsComponent implements OnInit {
   }
 
   rollAttack() {
-    this.hitRollResult = 0;
-    this.attackRollResult = CombatUtils.throwDiceForAttackRoll(this.selectedAction);
+    this.attackRollResult = CombatUtils.rollAttack(this.selectedAction);
   }
 
   rollHit(diceRoll: DiceRoll, criticalHit: boolean) {
-    this.attackRollResult = '';
-    this.hitRollResult = CombatUtils.throwDice(diceRoll, criticalHit);
+    this.hitRollResult = `${CombatUtils.throwDice(diceRoll, criticalHit)}`;
   }
 
   toggleSelectedActionRolls(action: Action) {
@@ -49,8 +47,8 @@ export class MonsterActionsComponent implements OnInit {
       this.showSelectedActionRolls = true;
     } else {
       this.showSelectedActionRolls = false;
-      this.hitRollResult = 0;
-      this.attackRollResult = '';
+      this.attackRollResult = undefined;
+      this.hitRollResult = undefined;
     }
   }
 

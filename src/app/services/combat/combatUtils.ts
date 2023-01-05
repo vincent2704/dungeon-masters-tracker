@@ -4,6 +4,9 @@ import {CombatData} from "../../models/combat-data/CombatData";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {Action} from "../../models/monsters/actions-and-traits/action";
 import {DiceRoll} from "../../models/common/diceRoll";
+import {AbilityScore} from "../../models/common/ability/abilityScore";
+import {DieType} from "../../models/common/dieType";
+import {Ability} from "../../models/common/ability/ability";
 
 export class CombatUtils {
 
@@ -17,7 +20,13 @@ export class CombatUtils {
     }, 0);
   }
 
-  static throwDiceForAttackRoll(action: Action): string {
+  static rollSavingThrow(abilityScore: AbilityScore): number {
+    const abilityModifier = Ability.ABILITY_MODIFIERS.get(abilityScore.getScore());
+    const roll = new DiceRoll(0, 1, DieType.D20, abilityModifier);
+    return this.throwDice(roll);
+  }
+
+  static rollAttack(action: Action): string {
     if(!action.getDescription().getAttackModifier()) {
       return '';
     }
