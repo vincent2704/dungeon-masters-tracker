@@ -32,6 +32,14 @@
           Show Actions
         </label>
       </div>
+      <div *ngIf="actor.getMonster()" class="form-check">
+        <input class="form-check-input" type="checkbox" [attr.id]="actor.name+'-show-saving-throws-checkbox'"
+               [checked]="monsterWithSavingThrowsShown.get(actor.getName())"
+               (change)="toggleShowSavingThrows(actor)">
+        <label class="form-check-label" [for]="actor.name+'-show-saving-throws-checkbox'">
+          Show saving throws
+        </label>
+      </div>
     </td>
     <!--                    <td>{{actor | json}}</td>-->
     <td class="col-md-6">
@@ -45,6 +53,7 @@
       </div>
       <app-temporary-hit-points *ngIf="!actor.isDead()" [character]="actor"></app-temporary-hit-points>
       <app-monster-actions *ngIf="isMonster(actor) && isShowActions(actor)" [monsterActor]="actor"></app-monster-actions>
+      <app-saving-throws *ngIf="isMonster(actor) && isShowSavingThrows(actor) && getAbilitySet(actor)" [abilitySet]="getAbilitySet(actor)!"></app-saving-throws>
       <div *ngIf="showDeathSavingThrows(actor)">
         <app-death-saving-throws
           [actor]="actor" [actorReceivingDamage]="isUnconsciousActorReceivingDamage(actor)"
