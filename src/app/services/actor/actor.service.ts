@@ -2,20 +2,16 @@ import {Injectable} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {Condition} from "../../models/Condition";
 import {BattleCondition} from "../../models/battleCondition";
-import {Observable, of} from "rxjs";
+import {Observable} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
-import {environment} from "../../../environments/environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
-import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActorService {
-
-  private demoPlayers: PlayerCharacter[] = [];
 
   private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
   private readonly battleFinishedUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters/finish-battle`
@@ -28,23 +24,6 @@ export class ActorService {
 
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
-  }
-
-  fromJson(data: PlayerCharacter): Actor {
-    let actor = new Actor(data.name, data.maxHp);
-
-    actor.id = data.id;
-    actor.currentHp = data.currentHp!;
-    actor.level = data.level;
-    actor.type = BattleParticipantType.PLAYER_CHARACTER;
-
-    const timeOfDeath = data.timeOfDeathEpoch
-      ? new Date(data.timeOfDeathEpoch)
-      : undefined
-    actor.setTimeOfDeath(timeOfDeath);
-    actor.setResurrectionPenalty(data.resurrectionPenalty!);
-
-    return actor;
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {

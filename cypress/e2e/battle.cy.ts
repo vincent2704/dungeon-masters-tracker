@@ -73,4 +73,7 @@ describe('battle', () => {
     cy.contains(actor2Name);
   })
 
+  // TODO:
+  // - prepare battle encounter difficulty changes when removing player characters from the list
+
 })

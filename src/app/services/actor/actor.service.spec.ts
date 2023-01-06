@@ -5,6 +5,7 @@ import {Actor} from "../../models/actors/actor";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import {ActorUtils} from "../../utilities/actor/actorUtils";
 
 describe('actorService', () => {
   let service: ActorService;
@@ -54,7 +55,7 @@ describe('actorService', () => {
     expectedActor.setTimeOfDeath(undefined);
 
     // when
-    const result = service.fromJson(playerCharacter)
+    const result = ActorUtils.fromJson(playerCharacter)
 
     // then
     expect(result).toEqual(expectedActor)

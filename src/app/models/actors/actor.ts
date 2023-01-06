@@ -66,6 +66,14 @@ export class Actor {
     return this.currentHp;
   }
 
+  getType() {
+    return this.type;
+  }
+
+  setType(type: BattleParticipantType): void {
+    this.type = type;
+  }
+
   getMonster(): Monster | undefined {
     return this.monster;
   }

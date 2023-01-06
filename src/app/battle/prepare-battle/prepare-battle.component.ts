@@ -1,12 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {Monster} from "../../models/monsters/monster";
 import {Encounter} from "../../models/encounter";
 import {EncounterService} from "../../services/encounter/encounter.service";
 import {BattleService} from "../../services/battle/battle.service";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {ActorService} from "../../services/actor/actor.service";
 import {Settings} from "../../services/settings/settings";
+import {ActorUtils} from "../../utilities/actor/actorUtils";
+import {MonsterBattleListSelectorComponent} from "./monster-selector/monster-battle-list-selector.component";
 
 @Component({
   selector: 'app-prepare-battle',
@@ -17,8 +18,8 @@ export class PrepareBattleComponent implements OnInit {
 
   actors: Actor[] = [];
 
-  // TODO: filter playerCharacters from Actors
-  playerCharacters: PlayerCharacter[] = [];
+  @ViewChild('monsterBattleListSelectorComponent')
+  monsterListSelector!: MonsterBattleListSelectorComponent;
 
   @Output()
   battleStartedEmitter = new EventEmitter<Map<Monster, number>>();
@@ -36,7 +37,8 @@ export class PrepareBattleComponent implements OnInit {
       this.actorService.getPlayerCharacters()
         .subscribe(
           response => {
-            this.actors = this.mapResponseToActorsArray(response)
+            this.actors = ActorUtils.fromJsonArray(response);
+            this.monsterListSelector.actors = this.actors;
           },
           () => {
             console.log("Prepare Battle - Player Characters retrieving error")
@@ -54,6 +56,8 @@ export class PrepareBattleComponent implements OnInit {
 
   removeActor(actor: Actor) {
     this.actors.splice(this.actors.indexOf(actor), 1);
+    this.monsterListSelector.actors = this.actors;
+    this.monsterListSelector.updateDifficulty();
   }
 
   setActorInitiative(actor: Actor, event: any) {
@@ -85,9 +89,4 @@ export class PrepareBattleComponent implements OnInit {
     return 0;
   }
 
-  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
-    return playerCharacters.map(character => {
-      return this.actorService.fromJson(character)
-    })
-  }
 }
