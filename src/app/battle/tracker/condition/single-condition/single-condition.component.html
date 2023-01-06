@@ -1,0 +1,33 @@
+<button *ngIf="!isExhaustion()" class="btn btn-primary" [ngbTooltip]="tooltip">{{condition.getName()}}</button>
+<button *ngIf="isExhaustion()" class="btn btn-primary" placement="left"
+        [ngbTooltip]="exhaustionTooltip">{{condition.getName()}}</button>
+
+<ng-template #tooltip>
+    <ul class="list-group">
+      <li *ngFor="let descriptionPoint of condition.getDescription()" class="list-group-item">
+        {{descriptionPoint}}
+      </li>
+    </ul>
+</ng-template>
+
+<ng-template #exhaustionTooltip>
+  <ul class="list-group">
+    <li *ngFor="let descriptionPoint of condition.getDescription()" class="list-group-item">
+      {{descriptionPoint}}
+    </li>
+  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let levelToDescription of exhaustionLevelsMap | keyvalue">
+        <td>{{levelToDescription.key}}</td>
+        <td>{{levelToDescription.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

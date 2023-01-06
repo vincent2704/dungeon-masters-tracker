@@ -1,9 +1,6 @@
 export class Condition {
 
-  private constructor(private name: string, private description: string[],
-                      private levels?: Map<number, string> // for Exhaustion only
-  ) {
-  }
+  private constructor(private name: string, private description: string[]) {}
 
   public getName() {
     return this.name;
@@ -160,18 +157,19 @@ export class Condition {
       "by 1, provided that the creature has also ingested some " +
       "food and drink. Also, being raised from the dead reduces a " +
       "creature’s exhaustion level by 1."
-    ],
-    new Map<number, string>(
-      [
-        [1, 'Disadvantage on ability checks'],
-        [2, 'Speed halved'],
-        [3, 'Disadvantage on attack rolls and saving throws'],
-        [4, 'Hit point maximum halved'],
-        [5, 'Speed reduced to 0'],
-        [6, 'Death'],
-      ]
-    )
+    ]
   );
+
+  static EXHAUSTION_LEVELS = new Map<number, string>(
+    [
+      [1, 'Disadvantage on ability checks'],
+      [2, 'Speed halved'],
+      [3, 'Disadvantage on attack rolls and saving throws'],
+      [4, 'Hit point maximum halved'],
+      [5, 'Speed reduced to 0'],
+      [6, 'Death'],
+    ]
+  )
 
   static ALL_CONDITIONS: Condition[] = [
     Condition.BLINDED, Condition.CHARMED, Condition.DEAFENED, Condition.FRIGHTENED, Condition.GRAPPLED,

@@ -3,8 +3,7 @@
   <div *ngFor="let battleCondition of actor.battleConditions">
     <div class="row">
       <div class="col-sm">
-        <button *ngIf="!isExhaustion(battleCondition); else exhaustionConditionBlock" class="btn btn-primary" ngbTooltip="{{battleCondition.getDescription()}}">{{battleCondition.getName()}}</button>
-        <ng-template #exhaustionConditionBlock>Exhaustion! TODO</ng-template>
+        <app-single-condition [condition]="battleCondition"></app-single-condition>
       </div>
       <div class="col-sm">
         <div i18n="duration left label|Text representing how many turns are left for a Condition to wear off"

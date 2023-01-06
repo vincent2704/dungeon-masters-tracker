@@ -54,8 +54,4 @@ export class ConditionComponent implements OnInit {
     return condition.getCondition() === Condition.UNCONSCIOUS && actor.getCurrentHP() == 0;
   }
 
-  isExhaustion(condition: BattleCondition): boolean {
-    return condition.getCondition() == Condition.EXHAUSTION;
-  }
-
 }
