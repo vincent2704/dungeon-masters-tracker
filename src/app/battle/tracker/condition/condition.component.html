@@ -3,7 +3,8 @@
   <div *ngFor="let battleCondition of actor.battleConditions">
     <div class="row">
       <div class="col-sm">
-        <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
+        <button *ngIf="!isExhaustion(battleCondition); else exhaustionConditionBlock" class="btn btn-primary" ngbTooltip="{{battleCondition.getDescription()}}">{{battleCondition.getName()}}</button>
+        <ng-template #exhaustionConditionBlock>Exhaustion! TODO</ng-template>
       </div>
       <div class="col-sm">
         <div i18n="duration left label|Text representing how many turns are left for a Condition to wear off"
@@ -15,11 +16,6 @@
         <button i18n="remove condition button|Button used to remove condition from a Character"
                 class="btn btn-info" [disabled]="isDisabled(battleCondition, actor)"
                 (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
-      </div>
-      <div class="row" *ngIf="showDescription">
-        <div *ngFor="let description of battleCondition.getDescription()">
-          {{description}}
-        </div>
       </div>
     </div>
   </div>

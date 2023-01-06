@@ -16,8 +16,6 @@ export class ConditionComponent implements OnInit {
   @Input()
   actor!: Actor;
 
-  showDescription: boolean = false;
-
   // condition form
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
@@ -30,10 +28,6 @@ export class ConditionComponent implements OnInit {
 
   removeCondition(condition: Condition) {
     this.actorService.removeCondition(this.actor, condition);
-  }
-
-  onShowDescription() {
-    this.showDescription = !this.showDescription;
   }
 
   onSubmitCondition(actor: Actor) {
@@ -58,6 +52,10 @@ export class ConditionComponent implements OnInit {
 
   isDisabled(condition: BattleCondition, actor: Actor): boolean {
     return condition.getCondition() === Condition.UNCONSCIOUS && actor.getCurrentHP() == 0;
+  }
+
+  isExhaustion(condition: BattleCondition): boolean {
+    return condition.getCondition() == Condition.EXHAUSTION;
   }
 
 }
