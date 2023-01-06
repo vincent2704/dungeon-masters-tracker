@@ -4,7 +4,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {BattleService} from "../services/battle/battle.service";
 import {ActorService} from "../services/actor/actor.service";
 import {Settings} from "../services/settings/settings";
-import {PlayerCharacter} from "../models/actors/playerCharacter";
+import {ActorUtils} from "../utilities/actor/actorUtils";
 
 @Component({
   selector: 'app-battle',
@@ -39,7 +39,7 @@ export class BattleComponent implements OnInit {
       this.actorService.getPlayerCharacters()
         .subscribe(
           response => {
-            this.actors = this.mapResponseToActorsArray(response)
+            this.actors = ActorUtils.fromJsonArray(response);
           },
           error => {
             console.log(error)
@@ -135,12 +135,6 @@ export class BattleComponent implements OnInit {
     })
 
     return initiativeToActorsMap;
-  }
-
-  private mapResponseToActorsArray(playerCharacters: PlayerCharacter[]): Actor[] {
-    return playerCharacters.map(character => {
-      return this.actorService.fromJson(character)
-    })
   }
 
 }

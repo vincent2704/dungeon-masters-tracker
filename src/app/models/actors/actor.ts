@@ -66,6 +66,10 @@ export class Actor {
     return this.currentHp;
   }
 
+  getType() {
+    return this.type;
+  }
+
   getMonster(): Monster | undefined {
     return this.monster;
   }

@@ -2,12 +2,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Actor} from "../../models/actors/actor";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {ActorService} from "../../services/actor/actor.service";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {BattleParticipantType} from "../../models/actors/battleParticipantType";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 import {Settings} from "../../services/settings/settings";
 import {AbilitySet} from "../../models/common/ability/abilitySet";
+import {ActorUtils} from "../../utilities/actor/actorUtils";
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -108,7 +108,7 @@ export class TrackerComponent implements OnInit {
             this.campaignService.updateCampaign(campaignUpdateRequest)
               .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
           }
-          this.battleEndedEmitter.emit(this.mapPlayerCharactersToActors(response));
+          this.battleEndedEmitter.emit(ActorUtils.fromJsonArray(response));
         },
         error => console.error(`Updating player characters failed. Error: ${error}`));
   }
@@ -127,12 +127,6 @@ export class TrackerComponent implements OnInit {
 
   private allActorsProgressed(): boolean {
     return this.actors.length === this.progressedActors.length;
-  }
-
-  private mapPlayerCharactersToActors(playerCharacters: PlayerCharacter[]): Actor[] {
-    return playerCharacters.map(playerCharacter => {
-      return this.actorService.fromJson(playerCharacter);
-    })
   }
 
   private createBattleFinishRequests(actors: Actor[]): PlayerBattleFinishedRequest[] {

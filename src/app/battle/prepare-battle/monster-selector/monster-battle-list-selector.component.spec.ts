@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MonsterBattleListSelectorComponent } from './monster-battle-list-selector.component';
-import {Actor} from "../../../models/actors/actor";
 import {Monster} from "../../../models/monsters/monster";
 import {MonsterList} from "../../../models/monsters/monsterList";
 import {Difficulty} from "../../../models/combat-data/Difficulty";
@@ -26,7 +25,7 @@ describe('MonsterSelectorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MonsterBattleListSelectorComponent);
     component = fixture.componentInstance;
-    component.participatingActors = [];
+    component.playerCharacters = [];
     fixture.detectChanges();
   });
 
@@ -36,7 +35,7 @@ describe('MonsterSelectorComponent', () => {
 
   it('should clear selected monsters after adding them to battle', () => {
     // given
-    component.selectedMonstersCount = new Map<Monster, number>([
+    component.selectedMonsters = new Map<Monster, number>([
       [MonsterList.ANIMATED_ARMOR, 2], // 400 XP
       [MonsterList.GOBLIN, 2] // 100 XP
     ]);
@@ -45,7 +44,7 @@ describe('MonsterSelectorComponent', () => {
     component.addMonstersToBattle()
 
     // then
-    expect(component.selectedMonstersCount.size).toEqual(0);
+    expect(component.selectedMonsters.size).toEqual(0);
   });
 
   it('should get difficulty', () => {
@@ -71,10 +70,15 @@ describe('MonsterSelectorComponent', () => {
       level: 2
     }
     // easy - 275 XP, medium - 550 XP, hard - 825 XP, deadly - 1400 XP
-    component.participatingActors = [actor1, actor2, actor3, actor4]
+    component.playerCharacters = [actor1, actor2, actor3, actor4]
+
+    component.addMonster(MonsterList.ANIMATED_ARMOR)
+    component.addMonster(MonsterList.ANIMATED_ARMOR)
+    component.addMonster(MonsterList.GOBLIN)
+    component.addMonster(MonsterList.GOBLIN)
 
     // when
-    component.selectedMonstersCount = new Map<Monster, number>([
+    component.selectedMonsters = new Map<Monster, number>([
       [MonsterList.ANIMATED_ARMOR, 2], // 400 XP
       [MonsterList.GOBLIN, 2] // 100 XP
     ]);
@@ -83,7 +87,7 @@ describe('MonsterSelectorComponent', () => {
 
   it('should get total number of monster selected', () => {
     // when
-    component.selectedMonstersCount = new Map<Monster, number>([
+    component.selectedMonsters = new Map<Monster, number>([
       [MonsterList.ANIMATED_ARMOR, 1],
       [MonsterList.GOBLIN, 4]
     ]);
@@ -97,7 +101,7 @@ describe('MonsterSelectorComponent', () => {
 
   it('should add monster to list', () => {
     // given
-    component.selectedMonstersCount = new Map<Monster, number>()
+    component.selectedMonsters = new Map<Monster, number>()
     let aarakocra = MonsterList.WEREWOLF
     let aboleth = MonsterList.ABOLETH;
 
@@ -105,13 +109,13 @@ describe('MonsterSelectorComponent', () => {
     component.addMonster(aarakocra);
     component.addMonster(aboleth);
     component.addMonster(aboleth);
-    expect(component.selectedMonstersCount.get(aarakocra)).toEqual(1);
-    expect(component.selectedMonstersCount.get(aboleth)).toEqual(2);
+    expect(component.selectedMonsters.get(aarakocra)).toEqual(1);
+    expect(component.selectedMonsters.get(aboleth)).toEqual(2);
   });
 
   it('should remove monster from list', () => {
     // given
-    component.selectedMonstersCount = new Map<Monster, number>([
+    component.selectedMonsters = new Map<Monster, number>([
       [MonsterList.WEREWOLF, 2]
     ])
     let monster = MonsterList.WEREWOLF
@@ -120,17 +124,17 @@ describe('MonsterSelectorComponent', () => {
     component.subtractMonster(monster);
 
     // then
-    expect(component.selectedMonstersCount.get(monster)).toEqual(1);
-    expect(component.selectedMonstersCount.size).toEqual(1);
+    expect(component.selectedMonsters.get(monster)).toEqual(1);
+    expect(component.selectedMonsters.size).toEqual(1);
 
     // and
     component.subtractMonster(monster)
-    expect(component.selectedMonstersCount.size).toEqual(0);
+    expect(component.selectedMonsters.size).toEqual(0);
   });
 
   it('should get monster count for given monster', () => {
     // given
-    component.selectedMonstersCount = new Map<Monster, number>([
+    component.selectedMonsters = new Map<Monster, number>([
       [MonsterList.WEREWOLF, 5],
       [MonsterList.DEVA, 3],
     ])
