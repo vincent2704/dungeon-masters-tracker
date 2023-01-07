@@ -1,13 +1,22 @@
 <button *ngIf="!isExhaustion()" class="btn btn-primary" [ngbTooltip]="tooltip">{{condition.getName()}}</button>
-<button *ngIf="isExhaustion()" class="btn btn-primary" placement="left"
-        [ngbTooltip]="exhaustionTooltip">{{condition.getName()}}</button>
+<div *ngIf="isExhaustion()">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary"
+              [ngbTooltip]="exhaustionTooltip">{{condition.getName()}}</button>
+    </div>
+    <div class="col">
+          <input type="number" placeholder="Level">
+    </div>
+  </div>
+</div>
 
 <ng-template #tooltip>
-    <ul class="list-group">
-      <li *ngFor="let descriptionPoint of condition.getDescription()" class="list-group-item">
-        {{descriptionPoint}}
-      </li>
-    </ul>
+  <ul class="list-group">
+    <li *ngFor="let descriptionPoint of condition.getDescription()" class="list-group-item">
+      {{descriptionPoint}}
+    </li>
+  </ul>
 </ng-template>
 
 <ng-template #exhaustionTooltip>
@@ -16,18 +25,18 @@
       {{descriptionPoint}}
     </li>
   </ul>
-  <table class="table">
+  <table class="table-tooltip">
     <thead>
-      <tr>
-        <th>Level</th>
-        <th>Description</th>
-      </tr>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let levelToDescription of exhaustionLevelsMap | keyvalue">
-        <td>{{levelToDescription.key}}</td>
-        <td>{{levelToDescription.value}}</td>
-      </tr>
+    <tr *ngFor="let levelToDescription of exhaustionLevelsMap | keyvalue">
+      <td>{{levelToDescription.key}}</td>
+      <td>{{levelToDescription.value}}</td>
+    </tr>
     </tbody>
   </table>
 </ng-template>

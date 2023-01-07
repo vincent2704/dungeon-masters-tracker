@@ -6,7 +6,8 @@ export class BattleCondition {
 
   constructor(
     private condition: Condition,
-    private durationInTurns: number = 0) {
+    private durationInTurns: number = 0,
+    private exhaustionLevel: number = 0) {
 
     this.permanent = durationInTurns <= 0;
   }
@@ -21,6 +22,14 @@ export class BattleCondition {
 
   getDescription(): string[] {
     return this.condition.getDescription();
+  }
+
+  getExhaustionLevel(): number {
+    return this.exhaustionLevel;
+  }
+
+  setExhaustionLevel(exhaustionLevel: number): void {
+    this.exhaustionLevel = exhaustionLevel;
   }
 
   isPermanent(): boolean {
