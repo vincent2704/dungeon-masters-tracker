@@ -3,7 +3,7 @@
   <div *ngFor="let battleCondition of actor.battleConditions">
     <div class="row">
       <div class="col-sm">
-        <button class="btn btn-primary" (click)="onShowDescription()">{{battleCondition.getName()}}</button>
+        <app-single-condition [condition]="battleCondition"></app-single-condition>
       </div>
       <div class="col-sm">
         <div i18n="duration left label|Text representing how many turns are left for a Condition to wear off"
@@ -15,11 +15,6 @@
         <button i18n="remove condition button|Button used to remove condition from a Character"
                 class="btn btn-info" [disabled]="isDisabled(battleCondition, actor)"
                 (click)="removeCondition(battleCondition.getCondition())">Remove condition</button>
-      </div>
-      <div class="row" *ngIf="showDescription">
-        <div *ngFor="let description of battleCondition.getDescription()">
-          {{description}}
-        </div>
       </div>
     </div>
   </div>

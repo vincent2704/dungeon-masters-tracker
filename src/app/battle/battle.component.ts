@@ -106,7 +106,8 @@ export class BattleComponent implements OnInit {
     for (let [currentActor, currentActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
       for (let [nextActor, nextActorOrder] of this.conflictedActorsToPriorityOrderNumbersMap) {
         if (currentActor != nextActor) {
-          // priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest!
+          // priority goes reverse way than initiative sorting - from lowest to highest instead of highest to lowest
+          // e.g. if actor has priority == 1, this means they're 1st
           if (nextActorOrder < currentActorOrder) {
             let currentActorIndex = this.actors.indexOf(currentActor);
             let nextActorIndex = this.actors.indexOf(nextActor);

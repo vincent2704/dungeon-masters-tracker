@@ -16,8 +16,6 @@ export class ConditionComponent implements OnInit {
   @Input()
   actor!: Actor;
 
-  showDescription: boolean = false;
-
   // condition form
   conditionToAdd!: Condition;
   conditionToAddDuration: number = 0;
@@ -32,12 +30,11 @@ export class ConditionComponent implements OnInit {
     this.actorService.removeCondition(this.actor, condition);
   }
 
-  onShowDescription() {
-    this.showDescription = !this.showDescription;
-  }
-
   onSubmitCondition(actor: Actor) {
     let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
+    if(battleCondition.getCondition() == Condition.EXHAUSTION) {
+      battleCondition.setExhaustionLevel(1);
+    }
     this.actorService.addBattleCondition(actor, battleCondition);
     this.conditionToAddDuration = 0;
   }
