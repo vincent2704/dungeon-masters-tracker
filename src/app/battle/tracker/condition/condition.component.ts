@@ -32,6 +32,9 @@ export class ConditionComponent implements OnInit {
 
   onSubmitCondition(actor: Actor) {
     let battleCondition = new BattleCondition(this.conditionToAdd, this.conditionToAddDuration);
+    if(battleCondition.getCondition() == Condition.EXHAUSTION) {
+      battleCondition.setExhaustionLevel(1);
+    }
     this.actorService.addBattleCondition(actor, battleCondition);
     this.conditionToAddDuration = 0;
   }

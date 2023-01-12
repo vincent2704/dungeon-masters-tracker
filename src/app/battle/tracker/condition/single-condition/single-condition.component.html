@@ -6,7 +6,9 @@
               [ngbTooltip]="exhaustionTooltip">{{condition.getName()}}</button>
     </div>
     <div class="col">
-          <input type="number" placeholder="Level">
+          <p>Level: {{condition.getExhaustionLevel()}}</p>
+          <button class="btn btn-primary" (click)="incrementExhaustionLevel()">+</button>
+          <button class="btn btn-primary" (click)="decrementExhaustionLevel()">-</button>
     </div>
   </div>
 </div>
