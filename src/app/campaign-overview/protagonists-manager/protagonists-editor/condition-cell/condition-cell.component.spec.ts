@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConditionCellComponent } from './condition-cell.component';
+import {PlayerCharacter} from "../../../../models/actors/playerCharacter";
 
 describe('ConditionCellComponent', () => {
   let component: ConditionCellComponent;
@@ -11,6 +12,10 @@ describe('ConditionCellComponent', () => {
       declarations: [ ConditionCellComponent ]
     })
     .compileComponents();
+
+    component.playerCharacter = {
+      name: 'Player'
+    } as PlayerCharacter
   });
 
   beforeEach(() => {
