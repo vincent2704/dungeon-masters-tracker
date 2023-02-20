@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Actor} from "../../../models/actors/actor";
 import {PlayerCharacter} from "../../../models/actors/playerCharacter";
 
 @Component({
@@ -15,5 +14,14 @@ export class ProtagonistsInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getConditionNames(playerCharacter: PlayerCharacter): string {
+    const conditions = playerCharacter.playerConditions;
+    if(conditions) {
+      return conditions.map(condition => condition.name)
+        .join(", ")
+    }
+    return "";
   }
 }

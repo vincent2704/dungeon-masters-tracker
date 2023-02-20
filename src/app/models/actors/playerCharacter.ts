@@ -9,7 +9,7 @@ export interface PlayerCharacter {
   currentHp?: number,
   resurrectionPenalty?: number,
   timeOfDeathEpoch?: number,
-  conditions?: BackendCondition[],
+  playerConditions?: BackendCondition[],
   availableHitDice?: number,
 
 }

@@ -47,6 +47,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { MonsterActionsComponent } from './battle/tracker/monster-actions/monster-actions.component';
 import { SavingThrowsComponent } from './battle/tracker/saving-throws/saving-throws.component';
 import { SingleConditionComponent } from './battle/tracker/condition/single-condition/single-condition.component';
+import { ConditionCellComponent } from './campaign-overview/protagonists-manager/protagonists-editor/condition-cell/condition-cell.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { SingleConditionComponent } from './battle/tracker/condition/single-cond
     NotesComponent,
     MonsterActionsComponent,
     SavingThrowsComponent,
-    SingleConditionComponent
+    SingleConditionComponent,
+    ConditionCellComponent
   ],
   imports: [
     BrowserModule,
