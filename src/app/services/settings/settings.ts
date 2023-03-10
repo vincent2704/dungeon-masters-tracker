@@ -4,15 +4,15 @@ export class Settings {
   private static autoLoadProtagonists: boolean = true;
   private static useSISystem: boolean = true;
   private static autoLoadMonsterActions: boolean = false;
-  private static campaignId: string = '';
+  private static campaignId: string = '0f29e0da-c69f-44a5-9679-76019f21c8ec';
 
   constructor() { }
 
-  static setCampaign(campaignId: string) {
+  static setCampaignIdTextFieldValue(campaignId: string) {
     this.campaignId = campaignId;
   }
 
-  static getCampaignId(): string {
+  static getCampaignIdTextFieldValue(): string {
     return this.campaignId;
   }
 

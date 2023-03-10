@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
 import {Environment} from "../../environment";
@@ -14,13 +14,24 @@ import {Settings} from "../settings/settings";
 })
 export class CampaignService {
 
-  private readonly campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/${Settings.getCampaignId()}`
+  private campaignId: string = Settings.getCampaignIdTextFieldValue();
+  private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/`;
   private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
 
   constructor(private httpClient: HttpClient) {
+    this.reloadCampaign();
+  }
+
+  getCampaign(): Observable<Campaign> {
+    return this.httpClient.get<Campaign>(this.campaignUrl + this.campaignId);
+  }
+
+  reloadCampaign() {
+    this.campaignId = Settings.getCampaignIdTextFieldValue();
     this.getCampaign()
       .subscribe(response => {
         let campaign = {
+          id: response.id,
           name: response.name,
           campaignDateTimeStartEpoch: response.campaignDateTimeStartEpoch,
           campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
@@ -30,12 +41,8 @@ export class CampaignService {
       })
   }
 
-  getCampaign(): Observable<Campaign> {
-    return this.httpClient.get<Campaign>(this.campaignUrl);
-  }
-
   updateCampaign(request: CampaignUpdateRequest): Observable<Campaign> {
-    return this.httpClient.put<Campaign>(this.campaignUrl, request);
+    return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, request);
   }
 
   setCurrentDate(newDate: Date): Observable<Campaign> {
@@ -43,7 +50,7 @@ export class CampaignService {
       campaignDateTimeCurrentEpoch: newDate.getTime()
     }
 
-    return this.httpClient.put<Campaign>(this.campaignUrl, updateRequest);
+    return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);
   }
 
   updateSessionStorageCampaign(campaign: Campaign): void {
@@ -52,5 +59,9 @@ export class CampaignService {
 
   getSessionStorageCampaign(): Campaign {
     return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
+  }
+
+  getCampaignId(): string {
+    return this.campaignId;
   }
 }

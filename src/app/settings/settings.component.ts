@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Settings} from "../services/settings/settings";
+import {CampaignService} from "../services/campaign/campaign.service";
 
 @Component({
   selector: 'app-settings',
@@ -8,12 +9,13 @@ import {Settings} from "../services/settings/settings";
 })
 export class SettingsComponent implements OnInit {
 
-  campaignId?: string;
+  // campaignId?: string;
+  campaignId : string = '0f29e0da-c69f-44a5-9679-76019f21c8ec';
 
-  constructor() { }
+  constructor(private campaignService: CampaignService) { }
 
   ngOnInit(): void {
-    this.campaignId = Settings.getCampaignId();
+    this.campaignId = Settings.getCampaignIdTextFieldValue();
   }
 
   onUseSISystemChange(): void {
@@ -41,6 +43,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onChangeCampaignId() {
-    Settings.setCampaign(this.campaignId!);
+    Settings.setCampaignIdTextFieldValue(this.campaignId!);
+    this.campaignService.reloadCampaign();
   }
 }

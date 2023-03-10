@@ -14,19 +14,19 @@ export class NoteService {
 
   private readonly notesUrl: string = `${Environment.HOST_ADDRESS}/v1/notes`
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
 
   addNote(note: Note): Observable<Note> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
     }
     return this.httpClient.post<Note>(this.notesUrl, note, httpOptions);
   }
 
   getNotes(): Observable<Note[]> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
     }
     return this.httpClient.get<Note[]>(
       this.notesUrl,
@@ -36,14 +36,14 @@ export class NoteService {
 
   updateNote(note: Note): Observable<Note> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
     }
     return this.httpClient.put<Note>(this.notesUrl, note, httpOptions)
   }
 
   deleteNote(id: number): Observable<unknown> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
     }
     const url = `${this.notesUrl}/${id}`;
     return this.httpClient.delete(url, httpOptions);
