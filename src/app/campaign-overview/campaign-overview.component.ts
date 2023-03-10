@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CampaignService} from "../services/campaign/campaign.service";
 
 @Component({
   selector: 'app-campaign-overview',
@@ -7,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CampaignOverviewComponent implements OnInit {
 
-  constructor() {
+  campaignName?: string;
+
+  constructor(private campaignService: CampaignService) {
   }
 
   ngOnInit(): void {
+    this.campaignName = this.getCampaignName();
   }
+
+  getCampaignName(): string {
+    console.log(this.campaignService.getSessionStorageCampaign())
+    return this.campaignService.getSessionStorageCampaign().name;
+  }
+
 
 }

@@ -7,6 +7,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
+import {Settings} from "../settings/settings";
+import {CampaignService} from "../campaign/campaign.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +17,45 @@ export class ActorService {
 
   private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
   private readonly battleFinishedUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters/finish-battle`
-  private readonly httpOptions = {
-    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
-  }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
 
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
-    return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, this.httpOptions)
+
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+    }
+    console.log(Settings.getCampaignIdTextFieldValue());
+    return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, httpOptions)
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
-    return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, this.httpOptions);
+
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+    }
+    return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
   }
 
   updateCharactersAfterBattle(playersBattleFinishedRequests: PlayerBattleFinishedRequest[]):
     Observable<PlayerCharacter[]> {
+
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+    }
     return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
-      playersBattleFinishedRequests, this.httpOptions);
+      playersBattleFinishedRequests, httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
+
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+    }
     let charactersToDeleteIds = playerCharacters.map(character => character.id);
     let options = {
-      params: this.httpOptions.params,
+      params: httpOptions.params,
       body: charactersToDeleteIds
     }
     return this.httpClient.delete<Actor[]>(this.playerCharactersUrl, options);
