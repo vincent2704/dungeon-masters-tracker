@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CampaignEvent} from "../../models/campaign/campaignEvent";
 import {Environment} from "../../environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Settings} from "../settings/settings";
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,29 @@ import {environment} from "../../../environments/environment";
 export class EventService {
 
   private readonly eventsUrl: string = `${Environment.HOST_ADDRESS}/v1/events`
-  private readonly httpOptions = {
-    params: new HttpParams().append("campaignId", Environment.CAMPAIGN_ID)
-  }
-
-  private campaignEvents: Observable<CampaignEvent[]> = new Observable<CampaignEvent[]>();
 
   constructor(private httpClient: HttpClient) {
   }
 
   getCampaignEvents(): Observable<CampaignEvent[]> {
-    return this.httpClient.get<CampaignEvent[]>(this.eventsUrl, this.httpOptions);
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+    }
+    return this.httpClient.get<CampaignEvent[]>(this.eventsUrl, httpOptions);
   }
 
   addCampaignEvent(newEvent: CampaignEvent): Observable<CampaignEvent> {
-    return this.httpClient.post<CampaignEvent>(this.eventsUrl, newEvent, this.httpOptions);
-    // this.campaignEvents.push(new CampaignEvent(eventTitle, eventDescription, campaignDate, new Date(Date.now())));
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+    }
+    return this.httpClient.post<CampaignEvent>(this.eventsUrl, newEvent, httpOptions);
   }
 
   deleteEvent(eventId: number): Observable<unknown> {
-    return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, this.httpOptions);
+    const httpOptions = {
+      params: new HttpParams().append("campaignId", Settings.getCampaignId())
+    }
+    return this.httpClient.delete(`${this.eventsUrl}/${eventId}`, httpOptions);
   }
 
 }

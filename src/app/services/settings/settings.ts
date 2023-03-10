@@ -4,8 +4,17 @@ export class Settings {
   private static autoLoadProtagonists: boolean = true;
   private static useSISystem: boolean = true;
   private static autoLoadMonsterActions: boolean = false;
+  private static campaignId: string = '';
 
   constructor() { }
+
+  static setCampaign(campaignId: string) {
+    this.campaignId = campaignId;
+  }
+
+  static getCampaignId(): string {
+    return this.campaignId;
+  }
 
   static setSISystem(useSI: boolean): void {
     Settings.useSISystem = useSI;

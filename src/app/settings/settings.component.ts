@@ -8,9 +8,12 @@ import {Settings} from "../services/settings/settings";
 })
 export class SettingsComponent implements OnInit {
 
+  campaignId?: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.campaignId = Settings.getCampaignId();
   }
 
   onUseSISystemChange(): void {
@@ -37,4 +40,7 @@ export class SettingsComponent implements OnInit {
     return Settings.isAutoLoadMonsterActions();
   }
 
+  onChangeCampaignId() {
+    Settings.setCampaign(this.campaignId!);
+  }
 }
