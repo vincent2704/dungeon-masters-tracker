@@ -5,6 +5,7 @@
     <th i18n="level|Column that relates to given character's level" scope="col">Level</th>
     <th i18n="max HP|Column that related to given character's maximum hit  points" scope="col">Max HP</th>
     <th i18n="current HP|Column that relates to given character's current hit points" scope="col">Current HP</th>
+    <th scope="col">Conditions</th>
   </tr>
   </thead>
   <tbody>
@@ -13,6 +14,10 @@
     <td>{{player.level}}</td>
     <td>{{player.maxHp}}</td>
     <td>{{player.currentHp}}</td>
+    <td>
+      {{getConditionNames(player)}}
+    </td>
+<!--    {{ player | json }}-->
   </tr>
   </tbody>
 </table>

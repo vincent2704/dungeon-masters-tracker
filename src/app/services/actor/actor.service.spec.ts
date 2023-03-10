@@ -45,7 +45,7 @@ describe('actorService', () => {
       maxHp: 11,
       currentHp: 11,
       timeOfDeathEpoch: undefined,
-      conditions: undefined,
+      playerConditions: undefined,
       availableHitDice: undefined,
       resurrectionPenalty: 0
     }

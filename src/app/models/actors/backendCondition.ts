@@ -1,5 +1,6 @@
 export interface BackendCondition {
-  conditionName: string,
+  name: string,
   permanent: boolean,
   turnsLeft: number
+  exhaustionLevel?: number;
 }

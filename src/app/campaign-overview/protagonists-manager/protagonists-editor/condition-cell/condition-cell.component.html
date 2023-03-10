@@ -1,0 +1,29 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item list-group-item-action" *ngFor="let condition of playerCharacter.playerConditions">
+    <div class="row">
+
+      <div class="col" *ngIf="!condition.permanent; else permanentCondition">
+        {{condition.name}}, Turns left: {{condition.turnsLeft}}
+      </div>
+
+      <div class="col-sm-4">
+        <button class="btn btn-primary">Remove</button>
+      </div>
+
+      <ng-template #permanentCondition>
+        <div *ngIf="!isExhaustion(condition); else exhaustion">
+          <div class="col">
+            {{condition.name}}, Time left: N/A
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #exhaustion>
+        <div class="col">
+          {{condition.name}}, Level: {{condition.exhaustionLevel}}
+        </div>
+      </ng-template>
+
+    </div>
+  </li>
+</ul>
