@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
 import {CampaignService} from "../services/campaign/campaign.service";
+import {Campaign} from "../models/campaign/campaign";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -10,7 +11,7 @@ describe('SettingsComponent', () => {
   let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
-    const campaignService = jasmine.createSpyObj('CampaignService', ['reloadCampaign'])
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'reloadCampaign'])
     await TestBed.configureTestingModule({
       declarations: [ SettingsComponent ],
       providers: [
@@ -22,6 +23,9 @@ describe('SettingsComponent', () => {
 
   beforeEach(() => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
+      id: 'someId'
+    } as Campaign);
 
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
