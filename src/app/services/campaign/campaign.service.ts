@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
 import {Environment} from "../../environment";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Settings} from "../settings/settings";
 
 /*
   Service that manages campaign data
@@ -14,7 +13,7 @@ import {Settings} from "../settings/settings";
 })
 export class CampaignService {
 
-  private campaignId: string = Settings.getCampaignIdTextFieldValue();
+  private campaignId: string = '';
   private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/`;
   private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
 
@@ -26,8 +25,12 @@ export class CampaignService {
     return this.httpClient.get<Campaign>(this.campaignUrl + this.campaignId);
   }
 
-  reloadCampaign() {
-    this.campaignId = Settings.getCampaignIdTextFieldValue();
+  reloadCampaign(campaignId?: string) {
+    if (campaignId) {
+      this.campaignId = campaignId;
+    } else {
+      this.campaignId = this.getLocalStorageCampaign().id;
+    }
     this.getCampaign()
       .subscribe(response => {
         let campaign = {

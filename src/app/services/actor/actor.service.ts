@@ -7,7 +7,6 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
-import {Settings} from "../settings/settings";
 import {CampaignService} from "../campaign/campaign.service";
 
 @Injectable({
@@ -26,7 +25,6 @@ export class ActorService {
     const httpOptions = {
       params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
     }
-    console.log(Settings.getCampaignIdTextFieldValue());
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, httpOptions)
   }
 
