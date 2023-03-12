@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.campaignId = Settings.getCampaignIdTextFieldValue();
+    this.campaignId = this.campaignService.getLocalStorageCampaign().id;
   }
 
   onUseSISystemChange(): void {
