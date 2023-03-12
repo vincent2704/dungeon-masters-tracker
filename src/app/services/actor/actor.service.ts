@@ -23,7 +23,7 @@ export class ActorService {
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, httpOptions)
   }
@@ -31,7 +31,7 @@ export class ActorService {
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
   }
@@ -40,7 +40,7 @@ export class ActorService {
     Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
       playersBattleFinishedRequests, httpOptions);
@@ -49,7 +49,7 @@ export class ActorService {
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     let charactersToDeleteIds = playerCharacters.map(character => character.id);
     let options = {

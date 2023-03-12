@@ -67,7 +67,4 @@ export class CampaignService {
     return {} as Campaign;
   }
 
-  getCampaignId(): string {
-    return this.campaignId;
-  }
 }

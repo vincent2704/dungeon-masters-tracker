@@ -16,7 +16,7 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   onConfirm() {
-    this.campaignService.reloadCampaign();
+    this.campaignService.reloadCampaign(this.campaignId);
   }
 
 }
