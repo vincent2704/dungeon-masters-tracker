@@ -17,7 +17,7 @@ describe('EventService', () => {
   const backendUrl = 'http://localhost:8080/v1/events?campaignId=0f29e0da-c69f-44a5-9679-76019f21c8ec';
 
   beforeEach(() => {
-    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getSessionStorageCampaign']);
+    const temporalSpy = jasmine.createSpyObj('TemporalService', ['getLocalStorageCampaign']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -29,7 +29,8 @@ describe('EventService', () => {
 
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
     const currentDate = new Date(1524, 6, 16, 18, 30)
-    temporalServiceSpy.getSessionStorageCampaign.and.returnValue({
+    temporalServiceSpy.getLocalStorageCampaign.and.returnValue({
+      id: '123',
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
@@ -86,51 +87,5 @@ describe('EventService', () => {
     // Finally, assert that there are no outstanding requests.
     httpTestingController.verify()
   });
-
-  // it('should add campaign event', () => {
-  //   //given
-  //   const eventTitle = 'Title'
-  //   const eventDescription = 'Description'
-  //   const campaignDateTime = -14057304840000
-  //
-  //   let eventToAdd: CampaignEvent = {
-  //     campaignDateTimeOccurredEpoch: campaignDateTime,
-  //     title: eventTitle,
-  //     body: eventDescription
-  //   }
-  //
-  //   httpClient.post<CampaignEvent>(backendUrl, eventToAdd)
-  //     .subscribe(responseData => {
-  //       expect(responseData).toEqual({
-  //         id: 1,
-  //         title: eventToAdd.title,
-  //         body: eventToAdd.body,
-  //         campaignDateTimeOccurredEpoch: eventToAdd.campaignDateTimeOccurredEpoch,
-  //         realDateTimeCreatedEpoch: 1670766601836
-  //       })
-  //     })
-  //
-  //   const req = httpTestingController.expectOne(backendUrl)
-  //   expect(req.request.method).toEqual('POST');
-  //   expect(req.request.body).toEqual(eventToAdd);
-  //
-  //   req.flush({
-  //     id: 1,
-  //     title: eventToAdd.title,
-  //     body: eventToAdd.body,
-  //     campaignDateTimeOccurredEpoch: eventToAdd.campaignDateTimeOccurredEpoch,
-  //     realDateTimeCreatedEpoch: 1670766601836
-  //   });
-  //   httpTestingController.verify()
-  //
-  //   expect(service.addCampaignEvent(eventToAdd))
-  //     .toEqual(of({
-  //       id: 1,
-  //       title: eventToAdd.title,
-  //       body: eventToAdd.body,
-  //       campaignDateTimeOccurredEpoch: eventToAdd.campaignDateTimeOccurredEpoch,
-  //       realDateTimeCreatedEpoch: 1670766601836
-  //     }))
-  // });
 
 });

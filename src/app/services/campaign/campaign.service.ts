@@ -37,7 +37,7 @@ export class CampaignService {
           campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
           lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
         } as Campaign;
-        sessionStorage.setItem('campaign', JSON.stringify(campaign));
+        localStorage.setItem('campaign', JSON.stringify(campaign));
       })
   }
 
@@ -53,12 +53,12 @@ export class CampaignService {
     return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);
   }
 
-  updateSessionStorageCampaign(campaign: Campaign): void {
-    sessionStorage.setItem('campaign', JSON.stringify(campaign));
+  updateLocalStorageCampaign(campaign: Campaign): void {
+    localStorage.setItem('campaign', JSON.stringify(campaign));
   }
 
-  getSessionStorageCampaign(): Campaign {
-    return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
+  getLocalStorageCampaign(): Campaign {
+    return JSON.parse(localStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
   }
 
   getCampaignId(): string {

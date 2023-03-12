@@ -11,7 +11,8 @@ describe('RestingComponent', () => {
   let component: RestingComponent;
   let fixture: ComponentFixture<RestingComponent>;
 
-  const sessionStorageCampaign = {
+  const localStorageCampaign = {
+    id: '123',
     name: "Dummy Name",
     campaignDateTimeStartEpoch: -14057296560,
     campaignDateTimeCurrentEpoch: -14057296560,
@@ -29,7 +30,7 @@ describe('RestingComponent', () => {
   });
 
   beforeEach(() => {
-    sessionStorage.setItem('campaign', JSON.stringify(sessionStorageCampaign))
+    localStorage.setItem('campaign', JSON.stringify(localStorageCampaign))
     fixture = TestBed.createComponent(RestingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

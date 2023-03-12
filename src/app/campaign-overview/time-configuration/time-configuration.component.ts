@@ -19,7 +19,7 @@ export class TimeConfigurationComponent implements OnInit {
   timeChangeInput: TimeStructure = new TimeStructure();
 
   constructor(private calendar: NgbCalendar, private temporalService: CampaignService) {
-    this.currentDate = new Date(temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    this.currentDate = new Date(temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     this.dateModel = { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth()+1, day: this.currentDate.getDate() };
     this.timeModel = { hour: this.currentDate.getHours(), minute: this.currentDate.getMinutes(), second: this.currentDate.getSeconds() };
   }
@@ -34,7 +34,7 @@ export class TimeConfigurationComponent implements OnInit {
       .subscribe(response => {
         this.temporalService.getCampaign()
           .subscribe(response => {
-            this.temporalService.updateSessionStorageCampaign(response);
+            this.temporalService.updateLocalStorageCampaign(response);
             this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
           })
       });
@@ -49,7 +49,7 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   addTime(): void {
-    const newDate = new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
+    const newDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -67,14 +67,14 @@ export class TimeConfigurationComponent implements OnInit {
 
     this.temporalService.setCurrentDate(newDate)
       .subscribe(response => {
-        this.temporalService.updateSessionStorageCampaign(response);
+        this.temporalService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
         this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
       })
   }
 
   subtractTime(): void {
-    let newDate = new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
+    let newDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -92,7 +92,7 @@ export class TimeConfigurationComponent implements OnInit {
 
     this.temporalService.setCurrentDate(newDate)
       .subscribe(response => {
-        this.temporalService.updateSessionStorageCampaign(response);
+        this.temporalService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
         this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
       })

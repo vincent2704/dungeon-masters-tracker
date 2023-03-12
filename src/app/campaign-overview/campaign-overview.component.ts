@@ -18,8 +18,8 @@ export class CampaignOverviewComponent implements OnInit {
   }
 
   getCampaignName(): string {
-    console.log(this.campaignService.getSessionStorageCampaign())
-    return this.campaignService.getSessionStorageCampaign().name;
+    console.log(this.campaignService.getLocalStorageCampaign())
+    return this.campaignService.getLocalStorageCampaign().name;
   }
 
 

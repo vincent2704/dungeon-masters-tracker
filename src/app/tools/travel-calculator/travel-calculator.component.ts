@@ -65,12 +65,12 @@ export class TravelCalculatorComponent implements OnInit {
 
     if (this.trackTime) {
       // this.campaignService.addSeconds(travelTimeHours * 3600);
-      const campaign = this.campaignService.getSessionStorageCampaign();
+      const campaign = this.campaignService.getLocalStorageCampaign();
       const campaignUpdateRequest: CampaignUpdateRequest = {
         campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + travelTimeHours * 3_600_000
       }
       this.campaignService.updateCampaign(campaignUpdateRequest)
-        .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
+        .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
     }
   }
 

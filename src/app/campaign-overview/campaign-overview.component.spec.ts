@@ -21,7 +21,7 @@ describe('CampaignOverviewComponent', () => {
 
   beforeEach(async () => {
     const actorService = jasmine.createSpyObj('ActorService', ['getPlayerCharacters']);
-    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'getCampaignId']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule, NgbModule, HttpClientTestingModule],
@@ -40,7 +40,8 @@ describe('CampaignOverviewComponent', () => {
     actorServiceSpy.getPlayerCharacters.and.returnValue(of([]));
 
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
+      id: '123',
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,

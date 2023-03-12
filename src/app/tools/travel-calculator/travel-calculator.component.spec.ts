@@ -15,7 +15,7 @@ describe('TravelCalculatorComponent', () => {
   let campaignServiceSpy: jasmine.SpyObj<CampaignService>;
 
   beforeEach(async () => {
-    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign', 'updateCampaign', 'updateSessionStorageCampaign'])
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'updateCampaign', 'updateLocalStorageCampaign'])
 
     await TestBed.configureTestingModule({
       imports: [FormsModule],
@@ -73,6 +73,7 @@ describe('TravelCalculatorComponent', () => {
 
 
     const initialCampaignState: Campaign = {
+      id: '123',
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 1,
@@ -84,13 +85,14 @@ describe('TravelCalculatorComponent', () => {
     }
 
     const expectedCampaignState: Campaign = {
+      id: '123',
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 14_400_001,
       lastLongRestTimeEpoch: 0
     }
 
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(initialCampaignState)
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue(initialCampaignState)
 
     campaignServiceSpy.updateCampaign.withArgs(expectedCampaignUpdateRequest)
       .and.returnValue(of(expectedCampaignState))
