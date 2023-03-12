@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CampaignSelectorComponent } from './campaign-selector.component';
 import {CampaignService} from "../services/campaign/campaign.service";
+import {FormsModule} from "@angular/forms";
 
 describe('CampaignSelectorComponent', () => {
   let component: CampaignSelectorComponent;
@@ -12,6 +13,7 @@ describe('CampaignSelectorComponent', () => {
   beforeEach(async () => {
     const campaignService = jasmine.createSpyObj('CampaignService', ['reloadCampaign'])
     await TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ CampaignSelectorComponent ],
       providers: [
         { provide: CampaignService, useValue: campaignService }

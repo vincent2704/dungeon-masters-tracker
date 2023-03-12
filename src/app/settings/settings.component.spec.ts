@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsComponent } from './settings.component';
 import {CampaignService} from "../services/campaign/campaign.service";
 import {Campaign} from "../models/campaign/campaign";
+import {FormsModule} from "@angular/forms";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -14,6 +15,7 @@ describe('SettingsComponent', () => {
     const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'reloadCampaign'])
     await TestBed.configureTestingModule({
       declarations: [ SettingsComponent ],
+      imports: [ FormsModule ],
       providers: [
         { provide: CampaignService, useValue: campaignService }
       ]
