@@ -8,6 +8,8 @@ import {Component} from '@angular/core';
 export class AppComponent {
 
   isCampaignSelected(): boolean {
+    // console.log(`AppComponent - local storage campaign - ${localStorage.getItem('campaign')}`);
+    // console.log(!!localStorage.getItem('campaign'));
     return !!localStorage.getItem('campaign');
   }
 

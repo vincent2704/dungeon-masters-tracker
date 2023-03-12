@@ -18,7 +18,6 @@ export class CampaignService {
   private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
 
   constructor(private httpClient: HttpClient) {
-    this.reloadCampaign();
   }
 
   getCampaign(): Observable<Campaign> {
@@ -61,7 +60,11 @@ export class CampaignService {
   }
 
   getLocalStorageCampaign(): Campaign {
-    return JSON.parse(localStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
+    const localStorageCampaign = localStorage.getItem(this.CAMPAIGN_STORAGE_KEY);
+    if(localStorageCampaign) {
+      return JSON.parse(localStorageCampaign);
+    }
+    return {} as Campaign;
   }
 
   getCampaignId(): string {
