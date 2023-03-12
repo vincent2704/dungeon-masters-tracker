@@ -22,7 +22,7 @@ export class RestingService {
       this.applyShortRestInput(actor, shortRestInput);
     })
     const dateTimeAfterShortRest =
-      this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch +
+      this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch +
       restDurationInHours * this.MILLISECONDS_IN_HOUR
     let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
     this.actorService.updatePlayerCharacters(playerCharacters)
@@ -33,13 +33,13 @@ export class RestingService {
           } as Campaign
         )
           .subscribe(response => {
-            this.campaignService.updateSessionStorageCampaign(response);
+            this.campaignService.updateLocalStorageCampaign(response);
           })
       });
   }
 
   performLongRest(restTimeInHours: number, playerCharacters: PlayerCharacter[]): void {
-    const campaign = this.campaignService.getSessionStorageCampaign();
+    const campaign = this.campaignService.getLocalStorageCampaign();
     if (restTimeInHours < this.getMinimumRestingTime(campaign)) {
       console.error(`Requested Long Rest time is too short to perform Long Rest: ${restTimeInHours} hours`);
       return;
@@ -54,7 +54,7 @@ export class RestingService {
     })
 
     const campaignDateTimeAfterRestEpoch =
-      this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
+      this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch
       + restTimeInHours * 3600 * 1000
 
     const campaignUpdateRequest: CampaignUpdateRequest = {
@@ -64,7 +64,7 @@ export class RestingService {
 
     this.campaignService.updateCampaign(campaignUpdateRequest)
       .subscribe(response => {
-        this.campaignService.updateSessionStorageCampaign(response);
+        this.campaignService.updateLocalStorageCampaign(response);
 
         this.actorService.updatePlayerCharacters(playerCharacters)
           .subscribe(response => {

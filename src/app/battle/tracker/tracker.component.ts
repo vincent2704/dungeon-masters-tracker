@@ -81,12 +81,12 @@ export class TrackerComponent implements OnInit {
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
     if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch
+        new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch
           + timeSinceBattleStartedInMilliseconds)
       );
     } else {
       actor.modifyHp(
-        hpModifier, new Date(this.campaignService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch));
+        hpModifier, new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
     }
 
     (<HTMLInputElement>event.target).value = '';
@@ -101,12 +101,12 @@ export class TrackerComponent implements OnInit {
     this.actorService.updateCharactersAfterBattle(battleFinishRequests)
       .subscribe(response => {
           if (this.isTimeTracked) {
-            const campaign = this.campaignService.getSessionStorageCampaign();
+            const campaign = this.campaignService.getLocalStorageCampaign();
             const campaignUpdateRequest: CampaignUpdateRequest = {
               campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
             }
             this.campaignService.updateCampaign(campaignUpdateRequest)
-              .subscribe(response => this.campaignService.updateSessionStorageCampaign(response));
+              .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
           }
           this.battleEndedEmitter.emit(ActorUtils.fromJsonArray(response));
         },

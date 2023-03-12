@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Note} from "../../models/campaign/note";
-import {Observable, of} from "rxjs";
-import {environment} from "../../../environments/environment";
+import {Observable} from "rxjs";
 import {Environment} from "../../environment";
-import {Settings} from "../settings/settings";
 import {CampaignService} from "../campaign/campaign.service";
 
 @Injectable({
@@ -19,14 +17,14 @@ export class NoteService {
 
   addNote(note: Note): Observable<Note> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<Note>(this.notesUrl, note, httpOptions);
   }
 
   getNotes(): Observable<Note[]> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.get<Note[]>(
       this.notesUrl,
@@ -36,14 +34,14 @@ export class NoteService {
 
   updateNote(note: Note): Observable<Note> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId",this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.put<Note>(this.notesUrl, note, httpOptions)
   }
 
   deleteNote(id: number): Observable<unknown> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     const url = `${this.notesUrl}/${id}`;
     return this.httpClient.delete(url, httpOptions);

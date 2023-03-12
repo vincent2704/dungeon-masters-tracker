@@ -16,7 +16,7 @@ describe('TimeConfigurationComponent', () => {
   let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
-    const campaignService = jasmine.createSpyObj('CampaignService', ['setCurrentDate', 'getSessionStorageCampaign', 'updateSessionStorageCampaign']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['setCurrentDate', 'getLocalStorageCampaign', 'updateLocalStorageCampaign']);
 
     await TestBed.configureTestingModule({
       imports: [NgbModule, FormsModule, HttpClientTestingModule],
@@ -30,7 +30,8 @@ describe('TimeConfigurationComponent', () => {
 
   beforeEach(() => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
+      id: '123',
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,
@@ -62,7 +63,7 @@ describe('TimeConfigurationComponent', () => {
       campaignDateTimeCurrentEpoch: component.currentDate.getTime(),
       lastLongRestTimeEpoch: -14057296560000,
     } as Campaign
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(currentCampaignState)
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
     campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
 
     //when
@@ -87,7 +88,7 @@ describe('TimeConfigurationComponent', () => {
         campaignDateTimeCurrentEpoch: -14057296560000,
         lastLongRestTimeEpoch: -14057296560000,
       } as Campaign
-      campaignServiceSpy.getSessionStorageCampaign.and.returnValue(currentCampaignState)
+      campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
       campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
 
     //when
@@ -112,7 +113,7 @@ describe('TimeConfigurationComponent', () => {
         campaignDateTimeCurrentEpoch: component.getCurrentDateFromModels().getTime(),
         lastLongRestTimeEpoch: -14057296560000,
       } as Campaign
-      campaignServiceSpy.getSessionStorageCampaign.and.returnValue(currentCampaignState)
+      campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
       campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
 
     //when

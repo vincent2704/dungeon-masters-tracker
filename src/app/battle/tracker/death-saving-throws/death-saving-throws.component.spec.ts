@@ -15,7 +15,7 @@ describe('DeathSavingThrowsComponent', () => {
   let campaignServiceSpy: jasmine.SpyObj<CampaignService>
 
   beforeEach(async () => {
-    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign']);
 
     await TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
@@ -29,7 +29,7 @@ describe('DeathSavingThrowsComponent', () => {
 
   beforeEach(() => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,

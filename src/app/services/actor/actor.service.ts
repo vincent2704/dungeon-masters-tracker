@@ -7,7 +7,6 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Environment} from "../../environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
-import {Settings} from "../settings/settings";
 import {CampaignService} from "../campaign/campaign.service";
 
 @Injectable({
@@ -24,16 +23,15 @@ export class ActorService {
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
-    console.log(Settings.getCampaignIdTextFieldValue());
     return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, httpOptions)
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
   }
@@ -42,7 +40,7 @@ export class ActorService {
     Observable<PlayerCharacter[]> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
       playersBattleFinishedRequests, httpOptions);
@@ -51,7 +49,7 @@ export class ActorService {
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
 
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getCampaignId())
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     let charactersToDeleteIds = playerCharacters.map(character => character.id);
     let options = {

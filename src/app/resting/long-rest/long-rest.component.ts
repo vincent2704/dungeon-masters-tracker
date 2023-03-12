@@ -18,11 +18,11 @@ export class LongRestComponent implements OnInit {
   campaign: Campaign;
 
   constructor(private restingService: RestingService, private campaignService: CampaignService) {
-    this.campaign = campaignService.getSessionStorageCampaign();
+    this.campaign = campaignService.getLocalStorageCampaign();
   }
 
   ngOnInit(): void {
-    this.campaign = this.campaignService.getSessionStorageCampaign();
+    this.campaign = this.campaignService.getLocalStorageCampaign();
     this.restTimeInHours = this.restingService.getMinimumRestingTime(this.campaign);
   }
 

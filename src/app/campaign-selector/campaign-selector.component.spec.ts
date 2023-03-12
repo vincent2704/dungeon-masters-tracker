@@ -1,21 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsComponent } from './settings.component';
+import { CampaignSelectorComponent } from './campaign-selector.component';
 import {CampaignService} from "../services/campaign/campaign.service";
-import {Campaign} from "../models/campaign/campaign";
 import {FormsModule} from "@angular/forms";
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('CampaignSelectorComponent', () => {
+  let component: CampaignSelectorComponent;
+  let fixture: ComponentFixture<CampaignSelectorComponent>;
 
-  let campaignServiceSpy: jasmine.SpyObj<CampaignService>
+  let campaignServiceSpy: jasmine.SpyObj<CampaignService>;
 
   beforeEach(async () => {
-    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'reloadCampaign'])
+    const campaignService = jasmine.createSpyObj('CampaignService', ['reloadCampaign'])
     await TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ],
       imports: [ FormsModule ],
+      declarations: [ CampaignSelectorComponent ],
       providers: [
         { provide: CampaignService, useValue: campaignService }
       ]
@@ -25,11 +24,8 @@ describe('SettingsComponent', () => {
 
   beforeEach(() => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
-    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
-      id: 'someId'
-    } as Campaign);
 
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(CampaignSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

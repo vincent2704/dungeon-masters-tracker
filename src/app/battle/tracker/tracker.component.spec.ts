@@ -26,7 +26,7 @@ describe('TrackerComponent', () => {
 
   beforeEach(async () => {
     const actorSpy = jasmine.createSpyObj('ActorService', ['updateCharactersAfterBattle']);
-    const campaignService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign', 'updateCampaign', 'updateSessionStorageCampaign']);
+    const campaignService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign', 'updateCampaign', 'updateLocalStorageCampaign']);
 
     await TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
@@ -44,7 +44,7 @@ describe('TrackerComponent', () => {
     actorServiceSpy = TestBed.inject(ActorService) as jasmine.SpyObj<ActorService>;
 
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue({
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,
@@ -78,6 +78,7 @@ describe('TrackerComponent', () => {
     component.isTimeTracked = true;
 
     const initialCampaignState: Campaign = {
+      id: '123',
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,
@@ -87,12 +88,13 @@ describe('TrackerComponent', () => {
       campaignDateTimeCurrentEpoch: 6_000
     }
     const updatedCampaignState: Campaign = {
+      id: '123',
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 6_000,
       lastLongRestTimeEpoch: 0
     }
-    campaignServiceSpy.getSessionStorageCampaign.and.returnValue(initialCampaignState);
+    campaignServiceSpy.getLocalStorageCampaign.and.returnValue(initialCampaignState);
     campaignServiceSpy.updateCampaign.withArgs(campaignUpdateRequest).and.returnValue(of(updatedCampaignState));
 
     // when
@@ -109,7 +111,7 @@ describe('TrackerComponent', () => {
         playerCurrentHp: 0,
         timeOfDeath: date
       }]);
-    expect(campaignServiceSpy.updateSessionStorageCampaign).toHaveBeenCalledOnceWith(updatedCampaignState);
+    expect(campaignServiceSpy.updateLocalStorageCampaign).toHaveBeenCalledOnceWith(updatedCampaignState);
   });
 
   it('should progress actor', () => {

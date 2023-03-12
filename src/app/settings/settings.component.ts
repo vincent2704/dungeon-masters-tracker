@@ -9,13 +9,14 @@ import {CampaignService} from "../services/campaign/campaign.service";
 })
 export class SettingsComponent implements OnInit {
 
-  // campaignId?: string;
-  campaignId : string = '0f29e0da-c69f-44a5-9679-76019f21c8ec';
+  campaignId : string;
 
-  constructor(private campaignService: CampaignService) { }
+  constructor(private campaignService: CampaignService) {
+    this.campaignId = this.campaignService.getLocalStorageCampaign().id;
+  }
 
   ngOnInit(): void {
-    this.campaignId = Settings.getCampaignIdTextFieldValue();
+    this.campaignId = this.campaignService.getLocalStorageCampaign().id;
   }
 
   onUseSISystemChange(): void {
@@ -42,8 +43,7 @@ export class SettingsComponent implements OnInit {
     return Settings.isAutoLoadMonsterActions();
   }
 
-  onChangeCampaignId() {
-    Settings.setCampaignIdTextFieldValue(this.campaignId!);
-    this.campaignService.reloadCampaign();
+  onChangeCampaign() {
+    this.campaignService.reloadCampaign(this.campaignId);
   }
 }

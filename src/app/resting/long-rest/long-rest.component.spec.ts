@@ -12,7 +12,8 @@ describe('LongRestComponent', () => {
 
   let restingServiceSpy: jasmine.SpyObj<RestingService>;
 
-  const sessionStorageCampaign = {
+  const localStorageCampaign = {
+    id: '123',
     name: "Dummy Name",
     campaignDateTimeStartEpoch: -14057296560,
     campaignDateTimeCurrentEpoch: -14057296560,
@@ -33,7 +34,7 @@ describe('LongRestComponent', () => {
     })
       .compileComponents();
 
-    sessionStorage.setItem('campaign', JSON.stringify(sessionStorageCampaign))
+    sessionStorage.setItem('campaign', JSON.stringify(localStorageCampaign))
 
     restingServiceSpy = TestBed.inject(RestingService) as jasmine.SpyObj<RestingService>;
     restingServiceSpy.getMinimumRestingTime.and.returnValue(8);

@@ -18,7 +18,7 @@ describe('ResurrectionComponent', () => {
   );
 
   beforeEach(async () => {
-    const temporalService = jasmine.createSpyObj('CampaignService', ['getSessionStorageCampaign'])
+    const temporalService = jasmine.createSpyObj('CampaignService', ['getLocalStorageCampaign'])
 
     await TestBed.configureTestingModule({
       declarations: [ ResurrectionComponent, NgbCollapse, NgbTooltip ],
@@ -29,7 +29,7 @@ describe('ResurrectionComponent', () => {
     .compileComponents();
 
     temporalServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>;
-    temporalServiceSpy.getSessionStorageCampaign.and.returnValue({
+    temporalServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: "Dummy Name",
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
@@ -77,7 +77,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     //and
@@ -90,7 +90,7 @@ describe('ResurrectionComponent', () => {
   it('should not allow to use Raise Dead', () => {
     //given
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     component.round = 2; // 10 days ago + 6 seconds (after 1st round finished)
@@ -103,7 +103,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     //and
@@ -116,7 +116,7 @@ describe('ResurrectionComponent', () => {
   it('should not allow to use Reincarnate', () => {
     //given
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTenDaysAgo = DateUtils.subtractDays(currentDate, 10);
     component.character.kill(exactlyTenDaysAgo);
     component.round = 2; // 10 days ago + 6 seconds (after 1st round finished)
@@ -129,7 +129,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyHundredYearsAgo = DateUtils.subtractYears(currentDate, 100);
     component.character.kill(exactlyHundredYearsAgo);
     //and
@@ -143,7 +143,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyHundredYearsAgo = DateUtils.subtractYears(currentDate, 100);
     component.character.kill(exactlyHundredYearsAgo);
     //and
@@ -157,7 +157,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(currentDate, 200);
     component.character.kill(exactlyTwoHundredYearsAgo);
     //and
@@ -171,7 +171,7 @@ describe('ResurrectionComponent', () => {
     //given
     //pass exactly 10 days since character's death, not a second more
     component.character = new Actor('Character', 10);
-    const currentDate = new Date(temporalServiceSpy.getSessionStorageCampaign().campaignDateTimeCurrentEpoch);
+    const currentDate = new Date(temporalServiceSpy.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     let exactlyTwoHundredYearsAgo = DateUtils.subtractYears(currentDate, 200);
     component.character.kill(exactlyTwoHundredYearsAgo);
     //and

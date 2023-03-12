@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
 import {Environment} from "../../environment";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Settings} from "../settings/settings";
 
 /*
   Service that manages campaign data
@@ -14,20 +13,23 @@ import {Settings} from "../settings/settings";
 })
 export class CampaignService {
 
-  private campaignId: string = Settings.getCampaignIdTextFieldValue();
+  private campaignId: string = '';
   private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/`;
   private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
 
   constructor(private httpClient: HttpClient) {
-    this.reloadCampaign();
   }
 
   getCampaign(): Observable<Campaign> {
     return this.httpClient.get<Campaign>(this.campaignUrl + this.campaignId);
   }
 
-  reloadCampaign() {
-    this.campaignId = Settings.getCampaignIdTextFieldValue();
+  reloadCampaign(campaignId?: string) {
+    if (campaignId) {
+      this.campaignId = campaignId;
+    } else {
+      this.campaignId = this.getLocalStorageCampaign().id;
+    }
     this.getCampaign()
       .subscribe(response => {
         let campaign = {
@@ -37,7 +39,7 @@ export class CampaignService {
           campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
           lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
         } as Campaign;
-        sessionStorage.setItem('campaign', JSON.stringify(campaign));
+        localStorage.setItem('campaign', JSON.stringify(campaign));
       })
   }
 
@@ -53,15 +55,16 @@ export class CampaignService {
     return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);
   }
 
-  updateSessionStorageCampaign(campaign: Campaign): void {
-    sessionStorage.setItem('campaign', JSON.stringify(campaign));
+  updateLocalStorageCampaign(campaign: Campaign): void {
+    localStorage.setItem('campaign', JSON.stringify(campaign));
   }
 
-  getSessionStorageCampaign(): Campaign {
-    return JSON.parse(sessionStorage.getItem(this.CAMPAIGN_STORAGE_KEY) || "");
+  getLocalStorageCampaign(): Campaign {
+    const localStorageCampaign = localStorage.getItem(this.CAMPAIGN_STORAGE_KEY);
+    if(localStorageCampaign) {
+      return JSON.parse(localStorageCampaign);
+    }
+    return {} as Campaign;
   }
 
-  getCampaignId(): string {
-    return this.campaignId;
-  }
 }

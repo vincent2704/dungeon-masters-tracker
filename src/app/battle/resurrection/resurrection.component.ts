@@ -82,7 +82,7 @@ export class ResurrectionComponent implements OnInit {
   private getCurrentTimeInBattle(): Date {
     // temporal service current time is actually battle start time and is
     // updated only after battle is finished, because there's an option not to track time in battle.
-    let currentDate = new Date(this.temporalService.getSessionStorageCampaign().campaignDateTimeCurrentEpoch)
+    let currentDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
     return DateUtils.addRounds(currentDate, this.round - 1); // current round time hasn't passed yet, that's why -1
   }
 
