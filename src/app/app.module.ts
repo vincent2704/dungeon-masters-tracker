@@ -48,6 +48,7 @@ import { MonsterActionsComponent } from './battle/tracker/monster-actions/monste
 import { SavingThrowsComponent } from './battle/tracker/saving-throws/saving-throws.component';
 import { SingleConditionComponent } from './battle/tracker/condition/single-condition/single-condition.component';
 import { ConditionCellComponent } from './campaign-overview/protagonists-manager/protagonists-editor/condition-cell/condition-cell.component';
+import {CampaignSelectorComponent} from "./campaign-selector/campaign-selector.component";
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { ConditionCellComponent } from './campaign-overview/protagonists-manager
     MonsterActionsComponent,
     SavingThrowsComponent,
     SingleConditionComponent,
-    ConditionCellComponent
+    ConditionCellComponent,
+    CampaignSelectorComponent
   ],
   imports: [
     BrowserModule,
