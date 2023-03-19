@@ -52,6 +52,7 @@ import { CampaignSelectorComponent } from "./welcome-screen/campaign-selector/ca
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { LogInComponent } from './welcome-screen/log-in/log-in.component';
 import { RegisterComponent } from './welcome-screen/register/register.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { RegisterComponent } from './welcome-screen/register/register.component'
     CampaignSelectorComponent,
     WelcomeScreenComponent,
     LogInComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavigationComponent
   ],
     imports: [
         BrowserModule,

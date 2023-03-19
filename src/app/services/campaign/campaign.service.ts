@@ -20,7 +20,10 @@ export class CampaignService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getCampaign(): Observable<Campaign> {
+  getCampaign(campaign?: Campaign): Observable<Campaign> {
+    if(campaign) {
+      return this.httpClient.get<Campaign>(this.campaignUrl + campaign.id);
+    }
     return this.httpClient.get<Campaign>(this.campaignUrl + this.campaignId);
   }
 
