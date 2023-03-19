@@ -1,0 +1,23 @@
+<div class="card w-50">
+  <div class="card-body">
+    <h4 class="card-title">Not logged in</h4>
+    <p class="card-text">You haven't logged in yet. Please log in or
+      <button class="btn btn-primary" (click)="onRegister()">register</button>
+    </p>
+  </div>
+</div>
+
+<div *ngIf="registering">
+  <form [formGroup]="registrationFormGroup" (ngSubmit)="onSubmit()">
+    <label for="username-input" class="form-label">Username</label>
+    <input id="username-input" type="text" formControlName="username" class="form-control">
+
+    <label for="password-input" class="form-label">Password</label>
+    <input id="password-input" type="password" formControlName="password" class="form-control">
+
+    <label for="email-input" class="form-label">Email address</label>
+    <input id="email-input" type="email" formControlName="emailAddress" class="form-control">
+
+    <button [disabled]="!registrationFormGroup.valid" type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>

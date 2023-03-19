@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 
-  isCampaignSelected(): boolean {
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('campaign');
   }
 

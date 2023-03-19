@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BattleComponent } from './battle/battle.component';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrepareBattleComponent } from "./battle/prepare-battle/prepare-battle.component";
 import { ConditionComponent } from './battle/tracker/condition/condition.component';
@@ -48,7 +48,8 @@ import { MonsterActionsComponent } from './battle/tracker/monster-actions/monste
 import { SavingThrowsComponent } from './battle/tracker/saving-throws/saving-throws.component';
 import { SingleConditionComponent } from './battle/tracker/condition/single-condition/single-condition.component';
 import { ConditionCellComponent } from './campaign-overview/protagonists-manager/protagonists-editor/condition-cell/condition-cell.component';
-import {CampaignSelectorComponent} from "./campaign-selector/campaign-selector.component";
+import { CampaignSelectorComponent } from "./welcome-screen/campaign-selector/campaign-selector.component";
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 
 @NgModule({
   declarations: [
@@ -95,15 +96,17 @@ import {CampaignSelectorComponent} from "./campaign-selector/campaign-selector.c
     SavingThrowsComponent,
     SingleConditionComponent,
     ConditionCellComponent,
-    CampaignSelectorComponent
+    CampaignSelectorComponent,
+    WelcomeScreenComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    NgbModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NgbModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
