@@ -1,1 +1,9 @@
-<p>log-in works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <label for="username-input" class="form-label">Username</label>
+  <input id="username-input" type="text" formControlName="username" class="form-control">
+
+  <label for="password-input" class="form-label">Password</label>
+  <input id="password-input" type="password" formControlName="password" class="form-control">
+
+  <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Submit</button>
+</form>
