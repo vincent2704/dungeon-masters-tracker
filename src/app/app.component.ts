@@ -8,7 +8,8 @@ import {Component} from '@angular/core';
 export class AppComponent {
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('campaign');
+    // TODO: implement logging in in next task
+    return !!localStorage.getItem('current_user');
   }
 
   clearLocalStorage() {
