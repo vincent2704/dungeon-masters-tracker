@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CampaignSelectorComponent } from './campaign-selector.component';
-import {CampaignService} from "../services/campaign/campaign.service";
+import {CampaignService} from "../../services/campaign/campaign.service";
 import {FormsModule} from "@angular/forms";
 
 describe('CampaignSelectorComponent', () => {

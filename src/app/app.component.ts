@@ -7,8 +7,9 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 
-  isCampaignSelected(): boolean {
-    return !!localStorage.getItem('campaign');
+  isLoggedIn(): boolean {
+    // TODO: implement logging in in next task
+    return !!localStorage.getItem('current_user');
   }
 
   clearLocalStorage() {
