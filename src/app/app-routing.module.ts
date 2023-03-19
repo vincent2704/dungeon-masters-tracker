@@ -25,9 +25,14 @@ import {
 import {RestingComponent} from "./resting/resting.component";
 import {MonstersComponent} from "./monsters/monsters.component";
 import {NotesComponent} from "./notes/notes.component";
+import {RegisterComponent} from "./welcome-screen/register/register.component";
+import {WelcomeScreenComponent} from "./welcome-screen/welcome-screen.component";
+import {LogInComponent} from "./welcome-screen/log-in/log-in.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'campaign-overview', pathMatch: 'full' },
+  { path: '', component: WelcomeScreenComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LogInComponent},
   { path: 'campaign-overview', component: CampaignOverviewComponent },
   { path: 'battle', component: BattleComponent },
   { path: 'resting', component: RestingComponent },
