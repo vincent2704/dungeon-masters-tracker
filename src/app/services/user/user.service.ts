@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../../models/user/user";
 import {UserCreationRequest} from "../../models/user/userCreationRequest";
+import {LogInRequest} from "../../models/user/logInRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class UserService {
 
   createUser(request: UserCreationRequest): Observable<User> {
     return this.httpClient.post<User>(this.usersUrl, request);
+  }
+
+  login(loginRequest: LogInRequest): Observable<User> {
+    return this.httpClient.post<User>(this.usersUrl + '/login', loginRequest);
   }
 
 }

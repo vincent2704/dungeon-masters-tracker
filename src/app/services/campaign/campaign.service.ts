@@ -15,13 +15,16 @@ export class CampaignService {
 
   private campaignId: string = '';
   private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/`;
-  private readonly CAMPAIGN_STORAGE_KEY = 'campaign'
+  private readonly CAMPAIGN_STORAGE_KEY = 'current_campaign'
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getCampaign(): Observable<Campaign> {
-    return this.httpClient.get<Campaign>(this.campaignUrl + this.campaignId);
+  getCampaign(campaign?: Campaign): Observable<Campaign> {
+    if(campaign) {
+      return this.httpClient.get<Campaign>(this.campaignUrl + campaign.id);
+    }
+    return this.httpClient.get<Campaign>(this.campaignUrl + this.getLocalStorageCampaign().id);
   }
 
   reloadCampaign(campaignId?: string) {
@@ -39,7 +42,7 @@ export class CampaignService {
           campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
           lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
         } as Campaign;
-        localStorage.setItem('campaign', JSON.stringify(campaign));
+        localStorage.setItem(this.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
       })
   }
 
@@ -56,7 +59,7 @@ export class CampaignService {
   }
 
   updateLocalStorageCampaign(campaign: Campaign): void {
-    localStorage.setItem('campaign', JSON.stringify(campaign));
+    localStorage.setItem(this.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
   }
 
   getLocalStorageCampaign(): Campaign {

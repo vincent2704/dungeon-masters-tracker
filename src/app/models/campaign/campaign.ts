@@ -4,4 +4,5 @@ export interface Campaign {
   campaignDateTimeStartEpoch: number;
   campaignDateTimeCurrentEpoch: number;
   lastLongRestTimeEpoch: number;
+  realDateLastPlayed: Date;
 }

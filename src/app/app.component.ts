@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
 export class AppComponent {
 
   isLoggedIn(): boolean {
-    // TODO: implement logging in in next task
     return !!localStorage.getItem('current_user');
   }
 
@@ -25,5 +24,9 @@ export class AppComponent {
       lastLongRestTimeEpoch: -14055780960000
     }
     localStorage.setItem('campaign', JSON.stringify(campaign));
+  }
+
+  campaignSelected(): boolean {
+    return !!localStorage.getItem('current_campaign');
   }
 }

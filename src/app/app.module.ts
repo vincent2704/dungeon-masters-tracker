@@ -50,6 +50,9 @@ import { SingleConditionComponent } from './battle/tracker/condition/single-cond
 import { ConditionCellComponent } from './campaign-overview/protagonists-manager/protagonists-editor/condition-cell/condition-cell.component';
 import { CampaignSelectorComponent } from "./welcome-screen/campaign-selector/campaign-selector.component";
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { LogInComponent } from './welcome-screen/log-in/log-in.component';
+import { RegisterComponent } from './welcome-screen/register/register.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +100,10 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
     SingleConditionComponent,
     ConditionCellComponent,
     CampaignSelectorComponent,
-    WelcomeScreenComponent
+    WelcomeScreenComponent,
+    LogInComponent,
+    RegisterComponent,
+    NavigationComponent
   ],
     imports: [
         BrowserModule,

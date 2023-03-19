@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Campaign} from "../../models/campaign/campaign";
+import {User} from "../../models/user/user";
 import {CampaignService} from "../../services/campaign/campaign.service";
 
 @Component({
@@ -9,14 +11,27 @@ import {CampaignService} from "../../services/campaign/campaign.service";
 export class CampaignSelectorComponent implements OnInit {
 
   campaignId: string = '';
+  campaigns: Campaign[] = []
 
   constructor(private campaignService: CampaignService) { }
 
   ngOnInit(): void {
+    const user: User = JSON.parse(localStorage.getItem('current_user')!);
+    this.campaigns = user.campaigns;
+  }
+
+  getLastPlayed(campaign: Campaign): Date {
+    return campaign.realDateLastPlayed;
   }
 
   onConfirm() {
-    this.campaignService.reloadCampaign(this.campaignId);
+
   }
 
+  loadCampaign(campaign: Campaign): void {
+    this.campaignService.getCampaign(campaign)
+      .subscribe(response => {
+        localStorage.setItem('current_campaign', JSON.stringify(response));
+      })
+  }
 }
