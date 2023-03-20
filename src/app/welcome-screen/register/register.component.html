@@ -1,14 +1,15 @@
 <form [formGroup]="registrationFormGroup" (ngSubmit)="onSubmit()">
-  <label for="username-input" class="form-label">Username</label>
-  <input id="username-input" type="text" formControlName="username" class="form-control">
+  <label for="registration-username-input" class="form-label">Username</label>
+  <input id="registration-username-input" type="text" formControlName="username" class="form-control">
 
-  <label for="password-input" class="form-label">Password</label>
-  <input id="password-input" type="password" formControlName="password" class="form-control">
+  <label for="registration-password-input" class="form-label">Password</label>
+  <input id="registration-password-input" type="password" formControlName="password" class="form-control">
 
-  <label for="email-input" class="form-label">Email address</label>
-  <input id="email-input" type="email" formControlName="emailAddress" class="form-control">
+  <label for="registration-email-input" class="form-label">Email address</label>
+  <input id="registration-email-input" type="email" formControlName="emailAddress" class="form-control">
 
-  <button [disabled]="!registrationFormGroup.valid" type="submit" class="btn btn-success">Submit</button>
+  <button id="registration-submit-button"
+          [disabled]="!registrationFormGroup.valid" type="submit" class="btn btn-success">Submit</button>
 </form>
 
 <router-outlet></router-outlet>

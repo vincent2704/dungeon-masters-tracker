@@ -20,7 +20,7 @@ describe('RestingService', () => {
     campaignDateTimeStartEpoch: -14057296560,
     campaignDateTimeCurrentEpoch: -14057296560,
     realDateStart: -14057296560,
-    realDateLastPlayed: -14057296560,
+    realDateLastPlayed: new Date(),
     lastLongRestTimeEpoch: -14057296560
   } as Campaign
 
@@ -134,7 +134,8 @@ describe('RestingService', () => {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime()
+      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      realDateLastPlayed: new Date()
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -155,7 +156,8 @@ describe('RestingService', () => {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime()
+      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      realDateLastPlayed: new Date()
     }
 
       campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
@@ -176,7 +178,8 @@ describe('RestingService', () => {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime()
+      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      realDateLastPlayed: new Date()
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -196,7 +199,8 @@ describe('RestingService', () => {
       name: 'Campaign Name',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime()
+      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      realDateLastPlayed: new Date()
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -271,7 +275,8 @@ describe('RestingService', () => {
       name: 'Updated Campaign',
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
-      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000
+      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000,
+      realDateLastPlayed: new Date()
     }
     campaignServiceSpy.updateCampaign.and.returnValue(of(
       campaignAfterShortRestResponse

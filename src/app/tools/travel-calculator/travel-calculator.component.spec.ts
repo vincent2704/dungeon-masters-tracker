@@ -77,7 +77,8 @@ describe('TravelCalculatorComponent', () => {
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 1,
-      lastLongRestTimeEpoch: 0
+      lastLongRestTimeEpoch: 0,
+      realDateLastPlayed: new Date()
     }
 
     const expectedCampaignUpdateRequest: CampaignUpdateRequest = {
@@ -89,7 +90,8 @@ describe('TravelCalculatorComponent', () => {
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 14_400_001,
-      lastLongRestTimeEpoch: 0
+      lastLongRestTimeEpoch: 0,
+      realDateLastPlayed: new Date()
     }
 
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(initialCampaignState)
