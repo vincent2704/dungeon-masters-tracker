@@ -34,6 +34,7 @@ export class CampaignSelectorComponent implements OnInit {
   onSubmit() {
     this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
       .subscribe(response => {
+        this.campaignCreationFormGroup.reset();
         this.campaigns.push(response)
       }, () => console.error(`Failed to create campaign:
       ${JSON.stringify(this.campaignCreationFormGroup.value)}`))

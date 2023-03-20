@@ -11,7 +11,7 @@
         </div>
       </a>
     </div>
-    <button class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
+    <button id="create-campaign-button" class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCampaignCreationCollapsed">
       <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="onSubmit()">
         <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name"
@@ -24,12 +24,12 @@
           <div class="col">
             <select id="create-campaign-calendar-selector" formControlName="calendarSystem">
               <option value="">Select calendar system</option>
-              <option value="GREGORIAN">Gregorian</option>
-              <option disabled>Calendar of Harptos (Forgotten Realms)</option>
+              <option id="select-gregorian-calendar" value="GREGORIAN">Gregorian</option>
+              <option disabled value="HARPTOS">Calendar of Harptos (Forgotten Realms)</option>
             </select>
           </div>
         </div>
-        <button id="create-campaign-submit-button" type="submit" class="btn btn-success">Submit</button>
+        <button id="create-campaign-submit-button" type="submit" class="btn btn-success">Create</button>
       </form>
     </div>
   </div>

@@ -34,8 +34,17 @@ describe('registration and logging in', () => {
 
     cy.get('#login-password-input').type(testPassword);
     cy.get('#login-submit-button').click();
+  })
 
-    cy.contains('No campaign selected');
+  it('creates new campaign', () => {
+    cy.get('#create-campaign-button').should('be.visible').click();
+    cy.get('#create-campaign-name-input').should('be.visible')
+      .type('Cypress test campaign');
+    cy.get('#create-campaign-calendar-selector').select('Gregorian');
+    cy.get('#create-campaign-submit-button').click();
+    cy.get('#create-campaign-name-input').should('have.value', '');
+
+    cy.contains('Last played');
   })
 
 })
