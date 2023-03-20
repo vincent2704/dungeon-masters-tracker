@@ -29,6 +29,9 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   loadCampaign(campaign: Campaign): void {
-    this.campaignService.reloadCampaign(campaign.id);
+    this.campaignService.getCampaign(campaign)
+      .subscribe(response => {
+        localStorage.setItem('current_campaign', JSON.stringify(response));
+      })
   }
 }
