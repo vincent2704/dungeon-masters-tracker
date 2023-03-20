@@ -17,7 +17,7 @@ export class CampaignSelectorComponent implements OnInit {
 
   campaignCreationFormGroup = new FormGroup({
     campaignName: new FormControl(''),
-    calendarSystem: new FormControl()
+    calendarSystem: new FormControl('')
   })
 
   constructor(private campaignService: CampaignService) { }
@@ -32,7 +32,11 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
+      .subscribe(response => {
+        this.campaigns.push(response)
+      }, () => console.error(`Failed to create campaign:
+      ${JSON.stringify(this.campaignCreationFormGroup.value)}`))
   }
 
   loadCampaign(campaign: Campaign): void {

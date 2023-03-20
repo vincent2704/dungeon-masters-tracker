@@ -14,19 +14,22 @@
     <button class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCampaignCreationCollapsed">
       <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="onSubmit()">
-        <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name">
+        <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name"
+               formControlName="campaignName">
 <!--        TODO: use loop when calendar of Harptos is implemented -->
         <div class="row">
           <div class="col">
             <label>Choose calendar system</label>
           </div>
           <div class="col">
-            <select id="create-campaign-calendar-selector">
-              <option>Gregorian</option>
+            <select id="create-campaign-calendar-selector" formControlName="calendarSystem">
+              <option value="">Select calendar system</option>
+              <option value="GREGORIAN">Gregorian</option>
               <option disabled>Calendar of Harptos (Forgotten Realms)</option>
             </select>
           </div>
         </div>
+        <button id="create-campaign-submit-button" type="submit" class="btn btn-success">Submit</button>
       </form>
     </div>
   </div>

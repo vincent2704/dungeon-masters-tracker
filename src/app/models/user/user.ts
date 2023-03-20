@@ -2,7 +2,7 @@ import {Campaign} from "../campaign/campaign";
 
 export interface User {
 
-  username: number,
+  username: string,
   emailAddress: string,
   campaigns: Campaign[]
 

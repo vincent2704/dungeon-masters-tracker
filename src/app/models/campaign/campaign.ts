@@ -1,4 +1,4 @@
-enum CalendarSystem {
+export enum CalendarSystem {
   GREGORIAN, HARPTOS
 }
 
