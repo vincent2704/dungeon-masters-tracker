@@ -1,3 +1,7 @@
+export enum CalendarSystem {
+  GREGORIAN, HARPTOS
+}
+
 export interface Campaign {
   id: string;
   name: string;
@@ -5,4 +9,5 @@ export interface Campaign {
   campaignDateTimeCurrentEpoch: number;
   lastLongRestTimeEpoch: number;
   realDateLastPlayed: Date;
+  calendarSystem: CalendarSystem;
 }

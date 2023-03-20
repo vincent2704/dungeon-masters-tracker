@@ -1,15 +1,36 @@
 <div class="card w-50">
   <div class="card-body">
     <h4 class="card-title">No campaign selected</h4>
-    <p class="card-text">You haven't selected active campaign. Please choose one from the list.</p>
-
+    <p class="card-text">You haven't selected active campaign. Please choose one from the list or create a new one.</p>
     <div class="list-group">
-      <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true" (click)="loadCampaign(campaign)">
+      <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true"
+         (click)="loadCampaign(campaign)">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{ campaign.name }}</h5>
           <small>Last played: {{campaign.realDateLastPlayed}}</small>
         </div>
       </a>
+    </div>
+    <button id="create-campaign-button" class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCampaignCreationCollapsed">
+      <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="onSubmit()">
+        <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name"
+               formControlName="campaignName">
+<!--        TODO: use loop when calendar of Harptos is implemented -->
+        <div class="row">
+          <div class="col">
+            <label>Choose calendar system</label>
+          </div>
+          <div class="col">
+            <select id="create-campaign-calendar-selector" formControlName="calendarSystem">
+              <option value="">Select calendar system</option>
+              <option id="select-gregorian-calendar" value="GREGORIAN">Gregorian</option>
+              <option disabled value="HARPTOS">Calendar of Harptos (Forgotten Realms)</option>
+            </select>
+          </div>
+        </div>
+        <button id="create-campaign-submit-button" type="submit" class="btn btn-success">Create</button>
+      </form>
     </div>
   </div>
 </div>

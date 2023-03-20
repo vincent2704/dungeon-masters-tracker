@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
 import {Environment} from "../../environment";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import {CampaignCreationRequest} from "../../models/campaign/campaignCreationRequest";
+import {User} from "../../models/user/user";
 
 /*
   Service that manages campaign data
@@ -20,8 +22,18 @@ export class CampaignService {
   constructor(private httpClient: HttpClient) {
   }
 
+  createCampaign(campaignCreationRequest: CampaignCreationRequest): Observable<Campaign> {
+    const currentUser: User = JSON.parse(localStorage.getItem('current_user')!);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    return this.httpClient.post<Campaign>(this.campaignUrl, campaignCreationRequest, httpOptions)
+  }
+
   getCampaign(campaign?: Campaign): Observable<Campaign> {
-    if(campaign) {
+    if (campaign) {
       return this.httpClient.get<Campaign>(`${this.campaignUrl}/${campaign.id}`);
     }
     return this.httpClient.get<Campaign>(`${this.campaignUrl}/${this.getLocalStorageCampaign().id}`);
@@ -64,7 +76,7 @@ export class CampaignService {
 
   getLocalStorageCampaign(): Campaign {
     const localStorageCampaign = localStorage.getItem(this.CAMPAIGN_STORAGE_KEY);
-    if(localStorageCampaign) {
+    if (localStorageCampaign) {
       return JSON.parse(localStorageCampaign);
     }
     return {} as Campaign;

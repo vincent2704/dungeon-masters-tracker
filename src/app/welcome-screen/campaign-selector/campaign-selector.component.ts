@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Campaign} from "../../models/campaign/campaign";
 import {User} from "../../models/user/user";
 import {CampaignService} from "../../services/campaign/campaign.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -12,6 +13,12 @@ export class CampaignSelectorComponent implements OnInit {
 
   campaignId: string = '';
   campaigns: Campaign[] = []
+  isCampaignCreationCollapsed: boolean = true;
+
+  campaignCreationFormGroup = new FormGroup({
+    campaignName: new FormControl(''),
+    calendarSystem: new FormControl('')
+  })
 
   constructor(private campaignService: CampaignService) { }
 
@@ -24,8 +31,13 @@ export class CampaignSelectorComponent implements OnInit {
     return campaign.realDateLastPlayed;
   }
 
-  onConfirm() {
-
+  onSubmit() {
+    this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
+      .subscribe(response => {
+        this.campaignCreationFormGroup.reset();
+        this.campaigns.push(response)
+      }, () => console.error(`Failed to create campaign:
+      ${JSON.stringify(this.campaignCreationFormGroup.value)}`))
   }
 
   loadCampaign(campaign: Campaign): void {
