@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Settings} from "../services/settings/settings";
 import {CampaignService} from "../services/campaign/campaign.service";
+import {Campaign} from "../models/campaign/campaign";
+import {UserService} from "../services/user/user.service";
 
 @Component({
   selector: 'app-settings',
@@ -10,13 +12,15 @@ import {CampaignService} from "../services/campaign/campaign.service";
 export class SettingsComponent implements OnInit {
 
   campaignId : string;
+  campaigns: Campaign[] = [];
 
-  constructor(private campaignService: CampaignService) {
+  constructor(private campaignService: CampaignService, private userService: UserService) {
     this.campaignId = this.campaignService.getLocalStorageCampaign().id;
   }
 
   ngOnInit(): void {
     this.campaignId = this.campaignService.getLocalStorageCampaign().id;
+    this.campaigns = this.userService.getLocalStorageCampaigns();
   }
 
   onUseSISystemChange(): void {
@@ -43,7 +47,10 @@ export class SettingsComponent implements OnInit {
     return Settings.isAutoLoadMonsterActions();
   }
 
-  onChangeCampaign() {
-    this.campaignService.reloadCampaign(this.campaignId);
+  loadCampaign(campaign: Campaign): void {
+    this.campaignService.getCampaign(campaign)
+      .subscribe(response => {
+        localStorage.setItem('current_campaign', JSON.stringify(response));
+      })
   }
 }

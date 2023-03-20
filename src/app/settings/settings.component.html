@@ -2,11 +2,12 @@
   <div class="col">
     <h4>General</h4>
     <div class="list-group">
-      <label class="list-group-item">
-        Campaign ID
-        <input type="text" class="form-control" [(ngModel)]="campaignId">
-        <button class="btn btn-primary" (click)="onChangeCampaign()">Confirm</button>
-      </label>
+      <!--      below to be brought back when campaign without logging in/registration will be implemented         -->
+      <!--      <label class="list-group-item">-->
+      <!--        Campaign ID-->
+      <!--        <input type="text" class="form-control" [(ngModel)]="campaignId">-->
+      <!--        <button class="btn btn-primary" (click)="onChangeCampaign()">Confirm</button>-->
+      <!--      </label>-->
       <label class="list-group-item">
         <input class="form-check-input" type="checkbox" [checked]="isUsingSISystem()"
                (change)="onUseSISystemChange()">
@@ -28,6 +29,19 @@
                (change)="onAutoLoadMonsterActionsChange()">
         Automatically load all Monster Actions in the battle tracker
       </label>
+    </div>
+  </div>
+
+  <div class="col">
+    <h4>Your campaigns</h4>
+    <div class="list-group">
+      <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true"
+         (click)="loadCampaign(campaign)">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ campaign.name }}</h5>
+          <small>Last played: {{campaign.realDateLastPlayed}}</small>
+        </div>
+      </a>
     </div>
   </div>
 </div>

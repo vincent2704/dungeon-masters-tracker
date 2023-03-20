@@ -14,7 +14,7 @@ import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest
 export class CampaignService {
 
   private campaignId: string = '';
-  private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns/`;
+  private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns`;
   private readonly CAMPAIGN_STORAGE_KEY = 'current_campaign'
 
   constructor(private httpClient: HttpClient) {
@@ -22,9 +22,9 @@ export class CampaignService {
 
   getCampaign(campaign?: Campaign): Observable<Campaign> {
     if(campaign) {
-      return this.httpClient.get<Campaign>(this.campaignUrl + campaign.id);
+      return this.httpClient.get<Campaign>(`${this.campaignUrl}/${campaign.id}`);
     }
-    return this.httpClient.get<Campaign>(this.campaignUrl + this.getLocalStorageCampaign().id);
+    return this.httpClient.get<Campaign>(`${this.campaignUrl}/${this.getLocalStorageCampaign().id}`);
   }
 
   reloadCampaign(campaignId?: string) {

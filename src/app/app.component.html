@@ -1,7 +1,7 @@
 <div class="container">
 
-<!--  <button class="btn btn-primary" (click)="clearLocalStorage()">CLEAR LOCAL STORAGE</button>-->
-<!--  <button class="btn btn-primary" (click)="restoreLocalStorage()">RESTORE LOCAL STORAGE</button>-->
+  <button class="btn btn-primary" (click)="clearLocalStorage()">CLEAR LOCAL STORAGE</button>
+  <button class="btn btn-primary" (click)="restoreLocalStorage()">RESTORE LOCAL STORAGE</button>
 
   <div *ngIf="isLoggedIn(); else welcome">
     <div *ngIf="campaignSelected(); else selectCampaignBlock">
