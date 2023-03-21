@@ -6,5 +6,23 @@
   <input id="login-password-input" type="password" formControlName="password" class="form-control">
 
   <button id="login-submit-button"
-          [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Submit</button>
+          [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Submit
+  </button>
 </form>
+
+
+<ng-template #badCredentialsModal>
+  <div id="bad-credentials-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="bad-credentials-modal-title">Bad credentials</h4>
+    </div>
+    <div class="modal-body">
+      <p>You have entered bad username/password. Please try again.</p>
+    </div>
+    <div class="modal-footer">
+          <p>Password reset will be coming soon.</p>
+          <button id="bad-credentials-modal-close-button"
+                  type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>

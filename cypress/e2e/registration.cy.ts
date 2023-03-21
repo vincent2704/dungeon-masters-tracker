@@ -2,6 +2,7 @@ describe('registration and logging in', () => {
 
   const testUsername = 'testuser'
   const testPassword = 'superpassword3000'
+  const badPassword = 'some bad password'
   const testEmailAddress = 'test@dmtracker.com'
 
   it('registers a new user', () => {
@@ -25,6 +26,23 @@ describe('registration and logging in', () => {
 
   // TODO: registering a new user with existing username should fail test
 
+  it('logs in with bad credentials', () => {
+    cy.get('#login-button').should('be.visible')
+      .click();
+
+    cy.get('#bad-credentials-modal').should('not.exist');
+    cy.get('#login-username-input').should('be.visible')
+      .type(testUsername).click();
+
+    cy.get('#login-password-input').type(badPassword);
+    cy.get('#login-submit-button').click();
+
+    cy.get('#bad-credentials-modal').should('exist');
+    cy.get('#bad-credentials-modal').should('be.visible');
+    cy.get('#bad-credentials-modal-close-button').click();
+    cy.get('#bad-credentials-modal').should('not.exist');
+  })
+
   it('logs in as new user', () => {
     cy.get('#login-button').should('be.visible')
       .click();
@@ -37,6 +55,7 @@ describe('registration and logging in', () => {
   })
 
   it('creates new campaign', () => {
+    cy.get('#campaign-selector').should('be.visible');
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
       .type('Cypress test campaign');
