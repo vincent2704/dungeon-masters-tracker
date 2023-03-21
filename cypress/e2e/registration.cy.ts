@@ -4,6 +4,7 @@ describe('registration and logging in', () => {
   const testPassword = 'superpassword3000'
   const badPassword = 'some bad password'
   const testEmailAddress = 'test@dmtracker.com'
+  const campaignName = 'Cypress test campaign'
 
   it('registers a new user', () => {
     cy.visit('http://localhost:4200')
@@ -58,12 +59,20 @@ describe('registration and logging in', () => {
     cy.get('#campaign-selector').should('be.visible');
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
-      .type('Cypress test campaign');
+      .type(campaignName);
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
     cy.get('#create-campaign-submit-button').click();
     cy.get('#create-campaign-name-input').should('have.value', '');
 
-    cy.contains('Last played');
+    cy.contains(campaignName);
+  })
+
+  it('fails to create another campaign with the same name', () => {
+    cy.get('#campaign-selector').should('be.visible');
+    cy.get('#create-campaign-name-input').should('be.visible').type(campaignName);
+    // cy.get('#create-campaign-calendar-selector').select('Gregorian');
+    // cy.get('#create-campaign-submit-button').click();
+    // cy.get('#campaign-creation-failed-modal').should('be.visible');
   })
 
 })

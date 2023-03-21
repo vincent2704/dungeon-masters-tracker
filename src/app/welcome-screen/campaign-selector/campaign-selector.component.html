@@ -13,7 +13,7 @@
     </div>
     <button id="create-campaign-button" class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCampaignCreationCollapsed">
-      <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="onSubmit()">
+      <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="createCampaign()">
         <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name"
                formControlName="campaignName">
 <!--        TODO: use loop when calendar of Harptos is implemented -->
@@ -34,3 +34,19 @@
     </div>
   </div>
 </div>
+
+<!--TODO: maybe replace it later with validation and message under the campaign name text field-->
+<ng-template #campaignCreationFailModal>
+  <div id="campaign-creation-failed-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="bad-credentials-modal-title">Failed to create campaign</h4>
+    </div>
+    <div class="modal-body">
+      <p>Check if you have already created a campaign using the same name.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="bad-credentials-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>
