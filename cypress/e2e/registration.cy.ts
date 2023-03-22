@@ -28,6 +28,7 @@ describe('registration and logging in', () => {
   // TODO: registering a new user with existing username should fail test
 
   it('logs in with bad credentials', () => {
+    cy.visit('http://localhost:4200')
     cy.get('#login-button').should('be.visible')
       .click();
 
@@ -45,6 +46,7 @@ describe('registration and logging in', () => {
   })
 
   it('logs in as new user', () => {
+    cy.visit('http://localhost:4200')
     cy.get('#login-button').should('be.visible')
       .click();
 
@@ -56,7 +58,18 @@ describe('registration and logging in', () => {
   })
 
   it('creates new campaign', () => {
+    cy.visit('http://localhost:4200')
+    cy.get('#login-button').should('be.visible')
+      .click();
+
+    cy.get('#login-username-input').should('be.visible')
+      .type(testUsername).click();
+
+    cy.get('#login-password-input').type(testPassword);
+    cy.get('#login-submit-button').click();
+
     cy.get('#campaign-selector').should('be.visible');
+    cy.pause();
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
       .type(campaignName);
@@ -65,14 +78,23 @@ describe('registration and logging in', () => {
     cy.get('#create-campaign-name-input').should('have.value', '');
 
     cy.contains(campaignName);
+
+    cy.pause()
+    cy.get('#campaign-selector').should('be.visible');
+    cy.get('#create-campaign-name-input').should('be.visible');
+    cy.get('#create-campaign-name-input').should('be.visible')
+      .type(campaignName, {force: true});
   })
 
   it('fails to create another campaign with the same name', () => {
+    cy.pause()
     cy.get('#campaign-selector').should('be.visible');
-    cy.get('#create-campaign-name-input').should('be.visible').type(campaignName);
-    // cy.get('#create-campaign-calendar-selector').select('Gregorian');
-    // cy.get('#create-campaign-submit-button').click();
-    // cy.get('#campaign-creation-failed-modal').should('be.visible');
+    cy.get('#create-campaign-name-input').should('be.visible');
+    cy.get('#create-campaign-name-input').should('be.visible')
+      .type(campaignName, {force: true});
+    cy.get('#create-campaign-calendar-selector').select('Gregorian');
+    cy.get('#create-campaign-submit-button').click();
+    cy.get('#campaign-creation-failed-modal').should('be.visible');
   })
 
 })
