@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {UserService} from "../../services/user/user.service";
 import {User} from "../../models/user/user";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-log-in',
@@ -19,7 +20,7 @@ export class LogInComponent implements OnInit {
   @ViewChild('badCredentialsModal')
   badCredentialsModal!: any;
 
-  constructor(private userService: UserService, private modalService: NgbModal) { }
+  constructor(private userService: UserService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,6 +35,7 @@ export class LogInComponent implements OnInit {
         } as User
         localStorage.setItem('current_user', JSON.stringify(user))
         this.loginForm.reset();
+        this.router.navigate(['/campaign-selection'])
       }, () => {
         this.loginForm.reset();
         this.modalService.open(this.badCredentialsModal);
