@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user/user.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-register',
@@ -8,6 +9,9 @@ import {UserService} from "../../services/user/user.service";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  @ViewChild('userExistsModal')
+  userExistsModal!: any;
 
   registrationFormGroup = new FormGroup({
     username: new FormControl('', [
@@ -21,7 +25,7 @@ export class RegisterComponent implements OnInit {
     ])
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -30,7 +34,14 @@ export class RegisterComponent implements OnInit {
     this.userService.createUser(this.registrationFormGroup.value)
       .subscribe(() => {
         this.registrationFormGroup.reset();
-      }, () => console.error('Failed to create character'))
+      }, () => {
+        this.modalService.open(this.userExistsModal);
+        console.error('Failed to create character')
+      })
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
   }
 
 }

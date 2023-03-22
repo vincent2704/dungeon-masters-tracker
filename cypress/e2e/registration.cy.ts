@@ -26,6 +26,24 @@ describe('registration and logging in', () => {
   })
 
   // TODO: registering a new user with existing username should fail test
+  it('fails to register user that already exists', () => {
+    cy.visit('http://localhost:4200')
+
+    cy.get('#not-logged-in-header').should('be.visible');
+    cy.get('#register-button').should('be.visible').click();
+
+    cy.get('#registration-submit-button').should('be.disabled');
+
+    cy.get('#registration-username-input').should('be.visible')
+      .type(testUsername);
+    cy.get('#registration-password-input').should('be.visible')
+      .type(testPassword);
+    cy.get('#registration-email-input').should('be.visible')
+      .type(testEmailAddress);
+
+    cy.get('#registration-submit-button').should('be.enabled')
+      .click();
+  })
 
   it('logs in with bad credentials', () => {
     cy.visit('http://localhost:4200')

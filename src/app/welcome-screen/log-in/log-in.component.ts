@@ -12,13 +12,13 @@ import {Router} from "@angular/router";
 })
 export class LogInComponent implements OnInit {
 
+  @ViewChild('badCredentialsModal')
+  badCredentialsModal!: any;
+
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
   });
-
-  @ViewChild('badCredentialsModal')
-  badCredentialsModal!: any;
 
   constructor(private userService: UserService, private modalService: NgbModal, private router: Router) { }
 
