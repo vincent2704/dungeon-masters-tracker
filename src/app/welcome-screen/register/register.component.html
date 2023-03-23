@@ -12,6 +12,22 @@
           [disabled]="!registrationFormGroup.valid" type="submit" class="btn btn-success">Submit</button>
 </form>
 
+<ng-template #registrationSuccessModal>
+  <div id="registration-success-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="registration-success-modal-title">Registration success!</h4>
+    </div>
+    <div class="modal-body">
+      <p>You can now log in.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="registration-success-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              (click)="closeRegistrationSuccessModal()" routerLink="/login">Log in</button>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #userExistsModal>
   <div id="user-exists-modal">
     <div class="modal-header">
@@ -22,8 +38,8 @@
     </div>
     <div class="modal-footer">
       <p>Please try again</p>
-      <button id="user-exists-modall-close-button"
-              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button id="user-exists-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeUserExistsModal()">Close</button>
     </div>
   </div>
 </ng-template>

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user/user.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,9 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('userExistsModal')
   userExistsModal!: any;
+
+  @ViewChild('registrationSuccessModal')
+  registrationSuccessModal!: any;
 
   registrationFormGroup = new FormGroup({
     username: new FormControl('', [
@@ -33,6 +37,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.userService.createUser(this.registrationFormGroup.value)
       .subscribe(() => {
+        this.modalService.open(this.registrationSuccessModal);
         this.registrationFormGroup.reset();
       }, () => {
         this.modalService.open(this.userExistsModal);
@@ -40,7 +45,11 @@ export class RegisterComponent implements OnInit {
       })
   }
 
-  closeModal() {
+  closeRegistrationSuccessModal() {
+    this.modalService.dismissAll();
+  }
+
+  closeUserExistsModal() {
     this.modalService.dismissAll();
   }
 
