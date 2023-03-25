@@ -24,16 +24,15 @@ export class CampaignSelectorComponent implements OnInit {
   @ViewChild('campaignCreationFailModal')
   campaignCreationFailModal!: any;
 
+  @ViewChild('campaignDeletedModal')
+  campaignDeletedModal!: any;
+
   constructor(private campaignService: CampaignService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
     const user: User = JSON.parse(localStorage.getItem('current_user')!);
     this.campaigns = user.campaigns;
-  }
-
-  getLastPlayed(campaign: Campaign): Date {
-    return campaign.realDateLastPlayed;
   }
 
   createCampaign() {
@@ -56,5 +55,14 @@ export class CampaignSelectorComponent implements OnInit {
 
   closeModal() {
     this.modalService.dismissAll();
+  }
+
+  deleteCampaign(campaign: Campaign) {
+    this.campaignService.deleteCampaign(campaign.id)
+      .subscribe(() => {
+        this.modalService.open(this.campaignDeletedModal);
+        const campaignIndex = this.campaigns.indexOf(campaign);
+        this.campaigns.splice(campaignIndex, 1);
+      }, () => console.log(`Failed to delete campaign: ${JSON.stringify(campaign)}`));
   }
 }

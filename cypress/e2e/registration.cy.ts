@@ -74,7 +74,7 @@ describe('registration and logging in', () => {
     cy.get('#login-submit-button').click();
   })
 
-  it('creates new campaign', () => {
+  it('creates and removes new campaign', () => {
     cy.visit('http://localhost:4200')
     cy.get('#login-button').should('be.visible')
       .click();
