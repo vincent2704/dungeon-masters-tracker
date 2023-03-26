@@ -1,20 +1,6 @@
 <div class="container">
 
   <button class="btn btn-primary" (click)="clearLocalStorage()">CLEAR LOCAL STORAGE</button>
-  <button class="btn btn-primary" (click)="restoreLocalStorage()">RESTORE LOCAL STORAGE</button>
-
-  <div *ngIf="isLoggedIn(); else welcome">
-    <div *ngIf="campaignSelected(); else selectCampaignBlock">
-      <app-navigation></app-navigation>
-    </div>
-  </div>
+<!--  <button class="btn btn-primary" (click)="restoreLocalStorage()">RESTORE LOCAL STORAGE</button>-->
   <router-outlet></router-outlet>
 </div>
-
-<ng-template #welcome>
-  <app-welcome-screen></app-welcome-screen>
-</ng-template>
-
-<ng-template #selectCampaignBlock>
-  <app-campaign-selector></app-campaign-selector>
-</ng-template>

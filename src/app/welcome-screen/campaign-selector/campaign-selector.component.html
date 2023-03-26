@@ -1,4 +1,4 @@
-<div class="card w-50">
+<div id="campaign-selector" class="card w-50">
   <div class="card-body">
     <h4 class="card-title">No campaign selected</h4>
     <p class="card-text">You haven't selected active campaign. Please choose one from the list or create a new one.</p>
@@ -6,14 +6,24 @@
       <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true"
          (click)="loadCampaign(campaign)">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{ campaign.name }}</h5>
-          <small>Last played: {{campaign.realDateLastPlayed}}</small>
+          <div class="row">
+            <div class="col-md-5">
+              <h5 class="mb-1">{{ campaign.name }}</h5>
+            </div>
+            <div class="col-md-4">
+              <small>Last played: {{campaign.realDateLastPlayed}}</small>
+            </div>
+            <div class="col-md-3">
+              <button id="delete-campaign-button-{{campaign.name}}"
+                      class="btn btn-danger" (click)="deleteCampaign(campaign)">Delete</button>
+            </div>
+          </div>
         </div>
       </a>
     </div>
     <button id="create-campaign-button" class="btn btn-primary" (click)="collapse.toggle()">Create campaign</button>
     <div #collapse="ngbCollapse" [(ngbCollapse)]="isCampaignCreationCollapsed">
-      <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="onSubmit()">
+      <form [formGroup]="campaignCreationFormGroup" (ngSubmit)="createCampaign()">
         <input id="create-campaign-name-input" type="text" class="form-control" placeholder="Enter campaign name"
                formControlName="campaignName">
 <!--        TODO: use loop when calendar of Harptos is implemented -->
@@ -34,3 +44,34 @@
     </div>
   </div>
 </div>
+
+<!--TODO: maybe replace it later with validation and message under the campaign name text field-->
+<ng-template #campaignCreationFailModal>
+  <div id="campaign-creation-failed-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="bad-credentials-modal-title">Failed to create campaign</h4>
+    </div>
+    <div class="modal-body">
+      <p>Check if you have already created a campaign using the same name.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="bad-credentials-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #campaignDeletedModal>
+  <div id="campaign-deleted-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="campaign-deleted-modal-title">Deletion successful</h4>
+    </div>
+    <div class="modal-body">
+      <p>Campaign deleted.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="campaign-deleted-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>

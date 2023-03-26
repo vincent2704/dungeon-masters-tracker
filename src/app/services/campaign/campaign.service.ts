@@ -62,6 +62,16 @@ export class CampaignService {
     return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, request);
   }
 
+  deleteCampaign(campaignId: string): Observable<unknown> {
+    const currentUser: User = JSON.parse(localStorage.getItem('current_user')!);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    return this.httpClient.delete<unknown>(`${this.campaignUrl}/${campaignId}`, httpOptions)
+  }
+
   setCurrentDate(newDate: Date): Observable<Campaign> {
     const updateRequest: CampaignUpdateRequest = {
       campaignDateTimeCurrentEpoch: newDate.getTime()
