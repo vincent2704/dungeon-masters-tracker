@@ -4,7 +4,7 @@ describe('campaign adding and deleting', () => {
   const testPassword = 'password'
   const campaignName = 'Cypress test campaign'
 
-  it('creates and removes new campaign', () => {
+  it('creates new campaign', () => {
     cy.visit('http://localhost:4200')
     cy.get('#login-button').should('be.visible')
       .click();
@@ -29,7 +29,7 @@ describe('campaign adding and deleting', () => {
     cy.contains(campaignName);
   })
 
-  it('fails to create another campaign with the same name', () => {
+  it('fails to create another campaign with existing name', () => {
     cy.visit('http://localhost:4200')
     cy.get('#login-button').should('be.visible')
       .click();
