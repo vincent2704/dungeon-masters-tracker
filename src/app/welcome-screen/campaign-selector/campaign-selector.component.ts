@@ -4,6 +4,7 @@ import {User} from "../../models/user/user";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {LocalStorageUtils} from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -40,6 +41,7 @@ export class CampaignSelectorComponent implements OnInit {
       .subscribe(response => {
         this.campaignCreationFormGroup.reset();
         this.campaigns.push(response)
+        LocalStorageUtils.addCampaign(response);
       }, () => {
         this.modalService.open(this.campaignCreationFailModal);
         console.error(`Failed to create campaign: ${JSON.stringify(this.campaignCreationFormGroup.value)}`);
@@ -63,6 +65,7 @@ export class CampaignSelectorComponent implements OnInit {
         this.modalService.open(this.campaignDeletedModal);
         const campaignIndex = this.campaigns.indexOf(campaign);
         this.campaigns.splice(campaignIndex, 1);
+        LocalStorageUtils.deleteCampaign(campaign);
       }, () => console.log(`Failed to delete campaign: ${JSON.stringify(campaign)}`));
   }
 }

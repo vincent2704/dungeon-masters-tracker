@@ -14,7 +14,8 @@
               <small>Last played: {{campaign.realDateLastPlayed}}</small>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-danger" (click)="deleteCampaign(campaign)">Delete</button>
+              <button id="delete-campaign-button-{{campaign.name}}"
+                      class="btn btn-danger" (click)="deleteCampaign(campaign)">Delete</button>
             </div>
           </div>
         </div>
