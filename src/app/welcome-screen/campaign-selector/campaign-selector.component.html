@@ -75,3 +75,18 @@
     </div>
   </div>
 </ng-template>
+
+<ng-template #campaignLoadFailedModal>
+  <div id="campaign-load-failed-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="campaign-load-failed-modal-title">Failed to load campaign</h4>
+    </div>
+    <div class="modal-body">
+      <p>For some reason, campaign load has failed.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="campaign-load-failed-modal-close-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</ng-template>
