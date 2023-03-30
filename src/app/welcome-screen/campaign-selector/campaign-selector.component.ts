@@ -5,6 +5,7 @@ import {CampaignService} from "../../services/campaign/campaign.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {LocalStorageUtils} from "../../utilities/storage/localStorageUtils";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -28,7 +29,10 @@ export class CampaignSelectorComponent implements OnInit {
   @ViewChild('campaignDeletedModal')
   campaignDeletedModal!: any;
 
-  constructor(private campaignService: CampaignService, private modalService: NgbModal) {
+  @ViewChild('campaignLoadFailedModal')
+  campaignLoadFailedModal!: any;
+
+  constructor(private campaignService: CampaignService, private modalService: NgbModal, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,7 +56,8 @@ export class CampaignSelectorComponent implements OnInit {
     this.campaignService.getCampaign(campaign)
       .subscribe(response => {
         localStorage.setItem('current_campaign', JSON.stringify(response));
-      })
+        this.router.navigate(['/campaign-overview']);
+      }, () => this.modalService.open(this.campaignLoadFailedModal))
   }
 
   closeModal() {
