@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {CampaignEvent} from "../../models/campaign/campaignEvent";
-import {Environment} from "../../environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CampaignService} from "../campaign/campaign.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private readonly eventsUrl: string = `${Environment.HOST_ADDRESS}/v1/events`
+  private readonly eventsUrl: string = `${environment.apiUrl}/v1/events`
 
   constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
