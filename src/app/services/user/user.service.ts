@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Environment} from "../../environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../../models/user/user";
 import {UserCreationRequest} from "../../models/user/userCreationRequest";
 import {LogInRequest} from "../../models/user/logInRequest";
 import {Campaign} from "../../models/campaign/campaign";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly usersUrl: string = `${Environment.HOST_ADDRESS}/v1/users`
+  private readonly usersUrl: string = `${environment.apiUrl}/v1/users`
   private readonly LOCAL_STORAGE_USER_KEY: string = 'current_user';
 
   constructor(private httpClient: HttpClient) {

@@ -1,40 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {BattleComponent} from "./battle/battle.component";
-import {ToolsComponent} from "./tools/tools.component";
-import {CheatSheetsComponent} from "./cheat-sheets/cheat-sheets.component";
-import {SettingsComponent} from "./settings/settings.component";
+import { BattleComponent } from "./battle/battle.component";
+import { ToolsComponent } from "./tools/tools.component";
+import { CheatSheetsComponent } from "./cheat-sheets/cheat-sheets.component";
+import { SettingsComponent } from "./settings/settings.component";
 import {
   AbilityChecksCheatSheetComponent
 } from "./cheat-sheets/ability-checks-cheat-sheet/ability-checks-cheat-sheet.component";
-import {CombatEncounterComponent} from "./cheat-sheets/combat-encounter/combat-encounter.component";
-import {CoverCheatSheetComponent} from "./cheat-sheets/cover-cheat-sheet/cover-cheat-sheet.component";
-import {TravellingCheatSheetComponent} from "./cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component";
-import {DistanceCalculatorComponent} from "./tools/distance-calculator/distance-calculator.component";
-import {TravelCalculatorComponent} from "./tools/travel-calculator/travel-calculator.component";
+import { CombatEncounterComponent } from "./cheat-sheets/combat-encounter/combat-encounter.component";
+import { CoverCheatSheetComponent } from "./cheat-sheets/cover-cheat-sheet/cover-cheat-sheet.component";
+import { TravellingCheatSheetComponent } from "./cheat-sheets/travelling-cheat-sheet/travelling-cheat-sheet.component";
+import { DistanceCalculatorComponent } from "./tools/distance-calculator/distance-calculator.component";
+import { TravelCalculatorComponent } from "./tools/travel-calculator/travel-calculator.component";
 import {
   CombatDifficultyCalculatorComponent
 } from "./tools/combat-difficulty-calculator/combat-difficulty-calculator.component";
-import {CampaignOverviewComponent} from "./campaign-overview/campaign-overview.component";
+import { CampaignOverviewComponent } from "./campaign-overview/campaign-overview.component";
 import {
   PacesAndDistancesCheatSheetComponent
 } from "./cheat-sheets/travelling-cheat-sheet/paces-and-distances-cheat-sheet/paces-and-distances-cheat-sheet.component";
 import {
   WildernessCheatSheetComponent
 } from "./cheat-sheets/travelling-cheat-sheet/wilderness-cheat-sheet/wilderness-cheat-sheet.component";
-import {RestingComponent} from "./resting/resting.component";
-import {MonstersComponent} from "./monsters/monsters.component";
-import {NotesComponent} from "./notes/notes.component";
-import {RegisterComponent} from "./welcome-screen/register/register.component";
-import {LogInComponent} from "./welcome-screen/log-in/log-in.component";
-import {CampaignSelectorComponent} from "./welcome-screen/campaign-selector/campaign-selector.component";
-import {WelcomeScreenComponent} from "./welcome-screen/welcome-screen.component";
+import { RestingComponent } from "./resting/resting.component";
+import { MonstersComponent } from "./monsters/monsters.component";
+import { NotesComponent } from "./notes/notes.component";
+import { CampaignSelectorComponent } from "./welcome-screen/campaign-selector/campaign-selector.component";
+import { WelcomeScreenComponent } from "./welcome-screen/welcome-screen.component";
 
 const routes: Routes = [
-  { path: 'welcome', component: WelcomeScreenComponent},
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LogInComponent},
-  { path: 'campaign-selection', component: CampaignSelectorComponent},
+  { path: 'welcome', component: WelcomeScreenComponent },
+  { path: 'campaign-selection', component: CampaignSelectorComponent },
   { path: 'campaign-overview', component: CampaignOverviewComponent },
   { path: 'battle', component: BattleComponent },
   { path: 'resting', component: RestingComponent },
@@ -72,4 +68,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

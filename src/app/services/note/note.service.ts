@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Note} from "../../models/campaign/note";
 import {Observable} from "rxjs";
-import {Environment} from "../../environment";
 import {CampaignService} from "../campaign/campaign.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
 
-  private readonly notesUrl: string = `${Environment.HOST_ADDRESS}/v1/notes`
+  private readonly notesUrl: string = `${environment.apiUrl}/v1/notes`
 
   constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
@@ -34,7 +34,7 @@ export class NoteService {
 
   updateNote(note: Note): Observable<Note> {
     const httpOptions = {
-      params: new HttpParams().append("campaignId",this.campaignService.getLocalStorageCampaign().id)
+      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.put<Note>(this.notesUrl, note, httpOptions)
   }

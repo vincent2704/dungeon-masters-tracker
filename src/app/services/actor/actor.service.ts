@@ -4,18 +4,18 @@ import {Condition} from "../../models/Condition";
 import {BattleCondition} from "../../models/battleCondition";
 import {Observable} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Environment} from "../../environment";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {CampaignService} from "../campaign/campaign.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActorService {
 
-  private readonly playerCharactersUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters`
-  private readonly battleFinishedUrl: string = `${Environment.HOST_ADDRESS}/v1/player-characters/finish-battle`
+  private readonly playerCharactersUrl: string = `${environment.apiUrl}/v1/player-characters`
+  private readonly battleFinishedUrl: string = `${environment.apiUrl}/v1/player-characters/finish-battle`
 
   constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }

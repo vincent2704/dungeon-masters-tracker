@@ -6,7 +6,7 @@ describe('campaign adding and deleting', () => {
 
   it('creates new campaign', () => {
     cy.visit('http://localhost:4200')
-    cy.get('#login-button').should('be.visible')
+    cy.get('#login-tab').should('be.visible')
       .click();
 
     cy.get('#login-username-input').should('be.visible')
@@ -31,7 +31,7 @@ describe('campaign adding and deleting', () => {
 
   it('fails to create another campaign with existing name', () => {
     cy.visit('http://localhost:4200')
-    cy.get('#login-button').should('be.visible')
+    cy.get('#login-tab').should('be.visible')
       .click();
 
     cy.get('#login-username-input').should('be.visible')
@@ -53,7 +53,7 @@ describe('campaign adding and deleting', () => {
 
   it('deletes campaign', () => {
     cy.visit('http://localhost:4200')
-    cy.get('#login-button').should('be.visible')
+    cy.get('#login-tab').should('be.visible')
       .click();
 
     cy.get('#login-username-input').should('be.visible')

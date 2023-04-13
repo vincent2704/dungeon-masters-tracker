@@ -9,7 +9,7 @@ describe('registration and logging in', () => {
     cy.visit('http://localhost:4200')
 
     cy.get('#not-logged-in-header').should('be.visible');
-    cy.get('#register-button').should('be.visible').click();
+    cy.get('#register-tab').should('be.visible').click();
 
     cy.get('#registration-submit-button').should('be.disabled');
 
@@ -28,7 +28,7 @@ describe('registration and logging in', () => {
     cy.visit('http://localhost:4200')
 
     cy.get('#not-logged-in-header').should('be.visible');
-    cy.get('#register-button').should('be.visible').click();
+    cy.get('#register-tab').should('be.visible').click();
 
     cy.get('#registration-submit-button').should('be.disabled');
 
@@ -45,7 +45,7 @@ describe('registration and logging in', () => {
 
   it('logs in with bad credentials', () => {
     cy.visit('http://localhost:4200')
-    cy.get('#login-button').should('be.visible')
+    cy.get('#login-tab').should('be.visible')
       .click();
 
     cy.get('#bad-credentials-modal').should('not.exist');
@@ -63,7 +63,7 @@ describe('registration and logging in', () => {
 
   it('logs in as new user', () => {
     cy.visit('http://localhost:4200')
-    cy.get('#login-button').should('be.visible')
+    cy.get('#login-tab').should('be.visible')
       .click();
 
     cy.get('#login-username-input').should('be.visible')

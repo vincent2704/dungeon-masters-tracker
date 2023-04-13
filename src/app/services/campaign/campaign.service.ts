@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
-import {Environment} from "../../environment";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
 import {CampaignCreationRequest} from "../../models/campaign/campaignCreationRequest";
 import {User} from "../../models/user/user";
+import {environment} from "../../../environments/environment";
 
 /*
   Service that manages campaign data
@@ -16,7 +16,7 @@ import {User} from "../../models/user/user";
 export class CampaignService {
 
   private campaignId: string = '';
-  private campaignUrl: string = `${Environment.HOST_ADDRESS}/v1/campaigns`;
+  private campaignUrl: string = `${environment.apiUrl}/v1/campaigns`;
   private readonly CAMPAIGN_STORAGE_KEY = 'current_campaign'
 
   constructor(private httpClient: HttpClient) {
