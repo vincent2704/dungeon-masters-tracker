@@ -68,6 +68,20 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "local": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -80,9 +94,12 @@
             },
             "development": {
               "browserTarget": "dungeon-masters-tracker:build:development"
+            },
+            "local": {
+              "browserTarget": "dungeon-masters-tracker:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
