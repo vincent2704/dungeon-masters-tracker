@@ -1,9 +1,29 @@
 <div class="card w-50">
   <div class="card-body">
     <h4 id="not-logged-in-header" class="card-title">Not logged in</h4>
-    <p class="card-text">You haven't logged in yet. Please
-      <a id="login-button" routerLink="/login" class="btn btn-secondary">log in</a>
-      or <a id="register-button" routerLink="/register" class="btn btn-secondary">register</a>
-    </p>
+    <p class="card-text">You haven't logged in yet. Please log in or register</p>
+  </div>
+</div>
+
+<div class="col-sm-8">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+              role="tab" aria-controls="login" aria-selected="true">Log in
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button"
+              role="tab" aria-controls="register" aria-selected="false">Register
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="welcome-screen-tab-content">
+    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+      <app-log-in></app-log-in>
+    </div>
+    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+      <app-register></app-register>
+    </div>
   </div>
 </div>
