@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../services/user/user.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UserService } from "../../services/user/user.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-register',
@@ -28,7 +28,8 @@ export class RegisterComponent implements OnInit {
     ])
   });
 
-  constructor(private userService: UserService, private modalService: NgbModal) { }
+  constructor(private userService: UserService, private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
   }

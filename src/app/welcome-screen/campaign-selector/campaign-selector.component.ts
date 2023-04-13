@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Campaign} from "../../models/campaign/campaign";
-import {User} from "../../models/user/user";
-import {CampaignService} from "../../services/campaign/campaign.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {LocalStorageUtils} from "../../utilities/storage/localStorageUtils";
-import {Router} from "@angular/router";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Campaign } from "../../models/campaign/campaign";
+import { User } from "../../models/user/user";
+import { CampaignService } from "../../services/campaign/campaign.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -19,8 +19,12 @@ export class CampaignSelectorComponent implements OnInit {
   isCampaignCreationCollapsed: boolean = true;
 
   campaignCreationFormGroup = new FormGroup({
-    campaignName: new FormControl(''),
-    calendarSystem: new FormControl('')
+    campaignName: new FormControl('', [
+      Validators.required, Validators.minLength(3), Validators.maxLength(50)
+    ]),
+    calendarSystem: new FormControl('', [
+      Validators.required
+    ])
   })
 
   @ViewChild('campaignCreationFailModal')

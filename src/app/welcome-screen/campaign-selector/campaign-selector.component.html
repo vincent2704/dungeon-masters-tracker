@@ -3,11 +3,10 @@
     <h4 class="card-title">No campaign selected</h4>
     <p class="card-text">You haven't selected active campaign. Please choose one from the list or create a new one.</p>
     <div class="list-group">
-      <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true"
-         (click)="loadCampaign(campaign)">
+      <a *ngFor="let campaign of campaigns" class="list-group-item list-group-item-action" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5" (click)="loadCampaign(campaign)">
               <h5 class="mb-1">{{ campaign.name }}</h5>
             </div>
             <div class="col-md-4">
@@ -39,7 +38,8 @@
             </select>
           </div>
         </div>
-        <button id="create-campaign-submit-button" type="submit" class="btn btn-success">Create</button>
+        <button [disabled]="!campaignCreationFormGroup.valid" id="create-campaign-submit-button"
+                type="submit" class="btn btn-success">Create</button>
       </form>
     </div>
   </div>
