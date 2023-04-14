@@ -6,7 +6,7 @@ export default defineConfig({
       // implement node event listeners here
     },
     specPattern: [
-      "cypress/e2e/registration.cy.ts",
+      "cypress/e2e/user-management.cy.ts",
       "cypress/e2e/campaignManagement.cy.ts"
     ]
   },

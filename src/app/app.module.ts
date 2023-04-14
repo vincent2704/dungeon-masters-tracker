@@ -53,6 +53,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { LogInComponent } from './welcome-screen/log-in/log-in.component';
 import { RegisterComponent } from './welcome-screen/register/register.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ProfileInformationComponent } from './profile-information/profile-information.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     WelcomeScreenComponent,
     LogInComponent,
     RegisterComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProfileInformationComponent
   ],
     imports: [
         BrowserModule,
