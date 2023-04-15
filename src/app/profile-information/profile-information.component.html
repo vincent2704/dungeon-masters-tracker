@@ -12,3 +12,51 @@
       <button class="btn btn-primary col-md-4" (click)="onDeleteProfile()">Delete profile</button>
   </div>
 </div>
+
+
+<ng-template #confirmationModal>
+  <div id="confirm-profile-delete-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="bad-credentials-modal-title">Are you sure?</h4>
+    </div>
+    <div class="modal-body">
+      <p>Deleting your profile cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="confirm-profile-delete-button"
+              type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="confirmDelete()">Confirm</button>
+      <button id="cancel-profile-delete-button"
+              type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteSuccessModal>
+  <div id="profile-delete-success-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="profile-delete-success-modal-title">Operation successful</h4>
+    </div>
+    <div class="modal-body">
+      <p>Your profile has been deleted</p>
+    </div>
+    <div class="modal-footer">
+      <button id="profile-delete-success-modal-button"
+              type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">Confirm</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteErrorModal>
+  <div id="profile-delete-failed-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="profile-delete-failed-modal-title">Failed to delete profile</h4>
+    </div>
+    <div class="modal-body">
+      <p>An unexpected error occurred during profile deletion.</p>
+    </div>
+    <div class="modal-footer">
+      <button id="profile-delete-failed-modal-button"
+              type="button" class="btn btn-warning" data-bs-dismiss="modal" (click)="closeModal()">Confirm</button>
+    </div>
+  </div>
+</ng-template>
