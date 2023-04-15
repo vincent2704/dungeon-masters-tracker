@@ -27,6 +27,7 @@ import { MonstersComponent } from "./monsters/monsters.component";
 import { NotesComponent } from "./notes/notes.component";
 import { CampaignSelectorComponent } from "./welcome-screen/campaign-selector/campaign-selector.component";
 import { WelcomeScreenComponent } from "./welcome-screen/welcome-screen.component";
+import { ProfileInformationComponent } from "./profile-information/profile-information.component";
 
 const routes: Routes = [
   { path: 'welcome', component: WelcomeScreenComponent },
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent },
   { path: 'monsters', component: MonstersComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'profile', component: ProfileInformationComponent },
 ];
 
 @NgModule({

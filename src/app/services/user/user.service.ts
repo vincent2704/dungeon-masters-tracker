@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../../models/user/user";
 import {UserCreationRequest} from "../../models/user/userCreationRequest";
@@ -24,6 +24,16 @@ export class UserService {
 
   login(loginRequest: LogInRequest): Observable<User> {
     return this.httpClient.post<User>(this.usersUrl + '/login', loginRequest);
+  }
+
+  deleteUser(): Observable<unknown> {
+    const user: User = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_USER_KEY)!);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': user.username
+      })
+    }
+    return this.httpClient.delete<User>(`${this.usersUrl}/${user.id}`, httpOptions);
   }
 
   getLocalStorageCampaigns(): Campaign[] {

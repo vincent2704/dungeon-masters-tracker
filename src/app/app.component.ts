@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-  constructor(router: Router) {
+  constructor(private router: Router) {
     if(this.isLoggedIn()) {
       router.navigate(['campaign-selection'])
     } else {
@@ -18,10 +18,6 @@ export class AppComponent {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('current_user');
-  }
-
-  clearLocalStorage() {
-    localStorage.clear();
   }
 
   restoreLocalStorage() {

@@ -1,7 +1,4 @@
 <div class="container">
-
-  <button class="btn btn-primary" (click)="clearLocalStorage()">CLEAR LOCAL STORAGE</button>
-<!--  <button class="btn btn-primary" (click)="restoreLocalStorage()">RESTORE LOCAL STORAGE</button>-->
-  <app-navigation *ngIf="isLoggedIn()"></app-navigation>
+  <app-navigation *ngIf="isLoggedIn() && campaignSelected()"></app-navigation>
   <router-outlet></router-outlet>
 </div>

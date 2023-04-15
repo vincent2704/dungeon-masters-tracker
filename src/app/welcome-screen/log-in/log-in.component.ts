@@ -29,6 +29,7 @@ export class LogInComponent implements OnInit {
     this.userService.login(this.loginForm.value)
       .subscribe(response => {
         const user = {
+          id: response.id,
           username: response.username,
           emailAddress: response.emailAddress,
           campaigns: response.campaigns
