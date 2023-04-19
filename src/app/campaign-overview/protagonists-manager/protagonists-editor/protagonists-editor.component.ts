@@ -68,11 +68,15 @@ export class ProtagonistsEditorComponent implements OnInit {
 
   addActor(): void {
     let hp = parseInt(this.actorToAdd.maxHp);
+    let level = parseInt(this.actorToAdd.level);
     let newPlayerCharacter: PlayerCharacter = {
       name: this.actorToAdd.name,
       maxHp: hp,
       currentHp: hp,
-      level: parseInt(this.actorToAdd.level),
+      level: level,
+      resurrectionPenalty: 0,
+      playerConditions: [],
+      availableHitDice: level
     }
     this.actorsToAdd.push(newPlayerCharacter);
     this.actorToAdd = {
