@@ -4,7 +4,7 @@ describe('resting', () => {
   const testPassword = 'password'
   const campaignName = 'Campaign for Resting Testing!'
 
-  const playerCharacterNames = ['Player Character 1', 'Player Character 2', 'Player Character 3']
+  const playerCharacters = ['Player Character 1', 'Player Character 2', 'Player Character 3']
 
   before(() => {
     cy.visit('http://localhost:4200')
@@ -29,8 +29,8 @@ describe('resting', () => {
     cy.get('#nav-campaign-overview-link').click();
 
     cy.contains('Manage').click();
-    for (let i = 0; i < playerCharacterNames.length; i++) {
-      cy.get('#new-player-character-name-input').type(playerCharacterNames[i]);
+    for (let i = 0; i < playerCharacters.length; i++) {
+      cy.get('#new-player-character-name-input').type(playerCharacters[i]);
       cy.get('#new-player-character-level-input').type(`${i + 1}`);
       cy.get('#new-player-character-max-hp-input').type(`${i + 1}0`);
       cy.get('#new-player-character-add-button').click()
@@ -39,42 +39,87 @@ describe('resting', () => {
   })
 
   beforeEach(() => {
+    localStorage.clear();
     cy.visit('http://localhost:4200')
+    cy.get('#login-username-input').type(testUsername).click();
+    cy.get('#login-password-input').type(testPassword);
+    cy.get('#login-submit-button').click();
+
     cy.contains(campaignName).click();
     cy.get('#nav-resting-link').click()
   })
 
   after(() => {
-    it('deletes campaign', () => {
-      cy.visit('http://localhost:4200')
-      cy.get('#login-tab').should('be.visible')
-        .click();
+    cy.visit('http://localhost:4200')
+    cy.get('#login-tab').should('be.visible')
+      .click();
 
-      cy.get('#login-username-input').should('be.visible')
-        .type(testUsername).click();
+    cy.get('#login-username-input').should('be.visible')
+      .type(testUsername).click();
 
-      cy.get('#login-password-input').type(testPassword);
-      cy.get('#login-submit-button').click();
+    cy.get('#login-password-input').type(testPassword);
+    cy.get('#login-submit-button').click();
 
-      cy.contains(campaignName);
-      cy.contains('Delete').click();
-      cy.get('#campaign-deleted-modal').should('be.visible');
-      cy.get('#campaign-deleted-modal-close-button').should('be.visible').click();
-      cy.get('#campaign-deleted-modal').should('not.be.visible');
-      cy.contains(campaignName).should('not.exist');
-    })
+    cy.contains(campaignName);
+    cy.contains('Delete').click();
+    cy.get('#campaign-deleted-modal').should('be.visible');
+    cy.get('#campaign-deleted-modal-close-button').should('be.visible').click();
+    cy.get('#campaign-deleted-modal').should('not.be.visible');
+    cy.contains(campaignName).should('not.exist');
   })
 
-  it('presented data is correct', () => {
-    for (const pcName of playerCharacterNames) {
+  afterEach(() => {
+    localStorage.clear();
+  })
+
+  it('SHORT REST: presented data is correct', () => {
+    for (const pcName of playerCharacters) {
       cy.contains(pcName).parent('tr').within(() => {
         // e.g. for index 0, then 10hp
-        const expectedHp = `${playerCharacterNames.indexOf(pcName) + 1}0`
-        const expectedHitDice = playerCharacterNames.indexOf(pcName) + 1
+        const expectedHp = `${playerCharacters.indexOf(pcName) + 1}0`
+        const expectedHitDice = playerCharacters.indexOf(pcName) + 1
         cy.get('td').eq(1).contains(expectedHp)
         cy.get('td').eq(2).contains(expectedHitDice)
       })
     }
   })
 
+  it('SHORT REST: performs short rest', () => {
+    cy.get('#nav-battle-link').click();
+
+    playerCharacters.forEach((pcName, index) => {
+      cy.contains(pcName).parent('tr').within(() => {
+        cy.get('input').first().type(`${index}`);
+      })
+    })
+    cy.contains('Start battle!').click();
+
+    cy.contains(playerCharacters[0]).parent('tr').within(() => {
+      cy.get('input').first().type('-8').type('{enter}');
+    })
+
+    cy.contains(playerCharacters[1]).parent('tr').within(() => {
+      cy.get('input').first().type('-18').type('{enter}');
+    })
+
+    cy.contains(playerCharacters[2]).parent('tr').within(() => {
+      cy.get('input').first().type('-2').type('{enter}');
+    })
+
+    cy.contains('End battle!').click();
+
+    cy.get('#nav-resting-link').click();
+
+    playerCharacters.forEach((playerCharacter, index) => {
+      cy.contains(playerCharacter).parent('tr').within(() => {
+        cy.get('td').eq(3).within(() => {
+          cy.get('input').type(`${index}`);
+        })
+        cy.get('td').eq(4).within(() => {
+          cy.get('input').type(`${index}0`);
+        })
+      })
+      cy.get('#short-rest-confirm-button').click();
+    })
+  })
 })
