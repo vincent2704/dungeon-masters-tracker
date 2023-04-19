@@ -6,6 +6,7 @@ import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest
 import {CampaignCreationRequest} from "../../models/campaign/campaignCreationRequest";
 import {User} from "../../models/user/user";
 import {environment} from "../../../environments/environment";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 /*
   Service that manages campaign data
@@ -58,8 +59,14 @@ export class CampaignService {
       })
   }
 
-  updateCampaign(request: CampaignUpdateRequest): Observable<Campaign> {
-    return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, request);
+  updateCampaign(campaignId: string, request: CampaignUpdateRequest): Observable<Campaign> {
+    const currentUser = LocalStorageUtils.getUser();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    return this.httpClient.put<Campaign>(`${this.campaignUrl}/${campaignId}`, request, httpOptions);
   }
 
   deleteCampaign(campaignId: string): Observable<unknown> {

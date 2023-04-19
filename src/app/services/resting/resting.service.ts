@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {ActorService} from "../actor/actor.service";
-import {CampaignService} from "../campaign/campaign.service";
-import {DateUtils} from "../../utilities/date/dateUtils";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
-import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Campaign} from "../../models/campaign/campaign";
+import { Injectable } from '@angular/core';
+import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { ActorService } from "../actor/actor.service";
+import { CampaignService } from "../campaign/campaign.service";
+import { DateUtils } from "../../utilities/date/dateUtils";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
+import { CampaignUpdateRequest } from "../../models/campaign/campaignUpdateRequest";
+import { Campaign } from "../../models/campaign/campaign";
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +21,19 @@ export class RestingService {
     actorsToShortRestInput.forEach((shortRestInput, actor) => {
       this.applyShortRestInput(actor, shortRestInput);
     })
-    const dateTimeAfterShortRest =
-      this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch +
+    const campaign = this.campaignService.getLocalStorageCampaign()
+    const dateTimeAfterShortRest = campaign.campaignDateTimeCurrentEpoch +
       restDurationInHours * this.MILLISECONDS_IN_HOUR
     let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
     this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => {
-        this.campaignService.updateCampaign(
+        this.campaignService.updateCampaign(campaign.id,
           {
             campaignDateTimeCurrentEpoch: dateTimeAfterShortRest
           } as Campaign
-        )
-          .subscribe(response => {
-            this.campaignService.updateLocalStorageCampaign(response);
-          })
+        ).subscribe(response => {
+          this.campaignService.updateLocalStorageCampaign(response);
+        })
       });
   }
 
@@ -54,7 +53,7 @@ export class RestingService {
     })
 
     const campaignDateTimeAfterRestEpoch =
-      this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch
+      campaign.campaignDateTimeCurrentEpoch
       + restTimeInHours * 3600 * 1000
 
     const campaignUpdateRequest: CampaignUpdateRequest = {
@@ -62,7 +61,7 @@ export class RestingService {
       lastLongRestTimeEpoch: campaignDateTimeAfterRestEpoch
     }
 
-    this.campaignService.updateCampaign(campaignUpdateRequest)
+    this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
       .subscribe(response => {
         this.campaignService.updateLocalStorageCampaign(response);
 

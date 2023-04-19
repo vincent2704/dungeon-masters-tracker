@@ -105,7 +105,7 @@ export class TrackerComponent implements OnInit {
             const campaignUpdateRequest: CampaignUpdateRequest = {
               campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
             }
-            this.campaignService.updateCampaign(campaignUpdateRequest)
+            this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
               .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
           }
           this.battleEndedEmitter.emit(ActorUtils.fromJsonArray(response));
