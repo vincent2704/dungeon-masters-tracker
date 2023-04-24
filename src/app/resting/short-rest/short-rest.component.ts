@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {RestingService} from "../../services/resting/resting.service";
-import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import { Component, Input, OnInit } from '@angular/core';
+import { RestingService } from "../../services/resting/resting.service";
+import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
 
 @Component({
   selector: 'app-short-rest',
@@ -12,6 +12,7 @@ export class ShortRestComponent implements OnInit {
 
   @Input()
   playerCharacters!: PlayerCharacter[];
+  // TODO: maybe in future move it to forms somehow
   actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput> = new Map<PlayerCharacter, ShortRestInput>();
   shortRestDurationInHours: number = 1;
 
@@ -31,7 +32,17 @@ export class ShortRestComponent implements OnInit {
   }
 
   confirmShortRest(): void {
-    // TODO: validation on hit dice to spend vs available hit dice
-    this.restingService.performShortRest(this.shortRestDurationInHours, this.actorsToShortRestInput);
+    if (this.isValid()) {
+      this.restingService.performShortRest(this.shortRestDurationInHours, this.actorsToShortRestInput);
+    }
+  }
+
+  isValid(): boolean {
+    for (let [pc, input] of this.actorsToShortRestInput) {
+      if (input.hitDiceToSpend > pc.availableHitDice) {
+        return false;
+      }
+    }
+    return true;
   }
 }
