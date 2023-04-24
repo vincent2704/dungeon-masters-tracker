@@ -1,12 +1,12 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TravelCalculatorComponent} from './travel-calculator.component';
-import {Settings} from "../../services/settings/settings";
-import {CampaignService} from "../../services/campaign/campaign.service";
-import {FormsModule} from "@angular/forms";
-import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {of} from "rxjs";
-import {Campaign} from "../../models/campaign/campaign";
+import { TravelCalculatorComponent } from './travel-calculator.component';
+import { Settings } from "../../services/settings/settings";
+import { CampaignService } from "../../services/campaign/campaign.service";
+import { FormsModule } from "@angular/forms";
+import { CampaignUpdateRequest } from "../../models/campaign/campaignUpdateRequest";
+import { of } from "rxjs";
+import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
 
 describe('TravelCalculatorComponent', () => {
   let component: TravelCalculatorComponent;
@@ -71,14 +71,16 @@ describe('TravelCalculatorComponent', () => {
     component.trackTime = true;
     component.pace = 'Fast'
 
+    const campaignId = '123';
 
     const initialCampaignState: Campaign = {
-      id: '123',
+      id: campaignId,
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 1,
       lastLongRestTimeEpoch: 0,
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
 
     const expectedCampaignUpdateRequest: CampaignUpdateRequest = {
@@ -86,24 +88,25 @@ describe('TravelCalculatorComponent', () => {
     }
 
     const expectedCampaignState: Campaign = {
-      id: '123',
+      id: campaignId,
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 14_400_001,
       lastLongRestTimeEpoch: 0,
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
 
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(initialCampaignState)
 
-    campaignServiceSpy.updateCampaign.withArgs(expectedCampaignUpdateRequest)
+    campaignServiceSpy.updateCampaign.withArgs(campaignId, expectedCampaignUpdateRequest)
       .and.returnValue(of(expectedCampaignState))
 
     //when
     component.updateTravelTime(24)
 
     //then
-    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledWith(expectedCampaignUpdateRequest);
+    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledWith(campaignId, expectedCampaignUpdateRequest);
   });
 
   it('should not update campaign time if time progress checkbox is not checked', () => {

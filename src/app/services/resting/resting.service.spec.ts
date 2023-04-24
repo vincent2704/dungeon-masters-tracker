@@ -1,13 +1,13 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {RestingService} from './resting.service';
-import {ActorService} from "../actor/actor.service";
-import {CampaignService} from "../campaign/campaign.service";
-import {ShortRestInput} from "../../models/resting/shortRestInput";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
-import {of} from "rxjs";
-import {Campaign} from "../../models/campaign/campaign";
-import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import { RestingService } from './resting.service';
+import { ActorService } from "../actor/actor.service";
+import { CampaignService } from "../campaign/campaign.service";
+import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
+import { of } from "rxjs";
+import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
+import { CampaignUpdateRequest } from "../../models/campaign/campaignUpdateRequest";
 
 describe('RestingService', () => {
   let service: RestingService;
@@ -21,7 +21,8 @@ describe('RestingService', () => {
     campaignDateTimeCurrentEpoch: -14057296560,
     realDateStart: -14057296560,
     realDateLastPlayed: new Date(),
-    lastLongRestTimeEpoch: -14057296560
+    lastLongRestTimeEpoch: -14057296560,
+    calendarSystem: CalendarSystem.GREGORIAN
   } as Campaign
 
   beforeEach(() => {
@@ -57,8 +58,10 @@ describe('RestingService', () => {
     const currentDate = new Date(1524, 6, 17, 23, 30, 0);
     const dateTimeAfterShortRest = new Date(1524, 6, 18, 1, 30, 0);
     const longRestFinished = new Date(1524, 6, 17, 18, 30, 0);
+    const campaignId = '123';
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(
       {
+        id: campaignId,
         name: 'Campaign Name',
         campaignDateTimeStartEpoch: 1,
         campaignDateTimeCurrentEpoch: currentDate.getTime(),
@@ -114,7 +117,7 @@ describe('RestingService', () => {
     expect(actorServiceSpy.updatePlayerCharacters).toHaveBeenCalledWith([
       actor1AfterResting, actor2AfterResting
     ]);
-    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledOnceWith(
+    expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledOnceWith(campaignId,
       {
         campaignDateTimeCurrentEpoch: dateTimeAfterShortRest.getTime(),
       } as CampaignUpdateRequest
@@ -135,7 +138,8 @@ describe('RestingService', () => {
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime(),
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -157,7 +161,8 @@ describe('RestingService', () => {
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime(),
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
 
       campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
@@ -179,7 +184,8 @@ describe('RestingService', () => {
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime(),
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -200,7 +206,8 @@ describe('RestingService', () => {
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: currentDate.getTime(),
       lastLongRestTimeEpoch: restFinishedAt.getTime(),
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(localStorageCampaign)
 
@@ -276,7 +283,8 @@ describe('RestingService', () => {
       campaignDateTimeStartEpoch: 1,
       campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
       lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000,
-      realDateLastPlayed: new Date()
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     campaignServiceSpy.updateCampaign.and.returnValue(of(
       campaignAfterShortRestResponse

@@ -69,4 +69,32 @@ describe('ShortRestComponent', () => {
     expect(restingServiceSpy.performShortRest).toHaveBeenCalledWith(1, component.actorsToShortRestInput);
   });
 
+  it('should return invalid inputs', () => {
+    //given
+    component.playerCharacters = [
+      {
+        id: 1,
+        name: 'One',
+        maxHp: 10,
+        currentHp: 10,
+        level: 1,
+        resurrectionPenalty: 1
+      },
+      {
+        id: 2,
+        name: 'Two',
+        maxHp: 20,
+        currentHp: 20,
+        level: 2,
+        resurrectionPenalty: 2
+      }
+    ]
+
+    component.shortRestDurationInHours = 1;
+    component.actorsToShortRestInput = new Map([
+      [component.playerCharacters[0], new ShortRestInput(3)],
+      [component.playerCharacters[1], new ShortRestInput(2)]
+    ])
+  });
+
 });
