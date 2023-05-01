@@ -9,6 +9,7 @@ import {environment} from "../../../environments/environment";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { LongRestRequest } from "../../models/campaign/longRestRequest";
 import { LongRestResponse } from "../../models/campaign/longRestResponse";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
 
 /*
   Service that manages campaign data
@@ -81,7 +82,7 @@ export class CampaignService {
     return this.httpClient.delete<unknown>(`${this.campaignUrl}/${campaignId}`, httpOptions)
   }
 
-  performLongRest(longRestRequest: LongRestRequest) {
+  performLongRest(longRestRequest: LongRestRequest): Observable<LongRestResponse> {
     const currentUser: User = LocalStorageUtils.getUser();
     const currentCampaignId: string = LocalStorageUtils.getCampaign().id;
     const httpOptions = {
@@ -90,7 +91,7 @@ export class CampaignService {
       })
     }
     return this.httpClient.post<LongRestResponse>(
-      `${this.campaignUrl}/${currentCampaignId}`, longRestRequest, httpOptions);
+      `${this.campaignUrl}/${currentCampaignId}/long-rest`, longRestRequest, httpOptions);
   }
 
   setCurrentDate(newDate: Date): Observable<Campaign> {

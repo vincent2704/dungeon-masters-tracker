@@ -36,4 +36,8 @@ export class LocalStorageUtils {
   static setPlayerCharacters(playerCharacters: PlayerCharacter[]) {
     localStorage.setItem(this.PLAYER_CHARACTERS_KEY, JSON.stringify(playerCharacters));
   }
+
+  static getPlayerCharacters() {
+    return JSON.parse(localStorage.getItem(this.PLAYER_CHARACTERS_KEY)!);
+  }
 }

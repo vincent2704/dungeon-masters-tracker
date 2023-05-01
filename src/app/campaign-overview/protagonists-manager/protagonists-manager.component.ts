@@ -9,8 +9,7 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 })
 export class ProtagonistsManagerComponent implements OnInit {
 
-  @Input()
-  playerCharacters!: PlayerCharacter[];
+  playerCharacters: PlayerCharacter[] = [];
 
   newActorName: string = '';
   newActorLevel: string = '';
