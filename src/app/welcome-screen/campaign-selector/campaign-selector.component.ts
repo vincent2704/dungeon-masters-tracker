@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { Router } from "@angular/router";
+import { ActorService } from "../../services/actor/actor.service";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -36,7 +37,8 @@ export class CampaignSelectorComponent implements OnInit {
   @ViewChild('campaignLoadFailedModal')
   campaignLoadFailedModal!: any;
 
-  constructor(private campaignService: CampaignService, private modalService: NgbModal, private router: Router) {
+  constructor(private campaignService: CampaignService, private playerCharacterService: ActorService,
+              private modalService: NgbModal, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -60,7 +62,11 @@ export class CampaignSelectorComponent implements OnInit {
     this.campaignService.getCampaign(campaign)
       .subscribe(response => {
         localStorage.setItem('current_campaign', JSON.stringify(response));
-        this.router.navigate(['/campaign-overview']);
+        this.playerCharacterService.getPlayerCharacters()
+          .subscribe(response => {
+            LocalStorageUtils.setPlayerCharacters(response)
+            this.router.navigate(['/campaign-overview']);
+          })
       }, () => this.modalService.open(this.campaignLoadFailedModal))
   }
 
