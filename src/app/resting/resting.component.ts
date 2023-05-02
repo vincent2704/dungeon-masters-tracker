@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ActorService} from "../services/actor/actor.service";
 import {PlayerCharacter} from "../models/actors/playerCharacter";
 import { LocalStorageUtils } from "../utilities/storage/localStorageUtils";
 
@@ -18,4 +17,9 @@ export class RestingComponent implements OnInit {
     this.playerCharacters = LocalStorageUtils.getPlayerCharacters();
   }
 
+  updatePlayerCharacters(playerCharacters: PlayerCharacter[]) {
+    console.log(`resting component pcs: ${JSON.stringify(playerCharacters)}`)
+    LocalStorageUtils.setPlayerCharacters(playerCharacters);
+    this.playerCharacters = playerCharacters;
+  }
 }

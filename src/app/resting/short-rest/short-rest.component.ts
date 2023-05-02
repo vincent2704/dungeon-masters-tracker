@@ -11,7 +11,7 @@ import { PlayerCharacter } from "../../models/actors/playerCharacter";
 export class ShortRestComponent implements OnInit {
 
   @Input()
-  playerCharacters!: PlayerCharacter[]
+  playerCharacters!: PlayerCharacter[];
   // TODO: maybe in future move it to forms somehow
   actorsToShortRestInput: Map<PlayerCharacter, ShortRestInput> = new Map<PlayerCharacter, ShortRestInput>();
   shortRestDurationInHours: number = 1;
