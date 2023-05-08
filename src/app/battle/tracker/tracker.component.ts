@@ -8,6 +8,8 @@ import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest
 import {Settings} from "../../services/settings/settings";
 import {AbilitySet} from "../../models/common/ability/abilitySet";
 import {ActorUtils} from "../../utilities/actor/actorUtils";
+import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -98,19 +100,20 @@ export class TrackerComponent implements OnInit {
         return actor.type == BattleParticipantType.PLAYER_CHARACTER && actor.id
       });
     let battleFinishRequests: PlayerBattleFinishedRequest[] = this.createBattleFinishRequests(playerCharacterActors)
-    this.actorService.updateCharactersAfterBattle(battleFinishRequests)
+    const battleSecondsPassed = this.isTimeTracked
+      ? this.round - 1
+      : 0;
+    const battleFinishedRequest: BattleFinishRequest = {
+      battleTimeInSeconds: battleSecondsPassed,
+      playerBattleFinishedRequests: battleFinishRequests
+    }
+    this.actorService.finishBattle(battleFinishedRequest)
       .subscribe(response => {
-          if (this.isTimeTracked) {
-            const campaign = this.campaignService.getLocalStorageCampaign();
-            const campaignUpdateRequest: CampaignUpdateRequest = {
-              campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + (this.round - 1) * 6_000
-            }
-            this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
-              .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
-          }
-          this.battleEndedEmitter.emit(ActorUtils.fromJsonArray(response));
+          LocalStorageUtils.setCurrentCampaign(response.campaign)
+          LocalStorageUtils.setPlayerCharacters(response.playerCharacters);
         },
-        error => console.error(`Updating player characters failed. Error: ${error}`));
+        error => console.error(`Updating player characters failed. Error:
+          ${JSON.stringify(error)}`));
   }
 
   isUnconsciousActorReceivingDamage(actor: Actor): boolean {

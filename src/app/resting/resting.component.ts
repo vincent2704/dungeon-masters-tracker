@@ -18,7 +18,6 @@ export class RestingComponent implements OnInit {
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]) {
-    console.log(`resting component pcs: ${JSON.stringify(playerCharacters)}`)
     LocalStorageUtils.setPlayerCharacters(playerCharacters);
     this.playerCharacters = playerCharacters;
   }

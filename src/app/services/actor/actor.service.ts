@@ -8,6 +8,8 @@ import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
 import {CampaignService} from "../campaign/campaign.service";
 import {environment} from "../../../environments/environment";
+import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
+import { BattleFinishedResponse } from "../../models/campaign/battleFinishedResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -36,14 +38,14 @@ export class ActorService {
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
   }
 
-  updateCharactersAfterBattle(playersBattleFinishedRequests: PlayerBattleFinishedRequest[]):
-    Observable<PlayerCharacter[]> {
+  finishBattle(finishBattleRequest: BattleFinishRequest):
+    Observable<BattleFinishedResponse> {
 
     const httpOptions = {
       params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
-    return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
-      playersBattleFinishedRequests, httpOptions);
+    return this.httpClient.post<BattleFinishedResponse>(this.battleFinishedUrl,
+      finishBattleRequest, httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {

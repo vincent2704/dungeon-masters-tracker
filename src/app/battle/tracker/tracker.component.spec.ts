@@ -73,7 +73,7 @@ describe('TrackerComponent', () => {
     actor1.setDeathSavingThrowsEligibility(true);
     actor2.setDeathSavingThrowsEligibility(true);
     component.actors = [actor1, actor2, actor3, actor4]
-    actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
+    actorServiceSpy.finishBattle.and.returnValue(of([]))
     component.round++;
     component.isTimeTracked = true;
 
@@ -105,7 +105,7 @@ describe('TrackerComponent', () => {
     // when
     component.endBattle();
 
-    expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
+    expect(actorServiceSpy.finishBattle).toHaveBeenCalledOnceWith([{
       // actor1 is not updated because it is NPC with no ID, so is not a saved character
       playerId: 2,
       playerCurrentHp: 1,

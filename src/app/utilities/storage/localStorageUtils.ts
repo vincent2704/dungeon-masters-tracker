@@ -20,6 +20,10 @@ export class LocalStorageUtils {
     localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
   }
 
+  static setCurrentCampaign(campaign: Campaign): void {
+    localStorage.setItem(this.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
+  }
+
   static addCampaign(campaign: Campaign): void {
     let user: User = this.getUser();
     user.campaigns.push(campaign);
