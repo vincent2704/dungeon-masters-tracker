@@ -3,10 +3,11 @@ import { Campaign } from "../../models/campaign/campaign";
 import { User } from "../../models/user/user";
 import { CampaignService } from "../../services/campaign/campaign.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateStruct, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { Router } from "@angular/router";
 import { ActorService } from "../../services/actor/actor.service";
+import { CampaignCreationRequest } from "../../models/campaign/campaignCreationRequest";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -27,6 +28,7 @@ export class CampaignSelectorComponent implements OnInit {
       Validators.required
     ])
   })
+  calendarDateModel!: NgbDateStruct;
 
   @ViewChild('campaignCreationFailModal')
   campaignCreationFailModal!: any;
@@ -42,12 +44,25 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const today = new Date();
+    // TODO: currently applicable only for Gregorian calendar, this will have to be changed after Harptos is implemented
+    this.calendarDateModel = { year: today.getFullYear(), month: today.getMonth()+1, day: today.getDate() };
     const user: User = JSON.parse(localStorage.getItem('current_user')!);
     this.campaigns = user.campaigns;
   }
 
   createCampaign() {
-    this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
+    const campaignStartEpoch = new Date(this.calendarDateModel.year, this.calendarDateModel.month,
+      this.calendarDateModel.day).getTime()
+    // TODO: this will need to be refactored to be as before:
+    //  this.campaignCreationFormGroup.value
+    //  after date picker is successfully moved to the form group
+    const campaignCreationRequest: CampaignCreationRequest = {
+      name: this.campaignCreationFormGroup.controls.campaignName.value,
+      calendarSystem: this.campaignCreationFormGroup.controls.calendarSystem.value,
+      campaignDateTimeStartEpoch: campaignStartEpoch
+    }
+    this.campaignService.createCampaign(campaignCreationRequest)
       .subscribe(response => {
         this.campaignCreationFormGroup.reset();
         this.campaigns.push(response)
@@ -82,5 +97,9 @@ export class CampaignSelectorComponent implements OnInit {
         this.campaigns.splice(campaignIndex, 1);
         LocalStorageUtils.deleteCampaign(campaign);
       }, () => console.log(`Failed to delete campaign: ${JSON.stringify(campaign)}`));
+  }
+
+  isGregorianCalendarSelected() {
+    return this.campaignCreationFormGroup.controls.calendarSystem.value == 'GREGORIAN'
   }
 }

@@ -41,6 +41,9 @@
         <button [disabled]="!campaignCreationFormGroup.valid" id="create-campaign-submit-button"
                 type="submit" class="btn btn-success">Create</button>
       </form>
+      <div *ngIf="isGregorianCalendarSelected()">
+        <ngb-datepicker [(ngModel)]="calendarDateModel"></ngb-datepicker>
+      </div>
     </div>
   </div>
 </div>
