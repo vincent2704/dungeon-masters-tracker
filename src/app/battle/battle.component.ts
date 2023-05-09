@@ -55,8 +55,7 @@ export class BattleComponent implements OnInit {
     this.battleStarted = true;
   }
 
-  endBattle(event: any): void {
-    this.actors = event;
+  endBattle(): void {
     this.battleStarted = false;
     this.conflictResolvedActors = [];
   }

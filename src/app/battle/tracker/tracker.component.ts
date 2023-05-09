@@ -1,15 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Actor} from "../../models/actors/actor";
-import {CampaignService} from "../../services/campaign/campaign.service";
-import {ActorService} from "../../services/actor/actor.service";
-import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
-import {BattleParticipantType} from "../../models/actors/battleParticipantType";
-import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Settings} from "../../services/settings/settings";
-import {AbilitySet} from "../../models/common/ability/abilitySet";
-import {ActorUtils} from "../../utilities/actor/actorUtils";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Actor } from "../../models/actors/actor";
+import { CampaignService } from "../../services/campaign/campaign.service";
+import { PlayerBattleFinishedRequest } from "../../models/actors/playerBattleFinishedRequest";
+import { BattleParticipantType } from "../../models/actors/battleParticipantType";
+import { Settings } from "../../services/settings/settings";
+import { AbilitySet } from "../../models/common/ability/abilitySet";
 import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
+
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
@@ -24,20 +22,20 @@ export class TrackerComponent implements OnInit {
   progressedActors: Actor[] = [];
 
   @Output()
-  battleEndedEmitter = new EventEmitter<Actor[]>();
+  battleEndedEmitter = new EventEmitter<void>();
 
   unconsciousActorsReceivingDamage: Map<Actor, boolean> = new Map<Actor, boolean>();
   monsterWithActionsShown: Map<string, boolean> = new Map<string, boolean>();
   monsterWithSavingThrowsShown: Map<string, boolean> = new Map<string, boolean>();
 
-  constructor(private campaignService: CampaignService, private actorService: ActorService) {
+  constructor(private campaignService: CampaignService) {
   }
 
   ngOnInit(): void {
     this.round = 1;
     for (let actor of this.actors) {
       this.unconsciousActorsReceivingDamage.set(actor, false);
-      if(Settings.isAutoLoadMonsterActions() && actor.getMonster()) {
+      if (Settings.isAutoLoadMonsterActions() && actor.getMonster()) {
         this.monsterWithActionsShown.set(actor.getName(), true);
       }
     }
@@ -107,10 +105,11 @@ export class TrackerComponent implements OnInit {
       battleTimeInSeconds: battleSecondsPassed,
       playerBattleFinishedRequests: battleFinishRequests
     }
-    this.actorService.finishBattle(battleFinishedRequest)
+    this.campaignService.finishBattle(battleFinishedRequest)
       .subscribe(response => {
           LocalStorageUtils.setCurrentCampaign(response.campaign)
           LocalStorageUtils.setPlayerCharacters(response.playerCharacters);
+          this.battleEndedEmitter.emit()
         },
         error => console.error(`Updating player characters failed. Error:
           ${JSON.stringify(error)}`));
@@ -147,7 +146,7 @@ export class TrackerComponent implements OnInit {
   }
 
   toggleShowActions(actor: Actor): void {
-    if(this.monsterWithActionsShown.get(actor.getName())) {
+    if (this.monsterWithActionsShown.get(actor.getName())) {
       this.monsterWithActionsShown.set(actor.getName(), false);
     } else {
       this.monsterWithActionsShown.set(actor.getName(), true)
@@ -159,7 +158,7 @@ export class TrackerComponent implements OnInit {
   }
 
   toggleShowSavingThrows(actor: Actor): void {
-    if(this.monsterWithSavingThrowsShown.get(actor.getName())) {
+    if (this.monsterWithSavingThrowsShown.get(actor.getName())) {
       this.monsterWithSavingThrowsShown.set(actor.getName(), false);
     } else {
       this.monsterWithSavingThrowsShown.set(actor.getName(), true)
@@ -172,7 +171,7 @@ export class TrackerComponent implements OnInit {
 
   getAbilitySet(actor: Actor): AbilitySet | undefined {
     const actorMonster = actor.getMonster();
-    if(actorMonster) {
+    if (actorMonster) {
       return actorMonster.getDetails().getAbilitySet();
     }
     return undefined;

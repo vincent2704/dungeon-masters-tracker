@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Campaign} from "../../models/campaign/campaign";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
@@ -10,6 +10,8 @@ import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { LongRestRequest } from "../../models/campaign/longRestRequest";
 import { LongRestResponse } from "../../models/campaign/longRestResponse";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
+import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
+import { BattleFinishedResponse } from "../../models/campaign/battleFinishedResponse";
 
 /*
   Service that manages campaign data
@@ -92,6 +94,20 @@ export class CampaignService {
     }
     return this.httpClient.post<LongRestResponse>(
       `${this.campaignUrl}/${currentCampaignId}/long-rest`, longRestRequest, httpOptions);
+  }
+
+  finishBattle(finishBattleRequest: BattleFinishRequest):
+    Observable<BattleFinishedResponse> {
+
+    const currentUser: User = LocalStorageUtils.getUser();
+    const currentCampaignId: string = LocalStorageUtils.getCampaign().id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    return this.httpClient.post<BattleFinishedResponse>(`${this.campaignUrl}/${currentCampaignId}/finish-battle`,
+      finishBattleRequest, httpOptions);
   }
 
   setCurrentDate(newDate: Date): Observable<Campaign> {
