@@ -38,12 +38,15 @@
             </select>
           </div>
         </div>
+        <div *ngIf="isGregorianCalendarSelected()">
+          <ngb-datepicker id="create-campaign-start-date-picker" formControlName="campaignStartDate"></ngb-datepicker>
+          <ngb-timepicker id="create-campaign-start-time-picker"
+                          [seconds]="true" [spinners]="false" formControlName="campaignStartTime">
+          </ngb-timepicker>
+        </div>
         <button [disabled]="!campaignCreationFormGroup.valid" id="create-campaign-submit-button"
                 type="submit" class="btn btn-success">Create</button>
       </form>
-      <div *ngIf="isGregorianCalendarSelected()">
-        <ngb-datepicker [(ngModel)]="calendarDateModel"></ngb-datepicker>
-      </div>
     </div>
   </div>
 </div>
