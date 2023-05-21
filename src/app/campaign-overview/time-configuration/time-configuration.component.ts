@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgbCalendar, NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {TimeStructure} from "../../models/timeStructure";
+import { Campaign } from "../../models/campaign/campaign";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-time-configuration',
@@ -15,11 +17,10 @@ export class TimeConfigurationComponent implements OnInit {
   currentDate: Date;
 
   isCollapsed: boolean = true;
-
   timeChangeInput: TimeStructure = new TimeStructure();
 
-  constructor(private calendar: NgbCalendar, private temporalService: CampaignService) {
-    this.currentDate = new Date(temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
+  constructor(private calendar: NgbCalendar, private campaignService: CampaignService) {
+    this.currentDate = new Date(campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
     this.dateModel = { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth()+1, day: this.currentDate.getDate() };
     this.timeModel = { hour: this.currentDate.getHours(), minute: this.currentDate.getMinutes(), second: this.currentDate.getSeconds() };
   }
@@ -30,12 +31,11 @@ export class TimeConfigurationComponent implements OnInit {
   onConfirmDate(): void {
     const newDate: Date = this.getCurrentDateFromModels();
 
-    this.temporalService.setCurrentDate(newDate)
-      .subscribe(response => {
-        this.temporalService.getCampaign()
+    this.campaignService.setCurrentDate(newDate)
+      .subscribe(() => {
+        this.campaignService.getCampaign()
           .subscribe(response => {
-            this.temporalService.updateLocalStorageCampaign(response);
-            this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
+            LocalStorageUtils.setCurrentCampaign(response);
           })
       });
   }
@@ -45,11 +45,13 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   getCurrentDateFormatted(): string {
-    return `${this.currentDate.getDate()}, ${this.currentDate.toLocaleString('en-US', {month: 'long'})}, ${this.currentDate.getFullYear()}`;
+    const campaignDate = LocalStorageUtils.getCampaign();
+    return '';
+    // return `${this.currentDate.getDate()}, ${this.currentDate.toLocaleString('en-US', {month: 'long'})}, ${this.currentDate.getFullYear()}`;
   }
 
   addTime(): void {
-    const newDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
+    const newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -65,16 +67,16 @@ export class TimeConfigurationComponent implements OnInit {
       newDate.getSeconds() + seconds
     );
 
-    this.temporalService.setCurrentDate(newDate)
+    this.campaignService.setCurrentDate(newDate)
       .subscribe(response => {
-        this.temporalService.updateLocalStorageCampaign(response);
+        this.campaignService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
         this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
       })
   }
 
   subtractTime(): void {
-    let newDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
+    let newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -90,9 +92,9 @@ export class TimeConfigurationComponent implements OnInit {
       newDate.getSeconds() - seconds
     );
 
-    this.temporalService.setCurrentDate(newDate)
+    this.campaignService.setCurrentDate(newDate)
       .subscribe(response => {
-        this.temporalService.updateLocalStorageCampaign(response);
+        this.campaignService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
         this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
       })

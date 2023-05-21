@@ -3,10 +3,11 @@ import { Campaign } from "../../models/campaign/campaign";
 import { User } from "../../models/user/user";
 import { CampaignService } from "../../services/campaign/campaign.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NgbDateStruct, NgbModal, NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { Router } from "@angular/router";
 import { ActorService } from "../../services/actor/actor.service";
+import { CampaignCreationRequest } from "../../models/campaign/campaignCreationRequest";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -53,8 +54,10 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   createCampaign() {
-    console.log(`request: ${JSON.stringify(this.campaignCreationFormGroup.value)}`)
-    this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
+    console.log(`sending request: ${JSON.stringify(this.campaignCreationFormGroup.value)}`)
+
+    const campaignCreationRequest = this.prepareCampaignCreationRequest();
+    this.campaignService.createCampaign(campaignCreationRequest)
       .subscribe(response => {
         this.campaignCreationFormGroup.reset();
         this.campaigns.push(response)
@@ -93,5 +96,21 @@ export class CampaignSelectorComponent implements OnInit {
 
   isGregorianCalendarSelected() {
     return this.campaignCreationFormGroup.controls.calendarSystem.value == 'GREGORIAN'
+  }
+
+  prepareCampaignCreationRequest(): CampaignCreationRequest {
+    const formGroupControls = this.campaignCreationFormGroup.controls
+    return {
+      campaignName: formGroupControls['campaignName'].value,
+      calendarSystem: formGroupControls['calendarSystem'].value,
+      campaignStartDateTime: {
+        date: formGroupControls['campaignStartDate'].value,
+        time: formGroupControls['campaignStartTime'].value
+      }
+    } as CampaignCreationRequest;
+  }
+
+  logOut() {
+    localStorage.clear();
   }
 }
