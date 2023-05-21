@@ -4,8 +4,11 @@ describe('campaign adding and deleting', () => {
   const testPassword = 'password'
   const campaignName = 'Cypress test campaign'
 
-  it('creates new campaign', () => {
+  beforeEach(() => {
     cy.visit('http://localhost:4200')
+  });
+
+  it('creates new campaign', () => {
     cy.get('#login-tab').should('be.visible')
       .click();
 
@@ -19,8 +22,28 @@ describe('campaign adding and deleting', () => {
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
       .type(campaignName);
+    cy.get('#create-campaign-start-date-picker').should('not.exist')
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
-    cy.get('#create-campaign-submit-button').click();
+
+    cy.get('#create-campaign-submit-button').should('be.disabled');
+    cy.get('#create-campaign-start-date-picker').should('be.visible')
+      .within(() => {
+        cy.contains('10').click();
+      })
+
+    cy.get('#create-campaign-submit-button').should('be.disabled');
+    cy.get('#create-campaign-start-time-picker').should('be.visible')
+      .within(() => {
+        // znalezc liste inputow i wybrac pierwsyz, drugi i trzeci bo po id to ciezko
+        cy.get('input').first().type('14');
+        cy.get('input').eq(1).type('30');
+        cy.get('input').eq(2).type('0');
+      })
+
+    cy.contains('Choose calendar system').click(); // value in the time form isn't updated in real time and
+    // some other event needs to occur until it happens and the button gets enabled. it needs to be fixed
+
+    cy.get('#create-campaign-submit-button').should('be.enabled').click();
     cy.get('#create-campaign-name-input').should('have.value', '');
 
     cy.contains(campaignName);
@@ -30,29 +53,37 @@ describe('campaign adding and deleting', () => {
   })
 
   it('fails to create another campaign with existing name', () => {
-    cy.visit('http://localhost:4200')
-    cy.get('#login-tab').should('be.visible')
-      .click();
-
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
+    cy.get('#login-username-input').type(testUsername).click();
 
     cy.get('#login-password-input').type(testPassword);
     cy.get('#login-submit-button').click();
 
-    cy.get('#campaign-selector').should('be.visible');
-    cy.contains(campaignName);
-    cy.get('#create-campaign-button').should('be.visible').click();
-    cy.get('#create-campaign-name-input').should('be.visible')
+    cy.get('#create-campaign-button').click();
+    cy.get('#create-campaign-name-input')
       .type(campaignName);
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
+
+    cy.get('#create-campaign-start-date-picker')
+      .within(() => {
+        cy.contains('10').click();
+      })
+
+    cy.get('#create-campaign-start-time-picker')
+      .within(() => {
+        cy.get('input').first().type('14');
+        cy.get('input').eq(1).type('30');
+        cy.get('input').eq(2).type('0');
+      })
+
+    cy.contains('Choose calendar system').click();
+
     cy.get('#create-campaign-submit-button').click();
 
     cy.get('#campaign-creation-failed-modal').should('be.visible');
+    cy.get('#bad-credentials-modal-close-button').click();
   })
 
   it('deletes campaign', () => {
-    cy.visit('http://localhost:4200')
     cy.get('#login-tab').should('be.visible')
       .click();
 
