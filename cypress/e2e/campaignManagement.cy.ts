@@ -21,7 +21,7 @@ describe('campaign adding and deleting', () => {
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
       .type(campaignName);
-    cy.get('#create-campaign-start-date-picker').should('not.exist')
+    cy.get('#create-campaign-start-date-picker').should('not.exist');
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
 
     cy.get('#create-campaign-submit-button').should('be.disabled');
@@ -79,7 +79,11 @@ describe('campaign adding and deleting', () => {
   it('property displays campaign information', () => {
     cy.contains(campaignName).click();
     cy.get('#campaign-overview-campaign-name').should('have.text', campaignName)
-
+    cy.get('#time-configuration-card').should('be.visible')
+      .within(() => {
+        cy.contains('NaN').should('not.exist');
+        cy.contains('Invalid Date').should('not.exist');
+      });
   });
 
   it('deletes campaign', () => {
