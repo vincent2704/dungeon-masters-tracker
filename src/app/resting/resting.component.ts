@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActorService} from "../services/actor/actor.service";
 import {PlayerCharacter} from "../models/actors/playerCharacter";
+import { LocalStorageUtils } from "../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-resting',
@@ -11,17 +11,14 @@ export class RestingComponent implements OnInit {
 
   playerCharacters: PlayerCharacter[] = [];
 
-  constructor(private actorService: ActorService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.actorService.getPlayerCharacters()
-      .subscribe(
-        response => {
-          this.playerCharacters = response
-        },
-        error => {
-          console.log(error)
-        })
+    this.playerCharacters = LocalStorageUtils.getPlayerCharacters();
   }
 
+  updatePlayerCharacters(playerCharacters: PlayerCharacter[]) {
+    LocalStorageUtils.setPlayerCharacters(playerCharacters);
+    this.playerCharacters = playerCharacters;
+  }
 }

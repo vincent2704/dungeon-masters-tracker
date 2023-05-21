@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShortRestComponent } from './short-rest.component';
-import {RestingService} from "../../services/resting/resting.service";
-import {FormsModule} from "@angular/forms";
-import {ShortRestInput} from "../../models/resting/shortRestInput";
+import { RestingService } from "../../services/resting/resting.service";
+import { FormsModule } from "@angular/forms";
+import { ShortRestInput } from "../../models/resting/shortRestInput";
 
 describe('ShortRestComponent', () => {
   let component: ShortRestComponent;
@@ -14,12 +14,12 @@ describe('ShortRestComponent', () => {
     const restingService = jasmine.createSpyObj('RestingService', ['performShortRest'])
     await TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [ ShortRestComponent ],
+      declarations: [ShortRestComponent],
       providers: [
         { provide: RestingService, useValue: restingService }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -44,7 +44,8 @@ describe('ShortRestComponent', () => {
         maxHp: 10,
         currentHp: 10,
         level: 1,
-        resurrectionPenalty: 1
+        resurrectionPenalty: 1,
+        availableHitDice: 1
       },
       {
         id: 2,
@@ -52,7 +53,8 @@ describe('ShortRestComponent', () => {
         maxHp: 20,
         currentHp: 20,
         level: 2,
-        resurrectionPenalty: 2
+        resurrectionPenalty: 2,
+        availableHitDice: 2
       }
     ]
 

@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {RestingService} from "../../services/resting/resting.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
 import {Campaign} from "../../models/campaign/campaign";
 import {CampaignService} from "../../services/campaign/campaign.service";
+import { LongRestRequest } from "../../models/campaign/longRestRequest";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-long-rest',
@@ -11,11 +13,13 @@ import {CampaignService} from "../../services/campaign/campaign.service";
 })
 export class LongRestComponent implements OnInit {
 
-  @Input()
-  playerCharacters!: PlayerCharacter[];
+  playerCharacters: PlayerCharacter[] = [];
   restTimeInHours: number = 0;
 
   campaign: Campaign;
+
+  @Output()
+  playerCharacterEmitter = new EventEmitter<PlayerCharacter[]>();
 
   constructor(private restingService: RestingService, private campaignService: CampaignService) {
     this.campaign = campaignService.getLocalStorageCampaign();
@@ -24,10 +28,20 @@ export class LongRestComponent implements OnInit {
   ngOnInit(): void {
     this.campaign = this.campaignService.getLocalStorageCampaign();
     this.restTimeInHours = this.restingService.getMinimumRestingTime(this.campaign);
+    this.playerCharacters = LocalStorageUtils.getPlayerCharacters();
   }
 
-  rest(): void {
-    this.restingService.performLongRest(this.restTimeInHours, this.playerCharacters);
+  performLongRest(): void {
+    const longRestRequest = {
+      hours: this.restTimeInHours
+    } as LongRestRequest
+    this.campaignService.performLongRest(longRestRequest)
+      .subscribe(response => {
+        console.log(response)
+        LocalStorageUtils.getCampaign().lastLongRestTimeEpoch = response.longRestTimeFinishedEpoch
+        LocalStorageUtils.getCampaign().campaignDateTimeCurrentEpoch = response.longRestTimeFinishedEpoch
+        this.playerCharacterEmitter.emit(response.playerCharacters);
+      })
   }
 
   getTimeSinceLastRest(): number {

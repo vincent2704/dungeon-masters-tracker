@@ -1,3 +1,4 @@
+<button class="btn btn-primary" (click)="logOut()">Log out</button>
 <div id="campaign-selector" class="card w-50">
   <div class="card-body">
     <h4 class="card-title">No campaign selected</h4>
@@ -37,6 +38,12 @@
               <option disabled value="HARPTOS">Calendar of Harptos (Forgotten Realms)</option>
             </select>
           </div>
+        </div>
+        <div *ngIf="isGregorianCalendarSelected()">
+          <ngb-datepicker id="create-campaign-start-date-picker" formControlName="campaignStartDate"></ngb-datepicker>
+          <ngb-timepicker id="create-campaign-start-time-picker"
+                          [seconds]="true" [spinners]="false" formControlName="campaignStartTime">
+          </ngb-timepicker>
         </div>
         <button [disabled]="!campaignCreationFormGroup.valid" id="create-campaign-submit-button"
                 type="submit" class="btn btn-success">Create</button>

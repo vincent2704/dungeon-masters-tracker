@@ -6,6 +6,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { Router } from "@angular/router";
+import { ActorService } from "../../services/actor/actor.service";
+import { CampaignCreationRequest } from "../../models/campaign/campaignCreationRequest";
 
 @Component({
   selector: 'app-campaign-selector',
@@ -24,6 +26,12 @@ export class CampaignSelectorComponent implements OnInit {
     ]),
     calendarSystem: new FormControl('', [
       Validators.required
+    ]),
+    campaignStartDate: new FormControl('', [
+      Validators.required
+    ]),
+    campaignStartTime: new FormControl('', [
+      Validators.required
     ])
   })
 
@@ -36,7 +44,8 @@ export class CampaignSelectorComponent implements OnInit {
   @ViewChild('campaignLoadFailedModal')
   campaignLoadFailedModal!: any;
 
-  constructor(private campaignService: CampaignService, private modalService: NgbModal, private router: Router) {
+  constructor(private campaignService: CampaignService, private playerCharacterService: ActorService,
+              private modalService: NgbModal, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -45,7 +54,10 @@ export class CampaignSelectorComponent implements OnInit {
   }
 
   createCampaign() {
-    this.campaignService.createCampaign(this.campaignCreationFormGroup.value)
+    console.log(`sending request: ${JSON.stringify(this.campaignCreationFormGroup.value)}`)
+
+    const campaignCreationRequest = this.prepareCampaignCreationRequest();
+    this.campaignService.createCampaign(campaignCreationRequest)
       .subscribe(response => {
         this.campaignCreationFormGroup.reset();
         this.campaigns.push(response)
@@ -60,7 +72,11 @@ export class CampaignSelectorComponent implements OnInit {
     this.campaignService.getCampaign(campaign)
       .subscribe(response => {
         localStorage.setItem('current_campaign', JSON.stringify(response));
-        this.router.navigate(['/campaign-overview']);
+        this.playerCharacterService.getPlayerCharacters()
+          .subscribe(response => {
+            LocalStorageUtils.setPlayerCharacters(response)
+            this.router.navigate(['/campaign-overview']);
+          })
       }, () => this.modalService.open(this.campaignLoadFailedModal))
   }
 
@@ -76,5 +92,25 @@ export class CampaignSelectorComponent implements OnInit {
         this.campaigns.splice(campaignIndex, 1);
         LocalStorageUtils.deleteCampaign(campaign);
       }, () => console.log(`Failed to delete campaign: ${JSON.stringify(campaign)}`));
+  }
+
+  isGregorianCalendarSelected() {
+    return this.campaignCreationFormGroup.controls.calendarSystem.value == 'GREGORIAN'
+  }
+
+  prepareCampaignCreationRequest(): CampaignCreationRequest {
+    const formGroupControls = this.campaignCreationFormGroup.controls
+    return {
+      campaignName: formGroupControls['campaignName'].value,
+      calendarSystem: formGroupControls['calendarSystem'].value,
+      campaignStartDateTime: {
+        date: formGroupControls['campaignStartDate'].value,
+        time: formGroupControls['campaignStartTime'].value
+      }
+    } as CampaignCreationRequest;
+  }
+
+  logOut() {
+    localStorage.clear();
   }
 }

@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LongRestComponent } from './long-rest.component';
-import {FormsModule} from "@angular/forms";
-import {RestingService} from "../../services/resting/resting.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {Campaign} from "../../models/campaign/campaign";
+import { FormsModule } from "@angular/forms";
+import { RestingService } from "../../services/resting/resting.service";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
 
 describe('LongRestComponent', () => {
   let component: LongRestComponent;
@@ -18,8 +18,9 @@ describe('LongRestComponent', () => {
     campaignDateTimeStartEpoch: -14057296560,
     campaignDateTimeCurrentEpoch: -14057296560,
     realDateStart: -14057296560,
-    realDateLastPlayed: -14057296560,
-    lastLongRestTimeEpoch: -14057296560
+    realDateLastPlayed: new Date(),
+    lastLongRestTimeEpoch: -14057296560,
+    calendarSystem: CalendarSystem.GREGORIAN
   } as Campaign
 
   beforeEach(async () => {

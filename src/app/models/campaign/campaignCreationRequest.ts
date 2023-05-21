@@ -1,6 +1,8 @@
 import {CalendarSystem} from "./campaign";
+import { CampaignDateTime } from "./campaignDateTime";
 
 export interface CampaignCreationRequest {
-  name: string,
-  calendarSystem: CalendarSystem
+  campaignName: string,
+  calendarSystem: CalendarSystem,
+  campaignStartDateTime: CampaignDateTime
 }

@@ -69,7 +69,7 @@ export class TravelCalculatorComponent implements OnInit {
       const campaignUpdateRequest: CampaignUpdateRequest = {
         campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + travelTimeHours * 3_600_000
       }
-      this.campaignService.updateCampaign(campaignUpdateRequest)
+      this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
         .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
     }
   }

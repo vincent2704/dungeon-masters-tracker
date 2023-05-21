@@ -25,21 +25,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let actor of playerCharacters">
-          <th scope="row">
+          <td>
             {{actor.name}}
-          </th>
-          <th scope="row">
+          </td>
+          <td>
             {{actor.currentHp}}
-          </th>
-          <th scope="row">
+          </td>
+          <td>
             {{actor.availableHitDice}}
-          </th>
-          <th scope="row">
+          </td>
+          <td>
             <input type="number" placeholder="Hit Dice amount" [(ngModel)]="actorsToShortRestInput.get(actor)!.hitDiceToSpend">
-          </th>
-          <th scope="row">
+          </td>
+          <td>
             <input type="number" placeholder="Add HP" [(ngModel)]="actorsToShortRestInput.get(actor)!.hpToAdd">
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -50,7 +50,7 @@
           <input type="number" placeholder="Hours" [(ngModel)]="shortRestDurationInHours" id="restDuration">
         </div>
         <div class="col">
-          <button class="btn btn-primary" (click)="confirmShortRest()">Confirm</button>
+          <button id="short-rest-confirm-button" class="btn btn-primary" (click)="confirmShortRest()">Confirm</button>
         </div>
       </div>
     </div>

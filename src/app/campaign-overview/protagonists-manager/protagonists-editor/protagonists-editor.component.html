@@ -10,7 +10,8 @@
     </th>
     <th i18n="conditions|Column that relates to given character's current conditions" scope="col">Conditions</th>
     <th class="col-sm-2">
-      <button i18n="submit button|Button used to submit changes" class="btn btn-primary"
+      <button id="player-characters-editor-submit-button"
+        i18n="submit button|Button used to submit changes" class="btn btn-primary"
               (click)="onSubmitProtagonists()">Submit
       </button>
       <button i18n="cancel button|Button used to cancel changes" class="btn btn-primary" (click)="onCancelEdit()">
@@ -72,20 +73,23 @@
 <h4>Add new Player Character</h4>
 <div class="row">
   <div class="col">
-    <input class="form-control" i18n-placeholder="new character name placeholder|Placeholder for new character name"
+    <input class="form-control" id="new-player-character-name-input"
+           i18n-placeholder="new character name placeholder|Placeholder for new character name"
            type="text" placeholder="New actor name" [(ngModel)]="actorToAdd.name">
   </div>
   <div class="col">
-    <input class="form-control" i18n-placeholder="new character level placeholder|Placeholder for new character level"
+    <input class="form-control" id="new-player-character-level-input"
+           i18n-placeholder="new character level placeholder|Placeholder for new character level"
            type="number" placeholder="New actor level" [(ngModel)]="actorToAdd.level">
   </div>
   <div class="col">
-    <input class="form-control"
+    <input class="form-control" id="new-player-character-max-hp-input"
            i18n-placeholder="new character max HP placeholder|Placeholder for new character max Hit Points"
            type="number" placeholder="New actor max hit points" [(ngModel)]="actorToAdd.maxHp">
   </div>
   <div class="col">
-    <button i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addActor()">Add
+    <button id="new-player-character-add-button"
+            i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addActor()">Add
     </button>
   </div>
 </div>

@@ -4,7 +4,7 @@
       <app-short-rest [playerCharacters]="playerCharacters"></app-short-rest>
     </div>
     <div class="col">
-      <app-long-rest [playerCharacters]="playerCharacters"></app-long-rest>
+      <app-long-rest (playerCharacterEmitter)="updatePlayerCharacters($event)"></app-long-rest>
     </div>
   </div>
 </div>

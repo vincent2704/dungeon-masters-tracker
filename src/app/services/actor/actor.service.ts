@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Actor} from "../../models/actors/actor";
-import {Condition} from "../../models/Condition";
-import {BattleCondition} from "../../models/battleCondition";
-import {Observable} from "rxjs";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
-import {PlayerBattleFinishedRequest} from "../../models/actors/playerBattleFinishedRequest";
-import {CampaignService} from "../campaign/campaign.service";
-import {environment} from "../../../environments/environment";
+import { Injectable } from '@angular/core';
+import { Actor } from "../../models/actors/actor";
+import { Condition } from "../../models/Condition";
+import { BattleCondition } from "../../models/battleCondition";
+import { Observable } from "rxjs";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
+import { CampaignService } from "../campaign/campaign.service";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,6 @@ import {environment} from "../../../environments/environment";
 export class ActorService {
 
   private readonly playerCharactersUrl: string = `${environment.apiUrl}/v1/player-characters`
-  private readonly battleFinishedUrl: string = `${environment.apiUrl}/v1/player-characters/finish-battle`
 
   constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
@@ -34,16 +32,6 @@ export class ActorService {
       params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
     }
     return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
-  }
-
-  updateCharactersAfterBattle(playersBattleFinishedRequests: PlayerBattleFinishedRequest[]):
-    Observable<PlayerCharacter[]> {
-
-    const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
-    }
-    return this.httpClient.post<PlayerCharacter[]>(this.battleFinishedUrl,
-      playersBattleFinishedRequests, httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {

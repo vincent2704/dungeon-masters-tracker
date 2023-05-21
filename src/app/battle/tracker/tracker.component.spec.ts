@@ -1,21 +1,21 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TrackerComponent} from './tracker.component';
-import {Actor} from "../../models/actors/actor";
-import {BattleCondition} from "../../models/battleCondition";
-import {Condition} from "../../models/Condition";
-import {FormsModule} from "@angular/forms";
-import {AddActorComponent} from "../add-actor/add-actor.component";
-import {ActorService} from "../../services/actor/actor.service";
-import {of} from "rxjs";
-import {BattleParticipantType} from "../../models/actors/battleParticipantType";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {CampaignService} from "../../services/campaign/campaign.service";
-import {Campaign} from "../../models/campaign/campaign";
-import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
-import {Monster} from "../../models/monsters/monster";
-import {MonsterList} from "../../models/monsters/monsterList";
-import {Settings} from "../../services/settings/settings";
+import { TrackerComponent } from './tracker.component';
+import { Actor } from "../../models/actors/actor";
+import { BattleCondition } from "../../models/battleCondition";
+import { Condition } from "../../models/Condition";
+import { FormsModule } from "@angular/forms";
+import { AddActorComponent } from "../add-actor/add-actor.component";
+import { ActorService } from "../../services/actor/actor.service";
+import { of } from "rxjs";
+import { BattleParticipantType } from "../../models/actors/battleParticipantType";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { CampaignService } from "../../services/campaign/campaign.service";
+import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
+import { CampaignUpdateRequest } from "../../models/campaign/campaignUpdateRequest";
+import { Monster } from "../../models/monsters/monster";
+import { MonsterList } from "../../models/monsters/monsterList";
+import { Settings } from "../../services/settings/settings";
 
 describe('TrackerComponent', () => {
   let component: TrackerComponent;
@@ -73,34 +73,39 @@ describe('TrackerComponent', () => {
     actor1.setDeathSavingThrowsEligibility(true);
     actor2.setDeathSavingThrowsEligibility(true);
     component.actors = [actor1, actor2, actor3, actor4]
-    actorServiceSpy.updateCharactersAfterBattle.and.returnValue(of([]))
+    actorServiceSpy.finishBattle.and.returnValue(of([]))
     component.round++;
     component.isTimeTracked = true;
 
+    const campaignId = '123'
     const initialCampaignState: Campaign = {
-      id: '123',
+      id: campaignId,
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 0,
-      lastLongRestTimeEpoch: 0
+      lastLongRestTimeEpoch: 0,
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     const campaignUpdateRequest: CampaignUpdateRequest = {
       campaignDateTimeCurrentEpoch: 6_000
     }
     const updatedCampaignState: Campaign = {
-      id: '123',
+      id: campaignId,
       name: 'Name',
       campaignDateTimeStartEpoch: 0,
       campaignDateTimeCurrentEpoch: 6_000,
-      lastLongRestTimeEpoch: 0
+      lastLongRestTimeEpoch: 0,
+      realDateLastPlayed: new Date(),
+      calendarSystem: CalendarSystem.GREGORIAN
     }
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(initialCampaignState);
-    campaignServiceSpy.updateCampaign.withArgs(campaignUpdateRequest).and.returnValue(of(updatedCampaignState));
+    campaignServiceSpy.updateCampaign.withArgs(campaignId, campaignUpdateRequest).and.returnValue(of(updatedCampaignState));
 
     // when
     component.endBattle();
 
-    expect(actorServiceSpy.updateCharactersAfterBattle).toHaveBeenCalledOnceWith([{
+    expect(actorServiceSpy.finishBattle).toHaveBeenCalledOnceWith([{
       // actor1 is not updated because it is NPC with no ID, so is not a saved character
       playerId: 2,
       playerCurrentHp: 1,

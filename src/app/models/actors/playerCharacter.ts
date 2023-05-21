@@ -6,11 +6,11 @@ export interface PlayerCharacter {
   level: number,
   name: string,
   maxHp: number,
+  availableHitDice: number,
   currentHp?: number,
   resurrectionPenalty?: number,
   timeOfDeathEpoch?: number,
   playerConditions?: BackendCondition[],
-  availableHitDice?: number,
 
 }
 
