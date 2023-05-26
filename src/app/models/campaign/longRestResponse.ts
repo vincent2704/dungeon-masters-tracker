@@ -1,6 +1,7 @@
 import { PlayerCharacter } from "../actors/playerCharacter";
+import { CampaignDateTime } from "./campaignDateTime";
 
 export interface LongRestResponse {
-  longRestTimeFinishedEpoch: number;
+  longRestDateTimeFinished: CampaignDateTime;
   playerCharacters: PlayerCharacter[];
 }

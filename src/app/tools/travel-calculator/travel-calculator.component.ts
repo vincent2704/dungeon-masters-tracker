@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {Settings} from "../../services/settings/settings";
 import {CampaignUpdateRequest} from "../../models/campaign/campaignUpdateRequest";
+import { DateUtils } from "../../utilities/date/dateUtils";
 
 @Component({
   selector: 'app-travel-calculator',
@@ -67,7 +68,7 @@ export class TravelCalculatorComponent implements OnInit {
       // this.campaignService.addSeconds(travelTimeHours * 3600);
       const campaign = this.campaignService.getLocalStorageCampaign();
       const campaignUpdateRequest: CampaignUpdateRequest = {
-        campaignDateTimeCurrentEpoch: campaign.campaignDateTimeCurrentEpoch + travelTimeHours * 3_600_000
+        campaignCurrentDateTime: DateUtils.addCampaignDateTimeHours(travelTimeHours, campaign.campaignDateTimeCurrent)
       }
       this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
         .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));

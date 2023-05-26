@@ -24,14 +24,14 @@ export class RestingService {
       this.applyShortRestInput(actor, shortRestInput);
     })
     const campaign = this.campaignService.getLocalStorageCampaign()
-    const dateTimeAfterShortRest = campaign.campaignDateTimeCurrentEpoch +
+    const dateTimeAfterShortRest = campaign.campaignDateTimeCurrent +
       restDurationInHours * this.MILLISECONDS_IN_HOUR
     let playerCharacters: PlayerCharacter[] = Array.from(actorsToShortRestInput.keys())
     this.actorService.updatePlayerCharacters(playerCharacters)
       .subscribe(response => {
         this.campaignService.updateCampaign(campaign.id,
           {
-            campaignDateTimeCurrentEpoch: dateTimeAfterShortRest
+            campaignDateTimeCurrent: dateTimeAfterShortRest
           } as Campaign
         ).subscribe(response => {
           this.campaignService.updateLocalStorageCampaign(response);
@@ -46,21 +46,10 @@ export class RestingService {
     this.campaignService.performLongRest(longRestRequest)
       .subscribe(response => {
         console.log(response)
-        LocalStorageUtils.getCampaign().lastLongRestTimeEpoch = response.longRestTimeFinishedEpoch
-        LocalStorageUtils.getCampaign().campaignDateTimeCurrentEpoch = response.longRestTimeFinishedEpoch
+        LocalStorageUtils.getCampaign().lastLongRestDateTime = response.longRestDateTimeFinished
+        LocalStorageUtils.getCampaign().campaignDateTimeCurrent = response.longRestDateTimeFinished
         LocalStorageUtils.setPlayerCharacters(response.playerCharacters);
       })
-  }
-
-  getMinimumRestingTime(campaign: Campaign) {
-    const timeSinceLastLongRestInHours = this.getTimeSinceLastLongRest(campaign)
-    return timeSinceLastLongRestInHours >= 24 ? 8 : (24 - timeSinceLastLongRestInHours + 8);
-  }
-
-  getTimeSinceLastLongRest(campaign: Campaign) {
-    let timeSinceLastLongRest =
-      campaign.campaignDateTimeCurrentEpoch - campaign.lastLongRestTimeEpoch
-    return timeSinceLastLongRest / DateUtils.MILLISECONDS_IN_HOUR;
   }
 
   private applyShortRestInput(playerCharacter: PlayerCharacter, shortRestInput: ShortRestInput): void {

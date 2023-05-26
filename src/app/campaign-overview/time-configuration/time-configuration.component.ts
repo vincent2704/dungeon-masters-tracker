@@ -20,7 +20,7 @@ export class TimeConfigurationComponent implements OnInit {
   timeChangeInput: TimeStructure = new TimeStructure();
 
   constructor(private calendar: NgbCalendar, private campaignService: CampaignService) {
-    this.currentDate = new Date(campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch);
+    this.currentDate = new Date(campaignService.getLocalStorageCampaign().campaignDateTimeCurrent);
     this.dateModel = { year: this.currentDate.getFullYear(), month: this.currentDate.getMonth()+1, day: this.currentDate.getDate() };
     this.timeModel = { hour: this.currentDate.getHours(), minute: this.currentDate.getMinutes(), second: this.currentDate.getSeconds() };
   }
@@ -51,7 +51,7 @@ export class TimeConfigurationComponent implements OnInit {
   }
 
   addTime(): void {
-    const newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
+    const newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrent)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -71,12 +71,12 @@ export class TimeConfigurationComponent implements OnInit {
       .subscribe(response => {
         this.campaignService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
-        this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
+        this.currentDate = new Date(response.campaignDateTimeCurrent)
       })
   }
 
   subtractTime(): void {
-    let newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
+    let newDate = new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrent)
 
     let months = this.timeChangeInput.months ? this.timeChangeInput.months : 0;
     let days = this.timeChangeInput.days ? this.timeChangeInput.days : 0;
@@ -96,7 +96,7 @@ export class TimeConfigurationComponent implements OnInit {
       .subscribe(response => {
         this.campaignService.updateLocalStorageCampaign(response);
         this.clearTimeChangeInput();
-        this.currentDate = new Date(response.campaignDateTimeCurrentEpoch)
+        this.currentDate = new Date(response.campaignDateTimeCurrent)
       })
   }
 

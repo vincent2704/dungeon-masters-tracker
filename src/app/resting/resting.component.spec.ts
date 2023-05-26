@@ -14,11 +14,11 @@ describe('RestingComponent', () => {
   const localStorageCampaign = {
     id: '123',
     name: "Dummy Name",
-    campaignDateTimeStartEpoch: -14057296560,
-    campaignDateTimeCurrentEpoch: -14057296560,
+    campaignDateTimeStart: -14057296560,
+    campaignDateTimeCurrent: -14057296560,
     realDateStart: -14057296560,
     realDateLastPlayed: new Date(),
-    lastLongRestTimeEpoch: -14057296560,
+    lastLongRestDateTime: -14057296560,
     calendarSystem: CalendarSystem.GREGORIAN
   } as Campaign
 

@@ -41,20 +41,20 @@ export class DeathSavingThrowsComponent implements OnInit {
   failure() {
     this.failures++;
     if(this.failures >= 3) {
-      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent));
     }
   }
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.modifyHp(1, new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+    this.actor.modifyHp(1, new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent));
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
   criticalFail() {
     this.failures += 2;
     if(this.failures >= 3) {
-      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent));
     }
   }
 

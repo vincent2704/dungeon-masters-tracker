@@ -1,4 +1,5 @@
 import {DateUtils} from "./dateUtils";
+import { CampaignDateTime } from "../../models/campaign/campaignDateTime";
 
 describe('DateUtils', () => {
 
@@ -21,19 +22,35 @@ describe('DateUtils', () => {
 
   it('should return date with added hours', () => {
     // given
-    let date = new Date(
-      1524, 6, 17,
-      18, 30, 0
-    );
-
+    const campaignDateTime = {
+      date: {
+        year: 1524,
+        month: 6,
+        day: 17
+      },
+      time: {
+        hour: 18,
+        minute: 30,
+        second: 0
+      }
+    } as CampaignDateTime
     // when
-    let newDate = DateUtils.addHours(date, 2);
+    let newDate = DateUtils.addCampaignDateTimeHours(2, campaignDateTime);
 
     // then
-    expect(newDate).toEqual(new Date(
-      1524, 6, 17,
-      20, 30, 0
-    ));
+    const expectedCampaignDateTime = {
+      date: {
+        year: 1524,
+        month: 6,
+        day: 17
+      },
+      time: {
+        hour: 20,
+        minute: 30,
+        second: 0
+      }
+    } as CampaignDateTime
+    expect(newDate).toEqual(expectedCampaignDateTime);
   });
 
   it('should return date with added minutes', () => {

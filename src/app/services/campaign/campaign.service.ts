@@ -56,9 +56,9 @@ export class CampaignService {
         let campaign = {
           id: response.id,
           name: response.name,
-          campaignDateTimeStartEpoch: response.campaignDateTimeStartEpoch,
-          campaignDateTimeCurrentEpoch: response.campaignDateTimeCurrentEpoch,
-          lastLongRestTimeEpoch: response.lastLongRestTimeEpoch
+          campaignDateTimeStart: response.campaignDateTimeStart,
+          campaignDateTimeCurrent: response.campaignDateTimeCurrent,
+          lastLongRestDateTime: response.lastLongRestDateTime
         } as Campaign;
         localStorage.setItem(this.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
       })
@@ -112,7 +112,7 @@ export class CampaignService {
 
   setCurrentDate(newDate: Date): Observable<Campaign> {
     const updateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: newDate.getTime()
+      campaignCurrentDateTime: newDate.getTime()
     }
 
     return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);

@@ -1,5 +1,7 @@
+import { CampaignDateTime } from "./campaignDateTime";
+
 export interface CampaignUpdateRequest {
   name?: string;
-  campaignDateTimeCurrentEpoch?: number;
-  lastLongRestTimeEpoch?: number;
+  campaignCurrentDateTime?: CampaignDateTime;
+  lastLongRestDateTime?: CampaignDateTime;
 }

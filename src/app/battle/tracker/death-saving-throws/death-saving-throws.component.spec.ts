@@ -31,9 +31,9 @@ describe('DeathSavingThrowsComponent', () => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: "Dummy Name",
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 0,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 0,
+      lastLongRestDateTime: 0,
     } as Campaign)
 
     fixture = TestBed.createComponent(DeathSavingThrowsComponent);

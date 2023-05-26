@@ -32,9 +32,9 @@ describe('EventService', () => {
     temporalServiceSpy.getLocalStorageCampaign.and.returnValue({
       id: '123',
       name: "Dummy Name",
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: currentDate.getTime(),
+      lastLongRestDateTime: 0,
     } as Campaign)
 
     httpClient = TestBed.inject(HttpClient);

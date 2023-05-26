@@ -81,12 +81,12 @@ export class TrackerComponent implements OnInit {
     let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
     if (this.isTimeTracked) {
       actor.modifyHp(hpModifier,
-        new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch
+        new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrent
           + timeSinceBattleStartedInMilliseconds)
       );
     } else {
       actor.modifyHp(
-        hpModifier, new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+        hpModifier, new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrent));
     }
 
     (<HTMLInputElement>event.target).value = '';
