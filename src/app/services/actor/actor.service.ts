@@ -31,24 +31,33 @@ export class ActorService {
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
-
+    const currentUser = LocalStorageUtils.getUser();
+    const campaignId = LocalStorageUtils.getCampaign().id;
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
     }
-    return this.httpClient.post<PlayerCharacter[]>(this.playerCharactersUrl, playerCharacters, httpOptions);
+    return this.httpClient.put<PlayerCharacter[]>(`${this.playerCharactersUrl}/${campaignId}/player-characters`, playerCharacters, httpOptions);
   }
 
   deletePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<unknown> {
-
+    const currentUser = LocalStorageUtils.getUser();
+    const campaignId = LocalStorageUtils.getCampaign().id;
+    const playerCharacterIds: number[] = playerCharacters.map(pc => pc.id!);
+    // const httpParams = new HttpParams();
+    const httpParams = new HttpParams({
+      fromObject: { 'ids': playerCharacterIds }
+    });
+    // httpParams.append('ids', playerCharacterIds.join(', '))
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      }),
+      params: httpParams
     }
-    let charactersToDeleteIds = playerCharacters.map(character => character.id);
-    let options = {
-      params: httpOptions.params,
-      body: charactersToDeleteIds
-    }
-    return this.httpClient.delete<Actor[]>(this.playerCharactersUrl, options);
+    console.log(`params: ${httpParams}`)
+    return this.httpClient.delete<Actor[]>(`${this.playerCharactersUrl}/${campaignId}/player-characters`, httpOptions);
   }
 
   addBattleCondition(actor: Actor, condition: BattleCondition): void {

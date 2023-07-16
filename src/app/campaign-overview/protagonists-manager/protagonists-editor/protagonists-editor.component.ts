@@ -30,15 +30,18 @@ export class ProtagonistsEditorComponent implements OnInit {
 
   onSubmitProtagonists(): void {
     if(this.actorsToDelete.length > 0) {
+      console.log(`deleting characters: ${this.actorsToDelete.length}`)
       this.actorService.deletePlayerCharacters(this.actorsToDelete)
         .subscribe();
-      for(let actor of this.actorsToDelete) {
-        if(this.playerCharacters.indexOf(actor) > -1) {
-          this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
-        }
-      }
-      this.actorsToDelete = [];
     }
+
+    for(let actor of this.actorsToDelete) {
+      if(this.playerCharacters.indexOf(actor) > -1) {
+        this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
+      }
+    }
+    this.actorsToDelete = [];
+
     this.addActors(this.actorsToAdd);
 
     this.actorService.updatePlayerCharacters(this.playerCharacters)
