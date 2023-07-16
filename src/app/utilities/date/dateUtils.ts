@@ -1,4 +1,7 @@
 import { CampaignDateTime } from "../../models/campaign/campaignDateTime";
+import { Campaign } from "../../models/campaign/campaign";
+import { CampaignDate } from "../../models/campaign/campaignDate";
+import { CampaignTime } from "../../models/campaign/campaignTime";
 
 export class DateUtils {
 
@@ -92,6 +95,35 @@ export class DateUtils {
         second: dateWithHoursAdded.getSeconds()
       }
     } as CampaignDateTime
+  }
+
+  static extractCurrentCampaignDate(campaign: Campaign): Date {
+    const currentCampaignDate: CampaignDate = campaign.campaignDateTimeCurrent.date;
+    const currentCampaignTime: CampaignTime = campaign.campaignDateTimeCurrent.time;
+
+    return new Date(
+      currentCampaignDate.year,
+      currentCampaignDate.month,
+      currentCampaignDate.day,
+      currentCampaignTime.hour,
+      currentCampaignTime.minute,
+      currentCampaignTime.second
+    );
+  }
+
+  static mapToCampaignDateTime(date: Date): CampaignDateTime {
+    return {
+      date: {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate()
+      } as CampaignDate,
+      time: {
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        second: date.getSeconds()
+      } as CampaignTime
+    }
   }
 
 }

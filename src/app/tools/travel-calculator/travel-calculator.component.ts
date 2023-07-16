@@ -70,7 +70,7 @@ export class TravelCalculatorComponent implements OnInit {
       const campaignUpdateRequest: CampaignUpdateRequest = {
         campaignCurrentDateTime: DateUtils.addCampaignDateTimeHours(travelTimeHours, campaign.campaignDateTimeCurrent)
       }
-      this.campaignService.updateCampaign(campaign.id, campaignUpdateRequest)
+      this.campaignService.updateCampaign(campaignUpdateRequest)
         .subscribe(response => this.campaignService.updateLocalStorageCampaign(response));
     }
   }

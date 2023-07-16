@@ -67,8 +67,9 @@ export class CampaignService {
       })
   }
 
-  updateCampaign(campaignId: string, request: CampaignUpdateRequest): Observable<Campaign> {
+  updateCampaign(request: CampaignUpdateRequest): Observable<Campaign> {
     const currentUser = LocalStorageUtils.getUser();
+    const campaignId = LocalStorageUtils.getCampaign().id;
     const httpOptions = {
       headers: new HttpHeaders({
         'Tracker-Username': currentUser.username
