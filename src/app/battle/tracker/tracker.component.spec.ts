@@ -46,9 +46,9 @@ describe('TrackerComponent', () => {
     campaignServiceSpy = TestBed.inject(CampaignService) as jasmine.SpyObj<CampaignService>
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: "Dummy Name",
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 0,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 0,
+      lastLongRestDateTime: 0,
     } as Campaign)
 
     component.actors = [];
@@ -81,21 +81,21 @@ describe('TrackerComponent', () => {
     const initialCampaignState: Campaign = {
       id: campaignId,
       name: 'Name',
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 0,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 0,
+      lastLongRestDateTime: 0,
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
     const campaignUpdateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: 6_000
+      campaignCurrentDateTime: 6_000
     }
     const updatedCampaignState: Campaign = {
       id: campaignId,
       name: 'Name',
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 6_000,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 6_000,
+      lastLongRestDateTime: 0,
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }

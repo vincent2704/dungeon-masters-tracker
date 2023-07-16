@@ -1,3 +1,5 @@
+import { CampaignDateTime } from "./campaignDateTime";
+
 export enum CalendarSystem {
   GREGORIAN, HARPTOS
 }
@@ -5,9 +7,10 @@ export enum CalendarSystem {
 export interface Campaign {
   id: string;
   name: string;
-  campaignDateTimeStartEpoch: number;
-  campaignDateTimeCurrentEpoch: number;
-  lastLongRestTimeEpoch: number;
+  campaignDateTimeStart: CampaignDateTime;
+  campaignDateTimeCurrent: CampaignDateTime;
+  lastLongRestDateTime: CampaignDateTime;
+  realDateStart: Date;
   realDateLastPlayed: Date;
   calendarSystem: CalendarSystem;
 }

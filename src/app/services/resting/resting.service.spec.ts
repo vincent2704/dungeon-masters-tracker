@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { RestingService } from './resting.service';
 import { ActorService } from "../actor/actor.service";
 import { CampaignService } from "../campaign/campaign.service";
-import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { PlayerShortRestInput } from "../../models/campaign/resting/playerShortRestInput";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { of } from "rxjs";
 import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
@@ -17,11 +17,11 @@ describe('RestingService', () => {
   const localStorageCampaign = {
     id: '123',
     name: "Dummy Name",
-    campaignDateTimeStartEpoch: -14057296560,
-    campaignDateTimeCurrentEpoch: -14057296560,
+    campaignDateTimeStart: -14057296560,
+    campaignDateTimeCurrent: -14057296560,
     realDateStart: -14057296560,
     realDateLastPlayed: new Date(),
-    lastLongRestTimeEpoch: -14057296560,
+    lastLongRestDateTime: -14057296560,
     calendarSystem: CalendarSystem.GREGORIAN
   } as Campaign
 
@@ -63,9 +63,9 @@ describe('RestingService', () => {
       {
         id: campaignId,
         name: 'Campaign Name',
-        campaignDateTimeStartEpoch: 1,
-        campaignDateTimeCurrentEpoch: currentDate.getTime(),
-        lastLongRestTimeEpoch: longRestFinished.getTime()
+        campaignDateTimeStart: 1,
+        campaignDateTimeCurrent: currentDate.getTime(),
+        lastLongRestDateTime: longRestFinished.getTime()
       } as Campaign
     )
 
@@ -88,9 +88,9 @@ describe('RestingService', () => {
       availableHitDice: 3
     }
 
-    const playerCharactersToShortRestInput = new Map<PlayerCharacter, ShortRestInput>([
-      [actor1, new ShortRestInput(2, 7)],
-      [actor2, new ShortRestInput(3, 15)],
+    const playerCharactersToShortRestInput = new Map<PlayerCharacter, PlayerShortRestInput>([
+      [actor1, new PlayerShortRestInput(2, 7)],
+      [actor2, new PlayerShortRestInput(3, 15)],
     ])
 
     // when
@@ -119,7 +119,7 @@ describe('RestingService', () => {
     ]);
     expect(campaignServiceSpy.updateCampaign).toHaveBeenCalledOnceWith(campaignId,
       {
-        campaignDateTimeCurrentEpoch: dateTimeAfterShortRest.getTime(),
+        campaignCurrentDateTime: dateTimeAfterShortRest.getTime(),
       } as CampaignUpdateRequest
     )
     expect(campaignServiceSpy.updateLocalStorageCampaign).toHaveBeenCalled();
@@ -135,9 +135,9 @@ describe('RestingService', () => {
     const localStorageCampaign: Campaign = {
       id: '123',
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: currentDate.getTime(),
+      lastLongRestDateTime: restFinishedAt.getTime(),
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
@@ -158,9 +158,9 @@ describe('RestingService', () => {
     {
       id: '123',
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: currentDate.getTime(),
+      lastLongRestDateTime: restFinishedAt.getTime(),
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
@@ -181,9 +181,9 @@ describe('RestingService', () => {
     const localStorageCampaign: Campaign = {
       id: '123',
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: currentDate.getTime(),
+      lastLongRestDateTime: restFinishedAt.getTime(),
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
@@ -203,9 +203,9 @@ describe('RestingService', () => {
     const localStorageCampaign: Campaign = {
       id: '123',
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: currentDate.getTime(),
-      lastLongRestTimeEpoch: restFinishedAt.getTime(),
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: currentDate.getTime(),
+      lastLongRestDateTime: restFinishedAt.getTime(),
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
@@ -272,17 +272,17 @@ describe('RestingService', () => {
     const campaignDateTimeCurrent = new Date(1524, 9, 12);
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       name: 'Campaign Name',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime(),
-      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime()
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: campaignDateTimeCurrent.getTime(),
+      lastLongRestDateTime: campaignLastLongRestDateTime.getTime()
     } as Campaign)
 
     const campaignAfterShortRestResponse: Campaign = {
       id: '123',
       name: 'Updated Campaign',
-      campaignDateTimeStartEpoch: 1,
-      campaignDateTimeCurrentEpoch: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
-      lastLongRestTimeEpoch: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000,
+      campaignDateTimeStart: 1,
+      campaignDateTimeCurrent: campaignDateTimeCurrent.getTime() + 8 * 3_600_000,
+      lastLongRestDateTime: campaignLastLongRestDateTime.getTime() + 8 * 3_600_000,
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }

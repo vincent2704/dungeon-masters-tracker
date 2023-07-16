@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShortRestComponent } from './short-rest.component';
 import { RestingService } from "../../services/resting/resting.service";
 import { FormsModule } from "@angular/forms";
-import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { PlayerShortRestInput } from "../../models/campaign/resting/playerShortRestInput";
 
 describe('ShortRestComponent', () => {
   let component: ShortRestComponent;
@@ -60,8 +60,8 @@ describe('ShortRestComponent', () => {
 
     component.shortRestDurationInHours = 1;
     component.actorsToShortRestInput = new Map([
-      [component.playerCharacters[0], new ShortRestInput(3)],
-      [component.playerCharacters[1], new ShortRestInput(2)]
+      [component.playerCharacters[0], new PlayerShortRestInput(3)],
+      [component.playerCharacters[1], new PlayerShortRestInput(2)]
     ])
 
     //when

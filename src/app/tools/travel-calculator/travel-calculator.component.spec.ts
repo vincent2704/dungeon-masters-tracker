@@ -76,23 +76,23 @@ describe('TravelCalculatorComponent', () => {
     const initialCampaignState: Campaign = {
       id: campaignId,
       name: 'Name',
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 1,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 1,
+      lastLongRestDateTime: 0,
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }
 
     const expectedCampaignUpdateRequest: CampaignUpdateRequest = {
-      campaignDateTimeCurrentEpoch: 14_400_001
+      campaignCurrentDateTime: 14_400_001
     }
 
     const expectedCampaignState: Campaign = {
       id: campaignId,
       name: 'Name',
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 14_400_001,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 14_400_001,
+      lastLongRestDateTime: 0,
       realDateLastPlayed: new Date(),
       calendarSystem: CalendarSystem.GREGORIAN
     }

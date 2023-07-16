@@ -7,6 +7,7 @@ import { Settings } from "../../services/settings/settings";
 import { AbilitySet } from "../../models/common/ability/abilitySet";
 import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
+import { DateUtils } from "../../utilities/date/dateUtils";
 
 @Component({
   selector: 'app-tracker',
@@ -78,15 +79,17 @@ export class TrackerComponent implements OnInit {
       }
     }
 
-    let timeSinceBattleStartedInMilliseconds = (this.round - 1) * 6000;
+
+
+
     if (this.isTimeTracked) {
-      actor.modifyHp(hpModifier,
-        new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch
-          + timeSinceBattleStartedInMilliseconds)
-      );
+      let currentTimeInBattle = DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign())
+      currentTimeInBattle = DateUtils.addRounds(currentTimeInBattle, this.round - 1)
+
+      actor.modifyHp(hpModifier, currentTimeInBattle);
     } else {
       actor.modifyHp(
-        hpModifier, new Date(this.campaignService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+        hpModifier, DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign()));
     }
 
     (<HTMLInputElement>event.target).value = '';

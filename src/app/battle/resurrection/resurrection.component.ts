@@ -3,6 +3,7 @@ import {Actor} from "../../models/actors/actor";
 import {CampaignService} from "../../services/campaign/campaign.service";
 import {DateUtils} from "../../utilities/date/dateUtils";
 import {StringUtils} from "../../utilities/string/stringUtils";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-resurrection',
@@ -82,7 +83,7 @@ export class ResurrectionComponent implements OnInit {
   private getCurrentTimeInBattle(): Date {
     // temporal service current time is actually battle start time and is
     // updated only after battle is finished, because there's an option not to track time in battle.
-    let currentDate = new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch)
+    let currentDate = DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign());
     return DateUtils.addRounds(currentDate, this.round - 1); // current round time hasn't passed yet, that's why -1
   }
 

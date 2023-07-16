@@ -3,6 +3,8 @@ import {Actor} from "../../../models/actors/actor";
 import {Condition} from "../../../models/Condition";
 import {CampaignService} from "../../../services/campaign/campaign.service";
 import {HitType} from "../../../models/combat-data/HitType";
+import { DateUtils } from "../../../utilities/date/dateUtils";
+import { LocalStorageUtils } from "../../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-death-saving-throws',
@@ -22,7 +24,7 @@ export class DeathSavingThrowsComponent implements OnInit {
   successes: number = 0;
   failures: number = 0;
 
-  constructor(private temporalService: CampaignService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -41,20 +43,21 @@ export class DeathSavingThrowsComponent implements OnInit {
   failure() {
     this.failures++;
     if(this.failures >= 3) {
-      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+      // this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent));
+      this.actor.kill(DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign()));
     }
   }
 
   criticalSuccess() {
     this.actor.setStabilized(true);
-    this.actor.modifyHp(1, new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+    this.actor.modifyHp(1, DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign()));
     this.actor.removeCondition(Condition.UNCONSCIOUS);
   }
 
   criticalFail() {
     this.failures += 2;
     if(this.failures >= 3) {
-      this.actor.kill(new Date(this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrentEpoch));
+      this.actor.kill(DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign()));
     }
   }
 

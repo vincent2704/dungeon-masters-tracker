@@ -33,9 +33,9 @@ describe('TimeConfigurationComponent', () => {
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue({
       id: '123',
       name: "Dummy Name",
-      campaignDateTimeStartEpoch: 0,
-      campaignDateTimeCurrentEpoch: 0,
-      lastLongRestTimeEpoch: 0,
+      campaignDateTimeStart: 0,
+      campaignDateTimeCurrent: 0,
+      lastLongRestDateTime: 0,
     } as Campaign)
 
     fixture = TestBed.createComponent(TimeConfigurationComponent);
@@ -59,9 +59,9 @@ describe('TimeConfigurationComponent', () => {
 
     const currentCampaignState = {
       name: "Dummy Name",
-      campaignDateTimeStartEpoch: -14057296560000,
-      campaignDateTimeCurrentEpoch: component.currentDate.getTime(),
-      lastLongRestTimeEpoch: -14057296560000,
+      campaignDateTimeStart: -14057296560000,
+      campaignDateTimeCurrent: component.currentDate.getTime(),
+      lastLongRestDateTime: -14057296560000,
     } as Campaign
     campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
     campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
@@ -84,9 +84,9 @@ describe('TimeConfigurationComponent', () => {
 
       const currentCampaignState = {
         name: "Dummy Name",
-        campaignDateTimeStartEpoch: -14057296560000,
-        campaignDateTimeCurrentEpoch: -14057296560000,
-        lastLongRestTimeEpoch: -14057296560000,
+        campaignDateTimeStart: -14057296560000,
+        campaignDateTimeCurrent: -14057296560000,
+        lastLongRestDateTime: -14057296560000,
       } as Campaign
       campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
       campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
@@ -109,9 +109,9 @@ describe('TimeConfigurationComponent', () => {
 
       const currentCampaignState = {
         name: "Dummy Name",
-        campaignDateTimeStartEpoch: -14057296560000,
-        campaignDateTimeCurrentEpoch: component.getCurrentDateFromModels().getTime(),
-        lastLongRestTimeEpoch: -14057296560000,
+        campaignDateTimeStart: -14057296560000,
+        campaignDateTimeCurrent: component.getCurrentDateFromModels().getTime(),
+        lastLongRestDateTime: -14057296560000,
       } as Campaign
       campaignServiceSpy.getLocalStorageCampaign.and.returnValue(currentCampaignState)
       campaignServiceSpy.setCurrentDate.and.returnValue(of(currentCampaignState))
@@ -129,7 +129,7 @@ describe('TimeConfigurationComponent', () => {
     component.currentDate = new Date(2021, 1, 2, 1, 2,1)
 
     //then
-    expect(component.getCurrentDateFormatted()).toEqual('2, February, 2021');
+    expect(component.getCurrentDateInfo()).toEqual('2, February, 2021');
   });
 
 });
