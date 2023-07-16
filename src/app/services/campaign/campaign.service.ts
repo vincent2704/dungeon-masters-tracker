@@ -32,7 +32,7 @@ export class CampaignService {
   }
 
   createCampaign(campaignCreationRequest: CampaignCreationRequest): Observable<Campaign> {
-    const currentUser: User = JSON.parse(localStorage.getItem('current_user')!);
+    const currentUser = LocalStorageUtils.getUser();
     const httpOptions = {
       headers: new HttpHeaders({
         'Tracker-Username': currentUser.username
@@ -42,10 +42,16 @@ export class CampaignService {
   }
 
   getCampaign(campaign?: Campaign): Observable<Campaign> {
-    if (campaign) {
-      return this.httpClient.get<Campaign>(`${this.campaignUrl}/${campaign.id}`);
+    const currentUser = LocalStorageUtils.getUser();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
     }
-    return this.httpClient.get<Campaign>(`${this.campaignUrl}/${this.getLocalStorageCampaign().id}`);
+    if (campaign) {
+      return this.httpClient.get<Campaign>(`${this.campaignUrl}/${campaign.id}`, httpOptions);
+    }
+    return this.httpClient.get<Campaign>(`${this.campaignUrl}/${this.getLocalStorageCampaign().id}`, httpOptions);
   }
 
   reloadCampaign(campaignId?: string) {

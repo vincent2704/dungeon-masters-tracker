@@ -31,16 +31,16 @@ export class CampaignEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.newEvent.campaignDateTimeOccurredEpoch =
-      this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent
-    this.eventService.addCampaignEvent(this.newEvent)
-      .subscribe((event) => {
-        this.events.push(event);
-        this.newEvent = {
-          title: '',
-          body: ''
-        }
-      });
+    // this.newEvent.campaignDateTimeOccurredEpoch =
+    //   this.temporalService.getLocalStorageCampaign().campaignDateTimeCurrent
+    // this.eventService.addCampaignEvent(this.newEvent)
+    //   .subscribe((event) => {
+    //     this.events.push(event);
+    //     this.newEvent = {
+    //       title: '',
+    //       body: ''
+    //     }
+    //   });
   }
 
   deleteEvent(eventToDelete: CampaignEvent) {

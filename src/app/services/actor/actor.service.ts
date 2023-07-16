@@ -3,27 +3,31 @@ import { Actor } from "../../models/actors/actor";
 import { Condition } from "../../models/Condition";
 import { BattleCondition } from "../../models/battleCondition";
 import { Observable } from "rxjs";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { CampaignService } from "../campaign/campaign.service";
 import { environment } from "../../../environments/environment";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActorService {
 
-  private readonly playerCharactersUrl: string = `${environment.apiUrl}/v1/player-characters`
+  private readonly playerCharactersUrl: string = `${environment.apiUrl}/v1/campaigns`
 
   constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
   }
 
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
-
+    const currentUser = LocalStorageUtils.getUser();
+    const campaignId = LocalStorageUtils.getCampaign().id;
     const httpOptions = {
-      params: new HttpParams().append("campaignId", this.campaignService.getLocalStorageCampaign().id)
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
     }
-    return this.httpClient.get<PlayerCharacter[]>(this.playerCharactersUrl, httpOptions)
+    return this.httpClient.get<PlayerCharacter[]>(`${this.playerCharactersUrl}/${campaignId}/player-characters`, httpOptions)
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
