@@ -129,7 +129,7 @@ describe('TimeConfigurationComponent', () => {
     component.currentDate = new Date(2021, 1, 2, 1, 2,1)
 
     //then
-    expect(component.getCurrentDateFormatted()).toEqual('2, February, 2021');
+    expect(component.getCurrentDateInfo()).toEqual('2, February, 2021');
   });
 
 });

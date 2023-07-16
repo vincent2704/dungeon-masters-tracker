@@ -46,6 +46,7 @@ export class TimeConfigurationComponent implements OnInit {
     this.campaignService.updateCampaign(campaignUpdateRequest)
       .subscribe(response => {
         LocalStorageUtils.setCurrentCampaign(response);
+        this.currentDate = DateUtils.extractCurrentCampaignDate(response);
       })
   }
 
@@ -53,10 +54,8 @@ export class TimeConfigurationComponent implements OnInit {
     return this.dateModel;
   }
 
-  getCurrentDateFormatted(): string {
-    const campaignDate = LocalStorageUtils.getCampaign();
-    return '';
-    // return `${this.currentDate.getDate()}, ${this.currentDate.toLocaleString('en-US', {month: 'long'})}, ${this.currentDate.getFullYear()}`;
+  getCurrentDateInfo(): string {
+    return `${this.currentDate.getDate()}, ${this.currentDate.toLocaleString('en-US', {month: 'long'})}, ${this.currentDate.getFullYear()}`;
   }
 
   addTime(): void {
