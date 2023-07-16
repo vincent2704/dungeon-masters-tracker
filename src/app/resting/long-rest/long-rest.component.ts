@@ -3,7 +3,7 @@ import { RestingService } from "../../services/resting/resting.service";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
 import { CampaignService } from "../../services/campaign/campaign.service";
-import { LongRestRequest } from "../../models/campaign/longRestRequest";
+import { LongRestRequest } from "../../models/campaign/resting/longRestRequest";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { DateUtils } from "../../utilities/date/dateUtils";
 import { CampaignDateTime } from "../../models/campaign/campaignDateTime";

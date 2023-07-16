@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { RestingService } from './resting.service';
 import { ActorService } from "../actor/actor.service";
 import { CampaignService } from "../campaign/campaign.service";
-import { ShortRestInput } from "../../models/resting/shortRestInput";
+import { PlayerShortRestInput } from "../../models/campaign/resting/playerShortRestInput";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { of } from "rxjs";
 import { CalendarSystem, Campaign } from "../../models/campaign/campaign";
@@ -88,9 +88,9 @@ describe('RestingService', () => {
       availableHitDice: 3
     }
 
-    const playerCharactersToShortRestInput = new Map<PlayerCharacter, ShortRestInput>([
-      [actor1, new ShortRestInput(2, 7)],
-      [actor2, new ShortRestInput(3, 15)],
+    const playerCharactersToShortRestInput = new Map<PlayerCharacter, PlayerShortRestInput>([
+      [actor1, new PlayerShortRestInput(2, 7)],
+      [actor2, new PlayerShortRestInput(3, 15)],
     ])
 
     // when

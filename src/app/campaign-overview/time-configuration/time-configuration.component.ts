@@ -31,6 +31,7 @@ export class TimeConfigurationComponent implements OnInit {
   onConfirmDate(): void {
     const newDate: Date = this.getCurrentDateFromModels();
 
+
     this.campaignService.setCurrentDate(newDate)
       .subscribe(() => {
         this.campaignService.getCampaign()

@@ -7,11 +7,14 @@ import {CampaignCreationRequest} from "../../models/campaign/campaignCreationReq
 import {User} from "../../models/user/user";
 import {environment} from "../../../environments/environment";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
-import { LongRestRequest } from "../../models/campaign/longRestRequest";
-import { LongRestResponse } from "../../models/campaign/longRestResponse";
+import { LongRestRequest } from "../../models/campaign/resting/longRestRequest";
+import { LongRestResponse } from "../../models/campaign/resting/longRestResponse";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { BattleFinishRequest } from "../../models/campaign/battleFinishRequest";
 import { BattleFinishedResponse } from "../../models/campaign/battleFinishedResponse";
+import { PlayerShortRestInput } from "../../models/campaign/resting/playerShortRestInput";
+import { RestResponse } from "../../models/campaign/resting/restResponse";
+import { ShortRestRequest } from "../../models/campaign/resting/shortRestRequest";
 
 /*
   Service that manages campaign data
@@ -96,6 +99,23 @@ export class CampaignService {
       `${this.campaignUrl}/${currentCampaignId}/long-rest`, longRestRequest, httpOptions);
   }
 
+  performShortRest(restDurationInHours: number, shortRestInput: PlayerShortRestInput[]) {
+    const campaignId = LocalStorageUtils.getCampaign().id;
+    const currentUser: User = LocalStorageUtils.getUser();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    const shortRestRequest: ShortRestRequest = {
+      hours: restDurationInHours,
+      playerShortRestData: shortRestInput
+    }
+
+    return this.httpClient.post<RestResponse>(`${this.campaignUrl}/${campaignId}/short-rest`, shortRestRequest,
+      httpOptions);
+  }
+
   finishBattle(finishBattleRequest: BattleFinishRequest):
     Observable<BattleFinishedResponse> {
 
@@ -110,13 +130,13 @@ export class CampaignService {
       finishBattleRequest, httpOptions);
   }
 
-  setCurrentDate(newDate: Date): Observable<Campaign> {
-    const updateRequest: CampaignUpdateRequest = {
-      campaignCurrentDateTime: newDate.getTime()
-    }
-
-    return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);
-  }
+  // setCurrentDate(newDate: Date): Observable<Campaign> {
+  //   const updateRequest: CampaignUpdateRequest = {
+  //     campaignCurrentDateTime: newDate.getTime()
+  //   }
+  //
+  //   return this.httpClient.put<Campaign>(this.campaignUrl + this.campaignId, updateRequest);
+  // }
 
   updateLocalStorageCampaign(campaign: Campaign): void {
     localStorage.setItem(this.CAMPAIGN_STORAGE_KEY, JSON.stringify(campaign));
