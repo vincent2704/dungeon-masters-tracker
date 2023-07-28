@@ -19,6 +19,9 @@ describe('deleting profile', () => {
     cy.get('#create-campaign-button').should('be.visible').click();
     cy.get('#create-campaign-name-input').should('be.visible')
       .type(campaignName);
+
+
+
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
     cy.get('#create-campaign-submit-button').click();
 

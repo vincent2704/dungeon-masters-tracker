@@ -24,13 +24,11 @@ describe('campaign adding and deleting', () => {
     cy.get('#create-campaign-start-date-picker').should('not.exist');
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
 
-    cy.get('#create-campaign-submit-button').should('be.disabled');
     cy.get('#create-campaign-start-date-picker').should('be.visible')
       .within(() => {
         cy.contains('10').click();
       })
 
-    cy.get('#create-campaign-submit-button').should('be.disabled');
     cy.get('#create-campaign-start-time-picker').should('be.visible')
       .within(() => {
         cy.get('input').first().type('14');

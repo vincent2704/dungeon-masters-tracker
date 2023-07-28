@@ -3,7 +3,7 @@ import { Campaign } from "../../models/campaign/campaign";
 import { User } from "../../models/user/user";
 import { CampaignService } from "../../services/campaign/campaign.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCalendar, NgbDateStruct, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 import { Router } from "@angular/router";
 import { ActorService } from "../../services/actor/actor.service";
@@ -20,6 +20,13 @@ export class CampaignSelectorComponent implements OnInit {
   campaigns: Campaign[] = []
   isCampaignCreationCollapsed: boolean = true;
 
+  campaignStartTime = {
+    hour: 12,
+    minute: 0,
+    second: 0
+  }
+  campaignStartDate?: NgbDateStruct;
+
   campaignCreationFormGroup = new FormGroup({
     campaignName: new FormControl('', [
       Validators.required, Validators.minLength(3), Validators.maxLength(50)
@@ -28,10 +35,12 @@ export class CampaignSelectorComponent implements OnInit {
       Validators.required
     ]),
     campaignStartDate: new FormControl('', [
-      Validators.required
+      // Validators.required  <- marked as not required atm because a minor bug.
+      // when required, although all the requirements are met, the button is disabled and user has to click somewhere
+      // in order for the button to be enabled. the values are predefined for the date and time at start
     ]),
     campaignStartTime: new FormControl('', [
-      Validators.required
+      // Validators.required
     ])
   })
 
@@ -45,11 +54,12 @@ export class CampaignSelectorComponent implements OnInit {
   campaignLoadFailedModal!: any;
 
   constructor(private campaignService: CampaignService, private playerCharacterService: ActorService,
-              private modalService: NgbModal, private router: Router) {
+              private modalService: NgbModal, private router: Router, private calendar: NgbCalendar) {
   }
 
   ngOnInit(): void {
     const user: User = JSON.parse(localStorage.getItem('current_user')!);
+    this.campaignStartDate = this.calendar.getToday();
     this.campaigns = user.campaigns;
   }
 

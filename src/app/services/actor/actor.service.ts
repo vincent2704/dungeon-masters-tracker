@@ -5,7 +5,6 @@ import { BattleCondition } from "../../models/battleCondition";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { PlayerCharacter } from "../../models/actors/playerCharacter";
-import { CampaignService } from "../campaign/campaign.service";
 import { environment } from "../../../environments/environment";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
@@ -16,7 +15,7 @@ export class ActorService {
 
   private readonly playerCharactersUrl: string = `${environment.apiUrl}/v1/campaigns`
 
-  constructor(private httpClient: HttpClient, private campaignService: CampaignService) {
+  constructor(private httpClient: HttpClient) {
   }
 
   getPlayerCharacters(): Observable<PlayerCharacter[]> {
@@ -49,7 +48,6 @@ export class ActorService {
     const httpParams = new HttpParams({
       fromObject: { 'ids': playerCharacterIds }
     });
-    // httpParams.append('ids', playerCharacterIds.join(', '))
     const httpOptions = {
       headers: new HttpHeaders({
         'Tracker-Username': currentUser.username

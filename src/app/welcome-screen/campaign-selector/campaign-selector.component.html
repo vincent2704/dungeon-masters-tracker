@@ -40,8 +40,9 @@
           </div>
         </div>
         <div *ngIf="isGregorianCalendarSelected()">
-          <ngb-datepicker id="create-campaign-start-date-picker" formControlName="campaignStartDate"></ngb-datepicker>
-          <ngb-timepicker id="create-campaign-start-time-picker"
+          <ngb-datepicker id="create-campaign-start-date-picker" [(ngModel)]="campaignStartDate"
+                          formControlName="campaignStartDate"></ngb-datepicker>
+          <ngb-timepicker id="create-campaign-start-time-picker" [(ngModel)]="campaignStartTime"
                           [seconds]="true" [spinners]="false" formControlName="campaignStartTime">
           </ngb-timepicker>
         </div>
