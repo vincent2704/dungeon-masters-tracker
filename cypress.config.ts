@@ -8,6 +8,7 @@ export default defineConfig({
     specPattern: [
       "cypress/e2e/userCreation.cy.ts",
       "cypress/e2e/campaignManagement.cy.ts",
+      "cypress/e2e/characterManagement.cy.ts",
       "cypress/e2e/resting.cy.ts",
       "cypress/e2e/userDeletion.cy.ts",
     ]
