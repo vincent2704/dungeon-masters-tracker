@@ -103,7 +103,7 @@ export class DateUtils {
 
     return new Date(
       currentCampaignDate.year,
-      currentCampaignDate.month,
+      currentCampaignDate.month-1,
       currentCampaignDate.day,
       currentCampaignTime.hour,
       currentCampaignTime.minute,
