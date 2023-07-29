@@ -1,19 +1,19 @@
+import { deleteUser, login, registerUser } from "./common";
+
 describe('campaign adding and deleting', () => {
 
-  const testUsername = 'testuser'
-  const testPassword = 'password'
-  const campaignName = 'Cypress test campaign'
+  const campaignName = 'Campaign for campaign management!'
+
+  before(() => {
+    registerUser()
+  });
+
+  after(() => {
+    deleteUser()
+  });
 
   beforeEach(() => {
-    cy.visit('http://localhost:4200');
-    cy.get('#login-tab').should('be.visible')
-      .click();
-
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
-
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
+    login()
   });
 
   it('creates new campaign', () => {

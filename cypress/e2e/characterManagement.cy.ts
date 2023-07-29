@@ -1,10 +1,6 @@
-import { cleanPackageJson } from "@angular/compiler-cli/ngcc/src/packages/build_marker";
+import { createCampaign, deleteUser, login, registerUser } from "./common";
 
 describe('characters', () => {
-
-  const testUsername = 'testuser'
-  const testPassword = 'password'
-  const testActorName = 'Test Player Character'
   const campaignName = 'Campaign'
 
   const charactersToAdd = [
@@ -35,48 +31,18 @@ describe('characters', () => {
     },
   ]
 
-  beforeEach(() => {
-    cy.visit('http://localhost:4200');
-    cy.get('#login-tab').should('be.visible')
-      .click();
-
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
-
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
-  });
+  before(() => {
+    registerUser()
+    login()
+    createCampaign()
+  })
 
   after(() => {
-    cy.visit('http://localhost:4200');
-    cy.contains('Delete').click();
-    cy.get('#campaign-deleted-modal-close-button').click();
-    cy.get('#nav-logout').click();
+    deleteUser()
   });
-
-  it('create campaign', () => {
-    cy.get('#campaign-selector').should('be.visible');
-    cy.get('#create-campaign-button').should('be.visible').click();
-    cy.get('#create-campaign-name-input').should('be.visible')
-      .type(campaignName);
-    cy.get('#create-campaign-start-date-picker').should('not.exist');
-    cy.get('#create-campaign-calendar-selector').select('Gregorian');
-
-    cy.contains('Choose calendar system').click(); // value in the time form isn't updated in real time and
-    // some other event needs to occur until it happens and the button gets enabled. it needs to be fixed
-
-    cy.get('#create-campaign-submit-button').should('be.enabled').click();
-    cy.get('#create-campaign-name-input').should('have.value', '');
-
-    cy.contains(campaignName);
-
-    cy.reload();
-    cy.contains(campaignName);
-  })
 
   it('creates new characters in the campaign overview', () => {
     cy.contains(campaignName).click();
-    cy.contains(testActorName).should('not.exist');
 
     cy.contains('Manage').click();
 
@@ -89,15 +55,11 @@ describe('characters', () => {
     })
 
     cy.get('#player-characters-editor-submit-button').click();
+    cy.visit('http://localhost:4200');
+    cy.contains(campaignName).click();
+    charactersToAdd.forEach(character => {
+      cy.contains(character.name)
+    })
   })
-
-  // it('character is present in other components', () => {
-  //   cy.contains('Battle').click();
-  //   cy.contains(testActorName)
-  //
-  //   cy.contains('Tools').click();
-  //   cy.contains('Combat difficulty calculator').click();
-  //   cy.contains(testActorName);
-  // })
 
 })
