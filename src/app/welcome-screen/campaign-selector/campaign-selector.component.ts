@@ -120,7 +120,4 @@ export class CampaignSelectorComponent implements OnInit {
     } as CampaignCreationRequest;
   }
 
-  logOut() {
-    localStorage.clear();
-  }
 }

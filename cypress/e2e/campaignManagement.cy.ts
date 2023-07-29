@@ -2,7 +2,7 @@ import { deleteUser, login, registerUser } from "./common";
 
 describe('campaign adding and deleting', () => {
 
-  const campaignName = 'Campaign for campaign management!'
+  const campaignName = 'Campaign'
 
   before(() => {
     registerUser()
@@ -15,6 +15,10 @@ describe('campaign adding and deleting', () => {
   beforeEach(() => {
     login()
   });
+
+  afterEach(() => {
+    localStorage.clear()
+  })
 
   it('creates new campaign', () => {
     cy.get('#campaign-selector').should('be.visible');
@@ -86,7 +90,7 @@ describe('campaign adding and deleting', () => {
 
   it('deletes campaign', () => {
     cy.contains(campaignName);
-    cy.contains('Delete').click();
+    cy.get(`#delete-campaign-button-${campaignName}`).click();
     cy.get('#campaign-deleted-modal').should('be.visible');
     cy.get('#campaign-deleted-modal-close-button').should('be.visible').click();
     cy.get('#campaign-deleted-modal').should('not.be.visible');
