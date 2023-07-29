@@ -15,23 +15,24 @@ export class ProtagonistsEditorComponent implements OnInit {
   @Input()
   playerCharacters!: PlayerCharacter[];
 
-  actorToAdd = {
+  unsavedPlayerCharacter = {
     name: '',
     level: '',
     maxHp: ''
   }
   actorsToDelete: PlayerCharacter[] = [];
-  actorsToAdd: PlayerCharacter[] = [];
+  unsavedPlayerCharacters: PlayerCharacter[] = [];
 
-  constructor(private actorService: ActorService) { }
+  constructor(private playerCharacterService: ActorService) { }
 
   ngOnInit(): void {
   }
 
   onSubmitProtagonists(): void {
+    this.createPlayerCharacters();
+
     if(this.actorsToDelete.length > 0) {
-      console.log(`deleting characters: ${this.actorsToDelete.length}`)
-      this.actorService.deletePlayerCharacters(this.actorsToDelete)
+      this.playerCharacterService.deletePlayerCharacters(this.actorsToDelete)
         .subscribe();
     }
 
@@ -42,9 +43,7 @@ export class ProtagonistsEditorComponent implements OnInit {
     }
     this.actorsToDelete = [];
 
-    this.addActors(this.actorsToAdd);
-
-    this.actorService.updatePlayerCharacters(this.playerCharacters)
+    this.playerCharacterService.updatePlayerCharacters(this.playerCharacters)
       .subscribe((playerCharacters: PlayerCharacter[]) => {
         this.playerCharacters = playerCharacters;
       })
@@ -53,7 +52,7 @@ export class ProtagonistsEditorComponent implements OnInit {
 
   onCancelEdit(): void {
     this.actorsToDelete = [];
-    this.actorsToAdd = [];
+    this.unsavedPlayerCharacters = [];
     this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
@@ -69,11 +68,11 @@ export class ProtagonistsEditorComponent implements OnInit {
     this.actorsToDelete.splice(this.actorsToDelete.indexOf(actor), 1);
   }
 
-  addActor(): void {
-    let hp = parseInt(this.actorToAdd.maxHp);
-    let level = parseInt(this.actorToAdd.level);
+  addToUnsavedPCList(): void {
+    let hp = parseInt(this.unsavedPlayerCharacter.maxHp);
+    let level = parseInt(this.unsavedPlayerCharacter.level);
     let newPlayerCharacter: PlayerCharacter = {
-      name: this.actorToAdd.name,
+      name: this.unsavedPlayerCharacter.name,
       maxHp: hp,
       currentHp: hp,
       level: level,
@@ -81,8 +80,9 @@ export class ProtagonistsEditorComponent implements OnInit {
       playerConditions: [],
       availableHitDice: level
     }
-    this.actorsToAdd.push(newPlayerCharacter);
-    this.actorToAdd = {
+    this.unsavedPlayerCharacters.push(newPlayerCharacter);
+
+    this.unsavedPlayerCharacter = {
       name: '',
       maxHp: '',
       level: ''
@@ -94,24 +94,16 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   onDeleteNewActor(addedActor: PlayerCharacter) {
-    for(let actor of this.actorsToAdd) {
-      if(this.actorsToAdd.indexOf(addedActor) > -1) {
-        this.actorsToAdd.splice(this.actorsToAdd.indexOf(actor), 1);
+    for(let actor of this.unsavedPlayerCharacters) {
+      if(this.unsavedPlayerCharacters.indexOf(addedActor) > -1) {
+        this.unsavedPlayerCharacters.splice(this.unsavedPlayerCharacters.indexOf(actor), 1);
       }
     }
   }
 
-  private addActors(playerCharactersToAdd: PlayerCharacter[]): void {
-    for(let pc of playerCharactersToAdd) {
-      this.playerCharacters.push(pc);
-    }
-    this.actorsToAdd = [];
+  private createPlayerCharacters() {
+    this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
+      .subscribe()
   }
-
-  private deleteActors(playerCharactersToDelete: PlayerCharacter[]): void {
-    this.actorService.deletePlayerCharacters(playerCharactersToDelete)
-      .subscribe();
-  }
-
 
 }

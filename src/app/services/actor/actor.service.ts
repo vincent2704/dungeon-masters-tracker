@@ -29,6 +29,17 @@ export class ActorService {
     return this.httpClient.get<PlayerCharacter[]>(`${this.playerCharactersUrl}/${campaignId}/player-characters`, httpOptions)
   }
 
+  createPlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
+    const currentUser = LocalStorageUtils.getUser();
+    const campaignId = LocalStorageUtils.getCampaign().id;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Tracker-Username': currentUser.username
+      })
+    }
+    return this.httpClient.post<PlayerCharacter[]>(`${this.playerCharactersUrl}/${campaignId}/player-characters`, playerCharacters, httpOptions)
+  }
+
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]): Observable<PlayerCharacter[]> {
     const currentUser = LocalStorageUtils.getUser();
     const campaignId = LocalStorageUtils.getCampaign().id;
