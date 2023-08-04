@@ -17,7 +17,7 @@ describe('campaign adding and deleting', () => {
   });
 
   afterEach(() => {
-    localStorage.clear()
+    cy.get('#log-out-button').click()
   })
 
   it('creates new campaign', () => {

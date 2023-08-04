@@ -34,6 +34,10 @@ export function login() {
   cy.get('#login-submit-button').click();
 }
 
+export function logout() {
+  cy.get('#log-out-button').click()
+}
+
 export function deleteUser() {
   login()
 

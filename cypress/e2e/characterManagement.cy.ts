@@ -1,4 +1,4 @@
-import { createCampaign, deleteUser, login, registerUser } from "./common";
+import { createCampaign, deleteUser, login, logout, registerUser } from "./common";
 
 describe('characters', () => {
   const campaignName = 'Campaign'
@@ -35,16 +35,25 @@ describe('characters', () => {
     registerUser()
     login()
     createCampaign()
-  })
+    logout()
+  });
 
   after(() => {
     deleteUser()
   });
 
+  beforeEach(() => {
+    login()
+  });
+
+  afterEach(() => {
+    logout()
+  })
+
   it('creates new characters in the campaign overview', () => {
     cy.contains(campaignName).click();
 
-    cy.contains('Manage').click();
+    cy.get('#protagonists-manager-manage-button').click();
 
     charactersToAdd.forEach(character => {
       cy.get('#new-player-character-name-input').type(character.name);
@@ -55,11 +64,29 @@ describe('characters', () => {
     })
 
     cy.get('#player-characters-editor-submit-button').click();
+
     cy.visit('http://localhost:4200');
     cy.contains(campaignName).click();
     charactersToAdd.forEach(character => {
       cy.contains(character.name)
     })
+
+    // check for not duplicating player characters, this happened before
+    cy.get('#protagonists-manager-manage-button').click();
+    cy.get('#new-player-character-name-input').type('New character');
+    cy.get('#new-player-character-level-input').type('1');
+    cy.get('#new-player-character-max-hp-input').type('10');
+
+    cy.get('#new-player-character-add-button').click();
+    cy.get('#player-characters-editor-submit-button').click();
+
+    cy.visit('http://localhost:4200');
+    cy.contains(campaignName).click();
+    charactersToAdd.forEach(character => {
+      cy.contains(character.name).should('have.length', 1)
+    })
+
+    cy.pause()
   })
 
 })
