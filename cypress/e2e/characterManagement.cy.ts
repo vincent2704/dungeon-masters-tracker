@@ -64,6 +64,9 @@ describe('characters', () => {
     })
 
     cy.get('#player-characters-editor-submit-button').click();
+    charactersToAdd.forEach(character => {
+      cy.contains(character.name)
+    })
 
     cy.visit('http://localhost:4200');
     cy.contains(campaignName).click();
@@ -85,8 +88,25 @@ describe('characters', () => {
     charactersToAdd.forEach(character => {
       cy.contains(character.name).should('have.length', 1)
     })
-
-    cy.pause()
   })
+
+  // it('deletes character from campaign', () => {
+  //   cy.contains(campaignName).click();
+  //
+  //   // check for not duplicating player characters, this happened before
+  //   cy.get('#protagonists-manager-manage-button').click();
+  //   cy.get('#new-player-character-name-input').type('New character');
+  //   cy.get('#new-player-character-level-input').type('1');
+  //   cy.get('#new-player-character-max-hp-input').type('10');
+  //
+  //   cy.get('#new-player-character-add-button').click();
+  //   cy.get('#player-characters-editor-submit-button').click();
+  //
+  //   cy.visit('http://localhost:4200');
+  //   cy.contains(campaignName).click();
+  //   charactersToAdd.forEach(character => {
+  //     cy.contains(character.name).should('have.length', 1)
+  //   })
+  // })
 
 })

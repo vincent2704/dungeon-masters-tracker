@@ -29,7 +29,14 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   onSubmitProtagonists(): void {
-    this.createPlayerCharacters();
+    if(this.unsavedPlayerCharacters.length > 0) {
+      this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
+        .subscribe((response: PlayerCharacter[]) => {
+          response.forEach(pc => {
+            this.playerCharacters.push(pc);
+          })
+        })
+    }
 
     if(this.actorsToDelete.length > 0) {
       this.playerCharacterService.deletePlayerCharacters(this.actorsToDelete)
@@ -44,8 +51,8 @@ export class ProtagonistsEditorComponent implements OnInit {
     this.actorsToDelete = [];
 
     this.playerCharacterService.updatePlayerCharacters(this.playerCharacters)
-      .subscribe((playerCharacters: PlayerCharacter[]) => {
-        this.playerCharacters = playerCharacters;
+      .subscribe((response: PlayerCharacter[]) => {
+        this.playerCharacters = response;
       })
     this.managingFinishedEmitter.emit(this.playerCharacters)
   }
@@ -99,11 +106,6 @@ export class ProtagonistsEditorComponent implements OnInit {
         this.unsavedPlayerCharacters.splice(this.unsavedPlayerCharacters.indexOf(actor), 1);
       }
     }
-  }
-
-  private createPlayerCharacters() {
-    this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
-      .subscribe()
   }
 
 }
