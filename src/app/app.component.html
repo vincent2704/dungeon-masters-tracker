@@ -1,4 +1,9 @@
 <div class="container">
+  <div *ngIf="isLoggedIn()">
+    <button id="log-out-button" class="btn btn-primary" (click)="logOut()">Log out</button>
+    <a id="profile-link"
+         i18n="profile header|Profile settings section name" routerLink="profile" class="nav-link">Profile</a>
+  </div>
   <app-navigation *ngIf="isLoggedIn() && campaignSelected()"></app-navigation>
   <router-outlet></router-outlet>
 </div>

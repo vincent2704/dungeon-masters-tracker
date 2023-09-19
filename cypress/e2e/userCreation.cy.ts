@@ -1,3 +1,5 @@
+import { deleteUser, login, registerUser } from "./common";
+
 describe('registration and logging in', () => {
 
   const testUsername = 'testuser'
@@ -6,22 +8,7 @@ describe('registration and logging in', () => {
   const testEmailAddress = 'test@dmtracker.com'
 
   it('registers a new user', () => {
-    cy.visit('http://localhost:4200')
-
-    cy.get('#not-logged-in-header').should('be.visible');
-    cy.get('#register-tab').should('be.visible').click();
-
-    cy.get('#registration-submit-button').should('be.disabled');
-
-    cy.get('#registration-username-input').should('be.visible')
-      .type(testUsername);
-    cy.get('#registration-password-input').should('be.visible')
-      .type(testPassword);
-    cy.get('#registration-email-input').should('be.visible')
-      .type(testEmailAddress);
-    cy.get('#registration-submit-button').should('be.enabled')
-      .click();
-    cy.get('#registration-success-modal').should('be.visible');
+    registerUser()
   })
 
   it('fails to register user that already exists', () => {
@@ -62,15 +49,11 @@ describe('registration and logging in', () => {
   })
 
   it('logs in as new user', () => {
-    cy.visit('http://localhost:4200')
-    cy.get('#login-tab').should('be.visible')
-      .click();
+    login()
+  })
 
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
-
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
+  it('deletes user', () => {
+    deleteUser()
   })
 
 })

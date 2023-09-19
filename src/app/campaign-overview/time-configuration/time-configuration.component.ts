@@ -13,15 +13,20 @@ import { CampaignUpdateRequest } from "../../models/campaign/campaignUpdateReque
 })
 export class TimeConfigurationComponent implements OnInit {
 
-  dateModel: NgbDateStruct;
-  timeModel: NgbTimeStruct;
-  currentDate: Date;
+  dateModel!: NgbDateStruct;
+  timeModel!: NgbTimeStruct;
+  currentDate!: Date;
 
   isCollapsed: boolean = true;
   timeChangeInput: TimeStructure = new TimeStructure();
 
   constructor(private calendar: NgbCalendar, private campaignService: CampaignService) {
+  }
+
+  ngOnInit(): void {
     this.currentDate = DateUtils.extractCurrentCampaignDate(LocalStorageUtils.getCampaign());
+
+    console.log(`${this.currentDate}`)
 
     this.dateModel = {
       year: this.currentDate.getFullYear(),
@@ -33,9 +38,6 @@ export class TimeConfigurationComponent implements OnInit {
       minute: this.currentDate.getMinutes(),
       second: this.currentDate.getSeconds()
     };
-  }
-
-  ngOnInit(): void {
   }
 
   onConfirmDate(): void {

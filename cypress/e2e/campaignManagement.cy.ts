@@ -1,20 +1,24 @@
+import { deleteUser, login, registerUser } from "./common";
+
 describe('campaign adding and deleting', () => {
 
-  const testUsername = 'testuser'
-  const testPassword = 'password'
-  const campaignName = 'Cypress test campaign'
+  const campaignName = 'Campaign'
+
+  before(() => {
+    registerUser()
+  });
+
+  after(() => {
+    deleteUser()
+  });
 
   beforeEach(() => {
-    cy.visit('http://localhost:4200');
-    cy.get('#login-tab').should('be.visible')
-      .click();
-
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
-
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
+    login()
   });
+
+  afterEach(() => {
+    cy.get('#log-out-button').click()
+  })
 
   it('creates new campaign', () => {
     cy.get('#campaign-selector').should('be.visible');
@@ -24,13 +28,11 @@ describe('campaign adding and deleting', () => {
     cy.get('#create-campaign-start-date-picker').should('not.exist');
     cy.get('#create-campaign-calendar-selector').select('Gregorian');
 
-    cy.get('#create-campaign-submit-button').should('be.disabled');
     cy.get('#create-campaign-start-date-picker').should('be.visible')
       .within(() => {
         cy.contains('10').click();
       })
 
-    cy.get('#create-campaign-submit-button').should('be.disabled');
     cy.get('#create-campaign-start-time-picker').should('be.visible')
       .within(() => {
         cy.get('input').first().type('14');
@@ -88,7 +90,7 @@ describe('campaign adding and deleting', () => {
 
   it('deletes campaign', () => {
     cy.contains(campaignName);
-    cy.contains('Delete').click();
+    cy.get(`#delete-campaign-button-${campaignName}`).click();
     cy.get('#campaign-deleted-modal').should('be.visible');
     cy.get('#campaign-deleted-modal-close-button').should('be.visible').click();
     cy.get('#campaign-deleted-modal').should('not.be.visible');

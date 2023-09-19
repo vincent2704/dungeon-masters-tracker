@@ -48,22 +48,22 @@
       </button>
     </td>
   </tr>
-  <tr *ngFor="let addedActor of actorsToAdd">
+  <tr *ngFor="let notSubmittedPC of unsavedPlayerCharacters">
     <td>
-      <input type="text" class="form-control" [(ngModel)]="addedActor.name">
+      <input type="text" class="form-control" [(ngModel)]="notSubmittedPC.name">
     </td>
     <td>
-      <input type="number" class="form-control" [(ngModel)]="addedActor.level">
+      <input type="number" class="form-control" [(ngModel)]="notSubmittedPC.level">
     </td>
     <td>
-      <input type="number" class="form-control" [(ngModel)]="addedActor.maxHp">
+      <input type="number" class="form-control" [(ngModel)]="notSubmittedPC.maxHp">
     </td>
     <td>
-      <input type="number" class="form-control" [(ngModel)]="addedActor.currentHp">
+      <input type="number" class="form-control" [(ngModel)]="notSubmittedPC.currentHp">
     </td>
     <td>
       <button i18n="remove button|Button used to remove new character that wasn't submitted yet" class="btn btn-primary"
-              (click)="onDeleteNewActor(addedActor)" *ngIf="showDeleteButton(addedActor)">
+              (click)="onDeleteNewActor(notSubmittedPC)" *ngIf="showDeleteButton(notSubmittedPC)">
         Remove
       </button>
     </td>
@@ -75,21 +75,21 @@
   <div class="col">
     <input class="form-control" id="new-player-character-name-input"
            i18n-placeholder="new character name placeholder|Placeholder for new character name"
-           type="text" placeholder="New actor name" [(ngModel)]="actorToAdd.name">
+           type="text" placeholder="New actor name" [(ngModel)]="unsavedPlayerCharacter.name">
   </div>
   <div class="col">
     <input class="form-control" id="new-player-character-level-input"
            i18n-placeholder="new character level placeholder|Placeholder for new character level"
-           type="number" placeholder="New actor level" [(ngModel)]="actorToAdd.level">
+           type="number" placeholder="New actor level" [(ngModel)]="unsavedPlayerCharacter.level">
   </div>
   <div class="col">
     <input class="form-control" id="new-player-character-max-hp-input"
            i18n-placeholder="new character max HP placeholder|Placeholder for new character max Hit Points"
-           type="number" placeholder="New actor max hit points" [(ngModel)]="actorToAdd.maxHp">
+           type="number" placeholder="New actor max hit points" [(ngModel)]="unsavedPlayerCharacter.maxHp">
   </div>
   <div class="col">
     <button id="new-player-character-add-button"
-            i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addActor()">Add
+            i18n="add button|Button used to add a new character" class="btn btn-primary" (click)="addToUnsavedPCList()">Add
     </button>
   </div>
 </div>

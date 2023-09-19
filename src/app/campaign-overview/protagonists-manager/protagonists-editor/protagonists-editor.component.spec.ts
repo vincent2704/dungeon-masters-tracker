@@ -83,12 +83,12 @@ describe('ProtagonistsEditorComponent', () => {
     actorServiceSpy.deletePlayerCharacters.withArgs([actor3])
       .and.returnValue(new Observable<unknown>());
 
-    component.actorToAdd = {
+    component.unsavedPlayerCharacter = {
       name: 'New Actor',
       level: '1',
       maxHp: '10'
     }
-    component.addActor();
+    component.addToUnsavedPCList();
 
     actorServiceSpy.updatePlayerCharacters.withArgs(component.playerCharacters)
       .and.returnValue(of(component.playerCharacters))
@@ -132,12 +132,12 @@ describe('ProtagonistsEditorComponent', () => {
     component.playerCharacters[0].level = 12;
     component.onSetActorToDelete(actor2);
 
-    component.actorToAdd = {
+    component.unsavedPlayerCharacter = {
       name: 'New Actor',
       level: '1',
       maxHp: '10'
     }
-    component.addActor();
+    component.addToUnsavedPCList();
 
     //and
     component.onCancelEdit();
