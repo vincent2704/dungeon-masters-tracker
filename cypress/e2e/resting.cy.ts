@@ -1,29 +1,15 @@
+import { createCampaign, deleteUser, login, logout, registerUser } from "./common";
+
 describe('resting', () => {
 
-  const testUsername = 'testuser'
-  const testPassword = 'password'
   const campaignName = 'Campaign for Resting Testing!'
 
   const playerCharacters = ['PC level 1', 'PC level 2', 'PC level 3']
 
   before(() => {
-    cy.visit('http://localhost:4200')
-    cy.get('#login-tab').should('be.visible')
-      .click();
-
-    cy.get('#login-username-input').should('be.visible')
-      .type(testUsername).click();
-
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
-
-    cy.get('#campaign-selector').should('be.visible');
-    cy.get('#create-campaign-button').should('be.visible').click();
-    cy.get('#create-campaign-name-input').should('be.visible')
-      .type(campaignName);
-    cy.get('#create-campaign-calendar-selector').select('Gregorian');
-    cy.get('#create-campaign-submit-button').click();
-    cy.get('#create-campaign-name-input').should('have.value', '');
+    registerUser()
+    login();
+    createCampaign(campaignName);
 
     cy.contains(campaignName).click();
     cy.get('#nav-campaign-overview-link').click();
@@ -36,17 +22,19 @@ describe('resting', () => {
       cy.get('#new-player-character-add-button').click()
     }
     cy.get('#player-characters-editor-submit-button').click();
-  })
+    logout()
+  });
+
+  after(() => {
+    deleteUser()
+  });
 
   beforeEach(() => {
-    localStorage.clear();
-    cy.visit('http://localhost:4200')
-    cy.get('#login-username-input').type(testUsername).click();
-    cy.get('#login-password-input').type(testPassword);
-    cy.get('#login-submit-button').click();
+    login()
+  });
 
-    cy.contains(campaignName).click();
-    cy.get('#nav-resting-link').click()
+  afterEach(() => {
+    cy.get('#log-out-button').click()
   })
 
   // after(() => {
@@ -70,9 +58,14 @@ describe('resting', () => {
 
   afterEach(() => {
     localStorage.clear();
+    if(this && this.currentTest.state === 'failed') {
+      deleteUser();
+    }
   })
 
   it('SHORT REST: presented data is correct', () => {
+    cy.contains(campaignName).click();
+    cy.get('#nav-resting-link').click();
     for (const pcName of playerCharacters) {
       cy.contains(pcName).parent('tr').within(() => {
         // e.g. for index 0, then 10hp
@@ -85,6 +78,7 @@ describe('resting', () => {
   })
 
   it('SHORT REST: performs short rest', () => {
+    cy.get('button').contains(campaignName).click();
     cy.get('#nav-battle-link').click();
 
     playerCharacters.forEach((pcName, index) => {

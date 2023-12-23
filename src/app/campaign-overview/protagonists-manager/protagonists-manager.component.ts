@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActorService} from "../../services/actor/actor.service";
 import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-protagonists-manager',
@@ -35,6 +36,7 @@ export class ProtagonistsManagerComponent implements OnInit {
   onProtagonistsChangesSubmitted(playerCharacters: PlayerCharacter[]): void {
     this.managingProtagonists = false;
     this.playerCharacters = playerCharacters;
+    LocalStorageUtils.setPlayerCharacters(playerCharacters);
   }
 
 }
