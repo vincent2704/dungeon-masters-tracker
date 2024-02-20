@@ -16,6 +16,8 @@ export class MonstersComponent implements OnInit {
   monsterDetailsShowMap: Map<Monster, boolean> = new Map<Monster, boolean>();
   monsterNamePart: string = '';
 
+  isCollapsed: boolean = true;
+
   constructor(private monsterService: MonsterService) {
   }
 

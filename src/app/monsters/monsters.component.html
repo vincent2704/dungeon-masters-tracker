@@ -1,6 +1,148 @@
 <div class="row">
-  <input type="text" placeholder="Filter by name" [(ngModel)]="monsterNamePart"
-         (ngModelChange)="getMonstersFiltered()">
+  <div class="col">
+    <input type="text" placeholder="Filter by name" [(ngModel)]="monsterNamePart"
+           (ngModelChange)="getMonstersFiltered()">
+  </div>
+  <div class="col">
+    <div class="card-body">
+      <div class="card-title">
+        <h4>Filter options</h4>
+      </div>
+      <button i18n="add event button|Button used to add event that happened during campaign" type="button"
+              class="btn btn-primary"
+              (click)="collapse.toggle();"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapse">
+        Challenge level filters
+      </button>
+    </div>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-0">
+            <label for="checkbox-challenge-0" class="form-check-label">0</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-1-8">
+            <label for="checkbox-challenge-1-8" class="form-check-label">1/8</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-1-4">
+            <label for="checkbox-challenge-1-4" class="form-check-label">1/4</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-1-2">
+            <label for="checkbox-challenge-1-2" class="form-check-label">1/2</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-1">
+            <label for="checkbox-challenge-1" class="form-check-label">1</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-2">
+            <label for="checkbox-challenge-2" class="form-check-label">2</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-3">
+            <label for="checkbox-challenge-3" class="form-check-label">3</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-4">
+            <label for="checkbox-challenge-4" class="form-check-label">4</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-5">
+            <label for="checkbox-challenge-5" class="form-check-label">5</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-6">
+            <label for="checkbox-challenge-6" class="form-check-label">6</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-7">
+            <label for="checkbox-challenge-7" class="form-check-label">7</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-8">
+            <label for="checkbox-challenge-8" class="form-check-label">8</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-9">
+            <label for="checkbox-challenge-9" class="form-check-label">9</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-10">
+            <label for="checkbox-challenge-10" class="form-check-label">10</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-11">
+            <label for="checkbox-challenge-11" class="form-check-label">11</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-12">
+            <label for="checkbox-challenge-12" class="form-check-label">12</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-13">
+            <label for="checkbox-challenge-13" class="form-check-label">13</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-14">
+            <label for="checkbox-challenge-14" class="form-check-label">14</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-15">
+            <label for="checkbox-challenge-15" class="form-check-label">15</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-16">
+            <label for="checkbox-challenge-16" class="form-check-label">16</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-17">
+            <label for="checkbox-challenge-17" class="form-check-label">17</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-18">
+            <label for="checkbox-challenge-18" class="form-check-label">18</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-19">
+            <label for="checkbox-challenge-19" class="form-check-label">19</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-20">
+            <label for="checkbox-challenge-20" class="form-check-label">20</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-21">
+            <label for="checkbox-challenge-21" class="form-check-label">21</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-22">
+            <label for="checkbox-challenge-22" class="form-check-label">22</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-23">
+            <label for="checkbox-challenge-23" class="form-check-label">23</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-24">
+            <label for="checkbox-challenge-24" class="form-check-label">24</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="checkbox-challenge-30">
+            <label for="checkbox-challenge-30" class="form-check-label">30</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">
   <div *ngFor="let monster of getMonstersFiltered()" class="list-group-item col-4 card bg-gradient">
