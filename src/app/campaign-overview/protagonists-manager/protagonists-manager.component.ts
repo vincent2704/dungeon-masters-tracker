@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActorService} from "../../services/actor/actor.service";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import { Component, OnInit } from '@angular/core';
+import { ActorService } from "../../services/actor/actor.service";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
+import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-protagonists-manager',
@@ -19,7 +20,8 @@ export class ProtagonistsManagerComponent implements OnInit {
   actorsToDelete: PlayerCharacter[] = [];
   actorsToAdd: PlayerCharacter[] = [];
 
-  constructor(private actorService: ActorService) { }
+  constructor(private actorService: ActorService) {
+  }
 
   ngOnInit(): void {
     this.actorService.getPlayerCharacters()
@@ -35,6 +37,7 @@ export class ProtagonistsManagerComponent implements OnInit {
   onProtagonistsChangesSubmitted(playerCharacters: PlayerCharacter[]): void {
     this.managingProtagonists = false;
     this.playerCharacters = playerCharacters;
+    LocalStorageUtils.setPlayerCharacters(playerCharacters);
   }
 
 }

@@ -48,8 +48,12 @@ export class ShortRestComponent implements OnInit {
       this.campaignService.performShortRest(
         this.shortRestDurationInHours, Array.from(this.actorsToShortRestInput.values()))
         .subscribe(response => {
+          response.playerCharacters.forEach(pc => {
+            console.log(pc.name);
+          })
           LocalStorageUtils.setCurrentCampaign(response.campaign);
           LocalStorageUtils.setPlayerCharacters(response.playerCharacters);
+          this.playerCharacters = response.playerCharacters;
         })
     }
   }

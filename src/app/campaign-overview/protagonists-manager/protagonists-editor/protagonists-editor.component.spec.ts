@@ -48,7 +48,7 @@ describe('ProtagonistsEditorComponent', () => {
     //when
     component.onSetActorToDelete(actorToDelete);
     //then
-    expect(component.actorsToDelete).toEqual([actorToDelete]);
+    expect(component.playerCharactersToDelete).toEqual([actorToDelete]);
   });
 
   it('should change actors if changes are submitted', () => {

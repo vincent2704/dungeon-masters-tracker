@@ -15,10 +15,15 @@ export class RestingComponent implements OnInit {
 
   ngOnInit(): void {
     this.playerCharacters = LocalStorageUtils.getPlayerCharacters();
+
+    LocalStorageUtils.getPlayerCharacters().forEach(pc => {
+      console.log(`${pc.name}`);
+    })
   }
 
   updatePlayerCharacters(playerCharacters: PlayerCharacter[]) {
     LocalStorageUtils.setPlayerCharacters(playerCharacters);
+
     this.playerCharacters = playerCharacters;
   }
 }

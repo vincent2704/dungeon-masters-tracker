@@ -1,7 +1,7 @@
 const testUsername = 'testuser'
 const testPassword = 'password'
 const testEmailAddress = 'test@dmtracker.com'
-const campaignName = 'Campaign'
+const defaultCampaignName = 'Campaign'
 
 export function registerUser() {
   cy.visit('http://localhost:4200')
@@ -47,7 +47,7 @@ export function deleteUser() {
   cy.get('#profile-delete-success-modal-button').should('be.visible').click();
 }
 
-export function createCampaign() {
+export function createCampaign(campaignName: string = defaultCampaignName) {
   cy.get('#campaign-selector').should('be.visible');
   cy.get('#create-campaign-button').should('be.visible').click();
   cy.get('#create-campaign-name-input').should('be.visible')

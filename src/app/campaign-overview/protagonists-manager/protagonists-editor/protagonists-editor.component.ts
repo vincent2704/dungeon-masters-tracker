@@ -20,7 +20,7 @@ export class ProtagonistsEditorComponent implements OnInit {
     level: '',
     maxHp: ''
   }
-  actorsToDelete: PlayerCharacter[] = [];
+  playerCharactersToDelete: PlayerCharacter[] = [];
   unsavedPlayerCharacters: PlayerCharacter[] = [];
 
   constructor(private playerCharacterService: ActorService) { }
@@ -29,50 +29,30 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   onSubmitProtagonists(): void {
-    if(this.unsavedPlayerCharacters.length > 0) {
-      this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
-        .subscribe((response: PlayerCharacter[]) => {
-          response.forEach(pc => {
-            this.playerCharacters.push(pc);
-          })
-        })
-    }
+    this.submitPlayerCharacterChanges()
 
-    if(this.actorsToDelete.length > 0) {
-      this.playerCharacterService.deletePlayerCharacters(this.actorsToDelete)
-        .subscribe();
-    }
-
-    for(let actor of this.actorsToDelete) {
-      if(this.playerCharacters.indexOf(actor) > -1) {
-        this.playerCharacters.splice(this.playerCharacters.indexOf(actor), 1);
-      }
-    }
-    this.actorsToDelete = [];
-
-    this.playerCharacterService.updatePlayerCharacters(this.playerCharacters)
-      .subscribe((response: PlayerCharacter[]) => {
-        this.playerCharacters = response;
-      })
-    this.managingFinishedEmitter.emit(this.playerCharacters)
+    console.log('protagonist editor. emitting characters:')
+    this.playerCharacters.forEach(pc => {
+      console.log(pc.name)
+    })
   }
 
   onCancelEdit(): void {
-    this.actorsToDelete = [];
+    this.playerCharactersToDelete = [];
     this.unsavedPlayerCharacters = [];
     this.managingFinishedEmitter.emit(this.playerCharacters)
   }
 
   showDeleteButton(actor: PlayerCharacter): boolean {
-    return !this.actorsToDelete.includes(actor);
+    return !this.playerCharactersToDelete.includes(actor);
   }
 
   showRetainButton(actor: PlayerCharacter): boolean {
-    return this.actorsToDelete.includes(actor);
+    return this.playerCharactersToDelete.includes(actor);
   }
 
   onSetActorToRetain(actor: PlayerCharacter): void {
-    this.actorsToDelete.splice(this.actorsToDelete.indexOf(actor), 1);
+    this.playerCharactersToDelete.splice(this.playerCharactersToDelete.indexOf(actor), 1);
   }
 
   addToUnsavedPCList(): void {
@@ -97,7 +77,7 @@ export class ProtagonistsEditorComponent implements OnInit {
   }
 
   onSetActorToDelete(actor: PlayerCharacter): void {
-    this.actorsToDelete.push(actor);
+    this.playerCharactersToDelete.push(actor);
   }
 
   onDeleteNewActor(addedActor: PlayerCharacter) {
@@ -106,6 +86,62 @@ export class ProtagonistsEditorComponent implements OnInit {
         this.unsavedPlayerCharacters.splice(this.unsavedPlayerCharacters.indexOf(actor), 1);
       }
     }
+  }
+
+  // fixed order of executions because otherwise async can cause emitting player characters list
+  // before all the client responses are processed and the list is not fully updated
+  private submitPlayerCharacterChanges() {
+    if(this.playerCharactersToDelete.length > 0 ){
+      this.playerCharacterService.deletePlayerCharacters(this.playerCharactersToDelete)
+        .subscribe(() => {
+          for(let playerCharacterToDelete of this.playerCharactersToDelete) {
+            if(this.playerCharacterListContainsPlayerCharacter(playerCharacterToDelete)) {
+              this.removePlayerCharacterFromPlayerCharacterList(playerCharacterToDelete)
+            }
+          }
+          this.playerCharactersToDelete = [];
+          this.createPlayerCharacters();
+        });
+    }
+    else {
+      if(this.unsavedPlayerCharacters.length > 0) {
+        this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
+          .subscribe((response: PlayerCharacter[]) => {
+            response.forEach(pc => {
+              this.playerCharacters.push(pc);
+            })
+            this.updatePlayerCharacters()
+          })
+      } else {
+        this.updatePlayerCharacters()
+      }
+    }
+  }
+
+  private createPlayerCharacters() {
+    this.playerCharacterService.createPlayerCharacters(this.unsavedPlayerCharacters)
+      .subscribe((response: PlayerCharacter[]) => {
+        response.forEach(pc => {
+          this.playerCharacters.push(pc);
+        })
+        this.updatePlayerCharacters()
+      })
+  }
+
+  private updatePlayerCharacters() {
+    this.playerCharacterService.updatePlayerCharacters(this.playerCharacters)
+      .subscribe((response: PlayerCharacter[]) => {
+        this.playerCharacters = response;
+        this.managingFinishedEmitter.emit(this.playerCharacters)
+      })
+  }
+
+  private playerCharacterListContainsPlayerCharacter(playerCharacter: PlayerCharacter): boolean {
+    return this.playerCharacters.indexOf(playerCharacter) > -1;
+  }
+
+  private removePlayerCharacterFromPlayerCharacterList(playerCharacter: PlayerCharacter) {
+    this.playerCharacters.splice(this.playerCharacters.indexOf(playerCharacter), 1)
   }
 
 }
