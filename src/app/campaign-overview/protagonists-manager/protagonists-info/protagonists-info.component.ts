@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PlayerCharacter} from "../../../models/actors/playerCharacter";
+import { LocalStorageUtils } from "../../../utilities/storage/localStorageUtils";
 
 @Component({
   selector: 'app-protagonists-info',
@@ -14,6 +15,7 @@ export class ProtagonistsInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    LocalStorageUtils.getPlayerCharacters();
   }
 
   getConditionNames(playerCharacter: PlayerCharacter): string {

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActorService} from "../../services/actor/actor.service";
-import {PlayerCharacter} from "../../models/actors/playerCharacter";
+import { Component, OnInit } from '@angular/core';
+import { ActorService } from "../../services/actor/actor.service";
+import { PlayerCharacter } from "../../models/actors/playerCharacter";
 import { LocalStorageUtils } from "../../utilities/storage/localStorageUtils";
 
 @Component({
@@ -20,7 +20,8 @@ export class ProtagonistsManagerComponent implements OnInit {
   actorsToDelete: PlayerCharacter[] = [];
   actorsToAdd: PlayerCharacter[] = [];
 
-  constructor(private actorService: ActorService) { }
+  constructor(private actorService: ActorService) {
+  }
 
   ngOnInit(): void {
     this.actorService.getPlayerCharacters()
