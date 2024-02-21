@@ -5,9 +5,9 @@ export class MonsterChallenge {
   }
 
   static ZERO = new MonsterChallenge(0, 10);
-  static ONE_EIGHTH = new MonsterChallenge(1/8, 25);
-  static ONE_FOURTH = new MonsterChallenge(1/4, 50);
-  static HALF = new MonsterChallenge(1/2, 100);
+  static ONE_EIGHTH = new MonsterChallenge(1 / 8, 25);
+  static ONE_FOURTH = new MonsterChallenge(1 / 4, 50);
+  static HALF = new MonsterChallenge(1 / 2, 100);
 
   static ONE = new MonsterChallenge(1, 200);
   static TWO = new MonsterChallenge(2, 450);
@@ -43,7 +43,7 @@ export class MonsterChallenge {
   static TWENTY_SEVEN = new MonsterChallenge(27, 105_000);
   static TWENTY_EIGHT = new MonsterChallenge(28, 120_000);
   static TWENTY_NINE = new MonsterChallenge(29, 135_000);
-  static THIRTY = new MonsterChallenge(40, 155_000);
+  static THIRTY = new MonsterChallenge(30, 155_000);
 
   getChallengeFormatted(): string {
     return `${this.getChallengeLevelFormatted()} (${this.getExperiencePoints()} XP)`
@@ -57,16 +57,61 @@ export class MonsterChallenge {
     return this.experiencePoints;
   }
 
+  static getChallengeLevelsList(): MonsterChallenge[] {
+    return [
+      MonsterChallenge.ZERO,
+      MonsterChallenge.ONE_EIGHTH,
+      MonsterChallenge.ONE_FOURTH,
+      MonsterChallenge.HALF,
+
+      MonsterChallenge.ONE,
+      MonsterChallenge.TWO,
+      MonsterChallenge.THREE,
+      MonsterChallenge.FOUR,
+      MonsterChallenge.FIVE,
+
+      MonsterChallenge.SIX,
+      MonsterChallenge.SEVEN,
+      MonsterChallenge.EIGHT,
+      MonsterChallenge.NINE,
+      MonsterChallenge.TEN,
+
+      MonsterChallenge.ELEVEN,
+      MonsterChallenge.TWELVE,
+      MonsterChallenge.THIRTEEN,
+      MonsterChallenge.FOURTEEN,
+      MonsterChallenge.FIFTEEN,
+
+      MonsterChallenge.SIXTEEN,
+      MonsterChallenge.SEVENTEEN,
+      MonsterChallenge.EIGHTEEN,
+      MonsterChallenge.NINETEEN,
+      MonsterChallenge.TWENTY,
+
+      MonsterChallenge.TWENTY_ONE,
+      MonsterChallenge.TWENTY_TWO,
+      MonsterChallenge.TWENTY_THREE,
+      MonsterChallenge.TWENTY_FOUR,
+      MonsterChallenge.TWENTY_FIVE,
+
+      MonsterChallenge.TWENTY_SIX,
+      MonsterChallenge.TWENTY_SEVEN,
+      MonsterChallenge.TWENTY_EIGHT,
+      MonsterChallenge.TWENTY_NINE,
+      MonsterChallenge.THIRTY
+    ]
+  }
+
   private getChallengeLevelFormatted(): string {
     switch (this.challengeLevel) {
-      case 1/8: {
+      case 1 / 8: {
         return '1/8';
       }
-      case 1/4: {
-        return  '1/4';
+      case 1 / 4: {
+        return '1/4';
       }
-      case 1/2: {
-        return  '1/2';
+      case 1 / 2: {
+        return '1/2';
       }
       default: {
         return `${this.challengeLevel}`;

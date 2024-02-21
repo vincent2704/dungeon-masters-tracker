@@ -102,7 +102,7 @@ describe('MonstersComponent', () => {
     // given
     component.monsters = [MonsterList.WEREWOLF, MonsterList.ABOLETH, MonsterList.DEVA,
       MonsterList.RUG_OF_SMOTHERING, MonsterList.GOBLIN];
-    component.monsterNamePart = 'a';
+    component.monsterNameActiveFilterString = 'a';
 
     // when
     let filteredMonsters = component.getMonstersFiltered();
