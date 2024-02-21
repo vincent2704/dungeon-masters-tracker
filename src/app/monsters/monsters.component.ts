@@ -4,6 +4,7 @@ import {Monster} from "../models/monsters/monster";
 import {MeasurementSystem} from "../services/measurement-system/measurement.system";
 import {MonsterSpeedDetails} from "../models/monsters/monster-speed/monsterSpeedDetails";
 import {MovementType} from "../models/monsters/monster-speed/movementType";
+import { MonsterChallenge } from "../models/monsters/monsterChallenge";
 
 @Component({
   selector: 'app-monsters',
@@ -18,6 +19,12 @@ export class MonstersComponent implements OnInit {
 
   isCollapsed: boolean = true;
 
+  challengeLevels: MonsterChallenge[] = [];
+  enabledChallengeLevelFilters: Map<MonsterChallenge, boolean> = new Map<MonsterChallenge, boolean>();
+
+  enableAllChallengeLevels: boolean = true;
+  disableAllChallengeLevels: boolean = false;
+
   constructor(private monsterService: MonsterService) {
   }
 
@@ -25,6 +32,11 @@ export class MonstersComponent implements OnInit {
     this.monsters = this.monsterService.getMonsters();
     this.monsters.forEach(monster => {
       this.monsterDetailsShowMap.set(monster, false);
+    })
+    this.challengeLevels = MonsterChallenge.getChallengeLevelsList();
+    MonsterChallenge.getChallengeLevelsList()
+      .forEach(challengeLevel => {
+        this.enabledChallengeLevelFilters.set(challengeLevel, true);
     })
   }
 
@@ -109,6 +121,28 @@ export class MonstersComponent implements OnInit {
     return this.monsters.filter(monster => {
       return monster.getBasicInfo().getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
     })
+  }
+
+  enableAllChallengeLevelsFilter() {
+    this.enableAllChallengeLevels = !this.enableAllChallengeLevels;
+    if(!this.enableAllChallengeLevels){
+      this.enableAllChallengeLevels = true;
+      this.disableAllChallengeLevels = false;
+      this.enabledChallengeLevelFilters.forEach((value, challengeLevel) => {
+        this.enabledChallengeLevelFilters.set(challengeLevel, true);
+      })
+    }
+  }
+
+  disableAllChallengeLevelsFilter() {
+    this.disableAllChallengeLevels = !this.disableAllChallengeLevels;
+    if(!this.disableAllChallengeLevels) {
+      this.disableAllChallengeLevels = true;
+      this.enableAllChallengeLevels = false;
+      this.enabledChallengeLevelFilters.forEach((value, challengeLevel) => {
+        this.enabledChallengeLevelFilters.set(challengeLevel, false);
+      })
+    }
   }
 
   private buildDetailsDescription(monsterSpeedDetails: MonsterSpeedDetails): string {
