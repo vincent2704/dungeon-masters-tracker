@@ -137,8 +137,8 @@ export class MonstersComponent implements OnInit {
   disableAllChallengeLevelsFilter() {
     this.disableAllChallengeLevels = !this.disableAllChallengeLevels;
     if(!this.disableAllChallengeLevels) {
-      this.disableAllChallengeLevels = true;
       this.enableAllChallengeLevels = false;
+      this.disableAllChallengeLevels = true;
       this.enabledChallengeLevelFilters.forEach((value, challengeLevel) => {
         this.enabledChallengeLevelFilters.set(challengeLevel, false);
       })
@@ -148,6 +148,8 @@ export class MonstersComponent implements OnInit {
   changeChallengeFilterValue(key: MonsterChallenge) {
     let currentValue = this.enabledChallengeLevelFilters.get(key);
     this.enabledChallengeLevelFilters.set(key, !currentValue);
+    this.enableAllChallengeLevels = false;
+    this.disableAllChallengeLevels = false;
   }
 
   private monsterNameContainsFilterString(monster: Monster): boolean {
