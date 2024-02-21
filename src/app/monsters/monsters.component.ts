@@ -15,7 +15,7 @@ export class MonstersComponent implements OnInit {
 
   monsters: Monster[] = [];
   monsterDetailsShowMap: Map<Monster, boolean> = new Map<Monster, boolean>();
-  monsterNamePart: string = '';
+  monsterNameActiveFilterString: string = '';
 
   isCollapsed: boolean = true;
 
@@ -119,7 +119,7 @@ export class MonstersComponent implements OnInit {
 
   getMonstersFiltered(): Monster[] {
     return this.monsters.filter(monster => {
-      return monster.getBasicInfo().getName().toUpperCase().includes(this.monsterNamePart.toUpperCase());
+      return this.monsterNameContainsFilterString(monster) && this.monsterMatchesChallengeFilter(monster)
     })
   }
 
@@ -143,6 +143,28 @@ export class MonstersComponent implements OnInit {
         this.enabledChallengeLevelFilters.set(challengeLevel, false);
       })
     }
+  }
+
+  changeChallengeFilterValue(key: MonsterChallenge) {
+    let currentValue = this.enabledChallengeLevelFilters.get(key);
+    this.enabledChallengeLevelFilters.set(key, !currentValue);
+  }
+
+  private monsterNameContainsFilterString(monster: Monster): boolean {
+    return monster.getBasicInfo().getName().toUpperCase().includes(this.monsterNameActiveFilterString.toUpperCase());
+  }
+
+  private monsterMatchesChallengeFilter(monster: Monster): boolean {
+    let activeChallengeFilters: MonsterChallenge[] = [];
+    this.enabledChallengeLevelFilters.forEach(
+      (enabled, monsterChallenge) => {
+        if(enabled) {
+          activeChallengeFilters.push(monsterChallenge);
+        }
+      })
+    return !!activeChallengeFilters.find(monsterChallenge => {
+      return monsterChallenge == monster.getBasicInfo().getChallengeRating()
+    })
   }
 
   private buildDetailsDescription(monsterSpeedDetails: MonsterSpeedDetails): string {
